@@ -1,0 +1,20 @@
+/*
+Theme Name: Kids Gate
+Theme URI: https://kidsgate.example
+Author: AI Learning Solutions Pty Ltd
+Author URI: https://kidsgate.example
+Description: Kids Gate — AI-powered learning that feels like play. Marketing theme v1.3: full visual redesign with the Gate arch design language, trilingual content (EN / ID / TH), scroll-driven storytelling, interactive per-child pricing builder, guided support helper, and conversion-first templates for every page.
+Version: 1.3.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: kidsgate
+Tags: education, kids, landing-page, custom-colors, one-column
+*/
+
+/*
+All theme styles are enqueued from assets/css/main.css
+(see functions.php → kg_enqueue_assets).
+*/

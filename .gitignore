@@ -1,0 +1,29 @@
+# Demo video is ~210 MB — too large for git hosting (GitHub caps files at 100 MB).
+# Source copy lives in "Photos and Videos/"; deploy via the WP Media Library.
+Photos and Videos/GateDemoVideo.mp4
+kidsgate-theme/assets/video/gate-demo.mp4
+
+# Node / build artefacts
+node_modules/
+.next/
+dist/
+build/
+
+# Environment secrets
+.env
+.env.local
+.env.*.local
+
+# Local AI tooling
+.claude/
+__pycache__/
+
+# Claude implementation brief (internal only)
+CLAUDE.md
+
+# Zip archives
+*.zip
+
+# OS files
+.DS_Store
+Thumbs.db
