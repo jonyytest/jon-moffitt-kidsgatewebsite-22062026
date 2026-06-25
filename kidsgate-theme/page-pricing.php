@@ -16,13 +16,15 @@ $p = kg_pricing_for_lang();
 	</div>
 </section>
 
+<?php kg_region_banner(); ?>
+
 <!-- Plans + toggle -->
 <section class="kg-section kg-section--white" style="padding-top: clamp(32px, 4vw, 48px);">
 	<div class="kg-container">
 		<div style="text-align:center;" data-kg-reveal>
 			<div class="kg-price-toggle" data-kg-billing-toggle role="group" aria-label="<?php echo esc_attr( kg_t( 'pricing.toggle.monthly' ) . ' / ' . kg_t( 'pricing.toggle.yearly' ) ); ?>">
-				<button type="button" data-kg-billing="m" aria-pressed="true"><?php kg_e( 'pricing.toggle.monthly' ); ?></button>
-				<button type="button" data-kg-billing="y" aria-pressed="false"><?php kg_e( 'pricing.toggle.yearly' ); ?><span class="kg-save-pill"><?php kg_e( 'pricing.toggle.save' ); ?></span></button>
+				<button type="button" data-kg-billing="m" aria-pressed="false"><?php kg_e( 'pricing.toggle.monthly' ); ?></button>
+				<button type="button" data-kg-billing="y" aria-pressed="true"><?php kg_e( 'pricing.toggle.yearly' ); ?><span class="kg-save-pill" aria-hidden="true"><?php kg_e( 'pricing.toggle.save' ); ?></span></button>
 			</div>
 		</div>
 
@@ -40,7 +42,11 @@ $p = kg_pricing_for_lang();
 						<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><?php echo $f; // phpcs:ignore ?></li>
 					<?php endforeach; ?>
 				</ul>
+				<?php if ( kg_country() ) : ?>
 				<a class="kg-btn kg-btn--secondary" href="#kg-builder"><span><?php kg_e( 'pricing.builder.kicker' ); ?></span></a>
+				<?php else : ?>
+				<button class="kg-btn kg-btn--secondary" type="button" data-kg-choose-region><span><?php kg_e( 'common.choose_region' ); ?></span></button>
+				<?php endif; ?>
 			</div>
 			<div class="kg-card kg-plan kg-plan--featured" data-kg-reveal style="--kg-delay:110ms">
 				<span class="kg-plan__flag"><?php kg_e( 'pricing.plans.two.flag' ); ?></span>
@@ -56,11 +62,19 @@ $p = kg_pricing_for_lang();
 						<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><?php echo $f; // phpcs:ignore ?></li>
 					<?php endforeach; ?>
 				</ul>
+				<?php if ( kg_country() ) : ?>
 				<a class="kg-btn kg-btn--primary" href="#kg-builder"><span><?php kg_e( 'pricing.builder.kicker' ); ?></span></a>
+				<?php else : ?>
+				<button class="kg-btn kg-btn--primary" type="button" data-kg-choose-region><span><?php kg_e( 'common.choose_region' ); ?></span></button>
+				<?php endif; ?>
 			</div>
 		</div>
 		<p style="text-align:center; margin-top:22px; color:var(--kg-text-soft);" data-kg-reveal>
-			<?php echo str_replace( '{price}', kg_price( $p['addl'][1]['m'] ), kg_t( 'pricing.plans.addl_note' ) ); // phpcs:ignore ?>
+			<?php
+			$addl_note_m = str_replace( '{price}', kg_price( $p['addl'][1]['m'] ), kg_t( 'pricing.plans.addl_note' ) );
+			$addl_note_y = str_replace( '{price}', kg_price( $p['addl'][1]['y'] ), kg_t( 'pricing.plans.addl_note' ) );
+			?>
+			<span data-kg-price-m="<?php echo esc_attr( $addl_note_m ); ?>" data-kg-price-y="<?php echo esc_attr( $addl_note_y ); ?>"><?php echo $addl_note_y; // phpcs:ignore ?></span>
 		</p>
 	</div>
 </section>
@@ -80,13 +94,21 @@ $p = kg_pricing_for_lang();
 
 			<aside class="kg-builder__summary">
 				<h3 class="kg-h3"><?php kg_e( 'pricing.builder.summary_title' ); ?></h3>
+				<div class="kg-price-toggle kg-price-toggle--compact" data-kg-billing-toggle role="group" aria-label="<?php echo esc_attr( kg_t( 'pricing.toggle.monthly' ) . ' / ' . kg_t( 'pricing.toggle.yearly' ) ); ?>">
+					<button type="button" data-kg-billing="m" aria-pressed="false"><?php kg_e( 'pricing.toggle.monthly' ); ?></button>
+					<button type="button" data-kg-billing="y" aria-pressed="true"><?php kg_e( 'pricing.toggle.yearly' ); ?><span class="kg-save-pill" aria-hidden="true"><?php kg_e( 'pricing.toggle.save' ); ?></span></button>
+				</div>
 				<div class="kg-builder__rows" data-kg-builder-rows></div>
 				<div class="kg-builder__total">
 					<span><?php kg_e( 'pricing.builder.total_label' ); ?></span>
 					<span><strong data-kg-builder-total></strong> <span data-kg-builder-period style="font-size:.9rem;"></span></span>
 				</div>
 				<p class="kg-builder__note"><?php kg_e( 'pricing.builder.trial_note' ); ?></p>
+				<?php if ( kg_country() ) : ?>
 				<a class="kg-btn kg-btn--primary kg-btn--block" href="<?php echo esc_url( kg_url( 'payment' ) ); ?>" data-kg-builder-select><span><?php kg_e( 'pricing.builder.select_cta' ); ?></span></a>
+				<?php else : ?>
+				<button class="kg-btn kg-btn--primary kg-btn--block" type="button" data-kg-choose-region><span><?php kg_e( 'common.choose_region' ); ?></span></button>
+				<?php endif; ?>
 				<p class="kg-builder__note" style="margin-bottom:0; margin-top:12px;"><?php kg_e( 'pricing.builder.select_note' ); ?></p>
 			</aside>
 		</div>
@@ -129,7 +151,11 @@ $p = kg_pricing_for_lang();
 		<div class="kg-final-cta" data-kg-reveal="pop">
 			<h2 class="kg-h2"><?php kg_e( 'home.final.title' ); ?></h2>
 			<div class="kg-final-cta__ctas">
+				<?php if ( kg_country() ) : ?>
 				<a class="kg-btn kg-btn--primary kg-btn--lg" href="#kg-builder" data-kg-event="free_trial_start"><span><?php kg_e( 'common.cta_primary' ); ?></span></a>
+				<?php else : ?>
+				<button class="kg-btn kg-btn--primary kg-btn--lg" type="button" data-kg-choose-region><span><?php kg_e( 'common.choose_region' ); ?></span></button>
+				<?php endif; ?>
 			</div>
 			<?php kg_trust_chips( 'common.cancel_chips' ); ?>
 		</div>

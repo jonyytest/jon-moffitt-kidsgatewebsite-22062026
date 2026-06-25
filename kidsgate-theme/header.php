@@ -9,6 +9,10 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="<?php echo esc_attr( kg_t( 'meta.description' ) ); ?>">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<?php kg_canonical_tag(); ?>
+	<?php kg_hreflang_tags(); ?>
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class( 'kg-lang-' . kg_lang() ); ?>>

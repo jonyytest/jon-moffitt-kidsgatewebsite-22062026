@@ -14,8 +14,8 @@ get_header();
 		<h1 class="kg-h1" data-kg-reveal style="--kg-delay:80ms"><?php kg_e( 'sponsors.hero.title' ); ?></h1>
 		<p class="kg-lede" data-kg-reveal style="--kg-delay:160ms"><?php kg_e( 'sponsors.hero.lede' ); ?></p>
 		<div class="kg-hero__ctas" data-kg-reveal style="margin-top:26px; --kg-delay:240ms">
-			<a class="kg-btn kg-btn--primary kg-btn--lg" href="#kg-sponsor-form" data-kg-event="sponsor_enquiry_start"><span><?php kg_e( 'sponsors.hero.cta' ); ?></span></a>
-			<a class="kg-btn kg-btn--secondary kg-btn--lg" href="#kg-sponsor-tiers"><span><?php kg_e( 'sponsors.hero.cta_secondary' ); ?></span></a>
+			<a class="kg-btn kg-btn--primary kg-btn--lg" href="#kg-sponsor-form" data-kg-event="sponsor_enquiry_start"><span><?php kg_e( 'sponsors.hero.cta' ); ?></span><svg class="kg-btn__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+			<a class="kg-btn kg-btn--secondary kg-btn--lg" href="#kg-sponsor-tiers"><span><?php kg_e( 'sponsors.hero.cta_secondary' ); ?></span><svg class="kg-btn__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
 		</div>
 		<div style="margin-top:20px;">
 			<?php kg_trust_chips( 'sponsors.hero.chips' ); ?>
@@ -145,7 +145,7 @@ get_header();
 	<div class="kg-container">
 		<?php kg_section_head( 'sponsors.form' ); ?>
 		<div class="kg-schools-form">
-			<form data-kg-support-form novalidate>
+			<form data-kg-support-form data-kg-form-subject="Kids Gate: Sponsor Enquiry" novalidate>
 				<div class="kg-form-grid">
 					<div class="kg-field">
 						<label for="kg-sponsor-name"><?php kg_e( 'sponsors.form.name' ); ?></label>

@@ -13,8 +13,8 @@ get_header();
 		<h1 class="kg-h1" data-kg-reveal style="--kg-delay:80ms"><?php kg_e( 'schools.hero.title' ); ?></h1>
 		<p class="kg-lede" data-kg-reveal style="--kg-delay:160ms"><?php kg_e( 'schools.hero.lede' ); ?></p>
 		<div class="kg-hero__ctas" data-kg-reveal style="margin-top:26px; --kg-delay:240ms">
-			<a class="kg-btn kg-btn--primary kg-btn--lg" href="#kg-school-form"><span><?php kg_e( 'schools.form.title' ); ?></span></a>
-			<button class="kg-btn kg-btn--secondary kg-btn--lg" type="button" title="<?php echo esc_attr( kg_t( 'schools.curriculum_note' ) ); ?>"><span><?php kg_e( 'schools.curriculum_cta' ); ?></span></button>
+			<a class="kg-btn kg-btn--primary kg-btn--lg" href="#kg-school-form"><span><?php kg_e( 'schools.form.title' ); ?></span><svg class="kg-btn__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+			<button class="kg-btn kg-btn--secondary kg-btn--lg" type="button" title="<?php echo esc_attr( kg_t( 'schools.curriculum_note' ) ); ?>"><span><?php kg_e( 'schools.curriculum_cta' ); ?></span><svg class="kg-btn__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 		</div>
 		<p style="color:var(--kg-text-soft); font-size:.9rem; margin-top:10px;" data-kg-reveal><?php kg_e( 'schools.curriculum_note' ); ?></p>
 	</div>
@@ -186,7 +186,7 @@ $dash_bubbles = array( 'kg-bubble--teal', 'kg-bubble--amber', 'kg-bubble--red', 
 	<div class="kg-container">
 		<?php kg_section_head( 'schools.form' ); ?>
 		<div class="kg-schools-form">
-			<form data-kg-support-form novalidate>
+			<form data-kg-support-form data-kg-form-subject="Kids Gate: School Enquiry" novalidate>
 				<div class="kg-form-grid">
 					<div class="kg-field">
 						<label for="kg-school-name"><?php kg_e( 'schools.form.name' ); ?></label>

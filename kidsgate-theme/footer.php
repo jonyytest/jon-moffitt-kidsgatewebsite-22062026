@@ -76,18 +76,21 @@
 				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
 			</a>
 			<p class="kg-footer__contact">
-				AI Learning Solutions Pty Ltd<br>
+				GATE Edutech Solutions Pty Ltd<br>
 				<a href="mailto:<?php echo esc_attr( kg_support_email() ); ?>" data-kg-event="support_email_click"><?php echo esc_html( kg_support_email() ); ?></a>
 				<?php if ( ! kg_support_email_is_live() ) : ?>
 					<span class="kg-footer__email-note"><?php kg_e( 'footer.email_placeholder_note' ); ?></span>
 				<?php endif; ?>
 			</p>
-			<?php kg_language_switcher( '-f' ); ?>
+			<div style="display:flex; gap:4px; align-items:center; margin-top:6px;">
+				<?php kg_market_switcher( '-f' ); ?>
+				<?php kg_language_switcher( '-f' ); ?>
+			</div>
 		</div>
 	</div>
 
 	<div class="kg-footer__legal">
-		<p>© <?php echo esc_html( gmdate( 'Y' ) ); ?> AI Learning Solutions Pty Ltd. <?php kg_e( 'footer.rights' ); ?></p>
+		<p>© <?php echo esc_html( gmdate( 'Y' ) ); ?> GATE Edutech Solutions Pty Ltd. <?php kg_e( 'footer.rights' ); ?></p>
 	</div>
 </footer>
 

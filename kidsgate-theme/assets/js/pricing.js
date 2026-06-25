@@ -28,7 +28,10 @@
 	var template = document.getElementById('kg-child-template');
 
 	var MAX_CHILDREN = 4;
-	var billing = 'm'; // 'm' | 'y'
+	// Initialise from the toggle's current state so we don't depend on the
+	// order in which main.js broadcasts the initial billing mode.
+	var pressedYearly = document.querySelector('[data-kg-billing-toggle] button[data-kg-billing="y"][aria-pressed="true"]');
+	var billing = pressedYearly ? 'y' : 'm'; // 'm' | 'y'
 	var children = []; // each: { subjects: { english: bool, maths: bool } }
 
 	function formatPrice(value) {

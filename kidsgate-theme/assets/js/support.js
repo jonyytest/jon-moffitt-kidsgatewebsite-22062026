@@ -52,13 +52,16 @@
 	});
 
 	/* ----------------------------------------------------------------
-	 * Support form — UI only.
+	 * Support / Schools / Sponsors forms.
 	 *
-	 * INTEGRATION PLACEHOLDER: wire the submit handler to a real backend
-	 * (admin-post.php action, REST endpoint, or a form service) and
-	 * remove the simulated confirmation. Until then the form validates,
-	 * tracks support_form_submit, and shows an honest "not yet connected"
-	 * confirmation supplied by the template.
+	 * On submit: validates required fields, builds a mailto: URL using the
+	 * form's data-kg-form-subject attribute as the email subject, collects
+	 * all named inputs into the body, then opens the user's email client.
+	 * Shows the success state after opening the mailto.
+	 *
+	 * Replace the mailto dispatch with a fetch() to a real backend endpoint
+	 * when one is available — the subject attribute and field collection
+	 * logic can stay as-is.
 	 * -------------------------------------------------------------- */
 	var form = document.querySelector('[data-kg-support-form]');
 	if (form) {
@@ -79,6 +82,20 @@
 			track('support_form_submit', {
 				topic: (form.querySelector('[name="kg_topic"]') || {}).value || ''
 			});
+
+			// Build mailto with distinct subject per form and all field values in body
+			var subject = form.getAttribute('data-kg-form-subject') || 'Kids Gate Enquiry';
+			var lines = [];
+			form.querySelectorAll('[name]').forEach(function (field) {
+				if (!field.name || field.type === 'submit') { return; }
+				var label = field.closest('.kg-field') && field.closest('.kg-field').querySelector('label');
+				var key = label ? label.textContent.trim().replace(/:$/, '') : field.name;
+				if (field.value.trim()) { lines.push(key + ': ' + field.value.trim()); }
+			});
+			var to = (typeof KG_DATA !== 'undefined' && KG_DATA.support_email) ? KG_DATA.support_email : 'support@kidsgate.ai';
+			var mailto = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+			window.location.href = mailto;
+
 			form.hidden = true;
 			var success = document.querySelector('[data-kg-support-form-success]');
 			if (success) {

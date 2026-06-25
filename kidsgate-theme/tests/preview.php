@@ -40,11 +40,19 @@ function add_query_arg( $key, $value ) {
 	$params[ $key ] = $value;
 	return strtok( $_SERVER['REQUEST_URI'], '?' ) . '?' . http_build_query( $params );
 }
-function add_action( $hook, $cb, $prio = 10 ) { $GLOBALS['kg_actions'][ $hook ][] = $cb; }
+function add_action( $hook, $cb, $prio = 10, $args = 1 ) { $GLOBALS['kg_actions'][ $hook ][] = $cb; }
+function add_filter( $hook, $cb, $prio = 10, $args = 1 ) {} // no-op in preview
 function do_action_stub( $hook ) {
 	foreach ( $GLOBALS['kg_actions'][ $hook ] ?? array() as $cb ) { call_user_func( $cb ); }
 }
 function add_theme_support() {}
+function add_rewrite_rule() {}
+function flush_rewrite_rules() {}
+function get_option( $key, $default = false ) { return $default; }
+function update_option( $key, $value ) {}
+function get_query_var( $var, $default = '' ) { return $default; }
+function sanitize_key( $s ) { return preg_replace( '/[^a-z0-9_\-]/', '', strtolower( (string) $s ) ); }
+function wp_redirect( $url, $status = 302 ) { header( 'Location: ' . $url, true, $status ); exit; }
 function get_theme_mod( $name, $default = '' ) { return $default; }
 function esc_attr( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES ); }
 function esc_html( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES ); }
@@ -96,8 +104,26 @@ function get_page_by_path() { return null; }
 $GLOBALS['kg_theme_root']   = $theme_root;
 $GLOBALS['kg_actions']      = array();
 
-/* ---- routing ---- */
-$slug = trim( $uri, '/' );
+/* ---- routing: strip optional /market/lang/ prefix (mirrors mu-plugin) ---- */
+$valid_markets = array( 'au', 'us', 'id', 'th' );
+$valid_langs   = array( 'en', 'id', 'th' );
+$parts = array_values( array_filter( explode( '/', trim( $uri, '/' ) ), 'strlen' ) );
+
+if ( ! empty( $parts[0] ) && in_array( $parts[0], $valid_markets, true ) ) {
+	define( 'KG_CURRENT_COUNTRY', $parts[0] );
+	$_has_lang = ! empty( $parts[1] ) && in_array( $parts[1], $valid_langs, true );
+	define( 'KG_CURRENT_LANG', $_has_lang ? $parts[1] : 'en' );
+	$_skip = $_has_lang ? 2 : 1;
+	$slug  = implode( '/', array_slice( $parts, $_skip ) );
+	// Rewrite REQUEST_URI exactly as the mu-plugin does so kg_url_for_lang()
+	// and kg_url_for_market() see only the page slug, not the market/lang prefix.
+	$_SERVER['REQUEST_URI'] = '/' . ( $slug ? $slug . '/' : '' );
+} else {
+	define( 'KG_CURRENT_COUNTRY', '' );
+	define( 'KG_CURRENT_LANG', '' );
+	$slug = implode( '/', $parts );
+}
+
 $page = '' === $slug ? 'home' : $slug;
 $GLOBALS['kg_current_page'] = $page;
 

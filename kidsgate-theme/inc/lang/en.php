@@ -33,6 +33,7 @@ return array(
 			'Cancel at any time',
 			'30-day free trial',
 		),
+		'choose_region'   => 'Choose Region',
 	),
 
 	'nav' => array(
@@ -66,13 +67,20 @@ return array(
 	/* ---------------------------------------------------------------- Home */
 	'home' => array(
 		'hero' => array(
-			'title'    => 'Your child walks through the gate. <span class="kg-squiggle">Learning becomes play.</span>',
-			'lede'     => 'Kids Gate teaches Cambridge English and International Maths to children aged 5–12, through games, stories and quizzes that adapt to your child after every single answer.',
+			'eyebrow'  => 'Available on iOS &amp; Android',
+			'title'    => 'Learning your child<br><span class="kg-squiggle kg-squiggle--draw">actually asks for</span>',
+			'lede'     => 'AI-powered Cambridge English and International Maths for ages 5&ndash;12, with games, stories and quizzes that adapt after every single answer.',
 			'badge_lessons'  => '1,800+',
 			'badge_lessons_label' => 'lessons inside',
 			'badge_daily'    => '20 min',
 			'badge_daily_label'   => 'a day is enough',
 			'img_alt'  => 'A child smiling while learning with Kids Gate on a tablet',
+			'scroll_cue' => 'Step inside',
+			'card_mastery'     => 'Mastery up',
+			'card_mastery_sub' => 'Fractions &middot; Grade 4',
+			'card_tokens'      => '+25 tokens',
+			'card_tokens_sub'  => 'Lesson complete!',
+			'card_correct'     => 'Correct!',
 		),
 
 		'stats' => array(
@@ -111,8 +119,9 @@ return array(
 
 		'loop' => array(
 			'kicker' => 'How it works',
-			'title'  => 'Four steps, repeated every day',
-			'lede'   => 'A simple loop that compounds into real progress.',
+			'title'  => 'Four steps a day: <span class="kg-squiggle kg-squiggle--draw">each one adapts</span>',
+			'lede'   => 'A simple daily loop that compounds into real progress. Try the adaptive engine for yourself.',
+			'repeat' => 'Every day, on repeat',
 			'steps'  => array(
 				array(
 					'title' => 'Assessment',
@@ -143,30 +152,39 @@ return array(
 					'label'  => 'English',
 					'title'  => 'Cambridge English, story by story',
 					'text'   => 'Phonics, reading, vocabulary and grammar wrapped in interactive stories and songs.',
-					'points' => array(
-						'Aligned with Cambridge English stages',
-						'Listening, reading and writing practice',
-						'Instant, encouraging feedback',
+					'topics' => array(
+						array( 'name' => 'Phonics &amp; Reading', 'desc' => 'Sound out every new word' ),
+						array( 'name' => 'Writing &amp; Grammar', 'desc' => 'From letters to whole stories' ),
+						array( 'name' => 'Vocabulary', 'desc' => 'New words that actually stick' ),
+						array( 'name' => 'Listening', 'desc' => 'Follow along, then respond' ),
+						array( 'name' => 'Comprehension', 'desc' => 'Understand, not just decode' ),
+						array( 'name' => 'Speaking Confidence', 'desc' => 'Say it out loud, proudly' ),
 					),
 				),
 				'maths' => array(
 					'label'  => 'Maths',
 					'title'  => 'International Maths that clicks',
 					'text'   => 'From counting to fractions, concepts are taught visually, then practised through play.',
-					'points' => array(
-						'Grades 1–6 international curriculum',
-						'Visual, concrete explanations first',
-						'Adaptive difficulty on every exercise',
+					'topics' => array(
+						array( 'name' => 'Number &amp; Operations', 'desc' => 'Counting through to calculation' ),
+						array( 'name' => 'Geometry', 'desc' => 'Shapes, space and symmetry' ),
+						array( 'name' => 'Measurement', 'desc' => 'Length, time, money, weight' ),
+						array( 'name' => 'Data &amp; Statistics', 'desc' => 'Reading charts and graphs' ),
+						array( 'name' => 'Problem Solving', 'desc' => 'Real-world maths puzzles' ),
+						array( 'name' => 'Patterns &amp; Algebra', 'desc' => 'Spot the rule, predict next' ),
 					),
 				),
 				'games' => array(
 					'label'  => 'Games & quizzes',
 					'title'  => 'The fun is the point',
 					'text'   => 'Quizzes, puzzles and mini-games turn practice into something children genuinely look forward to.',
-					'points' => array(
-						'New game formats keep sessions fresh',
-						'Songs and stories for younger learners',
-						'Celebrations for every milestone',
+					'topics' => array(
+						array( 'name' => 'Quiz Battles', 'desc' => 'Recall under friendly pressure' ),
+						array( 'name' => 'Story Adventures', 'desc' => 'Skills woven into the plot' ),
+						array( 'name' => 'Memory &amp; Matching', 'desc' => 'Locks in what was just learned' ),
+						array( 'name' => 'Speed Drills', 'desc' => 'Fast recall becomes automatic' ),
+						array( 'name' => 'Daily Challenges', 'desc' => 'A little practice, every day' ),
+						array( 'name' => 'Reward Streaks', 'desc' => 'Consistency earns real tokens' ),
 					),
 				),
 				'rewards' => array(
@@ -195,8 +213,9 @@ return array(
 
 		'ai' => array(
 			'kicker' => 'The clever part',
-			'title'  => 'An AI tutor that listens to every answer',
-			'lede'   => 'Not just right or wrong. Kids Gate reads speed, confidence and mistake patterns, then adjusts the very next activity.',
+			'title'  => 'It listens to every answer',
+			'lede'   => 'Not just right or wrong. Kids Gate reads speed, confidence and mistake patterns, then adjusts the very next activity. See for yourself:',
+			'reassess' => 'And every two weeks, the whole path is re-checked in a full reassessment.',
 			'nodes'  => array(
 				array( 'title' => 'Your child answers', 'text' => 'Every tap, every answer, every hesitation is a signal.' ),
 				array( 'title' => 'The AI interprets', 'text' => 'Was it mastery, a lucky guess, or a gap? The system works it out.' ),
@@ -574,7 +593,7 @@ return array(
 				),
 			),
 			'per_month'     => '/month',
-			'billed_yearly' => 'per month, billed yearly',
+			'billed_yearly' => 'billed yearly',
 			'addl_note'     => 'Additional children from {price}/month',
 		),
 		'builder' => array(
@@ -799,7 +818,7 @@ return array(
 			'kicker' => 'Our story',
 			'title'  => 'From watching children switch off, to watching them light up',
 			'paras'  => array(
-				'Kids Gate is built by AI Learning Solutions Pty Ltd, a team of educators, engineers and parents across Australia and Southeast Asia.',
+				'Kids Gate is built by GATE Edutech Solutions Pty Ltd, a team of educators, engineers and parents across Australia and Southeast Asia.',
 				'We watched bright children lose confidence in classrooms moving at someone else\'s pace, and we watched tutoring put real personalisation out of reach for most families.',
 				'So we built the gate between where a child is and where they could be: an AI tutor with endless patience, a perfect memory, and a price normal families can afford.',
 			),
@@ -822,7 +841,7 @@ return array(
 		'contact' => array(
 			'kicker' => 'Company details',
 			'title'  => 'Get in touch',
-			'company' => 'AI Learning Solutions Pty Ltd',
+			'company' => 'GATE Edutech Solutions Pty Ltd',
 			'note'    => 'For support questions, the fastest route is our Support page.',
 			'cta'     => 'Contact Us',
 		),

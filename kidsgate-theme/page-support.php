@@ -86,7 +86,7 @@ $faq_items = array_map(
 		<div class="kg-support-grid">
 			<div>
 				<?php kg_section_head( 'support.form', false ); ?>
-				<form data-kg-support-form novalidate>
+				<form data-kg-support-form data-kg-form-subject="Kids Gate: Support Request" novalidate>
 					<div class="kg-form-grid">
 						<div class="kg-field">
 							<label for="kg-sup-name"><?php kg_e( 'support.form.name' ); ?></label>

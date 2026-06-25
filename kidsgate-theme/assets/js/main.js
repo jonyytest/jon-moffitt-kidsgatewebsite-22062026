@@ -456,25 +456,77 @@
 	});
 
 	/* ----------------------------------------------------------------
-	 * Monthly / annual price toggles (homepage summary + pricing page)
+	 * Home "daily loop": a row of four stage cards where the spotlight
+	 * auto-advances 1→2→3→4 and repeats, conveying the everyday cycle
+	 * without any scrolling. Pauses off-screen; hovering a card holds it.
+	 * Reduced-motion: no auto-play, the first stage stays lit.
 	 * -------------------------------------------------------------- */
-	document.querySelectorAll('[data-kg-billing-toggle]').forEach(function (toggle) {
-		var buttons = toggle.querySelectorAll('button');
-		buttons.forEach(function (btn) {
-			btn.addEventListener('click', function () {
-				buttons.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
-				var mode = btn.getAttribute('data-kg-billing');
-				document.querySelectorAll('[data-kg-price-m]').forEach(function (el) {
-					el.textContent = mode === 'y' ? el.getAttribute('data-kg-price-y') : el.getAttribute('data-kg-price-m');
-				});
-				document.querySelectorAll('[data-kg-billing-note]').forEach(function (el) {
-					el.hidden = el.getAttribute('data-kg-billing-note') !== mode;
-				});
-				// The pricing-page builder listens for this.
-				document.dispatchEvent(new CustomEvent('kg:billing', { detail: { mode: mode } }));
-			});
+	document.querySelectorAll('[data-kg-loop]').forEach(function (loop) {
+		var steps = Array.prototype.slice.call(loop.querySelectorAll('[data-kg-loop-step]'));
+		var bar = loop.querySelector('[data-kg-loop-bar]');
+		if (steps.length < 2) { return; }
+		var n = steps.length;
+		var idx = 0;
+		var timer = null;
+
+		function show(i) {
+			idx = (i + n) % n;
+			steps.forEach(function (s, k) { s.classList.toggle('is-current', k === idx); });
+			if (bar) { bar.style.width = ((idx + 1) / n * 100) + '%'; }
+		}
+		function start() { if (!timer && !reducedMotion) { timer = setInterval(function () { show(idx + 1); }, 2200); } }
+		function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+		show(0);
+
+		if ('IntersectionObserver' in window) {
+			new IntersectionObserver(function (entries) {
+				entries.forEach(function (e) { if (e.isIntersecting) { start(); } else { stop(); } });
+			}, { threshold: 0.3 }).observe(loop);
+		} else {
+			start();
+		}
+
+		// Mouse users can hold a stage by hovering it; leaving resumes the loop.
+		steps.forEach(function (step, i) {
+			step.addEventListener('mouseenter', function () { stop(); show(i); });
+			step.addEventListener('mouseleave', start);
 		});
 	});
+
+	/* ----------------------------------------------------------------
+	 * Monthly / annual price toggles (homepage summary + pricing page)
+	 * All [data-kg-billing-toggle] instances are kept in sync globally.
+	 * -------------------------------------------------------------- */
+	var allBillingToggles = document.querySelectorAll('[data-kg-billing-toggle]');
+
+	function applyBillingMode(mode) {
+		// Sync every toggle button on the page.
+		allBillingToggles.forEach(function (toggle) {
+			toggle.querySelectorAll('button').forEach(function (b) {
+				b.setAttribute('aria-pressed', b.getAttribute('data-kg-billing') === mode ? 'true' : 'false');
+			});
+		});
+		// Update plan prices.
+		document.querySelectorAll('[data-kg-price-m]').forEach(function (el) {
+			el.textContent = mode === 'y' ? el.getAttribute('data-kg-price-y') : el.getAttribute('data-kg-price-m');
+		});
+		// Show/hide billed-yearly notes.
+		document.querySelectorAll('[data-kg-billing-note]').forEach(function (el) {
+			el.hidden = el.getAttribute('data-kg-billing-note') !== mode;
+		});
+		// Notify the builder.
+		document.dispatchEvent(new CustomEvent('kg:billing', { detail: { mode: mode } }));
+	}
+
+	allBillingToggles.forEach(function (toggle) {
+		toggle.querySelectorAll('button').forEach(function (btn) {
+			btn.addEventListener('click', function () { applyBillingMode(btn.getAttribute('data-kg-billing')); });
+		});
+	});
+
+	// Default to annual billing on page load.
+	applyBillingMode('y');
 
 	/* ----------------------------------------------------------------
 	 * Adaptive AI engine visualisation (Features spotlight).
@@ -834,5 +886,102 @@
 				});
 			}, { threshold: 0.4 }).observe(stage);
 		}
+	});
+
+	/* ----------------------------------------------------------------
+	 * Market + language choice persistence.
+	 *
+	 * Saves the user's explicit market:lang selection to a cookie (readable
+	 * by the Cloudflare Worker on the bare domain) and to localStorage (used
+	 * client-side). A saved choice permanently overrides geo-detection.
+	 *
+	 * Cookie format:  kg_choice=au:en    (market:lang)
+	 * ------------------------------------------------------------ */
+
+	function kgSetChoice(market, lang) {
+		if (!market || !lang) { return; }
+		var val = market + ':' + lang;
+		document.cookie = 'kg_choice=' + val + ';path=/;max-age=31536000;SameSite=Lax';
+		try { localStorage.setItem('kg_choice', val); } catch (e) {}
+	}
+
+	// Intercept any link that carries data-kg-choice="market:lang" (market
+	// switcher, language switcher, region banner). Save the choice before
+	// the browser follows the link so the Cloudflare Worker respects it on
+	// the next bare-domain visit.
+	document.addEventListener('click', function (e) {
+		var el = e.target.closest('[data-kg-choice]');
+		if (!el) { return; }
+		var parts = (el.getAttribute('data-kg-choice') || '').split(':');
+		if (parts.length === 2 && parts[0] && parts[1]) {
+			kgSetChoice(parts[0], parts[1]);
+		}
+	});
+
+	/* ----------------------------------------------------------------
+	 * Market switcher dropdown (mirrors the language switcher pattern)
+	 * -------------------------------------------------------------- */
+	document.querySelectorAll('[data-kg-market]').forEach(function (market) {
+		var btn = market.querySelector('.kg-market__btn');
+		if (!btn) { return; }
+		btn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			var open = market.classList.toggle('is-open');
+			btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+		});
+	});
+	document.addEventListener('click', function () {
+		document.querySelectorAll('[data-kg-market].is-open').forEach(function (market) {
+			market.classList.remove('is-open');
+			var btn = market.querySelector('.kg-market__btn');
+			if (btn) { btn.setAttribute('aria-expanded', 'false'); }
+		});
+	});
+	document.addEventListener('keydown', function (e) {
+		if (e.key === 'Escape') {
+			document.querySelectorAll('[data-kg-market].is-open').forEach(function (market) {
+				market.classList.remove('is-open');
+				var btn = market.querySelector('.kg-market__btn');
+				if (btn) { btn.setAttribute('aria-expanded', 'false'); }
+			});
+		}
+	});
+
+	/* ----------------------------------------------------------------
+	 * Region selector banner (bare domain only)
+	 * Hides itself once a region link is clicked.
+	 * -------------------------------------------------------------- */
+	var regionBar = document.querySelector('[data-kg-region-bar]');
+	if (regionBar) {
+		regionBar.querySelectorAll('[data-kg-choice]').forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				regionBar.style.transition = 'opacity .25s ease, transform .25s ease';
+				regionBar.style.opacity  = '0';
+				regionBar.style.transform = 'translateY(-100%)';
+			});
+		});
+	}
+
+	/* ----------------------------------------------------------------
+	 * "Choose Region" buttons — pricing page, bare domain only.
+	 * Scrolls the region banner into view and pulses it.
+	 * -------------------------------------------------------------- */
+	document.addEventListener('click', function (e) {
+		var el = e.target.closest('[data-kg-choose-region]');
+		if (!el) { return; }
+		e.preventDefault();
+		var bar = document.querySelector('[data-kg-region-bar]');
+		if (!bar) { return; }
+		// Scroll so the bar clears the sticky header with a little breathing room
+		var header = document.querySelector('[data-kg-header]');
+		var headerH = header ? header.offsetHeight : 0;
+		var barTop = bar.getBoundingClientRect().top + window.scrollY - headerH - 12;
+		window.scrollTo({ top: Math.max(0, barTop), behavior: 'smooth' });
+		bar.classList.remove('kg-region-bar--pulse');
+		void bar.offsetWidth; // eslint-disable-line no-void
+		bar.classList.add('kg-region-bar--pulse');
+		bar.addEventListener('animationend', function () {
+			bar.classList.remove('kg-region-bar--pulse');
+		}, { once: true });
 	});
 })();

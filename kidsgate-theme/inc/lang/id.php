@@ -33,6 +33,7 @@ return array(
 			'Bisa berhenti kapan saja',
 			'Uji coba gratis 30 hari',
 		),
+		'choose_region'   => 'Pilih Wilayah',
 	),
 
 	'nav' => array(
@@ -65,13 +66,20 @@ return array(
 
 	'home' => array(
 		'hero' => array(
-			'title'               => 'Anak Anda melangkah melewati gerbang. <span class="kg-squiggle">Belajar jadi bermain.</span>',
-			'lede'                => 'Kids Gate mengajarkan Cambridge English dan Matematika Internasional untuk anak usia 5–12 tahun, lewat permainan, cerita, dan kuis yang menyesuaikan diri dengan anak Anda setelah setiap jawaban.',
+			'eyebrow'             => 'Tersedia di iOS &amp; Android',
+			'title'               => 'Belajar yang anak Anda<br><span class="kg-squiggle kg-squiggle--draw">minta sendiri</span>',
+			'lede'                => 'Cambridge English dan Matematika Internasional bertenaga AI untuk anak usia 5&ndash;12, dengan permainan, cerita, dan kuis yang menyesuaikan diri setelah setiap jawaban.',
 			'badge_lessons'       => '1.800+',
 			'badge_lessons_label' => 'pelajaran di dalamnya',
 			'badge_daily'         => '20 menit',
 			'badge_daily_label'   => 'sehari sudah cukup',
 			'img_alt'             => 'Seorang anak tersenyum saat belajar dengan Kids Gate di tablet',
+			'scroll_cue'          => 'Masuk ke dalam',
+			'card_mastery'        => 'Penguasaan naik',
+			'card_mastery_sub'    => 'Pecahan &middot; Kelas 4',
+			'card_tokens'         => '+25 token',
+			'card_tokens_sub'     => 'Pelajaran selesai!',
+			'card_correct'        => 'Benar!',
 		),
 
 		'stats' => array(
@@ -110,8 +118,9 @@ return array(
 
 		'loop' => array(
 			'kicker' => 'Cara kerjanya',
-			'title'  => 'Empat langkah, diulang setiap hari',
-			'lede'   => 'Siklus sederhana yang berbuah kemajuan nyata.',
+			'title'  => 'Empat langkah sehari: <span class="kg-squiggle kg-squiggle--draw">tiap langkah menyesuaikan</span>',
+			'lede'   => 'Siklus harian sederhana yang berbuah kemajuan nyata. Coba sendiri mesin adaptifnya.',
+			'repeat' => 'Setiap hari, berulang',
 			'steps'  => array(
 				array(
 					'title' => 'Asesmen',
@@ -142,30 +151,39 @@ return array(
 					'label'  => 'Bahasa Inggris',
 					'title'  => 'Cambridge English, cerita demi cerita',
 					'text'   => 'Fonik, membaca, kosakata, dan tata bahasa dikemas dalam cerita interaktif dan lagu.',
-					'points' => array(
-						'Selaras dengan jenjang Cambridge English',
-						'Latihan mendengarkan, membaca, dan menulis',
-						'Umpan balik instan yang menyemangati',
+					'topics' => array(
+						array( 'name' => 'Fonik &amp; Membaca', 'desc' => 'Mengeja setiap kata baru' ),
+						array( 'name' => 'Menulis &amp; Tata Bahasa', 'desc' => 'Dari huruf hingga cerita utuh' ),
+						array( 'name' => 'Kosakata', 'desc' => 'Kata baru yang benar-benar melekat' ),
+						array( 'name' => 'Menyimak', 'desc' => 'Ikuti, lalu menanggapi' ),
+						array( 'name' => 'Pemahaman', 'desc' => 'Memahami, bukan sekadar membaca' ),
+						array( 'name' => 'Percaya Diri Bicara', 'desc' => 'Ucapkan dengan lantang dan bangga' ),
 					),
 				),
 				'maths' => array(
 					'label'  => 'Matematika',
 					'title'  => 'Matematika Internasional yang masuk akal',
 					'text'   => 'Dari berhitung sampai pecahan, konsep diajarkan secara visual, lalu dilatih lewat permainan.',
-					'points' => array(
-						'Kurikulum internasional Kelas 1–6',
-						'Penjelasan visual dan konkret lebih dulu',
-						'Tingkat kesulitan adaptif di setiap latihan',
+					'topics' => array(
+						array( 'name' => 'Bilangan &amp; Operasi', 'desc' => 'Dari menghitung ke kalkulasi' ),
+						array( 'name' => 'Geometri', 'desc' => 'Bentuk, ruang, dan simetri' ),
+						array( 'name' => 'Pengukuran', 'desc' => 'Panjang, waktu, uang, berat' ),
+						array( 'name' => 'Data &amp; Statistik', 'desc' => 'Membaca tabel dan grafik' ),
+						array( 'name' => 'Pemecahan Masalah', 'desc' => 'Soal matematika dunia nyata' ),
+						array( 'name' => 'Pola &amp; Aljabar', 'desc' => 'Temukan pola, tebak berikutnya' ),
 					),
 				),
 				'games' => array(
 					'label'  => 'Permainan & kuis',
 					'title'  => 'Keseruan adalah intinya',
 					'text'   => 'Kuis, teka-teki, dan mini-game mengubah latihan menjadi sesuatu yang dinanti anak.',
-					'points' => array(
-						'Format permainan baru menjaga sesi tetap segar',
-						'Lagu dan cerita untuk pelajar yang lebih muda',
-						'Perayaan di setiap pencapaian',
+					'topics' => array(
+						array( 'name' => 'Adu Kuis', 'desc' => 'Mengingat di bawah tekanan seru' ),
+						array( 'name' => 'Petualangan Cerita', 'desc' => 'Keterampilan menyatu dalam alur' ),
+						array( 'name' => 'Memori &amp; Mencocokkan', 'desc' => 'Mengunci yang baru dipelajari' ),
+						array( 'name' => 'Latihan Cepat', 'desc' => 'Mengingat cepat jadi otomatis' ),
+						array( 'name' => 'Tantangan Harian', 'desc' => 'Sedikit latihan setiap hari' ),
+						array( 'name' => 'Rentetan Hadiah', 'desc' => 'Konsistensi menghasilkan token' ),
 					),
 				),
 				'rewards' => array(
@@ -194,8 +212,9 @@ return array(
 
 		'ai' => array(
 			'kicker' => 'Bagian cerdasnya',
-			'title'  => 'Tutor AI yang menyimak setiap jawaban',
-			'lede'   => 'Bukan sekadar benar atau salah. Kids Gate membaca kecepatan, kepercayaan diri, dan pola kesalahan, lalu menyesuaikan aktivitas berikutnya.',
+			'title'  => 'Menyimak setiap jawaban',
+			'lede'   => 'Bukan sekadar benar atau salah. Kids Gate membaca kecepatan, kepercayaan diri, dan pola kesalahan, lalu menyesuaikan aktivitas berikutnya. Coba sendiri:',
+			'reassess' => 'Dan setiap dua minggu, seluruh jalur dicek ulang lewat asesmen penuh.',
 			'nodes'  => array(
 				array( 'title' => 'Anak Anda menjawab', 'text' => 'Setiap ketukan, jawaban, dan jeda adalah sinyal.' ),
 				array( 'title' => 'AI menafsirkan', 'text' => 'Apakah ini penguasaan, tebakan beruntung, atau celah? Sistem yang menentukan.' ),
@@ -566,7 +585,7 @@ return array(
 				),
 			),
 			'per_month'     => '/bulan',
-			'billed_yearly' => 'per bulan, ditagih tahunan',
+			'billed_yearly' => 'ditagih tahunan',
 			'addl_note'     => 'Anak tambahan mulai {price}/bulan',
 		),
 		'builder' => array(
@@ -788,7 +807,7 @@ return array(
 			'kicker' => 'Cerita kami',
 			'title'  => 'Dari melihat anak padam, menjadi melihat mereka menyala',
 			'paras'  => array(
-				'Kids Gate dibangun oleh AI Learning Solutions Pty Ltd, tim pendidik, insinyur, dan orang tua di Australia dan Asia Tenggara.',
+				'Kids Gate dibangun oleh GATE Edutech Solutions Pty Ltd, tim pendidik, insinyur, dan orang tua di Australia dan Asia Tenggara.',
 				'Kami melihat anak-anak cerdas kehilangan kepercayaan diri di kelas yang bergerak dengan kecepatan orang lain, dan les privat membuat personalisasi sejati tak terjangkau bagi kebanyakan keluarga.',
 				'Maka kami membangun gerbang antara posisi anak saat ini dan potensinya: tutor AI dengan kesabaran tanpa batas, ingatan sempurna, dan harga yang terjangkau keluarga biasa.',
 			),
@@ -811,7 +830,7 @@ return array(
 		'contact' => array(
 			'kicker'  => 'Detail perusahaan',
 			'title'   => 'Hubungi kami',
-			'company' => 'AI Learning Solutions Pty Ltd',
+			'company' => 'GATE Edutech Solutions Pty Ltd',
 			'note'    => 'Untuk pertanyaan bantuan, jalur tercepat adalah halaman Bantuan kami.',
 			'cta'     => 'Hubungi Kami',
 		),
