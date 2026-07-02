@@ -68,7 +68,7 @@ get_header();
 		<?php else : ?>
 			<div class="kg-video kg-placeholder" data-kg-reveal style="aspect-ratio:16/9; max-width:920px; margin-inline:auto;">
 				<svg width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="m10 9 5 3-5 3V9z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
-				Placeholder — upload GateDemoVideo.mp4 to the Media Library and set its URL in Customizer → Kids Gate Settings.
+				Placeholder — upload GateDemoVideo.mp4 to the Media Library and set its URL in Customizer → The Kids Gate Settings.
 			</div>
 		<?php endif; ?>
 	</div>

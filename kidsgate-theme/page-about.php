@@ -25,7 +25,7 @@ get_header();
 	<div class="kg-container">
 		<div class="kg-spot">
 			<div class="kg-spot__visual kg-spot__visual--arch" data-kg-reveal="left">
-				<img src="<?php echo esc_url( kg_asset( 'img/achievement.jpg' ) ); ?>" alt="A child celebrating a learning achievement with Kids Gate" loading="lazy" width="1600" height="1195">
+				<img src="<?php echo esc_url( kg_asset( 'img/achievement.jpg' ) ); ?>" alt="A child celebrating a learning achievement with The Kids Gate" loading="lazy" width="1600" height="1195">
 			</div>
 			<div data-kg-reveal="right">
 				<span class="kg-kicker"><?php kg_e( 'about.story.kicker' ); ?></span>
@@ -93,6 +93,41 @@ get_header();
 		</div>
 	</div>
 </section>
+
+<!-- Easter egg: click the "About Us" kicker twice to reveal the credit (works on tap & click). -->
+<div class="kg-egg" data-kg-egg>
+	<span aria-hidden="true">✨</span> website made by <strong>Jonathan Moffitt</strong>
+</div>
+
+<style>
+.kg-egg {
+	display: none; /* hidden until the .is-on class is added */
+	position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+	z-index: 9999;
+	align-items: center; gap: 8px; max-width: calc(100% - 32px);
+	background: var(--kg-navy, #1C2B3A); color: #fff;
+	font-family: var(--kg-font-display, system-ui, sans-serif);
+	font-weight: 700; font-size: .95rem;
+	padding: 12px 22px; border-radius: 999px;
+	box-shadow: 0 14px 44px rgba(0, 0, 0, .32);
+	cursor: pointer;
+}
+.kg-egg.is-on { display: inline-flex; }
+.kg-egg strong { color: var(--kg-amber, #F5A623); }
+</style>
+
+<script>
+(function () {
+	var egg = document.querySelector('[data-kg-egg]');
+	var trigger = document.querySelector('.kg-page-hero .kg-kicker');
+	if (!egg || !trigger) { return; }
+	var clicks = 0;
+	trigger.addEventListener('click', function () {
+		if (++clicks >= 2) { egg.classList.add('is-on'); }
+	});
+	egg.addEventListener('click', function () { egg.classList.remove('is-on'); clicks = 0; });
+})();
+</script>
 
 <?php
 get_footer();

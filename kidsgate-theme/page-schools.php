@@ -185,8 +185,9 @@ $dash_bubbles = array( 'kg-bubble--teal', 'kg-bubble--amber', 'kg-bubble--red', 
 <section class="kg-section kg-section--white" id="kg-school-form">
 	<div class="kg-container">
 		<?php kg_section_head( 'schools.form' ); ?>
+		<p class="kg-schools-savings" data-kg-reveal><?php kg_e( 'schools.form.pricing_note' ); ?></p>
 		<div class="kg-schools-form">
-			<form data-kg-support-form data-kg-form-subject="Kids Gate: School Enquiry" novalidate>
+			<form data-kg-support-form data-kg-form-subject="The Kids Gate: School Enquiry" novalidate>
 				<div class="kg-form-grid">
 					<div class="kg-field">
 						<label for="kg-school-name"><?php kg_e( 'schools.form.name' ); ?></label>

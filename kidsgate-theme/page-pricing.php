@@ -1,7 +1,7 @@
 <?php
 /**
  * Pricing — billing toggle, plan cards, the per-child family plan builder
- * (up to 4 children, mixed subject combinations, live total), billing
+ * (up to 6 children, mixed subject combinations, live total), billing
  * disclaimer and pricing FAQ. Plan selection routes to Support for now.
  */
 get_header();
@@ -24,15 +24,23 @@ $p = kg_pricing_for_lang();
 		<div style="text-align:center;" data-kg-reveal>
 			<div class="kg-price-toggle" data-kg-billing-toggle role="group" aria-label="<?php echo esc_attr( kg_t( 'pricing.toggle.monthly' ) . ' / ' . kg_t( 'pricing.toggle.yearly' ) ); ?>">
 				<button type="button" data-kg-billing="m" aria-pressed="false"><?php kg_e( 'pricing.toggle.monthly' ); ?></button>
-				<button type="button" data-kg-billing="y" aria-pressed="true"><?php kg_e( 'pricing.toggle.yearly' ); ?><span class="kg-save-pill" aria-hidden="true"><?php kg_e( 'pricing.toggle.save' ); ?></span></button>
+				<button type="button" data-kg-billing="y" aria-pressed="true"><?php kg_e( 'pricing.toggle.yearly' ); ?><span class="kg-save-pill" data-kg-save-annual aria-hidden="true"><?php echo esc_html( kg_save_label( $p['first'][1]['m'], $p['first'][1]['y'] ) ); ?></span></button>
 			</div>
 		</div>
 
+		<div data-kg-rates
+			data-m1="<?php echo esc_attr( $p['first'][1]['m'] ); ?>"
+			data-y1="<?php echo esc_attr( $p['first'][1]['y'] ); ?>"
+			data-m2="<?php echo esc_attr( $p['first'][2]['m'] ); ?>"
+			data-y2="<?php echo esc_attr( $p['first'][2]['y'] ); ?>"
+			data-label="<?php echo esc_attr( kg_t( 'pricing.save_label' ) ); ?>"
+			hidden></div>
 		<div class="kg-plans">
 			<div class="kg-card kg-plan" data-kg-reveal>
 				<h2 class="kg-h3"><?php kg_e( 'pricing.plans.one.name' ); ?></h2>
 				<p style="color:var(--kg-text-soft); margin:0;"><?php kg_e( 'pricing.plans.one.desc' ); ?></p>
 				<div class="kg-plan__price">
+					<p class="kg-plan__was kg-plan__was--ghost" aria-hidden="true">&nbsp;</p>
 					<span class="kg-plan__amount" data-kg-price-m="<?php echo esc_attr( kg_price( $p['first'][1]['m'] ) ); ?>" data-kg-price-y="<?php echo esc_attr( kg_price( $p['first'][1]['y'] ) ); ?>"><?php echo esc_html( kg_price( $p['first'][1]['m'] ) ); ?></span>
 					<span class="kg-plan__per"><?php kg_e( 'pricing.plans.per_month' ); ?></span>
 				</div>
@@ -55,6 +63,8 @@ $p = kg_pricing_for_lang();
 				<div class="kg-plan__price">
 					<span class="kg-plan__amount" data-kg-price-m="<?php echo esc_attr( kg_price( $p['first'][2]['m'] ) ); ?>" data-kg-price-y="<?php echo esc_attr( kg_price( $p['first'][2]['y'] ) ); ?>"><?php echo esc_html( kg_price( $p['first'][2]['m'] ) ); ?></span>
 					<span class="kg-plan__per"><?php kg_e( 'pricing.plans.per_month' ); ?></span>
+					<span class="kg-plan__save" data-kg-save-card="two"><?php echo esc_html( kg_save_label( 2 * $p['first'][1]['y'], $p['first'][2]['y'] ) ); ?></span>
+					<p class="kg-plan__was"><s><span data-kg-price-m="<?php echo esc_attr( kg_price( 2 * $p['first'][1]['m'] ) ); ?>" data-kg-price-y="<?php echo esc_attr( kg_price( 2 * $p['first'][1]['y'] ) ); ?>"><?php echo esc_html( kg_price( 2 * $p['first'][1]['y'] ) ); ?></span> <?php kg_e( 'pricing.plans.per_month' ); ?></s> <?php kg_e( 'pricing.plans.two.vs_singles' ); ?></p>
 				</div>
 				<p class="kg-plan__per" data-kg-billing-note="y" hidden><?php kg_e( 'pricing.plans.billed_yearly' ); ?></p>
 				<ul class="kg-plan__list">
@@ -96,14 +106,26 @@ $p = kg_pricing_for_lang();
 				<h3 class="kg-h3"><?php kg_e( 'pricing.builder.summary_title' ); ?></h3>
 				<div class="kg-price-toggle kg-price-toggle--compact" data-kg-billing-toggle role="group" aria-label="<?php echo esc_attr( kg_t( 'pricing.toggle.monthly' ) . ' / ' . kg_t( 'pricing.toggle.yearly' ) ); ?>">
 					<button type="button" data-kg-billing="m" aria-pressed="false"><?php kg_e( 'pricing.toggle.monthly' ); ?></button>
-					<button type="button" data-kg-billing="y" aria-pressed="true"><?php kg_e( 'pricing.toggle.yearly' ); ?><span class="kg-save-pill" aria-hidden="true"><?php kg_e( 'pricing.toggle.save' ); ?></span></button>
+					<button type="button" data-kg-billing="y" aria-pressed="true"><?php kg_e( 'pricing.toggle.yearly' ); ?><span class="kg-save-pill" data-kg-save-annual aria-hidden="true"><?php echo esc_html( kg_save_label( $p['first'][1]['m'], $p['first'][1]['y'] ) ); ?></span></button>
 				</div>
 				<div class="kg-builder__rows" data-kg-builder-rows></div>
+				<div class="kg-builder__activation" data-kg-builder-activation>
+					<span>
+						<strong><?php kg_e( 'pricing.builder.activation_label' ); ?></strong><?php echo kg_tip( kg_t( 'pricing.activation_info' ), kg_t( 'pricing.activation_help' ) ); // phpcs:ignore ?>
+						<small data-kg-activation-sub></small>
+					</span>
+					<span class="kg-row-price" data-kg-activation-amount></span>
+				</div>
+				<p class="kg-builder__trial-lead"><?php kg_e( 'pricing.builder.trial_lead' ); ?></p>
 				<div class="kg-builder__total">
 					<span><?php kg_e( 'pricing.builder.total_label' ); ?></span>
 					<span><strong data-kg-builder-total></strong> <span data-kg-builder-period style="font-size:.9rem;"></span></span>
 				</div>
-				<p class="kg-builder__note"><?php kg_e( 'pricing.builder.trial_note' ); ?></p>
+				<div class="kg-builder__firstpay" data-kg-builder-firstpay>
+					<span><?php kg_e( 'pricing.builder.first_payment' ); ?></span>
+					<span><strong data-kg-firstpay-amount></strong></span>
+				</div>
+				<p class="kg-builder__note kg-builder__note--tax"><?php kg_e( 'pricing.builder.tax_note' ); ?></p>
 				<?php if ( kg_country() ) : ?>
 				<a class="kg-btn kg-btn--primary kg-btn--block" href="<?php echo esc_url( kg_url( 'payment' ) ); ?>" data-kg-builder-select><span><?php kg_e( 'pricing.builder.select_cta' ); ?></span></a>
 				<?php else : ?>
@@ -141,7 +163,14 @@ $p = kg_pricing_for_lang();
 <section class="kg-section kg-section--white">
 	<div class="kg-container">
 		<?php kg_section_head( 'pricing.faq' ); ?>
-		<?php kg_faq_accordion( kg_list( 'pricing.faq.items' ), 'pricing' ); ?>
+		<?php
+		$pricing_faq   = kg_list( 'pricing.faq.items' );
+		$pricing_faq[] = array(
+			'q' => kg_t( 'pricing.activation_faq_q' ),
+			'a' => kg_t( 'pricing.activation_info' ),
+		);
+		kg_faq_accordion( $pricing_faq, 'pricing' );
+		?>
 	</div>
 </section>
 

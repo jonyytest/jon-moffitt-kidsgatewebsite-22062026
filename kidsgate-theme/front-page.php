@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Home page — the full scroll story:
  * hero gate → stats → problem/solution → learning loop → experience tabs
@@ -27,7 +27,7 @@ $p = kg_pricing_for_lang();
 		<!-- Left: brand + message -->
 		<div class="kg-hero__copy">
 			<a class="kg-hero__brand" href="#kg-download" data-kg-reveal aria-label="<?php echo esc_attr( kg_t( 'home.hero.eyebrow' ) ); ?> — scroll to download">
-				<img src="<?php echo esc_url( kg_asset( 'img/kg-logo.png' ) ); ?>" alt="Kids Gate" width="40" height="42">
+				<img src="<?php echo esc_url( kg_asset( 'img/kg-logo.png' ) ); ?>" alt="The Kids Gate" width="40" height="42">
 				<span><?php kg_e( 'home.hero.eyebrow' ); ?></span>
 			</a>
 			<h1 class="kg-h1 kg-hero__title" data-kg-reveal style="--kg-delay:80ms"><?php kg_e( 'home.hero.title' ); ?></h1>
@@ -120,7 +120,10 @@ $p = kg_pricing_for_lang();
 		</div>
 		<div class="kg-solution-turn" data-kg-reveal="pop">
 			<h2 class="kg-h2"><span class="kg-squiggle kg-squiggle--green kg-squiggle--draw"><?php kg_e( 'home.problem.turn_title' ); ?></span></h2>
-			<p class="kg-lede"><?php kg_e( 'home.problem.turn_text' ); ?></p>
+			<p class="kg-lede"><?php
+				$_kg_turn_map = array( 'in' => 'home.problem.turn_text_in', 'ph' => 'home.problem.turn_text_ph', 'id' => 'home.problem.turn_text_id' );
+				kg_e( $_kg_turn_map[ kg_country() ] ?? 'home.problem.turn_text' );
+			?></p>
 		</div>
 	</div>
 </section>
@@ -360,14 +363,22 @@ $p = kg_pricing_for_lang();
 		<div style="text-align:center;" data-kg-reveal>
 			<div class="kg-price-toggle" data-kg-billing-toggle role="group" aria-label="<?php echo esc_attr( kg_t( 'pricing.toggle.monthly' ) . ' / ' . kg_t( 'pricing.toggle.yearly' ) ); ?>">
 				<button type="button" data-kg-billing="m" aria-pressed="false"><?php kg_e( 'pricing.toggle.monthly' ); ?></button>
-				<button type="button" data-kg-billing="y" aria-pressed="true"><?php kg_e( 'pricing.toggle.yearly' ); ?><span class="kg-save-pill" aria-hidden="true"><?php kg_e( 'pricing.toggle.save' ); ?></span></button>
+				<button type="button" data-kg-billing="y" aria-pressed="true"><?php kg_e( 'pricing.toggle.yearly' ); ?><span class="kg-save-pill" data-kg-save-annual aria-hidden="true"><?php echo esc_html( kg_save_label( $p['first'][1]['m'], $p['first'][1]['y'] ) ); ?></span></button>
 			</div>
 		</div>
+		<div data-kg-rates
+			data-m1="<?php echo esc_attr( $p['first'][1]['m'] ); ?>"
+			data-y1="<?php echo esc_attr( $p['first'][1]['y'] ); ?>"
+			data-m2="<?php echo esc_attr( $p['first'][2]['m'] ); ?>"
+			data-y2="<?php echo esc_attr( $p['first'][2]['y'] ); ?>"
+			data-label="<?php echo esc_attr( kg_t( 'pricing.save_label' ) ); ?>"
+			hidden></div>
 		<div class="kg-plans">
 			<div class="kg-card kg-plan" data-kg-reveal>
 				<h3 class="kg-h3"><?php kg_e( 'pricing.plans.one.name' ); ?></h3>
 				<p style="color:var(--kg-text-soft); margin:0;"><?php kg_e( 'pricing.plans.one.desc' ); ?></p>
 				<div class="kg-plan__price">
+					<p class="kg-plan__was kg-plan__was--ghost" aria-hidden="true">&nbsp;</p>
 					<span class="kg-plan__amount" data-kg-price-m="<?php echo esc_attr( kg_price( $p['first'][1]['m'] ) ); ?>" data-kg-price-y="<?php echo esc_attr( kg_price( $p['first'][1]['y'] ) ); ?>"><?php echo esc_html( kg_price( $p['first'][1]['m'] ) ); ?></span>
 					<span class="kg-plan__per"><?php kg_e( 'pricing.plans.per_month' ); ?></span>
 				</div>
@@ -386,6 +397,8 @@ $p = kg_pricing_for_lang();
 				<div class="kg-plan__price">
 					<span class="kg-plan__amount" data-kg-price-m="<?php echo esc_attr( kg_price( $p['first'][2]['m'] ) ); ?>" data-kg-price-y="<?php echo esc_attr( kg_price( $p['first'][2]['y'] ) ); ?>"><?php echo esc_html( kg_price( $p['first'][2]['m'] ) ); ?></span>
 					<span class="kg-plan__per"><?php kg_e( 'pricing.plans.per_month' ); ?></span>
+					<span class="kg-plan__save" data-kg-save-card="two"><?php echo esc_html( kg_save_label( 2 * $p['first'][1]['y'], $p['first'][2]['y'] ) ); ?></span>
+					<p class="kg-plan__was"><s><span data-kg-price-m="<?php echo esc_attr( kg_price( 2 * $p['first'][1]['m'] ) ); ?>" data-kg-price-y="<?php echo esc_attr( kg_price( 2 * $p['first'][1]['y'] ) ); ?>"><?php echo esc_html( kg_price( 2 * $p['first'][1]['y'] ) ); ?></span> <?php kg_e( 'pricing.plans.per_month' ); ?></s> <?php kg_e( 'pricing.plans.two.vs_singles' ); ?></p>
 				</div>
 				<p class="kg-plan__per" data-kg-billing-note="y" hidden><?php kg_e( 'pricing.plans.billed_yearly' ); ?></p>
 				<ul class="kg-plan__list">

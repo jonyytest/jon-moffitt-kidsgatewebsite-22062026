@@ -500,6 +500,42 @@
 	 * -------------------------------------------------------------- */
 	var allBillingToggles = document.querySelectorAll('[data-kg-billing-toggle]');
 
+	/* --------------------------------------------------------------
+	 * Dynamic "Save %" badges.
+	 * Percentages are computed here from the raw displayed price
+	 * numbers (data-kg-rates) — never hardcoded — and exclude the
+	 * one-time activation fee. Mirrors the server-side kg_save_pct().
+	 * -------------------------------------------------------------- */
+	function computeSaveBadges(mode) {
+		var box = document.querySelector('[data-kg-rates]');
+		if (!box) { return; }
+		var m1 = parseFloat(box.getAttribute('data-m1'));
+		var y1 = parseFloat(box.getAttribute('data-y1'));
+		var m2 = parseFloat(box.getAttribute('data-m2'));
+		var y2 = parseFloat(box.getAttribute('data-y2'));
+		var tpl = box.getAttribute('data-label') || 'Save {n}%';
+		if (!(m1 > 0)) { return; }
+
+		// Round DOWN so an advertised saving is never overstated.
+		function pct(from, to) { return Math.floor((1 - to / from) * 100); }
+		function label(n) { return tpl.replace('{n}', n); }
+
+		var annual        = pct(m1, y1);      // annual vs monthly (single subject)
+		var bundleMonthly = pct(2 * m1, m2);  // two subjects vs two single subjects (monthly)
+		var bundleAnnual  = pct(2 * y1, y2);  // two subjects vs two single subjects (annual)
+
+		// The Annual toggle pill is the single place the annual saving is shown.
+		document.querySelectorAll('[data-kg-save-annual]').forEach(function (el) {
+			el.textContent = label(annual);
+		});
+		document.querySelectorAll('[data-kg-save-card="two"]').forEach(function (el) {
+			// Two-subject bundle vs two single subjects, compared like-for-like on
+			// the same billing period (no mixing monthly and annual).
+			el.textContent = label(mode === 'y' ? bundleAnnual : bundleMonthly);
+			el.hidden = false;
+		});
+	}
+
 	function applyBillingMode(mode) {
 		// Sync every toggle button on the page.
 		allBillingToggles.forEach(function (toggle) {
@@ -515,6 +551,8 @@
 		document.querySelectorAll('[data-kg-billing-note]').forEach(function (el) {
 			el.hidden = el.getAttribute('data-kg-billing-note') !== mode;
 		});
+		// Recompute the "Save %" badges for the active billing mode.
+		computeSaveBadges(mode);
 		// Notify the builder.
 		document.dispatchEvent(new CustomEvent('kg:billing', { detail: { mode: mode } }));
 	}
@@ -527,6 +565,38 @@
 
 	// Default to annual billing on page load.
 	applyBillingMode('y');
+
+	/* ----------------------------------------------------------------
+	 * Info tooltips ("?" bubbles). Hover and keyboard focus are handled
+	 * in CSS; a tap toggles the bubble, and an outside tap or Escape
+	 * closes it, so it works on touch devices too.
+	 * -------------------------------------------------------------- */
+	function closeAllTips(except) {
+		document.querySelectorAll('[data-kg-tip].is-open').forEach(function (tip) {
+			if (tip === except) { return; }
+			tip.classList.remove('is-open');
+			var b = tip.querySelector('.kg-tip__btn');
+			if (b) { b.setAttribute('aria-expanded', 'false'); }
+		});
+	}
+	document.querySelectorAll('[data-kg-tip]').forEach(function (tip) {
+		var btn = tip.querySelector('.kg-tip__btn');
+		if (!btn) { return; }
+		btn.addEventListener('click', function (e) {
+			e.stopPropagation();
+			closeAllTips(tip);
+			var open = tip.classList.toggle('is-open');
+			btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+		});
+	});
+	document.addEventListener('click', function () { closeAllTips(null); });
+	document.addEventListener('keydown', function (e) {
+		if (e.key === 'Escape') {
+			var openBtn = document.querySelector('[data-kg-tip].is-open .kg-tip__btn');
+			closeAllTips(null);
+			if (openBtn) { openBtn.focus(); }
+		}
+	});
 
 	/* ----------------------------------------------------------------
 	 * Adaptive AI engine visualisation (Features spotlight).

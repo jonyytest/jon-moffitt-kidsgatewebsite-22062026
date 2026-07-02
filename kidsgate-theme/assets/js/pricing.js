@@ -2,7 +2,7 @@
  * Kids Gate — per-child plan builder.
  *
  * Rules (from the pricing brief):
- *  - Up to 4 children per family account.
+ *  - Up to 6 children per family account.
  *  - Each child independently studies 1 subject (English OR Maths) or both.
  *  - The child with the MOST subjects is billed at the standard first-child
  *    rate; every other child is billed at the additional-child rate for
@@ -25,9 +25,11 @@
 	var rowsEl = root.querySelector('[data-kg-builder-rows]');
 	var totalEl = root.querySelector('[data-kg-builder-total]');
 	var periodEl = root.querySelector('[data-kg-builder-period]');
+	var activationEl = root.querySelector('[data-kg-builder-activation]');
+	var firstPayEl = root.querySelector('[data-kg-builder-firstpay]');
 	var template = document.getElementById('kg-child-template');
 
-	var MAX_CHILDREN = 4;
+	var MAX_CHILDREN = 6;
 	// Initialise from the toggle's current state so we don't depend on the
 	// order in which main.js broadcasts the initial billing mode.
 	var pressedYearly = document.querySelector('[data-kg-billing-toggle] button[data-kg-billing="y"][aria-pressed="true"]');
@@ -148,6 +150,30 @@
 
 		totalEl.textContent = formatPrice(total);
 		periodEl.textContent = billing === 'y' ? strings.billedYear : strings.perMonth;
+
+		// One-time activation fee — charged once per child, on both billing
+		// modes, and shown separately so it never affects the savings maths.
+		var kids = children.length;
+		var activationPer = rates.activation || 0;
+		var activationTotal = activationPer * kids;
+		if (activationEl) {
+			var amountEl = activationEl.querySelector('[data-kg-activation-amount]');
+			var subEl = activationEl.querySelector('[data-kg-activation-sub]');
+			if (amountEl) { amountEl.textContent = formatPrice(activationTotal); }
+			if (subEl && strings.activationSub) {
+				subEl.textContent = strings.activationSub
+					.replace('{price}', formatPrice(activationPer))
+					.replace('{n}', kids);
+			}
+			activationEl.hidden = activationPer <= 0;
+		}
+
+		// First payment today = one billing period + the one-time activation.
+		if (firstPayEl) {
+			var firstPeriod = billing === 'y' ? total * 12 : total;
+			var firstAmountEl = firstPayEl.querySelector('[data-kg-firstpay-amount]');
+			if (firstAmountEl) { firstAmountEl.textContent = formatPrice(firstPeriod + activationTotal); }
+		}
 	}
 
 	addBtn.addEventListener('click', addChild);

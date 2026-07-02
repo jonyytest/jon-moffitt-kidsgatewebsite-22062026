@@ -119,7 +119,7 @@ get_header();
 				if ( $i === $split ) : ?>
 				<div class="kg-card kg-feature-grid__hero" data-kg-reveal="pop" style="--kg-delay:360ms">
 					<div class="kg-feature-grid__hero-glow" aria-hidden="true"></div>
-					<img class="kg-feature-grid__hero-logo" src="<?php echo esc_url( kg_asset( 'img/kg-logo-fancy.png' ) ); ?>" alt="Kids Gate" width="200" height="207" loading="lazy">
+					<img class="kg-feature-grid__hero-logo" src="<?php echo esc_url( kg_asset( 'img/kg-logo-fancy.png' ) ); ?>" alt="The Kids Gate" width="200" height="207" loading="lazy">
 					<div class="kg-feature-grid__hero-stats">
 						<?php $s = kg_list( 'home.stats.items' ); ?>
 						<span><strong>1,800+</strong><small><?php echo esc_html( $s[0]['label'] ?? 'lessons' ); ?></small></span>

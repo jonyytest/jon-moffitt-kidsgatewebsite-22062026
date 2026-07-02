@@ -4,7 +4,7 @@
  * language switcher and the persistent Start Free Trial CTA.
  */
 ?><!DOCTYPE html>
-<html <?php language_attributes(); ?> lang="<?php echo esc_attr( kg_lang() ); ?>">
+<html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,9 +23,9 @@
 <header class="kg-header" data-kg-header>
 	<div class="kg-header__inner">
 		<a class="kg-logo" href="<?php echo esc_url( kg_url() ); ?>" aria-label="<?php echo esc_attr( kg_t( 'common.home_aria' ) ); ?>">
-			<img src="<?php echo esc_url( kg_asset( 'img/kg-logo.png' ) ); ?>" alt="Kids Gate" width="46" height="48">
+			<img src="<?php echo esc_url( kg_asset( 'img/kg-logo.png' ) ); ?>" alt="The Kids Gate" width="46" height="48">
 			<span class="kg-logo__word">
-				<span class="kg-logo__word-default">Kids <em>Gate</em></span>
+				<span class="kg-logo__word-default"><span class="kg-logo__the">The</span> Kids <em>Gate</em></span>
 				<span class="kg-logo__word-home" aria-hidden="true"><span><?php kg_e( 'nav.home_hover' ); ?></span></span>
 			</span>
 		</a>

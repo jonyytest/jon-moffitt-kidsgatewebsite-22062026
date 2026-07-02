@@ -13,8 +13,8 @@
 	<div class="kg-footer__inner">
 		<div class="kg-footer__brand">
 			<a class="kg-logo kg-logo--footer" href="<?php echo esc_url( kg_url() ); ?>" aria-label="<?php echo esc_attr( kg_t( 'common.home_aria' ) ); ?>">
-				<img src="<?php echo esc_url( kg_asset( 'img/kg-logo.png' ) ); ?>" alt="Kids Gate" width="52" height="54" loading="lazy">
-				<span class="kg-logo__word">Kids <em>Gate</em></span>
+				<img src="<?php echo esc_url( kg_asset( 'img/kg-logo.png' ) ); ?>" alt="The Kids Gate" width="52" height="54" loading="lazy">
+				<span class="kg-logo__word"><span class="kg-logo__the">The</span> Kids <em>Gate</em></span>
 			</a>
 			<p class="kg-footer__tag"><?php kg_e( 'footer.tagline' ); ?></p>
 			<?php kg_store_badges(); ?>

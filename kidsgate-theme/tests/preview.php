@@ -72,8 +72,8 @@ function wp_enqueue_script( $handle, $src = '', $deps = array(), $ver = null, $f
 function wp_localize_script( $handle, $name, $data ) {
 	$GLOBALS['kg_inline'][] = 'var ' . $name . ' = ' . wp_json_encode( $data ) . ';';
 }
-function language_attributes() { echo 'lang="en"'; }
-function bloginfo( $what ) { echo 'charset' === $what ? 'UTF-8' : 'Kids Gate'; }
+function language_attributes() { echo 'lang="' . esc_attr( kg_html_lang() ) . '"'; }
+function bloginfo( $what ) { echo 'charset' === $what ? 'UTF-8' : 'The Kids Gate'; }
 function body_class( $extra = '' ) {
 	$page = $GLOBALS['kg_current_page'];
 	$cls  = $extra . ' ';
@@ -84,7 +84,7 @@ function wp_head() {
 	foreach ( $GLOBALS['kg_styles'] as $src ) {
 		echo '<link rel="stylesheet" href="' . esc_attr( $src ) . "\">\n";
 	}
-	echo '<title>Kids Gate — preview</title>';
+	echo '<title>The Kids Gate — preview</title>';
 	do_action_stub( 'wp_head' );
 }
 function wp_body_open() {}
@@ -105,8 +105,8 @@ $GLOBALS['kg_theme_root']   = $theme_root;
 $GLOBALS['kg_actions']      = array();
 
 /* ---- routing: strip optional /market/lang/ prefix (mirrors mu-plugin) ---- */
-$valid_markets = array( 'au', 'us', 'id', 'th' );
-$valid_langs   = array( 'en', 'id', 'th' );
+$valid_markets = array( 'au', 'us', 'nz', 'sg', 'id', 'th', 'in', 'ph', 'kh', 'vn' );
+$valid_langs   = array( 'en', 'id', 'th', 'zh' );
 $parts = array_values( array_filter( explode( '/', trim( $uri, '/' ) ), 'strlen' ) );
 
 if ( ! empty( $parts[0] ) && in_array( $parts[0], $valid_markets, true ) ) {

@@ -1,5 +1,5 @@
 /**
- * Kids Gate — support page interactions.
+ * The Kids Gate — support page interactions.
  *
  *  1. FAQ live search + category filter.
  *  2. Contact form: client-side validation and a documented placeholder
@@ -84,7 +84,7 @@
 			});
 
 			// Build mailto with distinct subject per form and all field values in body
-			var subject = form.getAttribute('data-kg-form-subject') || 'Kids Gate Enquiry';
+			var subject = form.getAttribute('data-kg-form-subject') || 'The Kids Gate Enquiry';
 			var lines = [];
 			form.querySelectorAll('[name]').forEach(function (field) {
 				if (!field.name || field.type === 'submit') { return; }

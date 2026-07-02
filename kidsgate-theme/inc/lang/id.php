@@ -1,18 +1,18 @@
 <?php
 /**
- * Kids Gate — Bahasa Indonesia.
+ * The Kids Gate — Bahasa Indonesia.
  * Adaptasi budaya, bukan terjemahan harfiah. Harga dalam IDR.
  */
 
 return array(
 
 	'meta' => array(
-		'description' => 'Kids Gate adalah platform belajar berbasis AI untuk anak usia 5–12 tahun: Cambridge English dan Matematika Internasional lewat permainan, cerita, dan kuis. Uji coba gratis 30 hari, tanpa kartu kredit.',
+		'description' => 'The Kids Gate adalah platform belajar berbasis AI untuk anak usia 5–12 tahun: Cambridge English dan Matematika Internasional lewat permainan, cerita, dan kuis. Uji coba gratis 30 hari, tanpa kartu kredit.',
 	),
 
 	'common' => array(
 		'skip_to_content' => 'Lewati ke konten',
-		'home_aria'       => 'Beranda Kids Gate',
+		'home_aria'       => 'Beranda The Kids Gate',
 		'nav_aria'        => 'Navigasi utama',
 		'menu'            => 'Menu',
 		'cta_primary'     => 'Mulai Uji Coba Gratis',
@@ -56,7 +56,7 @@ return array(
 		'company'                => 'Perusahaan',
 		'help'                   => 'Butuh bantuan?',
 		'support_title'          => 'Kunjungi Bantuan',
-		'support_sub'            => 'FAQ, formulir kontak, dan tim kami',
+		'support_sub'            => 'FAQ & formulir kontak',
 		'privacy'                => 'Kebijakan Privasi',
 		'terms'                  => 'Syarat Layanan',
 		'coming_soon'            => 'Halaman segera hadir',
@@ -73,7 +73,7 @@ return array(
 			'badge_lessons_label' => 'pelajaran di dalamnya',
 			'badge_daily'         => '20 menit',
 			'badge_daily_label'   => 'sehari sudah cukup',
-			'img_alt'             => 'Seorang anak tersenyum saat belajar dengan Kids Gate di tablet',
+			'img_alt'             => 'Seorang anak tersenyum saat belajar dengan The Kids Gate di tablet',
 			'scroll_cue'          => 'Masuk ke dalam',
 			'card_mastery'        => 'Penguasaan naik',
 			'card_mastery_sub'    => 'Pecahan &middot; Kelas 4',
@@ -83,7 +83,7 @@ return array(
 		),
 
 		'stats' => array(
-			'kicker' => 'Mengapa keluarga memilih Kids Gate',
+			'kicker' => 'Mengapa keluarga memilih The Kids Gate',
 			'title'  => 'Belajar serius, dikemas jadi <span class="kg-hl-amber">menyenangkan</span>',
 			'lede'   => '',
 			'items'  => array(
@@ -112,8 +112,8 @@ return array(
 					'text'  => 'Saat belajar terasa seperti beban, anak kehilangan semangat, dan kemajuan pun berhenti.',
 				),
 			),
-			'turn_title' => 'Kids Gate mengubah keadaan',
-			'turn_text'  => 'Tutor AI dengan harga lebih murah dari sepotong pizza, menyesuaikan diri dengan anak Anda setiap jawaban, dan membuat mereka <strong>minta</strong> belajar setiap hari.',
+			'turn_title' => 'The Kids Gate mengubah keadaan',
+			'turn_text'  => 'Tutor AI dengan harga lebih murah dari berlangganan Netflix, menyesuaikan diri dengan anak Anda setiap jawaban, dan membuat mereka <strong>minta</strong> belajar setiap hari.',
 		),
 
 		'loop' => array(
@@ -189,7 +189,7 @@ return array(
 				'rewards' => array(
 					'label'  => 'Token & hadiah',
 					'title'  => 'Usaha berbuah hadiah nyata',
-					'text'   => 'Belajar menghasilkan token untuk dibelanjakan di Kids Gate Store: avatar, aksesori, dan kejutan.',
+					'text'   => 'Belajar menghasilkan token untuk dibelanjakan di The Kids Gate Store: avatar, aksesori, dan kejutan.',
 					'points' => array(
 						'Token untuk pelajaran selesai dan rangkaian harian',
 						'Toko penuh peningkatan avatar',
@@ -213,7 +213,7 @@ return array(
 		'ai' => array(
 			'kicker' => 'Bagian cerdasnya',
 			'title'  => 'Menyimak setiap jawaban',
-			'lede'   => 'Bukan sekadar benar atau salah. Kids Gate membaca kecepatan, kepercayaan diri, dan pola kesalahan, lalu menyesuaikan aktivitas berikutnya. Coba sendiri:',
+			'lede'   => 'Bukan sekadar benar atau salah. The Kids Gate membaca kecepatan, kepercayaan diri, dan pola kesalahan, lalu menyesuaikan aktivitas berikutnya. Coba sendiri:',
 			'reassess' => 'Dan setiap dua minggu, seluruh jalur dicek ulang lewat asesmen penuh.',
 			'nodes'  => array(
 				array( 'title' => 'Anak Anda menjawab', 'text' => 'Setiap ketukan, jawaban, dan jeda adalah sinyal.' ),
@@ -226,7 +226,7 @@ return array(
 			'demo_correct_btn' => '56',
 			'demo_wrong_btn'   => '54',
 			'demo_correct'     => 'Hebat! Soal berikutnya naik ke pembagian bersisa, menjaga tantangan tetap pas.',
-			'demo_wrong'       => 'Tidak apa-apa. Kids Gate akan melambat di sini: aktivitas perkalian visual menyusul, lalu kita coba lagi.',
+			'demo_wrong'       => 'Tidak apa-apa. The Kids Gate akan melambat di sini: aktivitas perkalian visual menyusul, lalu kita coba lagi.',
 		),
 
 		'dashboard' => array(
@@ -239,7 +239,7 @@ return array(
 				array( 'title' => 'Topik sulit ditandai', 'text' => 'Deteksi kesulitan sejak dini, sebelum menjadi celah.' ),
 				array( 'title' => 'Rekomendasi cerdas', 'text' => 'Saran sederhana tentang cara membantu, saat bantuan dibutuhkan.' ),
 			),
-			'img_alt'   => 'Dasbor orang tua Kids Gate menampilkan grafik aktivitas dan kemajuan',
+			'img_alt'   => 'Dasbor orang tua The Kids Gate menampilkan grafik aktivitas dan kemajuan',
 			'cta_label' => 'Jelajahi dasbor orang tua',
 		),
 
@@ -248,12 +248,12 @@ return array(
 			'title'  => 'Token, trofi, dan dunia untuk dibuka',
 			'lede'   => 'Hadiah merayakan konsistensi, sedikit setiap hari lebih baik daripada banyak sekali seminggu.',
 			'cards'  => array(
-				array( 'title' => 'Kids Gate Store', 'text' => 'Belanjakan token hasil kerja keras untuk avatar, kostum, dan kejutan seru.' ),
+				array( 'title' => 'The Kids Gate Store', 'text' => 'Belanjakan token hasil kerja keras untuk avatar, kostum, dan kejutan seru.' ),
 				array( 'title' => 'Papan peringkat global', 'text' => 'Peringkat per negara dan kelas yang bersahabat merayakan pelajar yang konsisten.' ),
 				array( 'title' => 'Undian hadiah bulanan', 'text' => 'Pelajar aktif diikutkan dalam undian bulanan dengan hadiah nyata.' ),
 			),
-			'map_alt'     => 'Peta dunia virtual Kids Gate dengan pulau-pulau untuk dijelajahi',
-			'map_caption' => 'Dunia Kids Gate. Area baru terbuka seiring kemajuan anak Anda.',
+			'map_alt'     => 'Peta dunia virtual The Kids Gate dengan pulau-pulau untuk dijelajahi',
+			'map_caption' => 'Dunia The Kids Gate. Area baru terbuka seiring kemajuan anak Anda.',
 			'cta_label'   => 'Intip papan peringkat',
 		),
 
@@ -271,7 +271,7 @@ return array(
 				array(
 					'quote' => 'Testimoni placeholder. Ganti dengan kutipan terverifikasi tentang kemajuan yang terlihat di dasbor orang tua.',
 					'name'  => 'Nama orang tua',
-					'meta'  => 'Orang tua dua pelajar Kids Gate',
+					'meta'  => 'Orang tua dua pelajar The Kids Gate',
 				),
 				array(
 					'quote' => 'Testimoni placeholder. Ganti dengan kutipan terverifikasi tentang uji coba gratis yang meyakinkan orang tua yang ragu.',
@@ -284,7 +284,7 @@ return array(
 		'pricing' => array(
 			'kicker'    => 'Harga sederhana',
 			'title'     => 'Lebih murah dari satu jam les privat, <span class="kg-hl-teal">setiap bulan</span>',
-			'lede'      => 'Satu langganan per anak, hingga empat anak per keluarga. Mulai dengan 30 hari gratis.',
+			'lede'      => 'Satu langganan per anak, hingga enam anak per keluarga. Mulai dengan 30 hari gratis.',
 			'cta_label' => 'Lihat harga lengkap',
 		),
 
@@ -323,12 +323,12 @@ return array(
 			),
 			array(
 				'title'  => '5. Asesmen ulang setiap dua minggu',
-				'text'   => 'Setiap dua minggu, Kids Gate otomatis mengecek ulang level anak Anda agar jalur belajar tidak melenceng dari kenyataan.',
+				'text'   => 'Setiap dua minggu, The Kids Gate otomatis mengecek ulang level anak Anda agar jalur belajar tidak melenceng dari kenyataan.',
 				'detail' => 'Naik level? Jalur dipercepat. Perlu pemantapan? Sistem berputar kembali dengan lembut.',
 			),
 			array(
 				'title'  => '6. Token, hadiah, dan dunia',
-				'text'   => 'Pelajaran selesai menghasilkan token untuk Kids Gate Store, dan rangkaian konsisten membuka area baru di dunia virtual.',
+				'text'   => 'Pelajaran selesai menghasilkan token untuk The Kids Gate Store, dan rangkaian konsisten membuka area baru di dunia virtual.',
 				'detail' => 'Hadiah merayakan kehadiran. Konsistensilah yang berbuah.',
 			),
 			array(
@@ -369,7 +369,7 @@ return array(
 		'spotlight_ai' => array(
 			'kicker' => 'Fitur unggulan',
 			'title'  => 'Personalisasi AI adaptif',
-			'text'   => 'Jantungnya Kids Gate. Setiap jawaban anak Anda, benar, salah, cepat atau lambat, memberi masukan pada model belajar yang menyesuaikan aktivitas berikutnya. Asesmen penuh setiap dua minggu menjaga jalur tetap jujur.',
+			'text'   => 'Jantungnya The Kids Gate. Setiap jawaban anak Anda, benar, salah, cepat atau lambat, memberi masukan pada model belajar yang menyesuaikan aktivitas berikutnya. Asesmen penuh setiap dua minggu menjaga jalur tetap jujur.',
 			'points' => array(
 				'Menyesuaikan setelah setiap jawaban',
 				'Mengajarkan ulang ide yang terlewat dari sudut baru',
@@ -430,14 +430,14 @@ return array(
 		'hero' => array(
 			'kicker' => 'Untuk Orang Tua',
 			'title'  => 'Anda tetap tahu, tanpa harus mengawasi terus',
-			'lede'   => 'Kids Gate dibangun di atas janji sederhana: anak mendapat keseruan, Anda mendapat fakta.',
+			'lede'   => 'The Kids Gate dibangun di atas janji sederhana: anak mendapat keseruan, Anda mendapat fakta.',
 		),
 		'tour' => array(
 			'kicker'  => 'Tur dasbor',
 			'title'   => 'Dasbor Anda, dengan penjelasan',
 			'lede'    => 'Ketuk area mana pun untuk melihat fungsinya, lalu beralih antara tampilan Aktivitas dan Performa.',
-			'activity_alt'      => 'Dasbor orang tua Kids Gate, tampilan Aktivitas',
-			'performance_alt'   => 'Dasbor orang tua Kids Gate, tampilan Performa',
+			'activity_alt'      => 'Dasbor orang tua The Kids Gate, tampilan Aktivitas',
+			'performance_alt'   => 'Dasbor orang tua The Kids Gate, tampilan Performa',
 			'activity_label'    => 'Dasbor Kemajuan: Aktivitas',
 			'performance_label' => 'Dasbor Kemajuan: Performa',
 			'items'   => array(
@@ -481,7 +481,7 @@ return array(
 		),
 		'profiles' => array(
 			'kicker' => 'Dibuat untuk keluarga',
-			'title'  => 'Hingga empat anak, satu akun',
+			'title'  => 'Hingga enam anak, satu akun',
 			'lede'   => 'Setiap anak punya profil, jalur, dan hadiahnya sendiri, dan Anda melihat semuanya di satu tempat.',
 			'items'  => array(
 				array( 'title' => 'Profil individual', 'text' => 'Kemajuan, level, dan hadiah terpisah untuk setiap anak.' ),
@@ -492,7 +492,7 @@ return array(
 		'perks' => array(
 			'kicker' => 'Lebih banyak untuk orang tua',
 			'title'  => 'Hal-hal kecil yang membuat hidup lebih mudah',
-			'lede'   => 'Sentuhan ekstra yang dirancang sesuai cara keluarga sungguhan menggunakan Kids Gate.',
+			'lede'   => 'Sentuhan ekstra yang dirancang sesuai cara keluarga sungguhan menggunakan The Kids Gate.',
 			'items'  => array(
 				array( 'title' => 'Mode Offline', 'text' => 'Pelajaran disimpan di cache sehingga anak Anda tetap bisa belajar tanpa Wi-Fi, cocok untuk perjalanan panjang.' ),
 				array( 'title' => 'Batalkan Kapan Saja', 'text' => 'Tanpa kontrak mengikat. Batalkan langganan Anda kapan saja langsung dari pengaturan akun.' ),
@@ -527,11 +527,11 @@ return array(
 			'items'  => array(
 				array(
 					'q' => 'Berapa banyak waktu layar yang dibutuhkan?',
-					'a' => 'Kids Gate dirancang untuk satu sesi singkat sekitar 20 menit per hari. Aplikasi mendorong berhenti di titik akhir yang alami, bukan menggulir tanpa henti.',
+					'a' => 'The Kids Gate dirancang untuk satu sesi singkat sekitar 20 menit per hari. Aplikasi mendorong berhenti di titik akhir yang alami, bukan menggulir tanpa henti.',
 				),
 				array(
 					'q' => 'Apakah benar-benar sesuai dengan pelajaran sekolah anak saya?',
-					'a' => 'Kids Gate mengajarkan Cambridge English dan Matematika Internasional untuk Kelas 1–6. Jalur adaptifnya melengkapi sekolah dengan mengisi celah dan mengasah kekuatan, bukan menduplikasi PR.',
+					'a' => 'The Kids Gate mengajarkan Cambridge English dan Matematika Internasional untuk Kelas 1–6. Jalur adaptifnya melengkapi sekolah dengan mengisi celah dan mengasah kekuatan, bukan menduplikasi PR.',
 				),
 				array(
 					'q' => 'Bagaimana jika anak saya merasa terlalu mudah atau terlalu sulit?',
@@ -560,6 +560,10 @@ return array(
 			'yearly'  => 'Tahunan',
 			'save'    => 'Hemat 20%',
 		),
+		'save_label' => 'Hemat {n}%',
+		'activation_faq_q' => 'Apa itu biaya aktivasi satu kali?',
+		'activation_help'  => 'Tentang biaya aktivasi satu kali',
+		'activation_info'  => 'Biaya satu kali per anak — dan per siswa sekolah — dikenakan sekali selama terus berlangganan. Biaya ini tetap berlaku saat Anda beralih dari bulanan ke tahunan (tanpa penagihan ulang), dan hanya berlaku lagi jika akun berhenti atau dibatalkan lalu bergabung kembali. Biaya ini mendanai hadiah token dan fitur belajar dalam aplikasi yang membuat anak terus kembali dan maju secara stabil.',
 		'plans' => array(
 			'one' => array(
 				'name'     => 'Satu mata pelajaran',
@@ -576,6 +580,7 @@ return array(
 				'name'     => 'Dua mata pelajaran',
 				'desc'     => 'Cambridge English DAN Matematika Internasional',
 				'flag'     => 'Paling populer',
+					'vs_singles' => 'untuk dua mata pelajaran terpisah',
 				'features' => array(
 					'Semua yang ada di Satu mata pelajaran',
 					'Kedua kurikulum lengkap',
@@ -590,7 +595,7 @@ return array(
 		),
 		'builder' => array(
 			'kicker'        => 'Susun paket keluarga Anda',
-			'title'         => 'Padu padan untuk hingga empat anak',
+			'title'         => 'Padu padan untuk hingga enam anak',
 			'lede'          => 'Pilih mata pelajaran tiap anak. Anak dengan mata pelajaran terbanyak membayar tarif standar; anak lainnya mendapat tarif anak tambahan.',
 			'add_child'     => 'Tambah anak',
 			'remove_child'  => 'Hapus anak ini',
@@ -601,15 +606,21 @@ return array(
 			'select_cta'    => 'Pilih paket ini',
 			'select_note'   => 'Anda akan diarahkan ke tim bantuan kami untuk menyelesaikan pendaftaran, pembayaran online segera hadir.',
 			'trial_note'    => 'Uji coba gratis 30 hari mencakup semua yang ada di paket ini.',
+				'trial_lead'    => '30 hari pertama gratis, lalu:',
+			'activation_label' => 'Aktivasi satu kali',
+			'first_payment'    => 'Pembayaran pertama hari ini',
+			'tax_note'         => 'Biaya regional tambahan dan pajak mungkin berlaku saat checkout.',
 		),
 		'calc' => array(
 			'per_month'     => '/bulan',
 			'billed_yearly' => '/bulan, ditagih tahunan',
+			'billed_total'  => '{price} ditagih hari ini',
 			'child'         => 'Anak',
 			'full_rate'     => 'tarif standar',
 			'addl_rate'     => 'tarif anak tambahan',
 			'one_subject'   => '1 mata pelajaran',
 			'two_subjects'  => '2 mata pelajaran',
+			'activation_sub' => '{price} per anak × {n}',
 		),
 		'disclaimer' => 'Cara penagihan keluarga: jika anak-anak Anda belajar jumlah mata pelajaran yang berbeda, anak dengan mata pelajaran terbanyak ditagih dengan tarif standar anak pertama. Anak lainnya ditagih dengan tarif anak tambahan sesuai jumlah mata pelajaran masing-masing. Aturan yang sama berlaku untuk tagihan bulanan dan tahunan.',
 		'faq' => array(
@@ -635,7 +646,7 @@ return array(
 				),
 				array(
 					'q' => 'Bagaimana cara kerja anak tambahan?',
-					'a' => 'Satu akun keluarga menampung hingga empat anak. Anak dengan mata pelajaran terbanyak membayar tarif standar; setiap anak lainnya membayar tarif anak tambahan sesuai mata pelajarannya.',
+					'a' => 'Satu akun keluarga menampung hingga enam anak. Anak dengan mata pelajaran terbanyak membayar tarif standar; setiap anak lainnya membayar tarif anak tambahan sesuai mata pelajarannya.',
 				),
 				array(
 					'q' => 'Bisakah anak-anak saya belajar mata pelajaran berbeda?',
@@ -653,7 +664,7 @@ return array(
 		'hero' => array(
 			'kicker' => 'Untuk Sekolah & Guru',
 			'title'  => 'Pembelajaran personal untuk setiap kursi di kelas',
-			'lede'   => 'Kids Gate melengkapi pengajaran di kelas dengan latihan adaptif, dan memberi guru visibilitas yang biasanya hanya dimiliki tutor privat.',
+			'lede'   => 'The Kids Gate melengkapi pengajaran di kelas dengan latihan adaptif, dan memberi guru visibilitas yang biasanya hanya dimiliki tutor privat.',
 		),
 		'align' => array(
 			'kicker' => 'Kesesuaian kurikulum',
@@ -668,9 +679,9 @@ return array(
 		'value' => array(
 			'kicker' => 'Dalam praktik',
 			'title'  => 'Kelas dan rumah, bekerja sama',
-			'lede'   => 'Apa pun cara Anda mengajar, Kids Gate menyesuaikan dan beradaptasi dengan setiap siswa tanpa menambah beban kerja Anda.',
+			'lede'   => 'Apa pun cara Anda mengajar, The Kids Gate menyesuaikan dan beradaptasi dengan setiap siswa tanpa menambah beban kerja Anda.',
 			'items'  => array(
-				array( 'tag' => 'Diferensiasi langsung', 'title' => 'Di kelas', 'text' => 'Gunakan Kids Gate untuk latihan terdiferensiasi, setiap siswa bekerja di levelnya sendiri dalam sesi yang sama.' ),
+				array( 'tag' => 'Diferensiasi langsung', 'title' => 'Di kelas', 'text' => 'Gunakan The Kids Gate untuk latihan terdiferensiasi, setiap siswa bekerja di levelnya sendiri dalam sesi yang sama.' ),
 				array( 'tag' => 'PR beres', 'title' => 'Di rumah', 'text' => 'PR yang menilai dirinya sendiri, menyesuaikan dirinya sendiri, dan melapor kembali kepada Anda.' ),
 				array( 'tag' => 'Bantuan tepat sasaran', 'title' => 'Untuk intervensi', 'text' => 'Penanda topik sulit menunjukkan persis siswa mana yang butuh bantuan, pada konsep mana.' ),
 			),
@@ -690,7 +701,7 @@ return array(
 				array( 'title' => 'Rata-rata skor per siswa', 'text' => 'Bandingkan rata-rata skor kuis di seluruh siswa dalam kelas.' ),
 				array( 'title' => 'Penyelesaian aktivitas', 'text' => 'Pantau berapa banyak aktivitas yang diselesaikan tiap siswa pada periode ini.' ),
 			),
-			'img_alt' => 'Dasbor guru Kids Gate menampilkan skor asesmen kelas, rincian sesi, dan penyelesaian aktivitas',
+			'img_alt' => 'Dasbor guru The Kids Gate menampilkan skor asesmen kelas, rincian sesi, dan penyelesaian aktivitas',
 		),
 		'principal' => array(
 			'kicker' => 'Tampilan kepala sekolah',
@@ -702,7 +713,7 @@ return array(
 				array( 'title' => 'Rata-rata token diperoleh', 'text' => 'Lihat kelas mana yang paling aktif lewat perolehan token per kelas.' ),
 				array( 'title' => 'Rata-rata asesmen selesai', 'text' => 'Pantau berapa banyak asesmen dan video yang diselesaikan tiap kelas rata-rata.' ),
 			),
-			'img_alt' => 'Dasbor kepala sekolah Kids Gate membandingkan kelas berdasarkan skor asesmen, token, dan penyelesaian',
+			'img_alt' => 'Dasbor kepala sekolah The Kids Gate membandingkan kelas berdasarkan skor asesmen, token, dan penyelesaian',
 		),
 		'testimonial' => array(
 			'flag'  => 'Placeholder',
@@ -716,6 +727,7 @@ return array(
 			'kicker'        => 'Mulai',
 			'title'         => 'Minta informasi sekolah',
 			'lede'          => 'Ceritakan tentang sekolah Anda dan kami akan kembali dengan harga, detail onboarding, dan proposal uji coba.',
+				'pricing_note'  => 'Sekolah hemat <span class="kg-hl-teal">hingga 10%</span> per siswa dibanding tarif standar, ditagih tahunan.',
 			'name'          => 'Nama Anda',
 			'email'         => 'Email kantor',
 			'school'        => 'Nama sekolah',
@@ -807,7 +819,7 @@ return array(
 			'kicker' => 'Cerita kami',
 			'title'  => 'Dari melihat anak padam, menjadi melihat mereka menyala',
 			'paras'  => array(
-				'Kids Gate dibangun oleh GATE Edutech Solutions Pty Ltd, tim pendidik, insinyur, dan orang tua di Australia dan Asia Tenggara.',
+				'The Kids Gate dibangun oleh GATE Edutech Solutions Pty Ltd, tim pendidik, insinyur, dan orang tua di Australia dan Asia Tenggara.',
 				'Kami melihat anak-anak cerdas kehilangan kepercayaan diri di kelas yang bergerak dengan kecepatan orang lain, dan les privat membuat personalisasi sejati tak terjangkau bagi kebanyakan keluarga.',
 				'Maka kami membangun gerbang antara posisi anak saat ini dan potensinya: tutor AI dengan kesabaran tanpa batas, ingatan sempurna, dan harga yang terjangkau keluarga biasa.',
 			),
@@ -825,7 +837,7 @@ return array(
 		'global' => array(
 			'kicker' => 'Global sejak hari pertama',
 			'title'  => 'Satu platform, banyak bahasa',
-			'text'   => 'Kids Gate melayani keluarga dalam bahasa Inggris, Indonesia, dan Thai, dengan harga lokal dan konten yang diadaptasi secara budaya, bukan sekadar terjemahan.',
+			'text'   => 'The Kids Gate melayani keluarga dalam bahasa Inggris, Indonesia, Thai, dan Mandarin, dengan harga lokal dan konten yang diadaptasi secara budaya, bukan sekadar terjemahan.',
 		),
 		'contact' => array(
 			'kicker'  => 'Detail perusahaan',
@@ -840,19 +852,19 @@ return array(
 		'hero' => array(
 			'kicker'        => 'Sponsor & Mitra',
 			'title'         => 'Bantu lebih banyak anak jatuh cinta pada belajar',
-			'lede'          => 'Bermitralah dengan Kids Gate untuk mendukung hadiah, mendanai akses belajar, dan menampilkan merek Anda di hadapan keluarga di seluruh dunia, semuanya dalam dunia yang aman dan bebas iklan untuk usia 5–12.',
+			'lede'          => 'Bermitralah dengan The Kids Gate untuk mendukung hadiah, mendanai akses belajar, dan menampilkan merek Anda di hadapan keluarga di seluruh dunia, semuanya dalam dunia yang aman dan bebas iklan untuk usia 5–12.',
 			'cta'           => 'Jadi Sponsor',
 			'cta_secondary' => 'Lihat tingkat kemitraan',
 			'chips'         => array( 'Jangkauan global', 'Usia 5–12', 'Aman & bebas iklan' ),
 		),
 		'impact' => array(
-			'kicker' => 'Mengapa menjadi sponsor Kids Gate',
+			'kicker' => 'Mengapa menjadi sponsor The Kids Gate',
 			'title'  => 'Dunia pembelajar muda yang terus tumbuh',
 			'lede'   => 'Dukungan Anda menjangkau keluarga aktif setiap hari dalam tiga bahasa dan dua mata pelajaran inti.',
 			'items'  => array(
 				array( 'num' => '1800', 'suffix' => '+',    'label' => 'Pelajaran yang dijangkau dukungan Anda' ),
 				array( 'num' => '6',    'suffix' => '',     'label' => 'Tingkat kelas, usia 5–12' ),
-				array( 'num' => '3',    'suffix' => '',     'label' => 'Bahasa: Inggris · Indonesia · Thai' ),
+				array( 'num' => '4',    'suffix' => '',     'label' => 'Bahasa: Inggris · Indonesia · Thai · Mandarin' ),
 				array( 'num' => '20',   'suffix' => 'mnt',  'label' => 'Belajar harian per anak' ),
 			),
 			'note'   => 'Angka audiens dan keterlibatan terverifikasi tersedia atas permintaan.',
@@ -863,8 +875,8 @@ return array(
 			'lede'   => 'Setiap kemitraan dirancang sesuai dengan apa yang paling penting bagi Anda.',
 			'items'  => array(
 				array( 'title' => 'Dukung undian hadiah', 'text' => 'Sponsori undian hadiah bulanan yang membuat anak tetap termotivasi dan kembali belajar.' ),
-				array( 'title' => 'Isi Kids Gate Store', 'text' => 'Danai hadiah token dan item avatar yang dibuka anak seiring kemajuannya.' ),
-				array( 'title' => 'Sponsori akses belajar', 'text' => 'Berikan tempat Kids Gate penuh bagi anak yang tidak mampu membelinya untuk belajar dan bermain.' ),
+				array( 'title' => 'Isi The Kids Gate Store', 'text' => 'Danai hadiah token dan item avatar yang dibuka anak seiring kemajuannya.' ),
+				array( 'title' => 'Sponsori akses belajar', 'text' => 'Berikan tempat The Kids Gate penuh bagi anak yang tidak mampu membelinya untuk belajar dan bermain.' ),
 			),
 		),
 		'tiers' => array(
@@ -878,7 +890,7 @@ return array(
 				array(
 					'name'   => 'Sponsor Komunitas',
 					'price'  => 'Mari bicara',
-					'blurb'  => 'Sambutan hangat ke keluarga Kids Gate.',
+					'blurb'  => 'Sambutan hangat ke keluarga The Kids Gate.',
 					'points' => array( 'Logo Anda di halaman Sponsor', 'Ucapan terima kasih di kanal sosial kami', 'Ringkasan dampak bulanan' ),
 				),
 				array(
@@ -892,7 +904,7 @@ return array(
 					'name'   => 'Juara Pendiri',
 					'price'  => 'Mari bicara',
 					'blurb'  => 'Bentuk masa depan platform bersama kami.',
-					'points' => array( 'Semua di Mitra Pembelajaran', 'Undian hadiah bernama', 'Kampanye Kids Gate Store khusus', 'Penempatan unggulan di beranda dan aplikasi', 'Kemitraan strategis berkelanjutan' ),
+					'points' => array( 'Semua di Mitra Pembelajaran', 'Undian hadiah bernama', 'Kampanye The Kids Gate Store khusus', 'Penempatan unggulan di beranda dan aplikasi', 'Kemitraan strategis berkelanjutan' ),
 				),
 			),
 		),
@@ -914,7 +926,7 @@ return array(
 		),
 		'testimonial' => array(
 			'flag'  => 'Testimoni mitra placeholder',
-			'quote' => 'Kutipan singkat dari calon sponsor tentang dampak bermitra dengan Kids Gate akan tampil di sini.',
+			'quote' => 'Kutipan singkat dari calon sponsor tentang dampak bermitra dengan The Kids Gate akan tampil di sini.',
 			'name'  => 'Nama mitra',
 			'meta'  => 'Organisasi, negara',
 		),
@@ -926,12 +938,12 @@ return array(
 			'email'         => 'Alamat email',
 			'org'           => 'Organisasi',
 			'interest'      => 'Apa yang Anda minati?',
-			'interest_opts' => array( 'Mensponsori undian hadiah', 'Mendanai Kids Gate Store', 'Mensponsori akses belajar', 'Kemitraan merek', 'Lainnya' ),
+			'interest_opts' => array( 'Mensponsori undian hadiah', 'Mendanai The Kids Gate Store', 'Mensponsori akses belajar', 'Kemitraan merek', 'Lainnya' ),
 			'budget'        => 'Perkiraan anggaran (opsional)',
 			'message'       => 'Ceritakan lebih lanjut (opsional)',
 			'submit'        => 'Kirim Permintaan Sponsor',
 			'success_title' => 'Permintaan diterima',
-			'success_text'  => 'Terima kasih atas minat Anda bermitra dengan Kids Gate! Catatan untuk pemilik situs: backend email belum terhubung, jadi pengiriman ini hanya direkam untuk analitik. Sampai terhubung, mohon email juga ke alamat di bawah untuk respons yang pasti.',
+			'success_text'  => 'Terima kasih atas minat Anda bermitra dengan The Kids Gate! Catatan untuk pemilik situs: backend email belum terhubung, jadi pengiriman ini hanya direkam untuk analitik. Sampai terhubung, mohon email juga ke alamat di bawah untuk respons yang pasti.',
 		),
 		'cta' => array(
 			'title' => 'Mari ciptakan sesuatu yang luar biasa untuk anak-anak',
@@ -949,29 +961,29 @@ return array(
 		'no_results'         => 'Tidak ada jawaban yang cocok. Coba kata lain, atau kirim pesan kepada kami di bawah.',
 		'cats' => array(
 			'plans'   => 'Paket & harga',
-			'product' => 'Menggunakan Kids Gate',
+			'product' => 'Menggunakan The Kids Gate',
 			'account' => 'Akun & aplikasi',
 		),
 		'faq_items' => array(
 			array(
 				'cat' => 'product',
-				'q'   => 'Apa itu Kids Gate?',
-				'a'   => 'Kids Gate adalah platform belajar berbasis AI untuk anak usia 5–12 tahun. Menyediakan pelajaran Cambridge English dan Matematika Internasional untuk Kelas 1–6 lewat permainan, cerita, kuis, lagu, teka-teki, dan aktivitas interaktif lainnya.',
+				'q'   => 'Apa itu The Kids Gate?',
+				'a'   => 'The Kids Gate adalah platform belajar berbasis AI untuk anak usia 5–12 tahun. Menyediakan pelajaran Cambridge English dan Matematika Internasional untuk Kelas 1–6 lewat permainan, cerita, kuis, lagu, teka-teki, dan aktivitas interaktif lainnya.',
 			),
 			array(
 				'cat' => 'plans',
 				'q'   => 'Bagaimana cara kerja uji coba gratis 30 hari?',
-				'a'   => 'Keluarga dapat mencoba Kids Gate gratis selama 30 hari. Tidak perlu kartu kredit untuk memulai, dan Anda bisa berhenti kapan saja.',
+				'a'   => 'Keluarga dapat mencoba The Kids Gate gratis selama 30 hari. Tidak perlu kartu kredit untuk memulai, dan Anda bisa berhenti kapan saja.',
 			),
 			array(
 				'cat' => 'product',
 				'q'   => 'Bagaimana cara kerja personalisasi AI?',
-				'a'   => 'Kids Gate menyesuaikan pengalaman belajar berdasarkan jawaban, kesalahan, kecepatan, kepercayaan diri, dan kemajuan tiap anak. Level belajar juga dinilai ulang otomatis setiap dua minggu.',
+				'a'   => 'The Kids Gate menyesuaikan pengalaman belajar berdasarkan jawaban, kesalahan, kecepatan, kepercayaan diri, dan kemajuan tiap anak. Level belajar juga dinilai ulang otomatis setiap dua minggu.',
 			),
 			array(
 				'cat' => 'product',
-				'q'   => 'Berapa lama anak saya sebaiknya menggunakan Kids Gate setiap hari?',
-				'a'   => 'Kids Gate dirancang untuk sesi belajar harian singkat sekitar 20 menit.',
+				'q'   => 'Berapa lama anak saya sebaiknya menggunakan The Kids Gate setiap hari?',
+				'a'   => 'The Kids Gate dirancang untuk sesi belajar harian singkat sekitar 20 menit.',
 			),
 			array(
 				'cat' => 'product',
@@ -981,7 +993,7 @@ return array(
 			array(
 				'cat' => 'account',
 				'q'   => 'Bisakah saya menambahkan lebih dari satu anak ke akun saya?',
-				'a'   => 'Bisa. Satu akun keluarga menampung hingga empat anak. Setiap anak mendapat profil, pelacakan kemajuan, hadiah, dan jalur belajarnya sendiri.',
+				'a'   => 'Bisa. Satu akun keluarga menampung hingga enam anak. Setiap anak mendapat profil, pelacakan kemajuan, hadiah, dan jalur belajarnya sendiri.',
 			),
 			array(
 				'cat' => 'plans',
@@ -995,18 +1007,18 @@ return array(
 			),
 			array(
 				'cat' => 'product',
-				'q'   => 'Apakah Kids Gate punya sistem hadiah?',
-				'a'   => 'Ya. Anak mendapat token dari aktivitas belajar dan membelanjakannya di Kids Gate Store. Kids Gate juga punya papan peringkat global dan undian hadiah bulanan.',
+				'q'   => 'Apakah The Kids Gate punya sistem hadiah?',
+				'a'   => 'Ya. Anak mendapat token dari aktivitas belajar dan membelanjakannya di The Kids Gate Store. The Kids Gate juga punya papan peringkat global dan undian hadiah bulanan.',
 			),
 			array(
 				'cat' => 'product',
-				'q'   => 'Apakah Kids Gate aman untuk anak?',
-				'a'   => 'Kids Gate dirancang sebagai pengalaman belajar yang aman dan bebas iklan. Papan peringkat menggunakan nama samaran dan avatar yang aman, dan tidak ada obrolan terbuka.',
+				'q'   => 'Apakah The Kids Gate aman untuk anak?',
+				'a'   => 'The Kids Gate dirancang sebagai pengalaman belajar yang aman dan bebas iklan. Papan peringkat menggunakan nama samaran dan avatar yang aman, dan tidak ada obrolan terbuka.',
 			),
 			array(
 				'cat' => 'account',
 				'q'   => 'Di mana saya bisa mengunduh aplikasinya?',
-				'a'   => 'Gunakan tombol App Store dan Google Play di bagian footer halaman mana pun untuk mengunduh Kids Gate. (Tautan toko masih placeholder sampai listing resmi tayang.)',
+				'a'   => 'Gunakan tombol App Store dan Google Play di bagian footer halaman mana pun untuk mengunduh The Kids Gate. (Tautan toko masih placeholder sampai listing resmi tayang.)',
 			),
 			array(
 				'cat' => 'account',
@@ -1015,8 +1027,8 @@ return array(
 			),
 			array(
 				'cat' => 'plans',
-				'q'   => 'Bisakah sekolah dan guru menggunakan Kids Gate?',
-				'a'   => 'Bisa. Kids Gate menyediakan dasbor guru dan sekolah opsional. Kunjungi halaman <a href="{schools_url}">Untuk Sekolah & Guru</a> dan gunakan formulir di sana.',
+				'q'   => 'Bisakah sekolah dan guru menggunakan The Kids Gate?',
+				'a'   => 'Bisa. The Kids Gate menyediakan dasbor guru dan sekolah opsional. Kunjungi halaman <a href="{schools_url}">Untuk Sekolah & Guru</a> dan gunakan formulir di sana.',
 			),
 			array(
 				'cat' => 'account',
@@ -1051,7 +1063,7 @@ return array(
 		),
 		'helper' => array(
 			'fab_label'   => 'Bantuan cepat',
-			'title'       => 'Bantuan Kids Gate',
+			'title'       => 'Bantuan The Kids Gate',
 			'greeting'    => 'Hai! Ada yang bisa kami bantu hari ini? Pilih topik di bawah 👇',
 			'restart'     => 'Senang bisa membantu! Ada lagi yang ingin ditelusuri?',
 			'helpful_q'   => 'Apakah ini membantu?',
@@ -1078,7 +1090,7 @@ return array(
 								array(
 									'id'     => 'pricing-add-count',
 									'label'  => 'Berapa anak yang bisa ditambahkan?',
-									'answer' => 'Satu akun keluarga mencakup hingga empat anak, masing-masing dengan profil, kemajuan, dan hadiahnya sendiri.',
+									'answer' => 'Satu akun keluarga mencakup hingga enam anak, masing-masing dengan profil, kemajuan, dan hadiahnya sendiri.',
 								),
 								array(
 									'id'     => 'pricing-add-cost',
@@ -1148,7 +1160,7 @@ return array(
 						array(
 							'id'     => 'using-time',
 							'label'  => 'Berapa lama tiap hari?',
-							'answer' => 'Kids Gate dirancang sekitar sesi harian singkat selama kira-kira 20 menit, cukup untuk maju tanpa kehilangan keseruan.',
+							'answer' => 'The Kids Gate dirancang sekitar sesi harian singkat selama kira-kira 20 menit, cukup untuk maju tanpa kehilangan keseruan.',
 						),
 						array(
 							'id'     => 'using-subjects',
@@ -1158,7 +1170,7 @@ return array(
 						array(
 							'id'     => 'using-safe',
 							'label'  => 'Apakah aman dan tanpa iklan?',
-							'answer' => 'Ya. Kids Gate dirancang sebagai ruang yang aman dan tanpa iklan bagi anak untuk belajar dan bermain.',
+							'answer' => 'Ya. The Kids Gate dirancang sebagai ruang yang aman dan tanpa iklan bagi anak untuk belajar dan bermain.',
 						),
 						array(
 							'id'      => 'using-tech',

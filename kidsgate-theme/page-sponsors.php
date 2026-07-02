@@ -48,7 +48,7 @@ get_header();
 			$icons = array(
 				// Gift — prize draws
 				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-				// Coins — Kids Gate Store
+				// Coins — The Kids Gate Store
 				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="currentColor" stroke-width="2"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" stroke="currentColor" stroke-width="2"/></svg>',
 				// Heart — learning access
 				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
@@ -145,7 +145,7 @@ get_header();
 	<div class="kg-container">
 		<?php kg_section_head( 'sponsors.form' ); ?>
 		<div class="kg-schools-form">
-			<form data-kg-support-form data-kg-form-subject="Kids Gate: Sponsor Enquiry" novalidate>
+			<form data-kg-support-form data-kg-form-subject="The Kids Gate: Sponsor Enquiry" novalidate>
 				<div class="kg-form-grid">
 					<div class="kg-field">
 						<label for="kg-sponsor-name"><?php kg_e( 'sponsors.form.name' ); ?></label>

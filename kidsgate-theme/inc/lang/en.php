@@ -1,18 +1,18 @@
 <?php
 /**
- * Kids Gate — English (global) content.
+ * The Kids Gate — English (global) content.
  * Prices in USD. Edit copy here; templates read it via kg_t( 'dot.path' ).
  */
 
 return array(
 
 	'meta' => array(
-		'description' => 'Kids Gate is an AI-powered learning platform for children aged 5–12: Cambridge English and International Maths through games, stories and quizzes. 30-day free trial, no credit card required.',
+		'description' => 'The Kids Gate is an AI-powered learning platform for children aged 5–12: Cambridge English and International Maths through games, stories and quizzes. 30-day free trial, no credit card required.',
 	),
 
 	'common' => array(
 		'skip_to_content' => 'Skip to content',
-		'home_aria'       => 'Kids Gate home',
+		'home_aria'       => 'The Kids Gate home',
 		'nav_aria'        => 'Main navigation',
 		'menu'            => 'Menu',
 		'cta_primary'     => 'Start Free Trial',
@@ -38,10 +38,10 @@ return array(
 
 	'nav' => array(
 		'home'         => 'Home',
-		'home_hover'   => 'Go <em>Home</em>',
+		'home_hover'   => 'Return <em>Home</em>',
 		'how_it_works' => 'How It Works',
 		'features'     => 'Features',
-		'parents'      => 'For Parents',
+		'parents'      => 'Parents',
 		'pricing'      => 'Pricing',
 		'schools'      => 'Schools',
 		'leaderboard'  => 'Leaderboard',
@@ -56,7 +56,7 @@ return array(
 		'company'                => 'Company',
 		'help'                   => 'Need a hand?',
 		'support_title'          => 'Visit Support',
-		'support_sub'            => 'FAQs, contact form and our team',
+		'support_sub'            => 'FAQs & contact form',
 		'privacy'                => 'Privacy Policy',
 		'terms'                  => 'Terms of Service',
 		'coming_soon'            => 'Page coming soon',
@@ -74,7 +74,7 @@ return array(
 			'badge_lessons_label' => 'lessons inside',
 			'badge_daily'    => '20 min',
 			'badge_daily_label'   => 'a day is enough',
-			'img_alt'  => 'A child smiling while learning with Kids Gate on a tablet',
+			'img_alt'  => 'A child smiling while learning with The Kids Gate on a tablet',
 			'scroll_cue' => 'Step inside',
 			'card_mastery'     => 'Mastery up',
 			'card_mastery_sub' => 'Fractions &middot; Grade 4',
@@ -84,7 +84,7 @@ return array(
 		),
 
 		'stats' => array(
-			'kicker' => 'Why families choose Kids Gate',
+			'kicker' => 'Why families choose The Kids Gate',
 			'title'  => 'Serious learning, disguised as <span class="kg-hl-amber">a great time</span>',
 			'lede'   => '',
 			'items'  => array(
@@ -113,8 +113,11 @@ return array(
 					'text'  => 'When learning feels like a chore, children switch off, and progress stalls.',
 				),
 			),
-			'turn_title' => 'Kids Gate flips the script',
-			'turn_text'  => 'An AI tutor that costs less than a pizza, adjusts to your child after every answer, and makes them <strong>ask</strong> for their daily lesson.',
+			'turn_title'    => 'The Kids Gate flips the script',
+			'turn_text'     => 'An AI tutor that costs less than a pizza, adjusts to your child after every answer, and makes them <strong>ask</strong> for their daily lesson.',
+			'turn_text_in'  => 'An AI tutor that costs less than one tutoring session per month, adjusts to your child after every answer, and makes them <strong>ask</strong> for their daily lesson.',
+			'turn_text_ph'  => 'An AI tutor that costs less than your Netflix subscription, adjusts to your child after every answer, and makes them <strong>ask</strong> for their daily lesson.',
+			'turn_text_id'  => 'An AI tutor that costs less than a Netflix subscription, adjusts to your child after every answer, and makes them <strong>ask</strong> for their daily lesson.',
 		),
 
 		'loop' => array(
@@ -190,7 +193,7 @@ return array(
 				'rewards' => array(
 					'label'  => 'Tokens & rewards',
 					'title'  => 'Effort earns real rewards',
-					'text'   => 'Learning earns tokens to spend in the Kids Gate Store on avatars, accessories and surprises.',
+					'text'   => 'Learning earns tokens to spend in The Kids Gate Store on avatars, accessories and surprises.',
 					'points' => array(
 						'Tokens for completed lessons and streaks',
 						'A store full of avatar upgrades',
@@ -214,7 +217,7 @@ return array(
 		'ai' => array(
 			'kicker' => 'The clever part',
 			'title'  => 'It listens to every answer',
-			'lede'   => 'Not just right or wrong. Kids Gate reads speed, confidence and mistake patterns, then adjusts the very next activity. See for yourself:',
+			'lede'   => 'Not just right or wrong. The Kids Gate reads speed, confidence and mistake patterns, then adjusts the very next activity. See for yourself:',
 			'reassess' => 'And every two weeks, the whole path is re-checked in a full reassessment.',
 			'nodes'  => array(
 				array( 'title' => 'Your child answers', 'text' => 'Every tap, every answer, every hesitation is a signal.' ),
@@ -227,7 +230,7 @@ return array(
 			'demo_correct_btn' => '56',
 			'demo_wrong_btn'   => '54',
 			'demo_correct' => 'Nice! The next question would step up to division with remainders, keeping the challenge just right.',
-			'demo_wrong'   => 'No problem. Kids Gate would slow down here: a visual times-table activity comes next, then we try again.',
+			'demo_wrong'   => 'No problem. The Kids Gate would slow down here: a visual times-table activity comes next, then we try again.',
 		),
 
 		'dashboard' => array(
@@ -240,7 +243,7 @@ return array(
 				array( 'title' => 'Difficult topics flagged', 'text' => 'Spot struggles early, before they become gaps.' ),
 				array( 'title' => 'Smart recommendations', 'text' => 'Simple suggestions for how to help, when help is needed.' ),
 			),
-			'img_alt'   => 'Kids Gate parent dashboard showing activity and progress charts',
+			'img_alt'   => 'The Kids Gate parent dashboard showing activity and progress charts',
 			'cta_label' => 'Explore the parent dashboard',
 		),
 
@@ -249,7 +252,7 @@ return array(
 			'title'  => 'Tokens, trophies and a world to unlock',
 			'lede'   => 'Rewards celebrate consistency, a little every day beats a lot once a week.',
 			'cards'  => array(
-				array( 'title' => 'Kids Gate Store', 'text' => 'Spend hard-earned tokens on avatars, outfits and fun surprises.' ),
+				array( 'title' => 'The Kids Gate Store', 'text' => 'Spend hard-earned tokens on avatars, outfits and fun surprises.' ),
 				array( 'title' => 'Global leaderboards', 'text' => 'Friendly country and grade rankings celebrate consistent learners.' ),
 				array( 'title' => 'Monthly prize draws', 'text' => 'Active learners are entered into monthly draws with real prizes.' ),
 			),
@@ -272,7 +275,7 @@ return array(
 				array(
 					'quote' => 'Placeholder testimonial. Replace with a verified quote about progress visible in the parent dashboard.',
 					'name'  => 'Parent name',
-					'meta'  => 'Parent of two Kids Gate learners',
+					'meta'  => 'Parent of two The Kids Gate learners',
 				),
 				array(
 					'quote' => 'Placeholder testimonial. Replace with a verified quote about the free trial converting a sceptical parent.',
@@ -285,7 +288,7 @@ return array(
 		'pricing' => array(
 			'kicker'    => 'Simple pricing',
 			'title'     => 'Less than a tutor\'s single hour, <span class="kg-hl-teal">every month</span>',
-			'lede'      => 'One subscription per child, up to four children per family. Start with 30 days free.',
+			'lede'      => 'One subscription per child, up to six children per family. Start with 30 days free.',
 			'cta_label' => 'See full pricing',
 		),
 
@@ -325,12 +328,12 @@ return array(
 			),
 			array(
 				'title' => '5. Reassessment every two weeks',
-				'text'  => 'Every fortnight, Kids Gate automatically re-checks your child\'s level so the path never drifts from reality.',
+				'text'  => 'Every fortnight, The Kids Gate automatically re-checks your child\'s level so the path never drifts from reality.',
 				'detail' => 'Levelled up? The path accelerates. Need consolidation? It circles back gently.',
 			),
 			array(
 				'title' => '6. Tokens, rewards and the world',
-				'text'  => 'Completed lessons earn tokens to spend in the Kids Gate Store, and consistent streaks unlock new areas of the virtual world.',
+				'text'  => 'Completed lessons earn tokens to spend in The Kids Gate Store, and consistent streaks unlock new areas of the virtual world.',
 				'detail' => 'Rewards celebrate showing up. Consistency is what compounds.',
 			),
 			array(
@@ -372,7 +375,7 @@ return array(
 		'spotlight_ai' => array(
 			'kicker' => 'Flagship feature',
 			'title'  => 'Adaptive AI personalisation',
-			'text'   => 'The heart of Kids Gate. Every answer your child gives, right, wrong, fast or slow, feeds a learning model that adjusts the very next activity. A full reassessment every two weeks keeps the path honest.',
+			'text'   => 'The heart of The Kids Gate. Every answer your child gives, right, wrong, fast or slow, feeds a learning model that adjusts the very next activity. A full reassessment every two weeks keeps the path honest.',
 			'points' => array(
 				'Adjusts after every single answer',
 				'Re-teaches missed ideas from new angles',
@@ -434,14 +437,14 @@ return array(
 		'hero' => array(
 			'kicker' => 'For Parents',
 			'title'  => 'You stay in the loop, without hovering',
-			'lede'   => 'Kids Gate is built on a simple promise: your child gets the fun, you get the facts.',
+			'lede'   => 'The Kids Gate is built on a simple promise: your child gets the fun, you get the facts.',
 		),
 		'tour' => array(
 			'kicker' => 'Dashboard walkthrough',
 			'title'  => 'Your dashboard, annotated',
 			'lede'   => 'Tap any area to see what it tells you, then switch between the Activity and Performance views.',
-			'activity_alt'      => 'Kids Gate parent dashboard, Activity view',
-			'performance_alt'   => 'Kids Gate parent dashboard, Performance view',
+			'activity_alt'      => 'The Kids Gate parent dashboard, Activity view',
+			'performance_alt'   => 'The Kids Gate parent dashboard, Performance view',
 			'activity_label'    => 'Progress Dashboard: Activity',
 			'performance_label' => 'Progress Dashboard: Performance',
 			// Items 1–5 map to the same five regions on both screenshots
@@ -488,7 +491,7 @@ return array(
 		),
 		'profiles' => array(
 			'kicker' => 'Built for families',
-			'title'  => 'Up to four children, one account',
+			'title'  => 'Up to six children, one account',
 			'lede'   => 'Each child gets their own profile, their own path, their own rewards, and you see them all in one place.',
 			'items'  => array(
 				array( 'title' => 'Individual profiles', 'text' => 'Separate progress, levels and rewards for every child.' ),
@@ -499,7 +502,7 @@ return array(
 		'perks' => array(
 			'kicker' => 'More for parents',
 			'title'  => 'The little things that make life easier',
-			'lede'   => 'Thoughtful extras built around how real families actually use Kids Gate.',
+			'lede'   => 'Thoughtful extras built around how real families actually use The Kids Gate.',
 			'items'  => array(
 				array( 'title' => 'Offline Mode', 'text' => 'Lessons are cached so your child can keep learning even without Wi-Fi, great for long trips.' ),
 				array( 'title' => 'Cancel Any Time', 'text' => 'No lock-in contracts. Cancel your subscription at any time directly from your account settings.' ),
@@ -534,11 +537,11 @@ return array(
 			'items'  => array(
 				array(
 					'q' => 'How much screen time is this?',
-					'a' => 'Kids Gate is designed around one short session of about 20 minutes per day. The app encourages stopping at a natural finish point rather than endless scrolling.',
+					'a' => 'The Kids Gate is designed around one short session of about 20 minutes per day. The app encourages stopping at a natural finish point rather than endless scrolling.',
 				),
 				array(
 					'q' => 'Will it actually match my child\'s school work?',
-					'a' => 'Kids Gate teaches Cambridge English and International Maths for Grades 1–6. The adaptive path means it complements school by filling gaps and stretching strengths rather than duplicating homework.',
+					'a' => 'The Kids Gate teaches Cambridge English and International Maths for Grades 1–6. The adaptive path means it complements school by filling gaps and stretching strengths rather than duplicating homework.',
 				),
 				array(
 					'q' => 'What if my child finds it too easy or too hard?',
@@ -568,6 +571,10 @@ return array(
 			'yearly'  => 'Annual',
 			'save'    => 'Save 20%',
 		),
+		'save_label' => 'Save {n}%',
+		'activation_faq_q' => 'What is the one-time activation fee?',
+		'activation_help'  => 'About the one-time activation fee',
+		'activation_info'  => 'A one-time fee per child — and per school student — charged once while continuously enrolled. It carries over when you switch from monthly to annual (no re-charge), and only applies again if an account lapses or cancels and then rejoins. It funds the token rewards and in-app learning extras that keep children coming back and making steady progress.',
 		'plans' => array(
 			'one' => array(
 				'name'   => 'One subject',
@@ -584,6 +591,7 @@ return array(
 				'name'   => 'Two subjects',
 				'desc'   => 'Cambridge English AND International Maths',
 				'flag'   => 'Most popular',
+					'vs_singles' => 'for two single subjects',
 				'features' => array(
 					'Everything in One subject',
 					'Both full curriculums',
@@ -598,7 +606,7 @@ return array(
 		),
 		'builder' => array(
 			'kicker' => 'Build your family plan',
-			'title'  => 'Mix and match for up to four children',
+			'title'  => 'Mix and match for up to six children',
 			'lede'   => 'Choose each child\'s subjects. The child with the most subjects pays the standard rate; every other child gets the additional-child rate.',
 			'add_child'    => 'Add another child',
 			'remove_child' => 'Remove this child',
@@ -609,15 +617,21 @@ return array(
 			'select_cta'    => 'Choose this plan',
 			'select_note'   => 'You\'ll be taken to our support team to finish setting up, online checkout is coming soon.',
 			'trial_note'    => 'Your 30-day free trial covers everything in this plan.',
+				'trial_lead'    => 'The first 30 days are free, then:',
+			'activation_label' => 'One-time activation',
+			'first_payment'    => 'First payment today',
+			'tax_note'         => 'Extra regional fees and taxes may apply at checkout.',
 		),
 		'calc' => array(
 			'per_month'     => '/month',
 			'billed_yearly' => '/month, billed yearly',
+			'billed_total'  => '{price} billed today',
 			'child'         => 'Child',
 			'full_rate'     => 'standard rate',
 			'addl_rate'     => 'additional-child rate',
 			'one_subject'   => '1 subject',
 			'two_subjects'  => '2 subjects',
+			'activation_sub' => '{price} per child × {n}',
 		),
 		'disclaimer' => 'How family billing works: if your children study different numbers of subjects, the child with the most subjects is billed at the standard first-child rate. Every other child is billed at the additional-child rate that matches their own subject count. The same rule applies to monthly and annual billing.',
 		'faq' => array(
@@ -643,7 +657,7 @@ return array(
 				),
 				array(
 					'q' => 'How do additional children work?',
-					'a' => 'A family account holds up to four children. The child with the most subjects pays the standard rate; each other child pays the discounted additional-child rate for their own subjects.',
+					'a' => 'A family account holds up to six children. The child with the most subjects pays the standard rate; each other child pays the discounted additional-child rate for their own subjects.',
 				),
 				array(
 					'q' => 'Can my children study different subjects?',
@@ -662,7 +676,7 @@ return array(
 		'hero' => array(
 			'kicker' => 'For Schools & Teachers',
 			'title'  => 'Personalised learning for every seat in the class',
-			'lede'   => 'Kids Gate complements classroom teaching with adaptive practice, and gives teachers the visibility tutors charge for.',
+			'lede'   => 'The Kids Gate complements classroom teaching with adaptive practice, and gives teachers the visibility tutors charge for.',
 		),
 		'align' => array(
 			'kicker' => 'Curriculum fit',
@@ -677,9 +691,9 @@ return array(
 		'value' => array(
 			'kicker' => 'In practice',
 			'title'  => 'Classroom and home, working together',
-			'lede'   => 'However you teach, Kids Gate slots in and adapts to every learner without adding to your workload.',
+			'lede'   => 'However you teach, The Kids Gate slots in and adapts to every learner without adding to your workload.',
 			'items'  => array(
-				array( 'tag' => 'Live differentiation', 'title' => 'In class', 'text' => 'Use Kids Gate for differentiated practice, every student works at their own level during the same session.' ),
+				array( 'tag' => 'Live differentiation', 'title' => 'In class', 'text' => 'Use The Kids Gate for differentiated practice, every student works at their own level during the same session.' ),
 				array( 'tag' => 'Homework, sorted', 'title' => 'At home', 'text' => 'Homework that marks itself, adapts itself and reports itself back to you.' ),
 				array( 'tag' => 'Pinpoint help', 'title' => 'For interventions', 'text' => 'Difficult-topic flags show exactly which students need help, on exactly which concepts.' ),
 			),
@@ -699,7 +713,7 @@ return array(
 				array( 'title' => 'Avg score per student', 'text' => 'Compare average quiz scores across every student in the class.' ),
 				array( 'title' => 'Activity completion', 'text' => 'Monitor how many activities each student has completed this period.' ),
 			),
-			'img_alt' => 'Kids Gate teacher dashboard showing class assessment scores, session breakdown and activity completion',
+			'img_alt' => 'The Kids Gate teacher dashboard showing class assessment scores, session breakdown and activity completion',
 		),
 		'principal' => array(
 			'kicker' => 'Principal view',
@@ -711,7 +725,7 @@ return array(
 				array( 'title' => 'Avg earned tokens', 'text' => 'See which classes are most engaged via token earnings per class.' ),
 				array( 'title' => 'Avg completed assessments', 'text' => 'Track how many assessments and videos each class completes on average.' ),
 			),
-			'img_alt' => 'Kids Gate principal dashboard comparing classes by assessment scores, tokens and completion',
+			'img_alt' => 'The Kids Gate principal dashboard comparing classes by assessment scores, tokens and completion',
 		),
 		'testimonial' => array(
 			'flag'  => 'Placeholder',
@@ -725,6 +739,7 @@ return array(
 			'kicker' => 'Get started',
 			'title'  => 'Request school information',
 			'lede'   => 'Tell us about your school and we\'ll come back with pricing, onboarding details and a pilot proposal.',
+				'pricing_note' => 'Schools save <span class="kg-hl-teal">up to 10%</span> per student versus standard rates, billed annually.',
 			'name'        => 'Your name',
 			'email'       => 'Work email',
 			'school'      => 'School name',
@@ -818,7 +833,7 @@ return array(
 			'kicker' => 'Our story',
 			'title'  => 'From watching children switch off, to watching them light up',
 			'paras'  => array(
-				'Kids Gate is built by GATE Edutech Solutions Pty Ltd, a team of educators, engineers and parents across Australia and Southeast Asia.',
+				'The Kids Gate is built by GATE Edutech Solutions Pty Ltd, a team of educators, engineers and parents across Australia and Southeast Asia.',
 				'We watched bright children lose confidence in classrooms moving at someone else\'s pace, and we watched tutoring put real personalisation out of reach for most families.',
 				'So we built the gate between where a child is and where they could be: an AI tutor with endless patience, a perfect memory, and a price normal families can afford.',
 			),
@@ -836,7 +851,7 @@ return array(
 		'global' => array(
 			'kicker' => 'Global from day one',
 			'title'  => 'One platform, many languages',
-			'text'   => 'Kids Gate serves families in English, Bahasa Indonesia and Thai, with local pricing and culturally adapted content, not just translations.',
+			'text'   => 'The Kids Gate serves families in English, Bahasa Indonesia, Thai and Chinese, with local pricing and culturally adapted content, not just translations.',
 		),
 		'contact' => array(
 			'kicker' => 'Company details',
@@ -852,19 +867,19 @@ return array(
 		'hero' => array(
 			'kicker'        => 'Sponsors & Partners',
 			'title'         => 'Help more children fall in love with learning',
-			'lede'          => 'Partner with Kids Gate to power rewards, fund learning access and put your brand in front of families worldwide, inside a safe, ad-free world built for ages 5–12.',
+			'lede'          => 'Partner with The Kids Gate to power rewards, fund learning access and put your brand in front of families worldwide, inside a safe, ad-free world built for ages 5–12.',
 			'cta'           => 'Become a Sponsor',
 			'cta_secondary' => 'See partnership tiers',
 			'chips'         => array( 'Global reach', 'Ages 5–12', 'Safe & ad-free' ),
 		),
 		'impact' => array(
-			'kicker' => 'Why sponsor Kids Gate',
+			'kicker' => 'Why sponsor The Kids Gate',
 			'title'  => 'A growing world of young learners',
 			'lede'   => 'Your support reaches engaged families every day across three languages and two core subjects.',
 			'items'  => array(
 				array( 'num' => '1800', 'suffix' => '+',   'label' => 'Lessons your support reaches' ),
 				array( 'num' => '6',    'suffix' => '',    'label' => 'Grade levels, ages 5–12' ),
-				array( 'num' => '3',    'suffix' => '',    'label' => 'Languages: English · Bahasa · Thai' ),
+				array( 'num' => '4',    'suffix' => '',    'label' => 'Languages: English · Bahasa · Thai · Chinese' ),
 				array( 'num' => '20',   'suffix' => 'min', 'label' => 'Of daily learning per child' ),
 			),
 			'note'   => 'Verified audience and engagement figures are available on request.',
@@ -875,8 +890,8 @@ return array(
 			'lede'   => 'Every partnership is shaped around what matters most to you.',
 			'items'  => array(
 				array( 'title' => 'Power the prize draws', 'text' => 'Sponsor the monthly prize draws that keep children motivated and coming back to learn.' ),
-				array( 'title' => 'Fuel the Kids Gate Store', 'text' => 'Fund the token rewards and avatar items children unlock as they progress.' ),
-				array( 'title' => 'Sponsor learning access', 'text' => 'Give children who could not otherwise afford it a full Kids Gate place to learn and play.' ),
+				array( 'title' => 'Fuel The Kids Gate Store', 'text' => 'Fund the token rewards and avatar items children unlock as they progress.' ),
+				array( 'title' => 'Sponsor learning access', 'text' => 'Give children who could not otherwise afford it a full place on The Kids Gate to learn and play.' ),
 			),
 		),
 		'tiers' => array(
@@ -890,7 +905,7 @@ return array(
 				array(
 					'name'   => 'Community Sponsor',
 					'price'  => 'Let\'s talk',
-					'blurb'  => 'A warm welcome to the Kids Gate family.',
+					'blurb'  => 'A warm welcome to The Kids Gate family.',
 					'points' => array( 'Your logo on the Sponsors page', 'A social thank-you across our channels', 'Monthly impact summary' ),
 				),
 				array(
@@ -904,7 +919,7 @@ return array(
 					'name'   => 'Founding Champion',
 					'price'  => 'Let\'s talk',
 					'blurb'  => 'Shape the future of the platform with us.',
-					'points' => array( 'Everything in Learning Partner', 'A named prize draw', 'A dedicated Kids Gate Store campaign', 'Featured placement on the homepage and app', 'A strategic, ongoing partnership' ),
+					'points' => array( 'Everything in Learning Partner', 'A named prize draw', 'A dedicated The Kids Gate Store campaign', 'Featured placement on the homepage and app', 'A strategic, ongoing partnership' ),
 				),
 			),
 		),
@@ -926,7 +941,7 @@ return array(
 		),
 		'testimonial' => array(
 			'flag'  => 'Partner testimonial placeholder',
-			'quote' => 'A short quote from a future sponsor about the impact of partnering with Kids Gate will appear here.',
+			'quote' => 'A short quote from a future sponsor about the impact of partnering with The Kids Gate will appear here.',
 			'name'  => 'Partner name',
 			'meta'  => 'Organisation, country',
 		),
@@ -938,12 +953,12 @@ return array(
 			'email'         => 'Email address',
 			'org'           => 'Organisation',
 			'interest'      => 'What are you interested in?',
-			'interest_opts' => array( 'Sponsoring prize draws', 'Funding the Kids Gate Store', 'Sponsoring learning access', 'Brand partnership', 'Something else' ),
+			'interest_opts' => array( 'Sponsoring prize draws', 'Funding The Kids Gate Store', 'Sponsoring learning access', 'Brand partnership', 'Something else' ),
 			'budget'        => 'Indicative budget (optional)',
 			'message'       => 'Tell us more (optional)',
 			'submit'        => 'Send Sponsorship Enquiry',
 			'success_title' => 'Enquiry received',
-			'success_text'  => 'Thanks for your interest in partnering with Kids Gate! Note for the site owners: the email backend is not yet connected, so this submission was recorded for analytics only. Until it is wired up, please also email the address below for a guaranteed response.',
+			'success_text'  => 'Thanks for your interest in partnering with The Kids Gate! Note for the site owners: the email backend is not yet connected, so this submission was recorded for analytics only. Until it is wired up, please also email the address below for a guaranteed response.',
 		),
 		'cta' => array(
 			'title' => 'Let\'s build something brilliant for children',
@@ -962,29 +977,29 @@ return array(
 		'no_results' => 'No answers match your search. Try different words, or send us a message below.',
 		'cats' => array(
 			'plans'   => 'Plans & pricing',
-			'product' => 'Using Kids Gate',
+			'product' => 'Using The Kids Gate',
 			'account' => 'Account & app',
 		),
 		'faq_items' => array(
 			array(
 				'cat' => 'product',
-				'q'   => 'What is Kids Gate?',
-				'a'   => 'Kids Gate is an AI-powered learning platform for children aged 5–12. It offers Cambridge English and International Maths lessons for Grades 1–6 through games, stories, quizzes, songs, puzzles and other interactive activities.',
+				'q'   => 'What is The Kids Gate?',
+				'a'   => 'The Kids Gate is an AI-powered learning platform for children aged 5–12. It offers Cambridge English and International Maths lessons for Grades 1–6 through games, stories, quizzes, songs, puzzles and other interactive activities.',
 			),
 			array(
 				'cat' => 'plans',
 				'q'   => 'How does the 30-day free trial work?',
-				'a'   => 'Families can try Kids Gate free for 30 days. No credit card is required to start the trial, and you can cancel at any time.',
+				'a'   => 'Families can try The Kids Gate free for 30 days. No credit card is required to start the trial, and you can cancel at any time.',
 			),
 			array(
 				'cat' => 'product',
 				'q'   => 'How does AI personalisation work?',
-				'a'   => 'Kids Gate adapts the learning experience based on each child\'s answers, mistakes, speed, confidence and progress. The learning level is also reassessed automatically every two weeks.',
+				'a'   => 'The Kids Gate adapts the learning experience based on each child\'s answers, mistakes, speed, confidence and progress. The learning level is also reassessed automatically every two weeks.',
 			),
 			array(
 				'cat' => 'product',
-				'q'   => 'How long should my child use Kids Gate each day?',
-				'a'   => 'Kids Gate is designed around short daily learning sessions of approximately 20 minutes.',
+				'q'   => 'How long should my child use The Kids Gate each day?',
+				'a'   => 'The Kids Gate is designed around short daily learning sessions of approximately 20 minutes.',
 			),
 			array(
 				'cat' => 'product',
@@ -994,7 +1009,7 @@ return array(
 			array(
 				'cat' => 'account',
 				'q'   => 'Can I add more than one child to my account?',
-				'a'   => 'Yes. A family account can include up to four children. Each child receives their own profile, progress tracking, rewards and learning path.',
+				'a'   => 'Yes. A family account can include up to six children. Each child receives their own profile, progress tracking, rewards and learning path.',
 			),
 			array(
 				'cat' => 'plans',
@@ -1008,18 +1023,18 @@ return array(
 			),
 			array(
 				'cat' => 'product',
-				'q'   => 'Does Kids Gate include rewards?',
-				'a'   => 'Yes. Children earn tokens through learning activities and spend them in the Kids Gate Store. Kids Gate also includes global leaderboards and monthly prize draws.',
+				'q'   => 'Does The Kids Gate include rewards?',
+				'a'   => 'Yes. Children earn tokens through learning activities and spend them in The Kids Gate Store. The Kids Gate also includes global leaderboards and monthly prize draws.',
 			),
 			array(
 				'cat' => 'product',
-				'q'   => 'Is Kids Gate safe for children?',
-				'a'   => 'Kids Gate is designed as a safe, ad-free learning experience. Leaderboards use safe display names and avatars, and there is no open chat.',
+				'q'   => 'Is The Kids Gate safe for children?',
+				'a'   => 'The Kids Gate is designed as a safe, ad-free learning experience. Leaderboards use safe display names and avatars, and there is no open chat.',
 			),
 			array(
 				'cat' => 'account',
 				'q'   => 'Where can I download the app?',
-				'a'   => 'Use the App Store and Google Play buttons in the footer of any page to download Kids Gate. (Store links are placeholders until the confirmed listings are live.)',
+				'a'   => 'Use the App Store and Google Play buttons in the footer of any page to download The Kids Gate. (Store links are placeholders until the confirmed listings are live.)',
 			),
 			array(
 				'cat' => 'account',
@@ -1028,8 +1043,8 @@ return array(
 			),
 			array(
 				'cat' => 'plans',
-				'q'   => 'Can schools and teachers use Kids Gate?',
-				'a'   => 'Yes. Kids Gate includes optional teacher and school dashboards. Visit the <a href="{schools_url}">For Schools & Teachers</a> page and use the enquiry form there.',
+				'q'   => 'Can schools and teachers use The Kids Gate?',
+				'a'   => 'Yes. The Kids Gate includes optional teacher and school dashboards. Visit the <a href="{schools_url}">For Schools & Teachers</a> page and use the enquiry form there.',
 			),
 			array(
 				'cat' => 'account',
@@ -1064,7 +1079,7 @@ return array(
 		),
 		'helper' => array(
 			'fab_label'   => 'Quick help',
-			'title'       => 'Kids Gate Help',
+			'title'       => 'The Kids Gate Help',
 			'greeting'    => 'Hi! How can we help today? Pick a topic below 👇',
 			'restart'     => 'Glad that helped! What else can we look into?',
 			'helpful_q'   => 'Was this helpful?',
@@ -1091,7 +1106,7 @@ return array(
 								array(
 									'id'     => 'pricing-add-count',
 									'label'  => 'How many children can I add?',
-									'answer' => 'A family account covers up to four children, each with their own profile, progress and rewards.',
+									'answer' => 'A family account covers up to six children, each with their own profile, progress and rewards.',
 								),
 								array(
 									'id'     => 'pricing-add-cost',
@@ -1161,7 +1176,7 @@ return array(
 						array(
 							'id'     => 'using-time',
 							'label'  => 'How long each day?',
-							'answer' => 'Kids Gate is built around short daily sessions of about 20 minutes, enough to make progress without losing the fun.',
+							'answer' => 'The Kids Gate is built around short daily sessions of about 20 minutes, enough to make progress without losing the fun.',
 						),
 						array(
 							'id'     => 'using-subjects',
@@ -1171,7 +1186,7 @@ return array(
 						array(
 							'id'     => 'using-safe',
 							'label'  => 'Is it safe and ad-free?',
-							'answer' => 'Yes. Kids Gate is designed as a safe, ad-free space for children to learn and play.',
+							'answer' => 'Yes. The Kids Gate is designed as a safe, ad-free space for children to learn and play.',
 						),
 						array(
 							'id'      => 'using-tech',

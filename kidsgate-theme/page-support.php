@@ -23,6 +23,13 @@ $faq_items = array_map(
 	},
 	kg_list( 'support.faq_items' )
 );
+
+// Shared activation-fee explainer (also shown as a tooltip and in the pricing FAQ).
+$faq_items[] = array(
+	'q'   => kg_t( 'pricing.activation_faq_q' ),
+	'a'   => kg_t( 'pricing.activation_info' ),
+	'cat' => 'plans',
+);
 ?>
 
 <section class="kg-page-hero kg-section--teal-wash">
@@ -86,7 +93,7 @@ $faq_items = array_map(
 		<div class="kg-support-grid">
 			<div>
 				<?php kg_section_head( 'support.form', false ); ?>
-				<form data-kg-support-form data-kg-form-subject="Kids Gate: Support Request" novalidate>
+				<form data-kg-support-form data-kg-form-subject="The Kids Gate: Support Request" novalidate>
 					<div class="kg-form-grid">
 						<div class="kg-field">
 							<label for="kg-sup-name"><?php kg_e( 'support.form.name' ); ?></label>

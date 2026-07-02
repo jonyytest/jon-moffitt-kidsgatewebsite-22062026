@@ -21,11 +21,11 @@ require_once get_template_directory() . '/inc/config.php';
  * ---------------------------------------------------------------------- */
 
 function kg_valid_langs() {
-	return array( 'en', 'id', 'th' );
+	return array( 'en', 'id', 'th', 'zh' );
 }
 
 /**
- * Active country code — 'au' | 'us' | 'id' | 'th' | '' (bare domain).
+ * Active country code — 'au'|'us'|'nz'|'sg'|'id'|'th'|'in'|'ph'|'kh'|'vn'|'' (bare domain).
  * Set by mu-plugin from the first URL segment.
  */
 function kg_country() {
@@ -37,7 +37,7 @@ function kg_country() {
  * If $country is null the current country is used.
  */
 function kg_country_default_lang( $country = null ) {
-	$map = array( 'au' => 'en', 'us' => 'en', 'id' => 'id', 'th' => 'th' );
+	$map = array( 'au' => 'en', 'us' => 'en', 'nz' => 'en', 'sg' => 'en', 'id' => 'id', 'th' => 'th', 'in' => 'en', 'ph' => 'en', 'kh' => 'en', 'vn' => 'en' );
 	if ( null === $country ) {
 		$country = kg_country();
 	}
@@ -76,6 +76,8 @@ function kg_lang() {
 			$lang = 'id';
 		} elseif ( 0 === strpos( $accept, 'th' ) ) {
 			$lang = 'th';
+		} elseif ( 0 === strpos( $accept, 'zh' ) ) {
+			$lang = 'zh';
 		} else {
 			$lang = 'en';
 		}
@@ -93,6 +95,28 @@ function kg_persist_lang_cookie() {
 	}
 }
 add_action( 'init', 'kg_persist_lang_cookie' );
+
+/**
+ * BCP-47 tag for the <html lang> attribute, derived from the active language.
+ * Simplified Chinese is tagged zh-Hans.
+ */
+function kg_html_lang() {
+	$map  = array( 'en' => 'en', 'id' => 'id', 'th' => 'th', 'zh' => 'zh-Hans' );
+	$lang = kg_lang();
+	return isset( $map[ $lang ] ) ? $map[ $lang ] : 'en';
+}
+
+/**
+ * Make WordPress's <html> lang attribute follow the active Kids Gate language,
+ * so there is a single, correct lang attribute (not the site default plus a dupe).
+ */
+add_filter( 'language_attributes', function ( $output ) {
+	$lang = esc_attr( kg_html_lang() );
+	if ( preg_match( '/lang="[^"]*"/', $output ) ) {
+		return preg_replace( '/lang="[^"]*"/', 'lang="' . $lang . '"', $output );
+	}
+	return trim( 'lang="' . $lang . '" ' . $output );
+} );
 
 /**
  * Translated strings for the active language. Each file returns a nested
@@ -174,7 +198,7 @@ function kg_url_for_lang( $target_lang ) {
 
 	if ( ! $country ) {
 		// Bare domain: go to target lang's default market.
-		$lang_market = array( 'en' => 'us', 'id' => 'id', 'th' => 'th' );
+		$lang_market = array( 'en' => 'us', 'id' => 'id', 'th' => 'th', 'zh' => 'sg' );
 		$market      = isset( $lang_market[ $target_lang ] ) ? $lang_market[ $target_lang ] : 'us';
 		return home_url( '/' . $market . '/' . $target_lang . '/' . ( $path ? $path . '/' : '' ) );
 	}
@@ -215,8 +239,8 @@ function kg_register_rewrite_rules() {
 	if ( defined( 'KG_CURRENT_COUNTRY' ) ) {
 		return; // mu-plugin is active — skip.
 	}
-	$c = 'au|us|id|th';
-	$l = 'en|id|th';
+	$c = 'au|us|nz|sg|id|th|in|ph|kh|vn';
+	$l = 'en|id|th|zh';
 
 	// /market/lang/page-slug/
 	add_rewrite_rule(
@@ -325,7 +349,7 @@ function kg_canonical_tag() {
 }
 
 /**
- * Output hreflang tags for all 12 market × language combinations.
+ * Output hreflang tags for all 40 market × language combinations.
  * URL format is always /market/lang/slug — both segments explicit.
  */
 function kg_hreflang_tags() {
@@ -336,12 +360,40 @@ function kg_hreflang_tags() {
 		array( 'market' => 'us', 'lang' => 'en', 'hreflang' => 'en-US' ),
 		array( 'market' => 'us', 'lang' => 'id', 'hreflang' => 'id-US' ),
 		array( 'market' => 'us', 'lang' => 'th', 'hreflang' => 'th-US' ),
+		array( 'market' => 'nz', 'lang' => 'en', 'hreflang' => 'en-NZ' ),
+		array( 'market' => 'nz', 'lang' => 'id', 'hreflang' => 'id-NZ' ),
+		array( 'market' => 'nz', 'lang' => 'th', 'hreflang' => 'th-NZ' ),
+		array( 'market' => 'sg', 'lang' => 'en', 'hreflang' => 'en-SG' ),
+		array( 'market' => 'sg', 'lang' => 'id', 'hreflang' => 'id-SG' ),
+		array( 'market' => 'sg', 'lang' => 'th', 'hreflang' => 'th-SG' ),
 		array( 'market' => 'id', 'lang' => 'en', 'hreflang' => 'en-ID' ),
 		array( 'market' => 'id', 'lang' => 'id', 'hreflang' => 'id-ID' ),
 		array( 'market' => 'id', 'lang' => 'th', 'hreflang' => 'th-ID' ),
 		array( 'market' => 'th', 'lang' => 'en', 'hreflang' => 'en-TH' ),
 		array( 'market' => 'th', 'lang' => 'id', 'hreflang' => 'id-TH' ),
 		array( 'market' => 'th', 'lang' => 'th', 'hreflang' => 'th-TH' ),
+			array( 'market' => 'au', 'lang' => 'zh', 'hreflang' => 'zh-AU' ),
+			array( 'market' => 'us', 'lang' => 'zh', 'hreflang' => 'zh-US' ),
+			array( 'market' => 'nz', 'lang' => 'zh', 'hreflang' => 'zh-NZ' ),
+			array( 'market' => 'sg', 'lang' => 'zh', 'hreflang' => 'zh-SG' ),
+			array( 'market' => 'id', 'lang' => 'zh', 'hreflang' => 'zh-ID' ),
+			array( 'market' => 'th', 'lang' => 'zh', 'hreflang' => 'zh-TH' ),
+			array( 'market' => 'in', 'lang' => 'en', 'hreflang' => 'en-IN' ),
+			array( 'market' => 'in', 'lang' => 'id', 'hreflang' => 'id-IN' ),
+			array( 'market' => 'in', 'lang' => 'th', 'hreflang' => 'th-IN' ),
+			array( 'market' => 'in', 'lang' => 'zh', 'hreflang' => 'zh-IN' ),
+			array( 'market' => 'ph', 'lang' => 'en', 'hreflang' => 'en-PH' ),
+			array( 'market' => 'ph', 'lang' => 'id', 'hreflang' => 'id-PH' ),
+			array( 'market' => 'ph', 'lang' => 'th', 'hreflang' => 'th-PH' ),
+			array( 'market' => 'ph', 'lang' => 'zh', 'hreflang' => 'zh-PH' ),
+			array( 'market' => 'kh', 'lang' => 'en', 'hreflang' => 'en-KH' ),
+			array( 'market' => 'kh', 'lang' => 'id', 'hreflang' => 'id-KH' ),
+			array( 'market' => 'kh', 'lang' => 'th', 'hreflang' => 'th-KH' ),
+			array( 'market' => 'kh', 'lang' => 'zh', 'hreflang' => 'zh-KH' ),
+			array( 'market' => 'vn', 'lang' => 'en', 'hreflang' => 'en-VN' ),
+			array( 'market' => 'vn', 'lang' => 'id', 'hreflang' => 'id-VN' ),
+			array( 'market' => 'vn', 'lang' => 'th', 'hreflang' => 'th-VN' ),
+			array( 'market' => 'vn', 'lang' => 'zh', 'hreflang' => 'zh-VN' ),
 	);
 
 	// Current page slug (already stripped of market/lang by the mu-plugin).
@@ -394,7 +446,7 @@ function kg_enqueue_assets() {
 	// Baloo 2 (display) + Nunito Sans (body) with Mitr + Anuphan covering Thai script.
 	wp_enqueue_style(
 		'kg-fonts',
-		'https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;0,6..12,800;1,6..12,400&family=Mitr:wght@500;600;700&family=Anuphan:wght@400;600;700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;0,6..12,800;1,6..12,400&family=Mitr:wght@500;600;700&family=Anuphan:wght@400;600;700&family=Noto+Sans+SC:wght@400;600;700;800&display=swap',
 		array(),
 		null
 	);
@@ -411,11 +463,13 @@ function kg_enqueue_assets() {
 			'strings' => array(
 				'perMonth'    => kg_t( 'pricing.calc.per_month' ),
 				'billedYear'  => kg_t( 'pricing.calc.billed_yearly' ),
+				'billedTotal' => kg_t( 'pricing.calc.billed_total' ),
 				'child'       => kg_t( 'pricing.calc.child' ),
 				'fullRate'    => kg_t( 'pricing.calc.full_rate' ),
 				'addlRate'    => kg_t( 'pricing.calc.addl_rate' ),
 				'oneSubject'  => kg_t( 'pricing.calc.one_subject' ),
 				'twoSubjects' => kg_t( 'pricing.calc.two_subjects' ),
+				'activationSub' => kg_t( 'pricing.calc.activation_sub' ),
 			),
 		) );
 	}
@@ -447,7 +501,7 @@ add_action( 'wp_head', 'kg_gtm_head' );
 
 function kg_customize_register( $wp_customize ) {
 	$wp_customize->add_section( 'kg_settings', array(
-		'title'    => 'Kids Gate Settings',
+		'title'    => 'The Kids Gate Settings',
 		'priority' => 30,
 	) );
 
@@ -508,9 +562,9 @@ function kg_social_links() {
 			'tiktok'    => 'https://www.tiktok.com/@kidsgate.id',
 			'facebook'  => 'https://www.facebook.com/profile.php?id=61578094916488',
 		),
-		'au' => array( 'instagram' => '', 'tiktok' => '', 'facebook' => '' ),
-		'us' => array( 'instagram' => '', 'tiktok' => '', 'facebook' => '' ),
-		'th' => array( 'instagram' => '', 'tiktok' => '', 'facebook' => '' ),
+		'au' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate' ),
+		'us' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate' ),
+		'th' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate' ),
 	);
 
 	$country = kg_country();
@@ -626,6 +680,66 @@ function kg_flag( $code ) {
 				. '<path d="M0 0 30 20M30 0 0 20" stroke="#C8102E" stroke-width="4"/>'
 				. '<path d="M15 0v20M0 10h30" stroke="#fff" stroke-width="9"/>'
 				. '<path d="M15 0v20M0 10h30" stroke="#C8102E" stroke-width="6"/></g></svg>';
+		case 'in':
+			// India: saffron-white-green tricolour with the navy Ashoka chakra.
+			return '<svg class="kg-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">'
+				. '<clipPath id="' . $uid . '"><rect width="60" height="40" rx="5"/></clipPath>'
+				. '<g clip-path="url(#' . $uid . ')"><rect width="60" height="13.34" fill="#FF9933"/>'
+				. '<rect y="13.33" width="60" height="13.34" fill="#fff"/>'
+				. '<rect y="26.66" width="60" height="13.34" fill="#138808"/>'
+				. '<circle cx="30" cy="20" r="4" fill="none" stroke="#000080" stroke-width="1.3"/></g></svg>';
+		case 'ph':
+			// Philippines: blue over red with a white triangle and golden sun at the hoist.
+			return '<svg class="kg-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">'
+				. '<clipPath id="' . $uid . '"><rect width="60" height="40" rx="5"/></clipPath>'
+				. '<g clip-path="url(#' . $uid . ')"><rect width="60" height="20" fill="#0038A8"/>'
+				. '<rect y="20" width="60" height="20" fill="#CE1126"/>'
+				. '<path d="M0 0 26 20 0 40Z" fill="#fff"/>'
+				. '<circle cx="8" cy="20" r="3.4" fill="#FCD116"/></g></svg>';
+		case 'kh':
+			// Cambodia: blue-red-blue bands with a white temple in the centre.
+			return '<svg class="kg-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">'
+				. '<clipPath id="' . $uid . '"><rect width="60" height="40" rx="5"/></clipPath>'
+				. '<g clip-path="url(#' . $uid . ')"><rect width="60" height="40" fill="#032EA1"/>'
+				. '<rect y="10" width="60" height="20" fill="#E00025"/>'
+				. '<rect x="25" y="14" width="10" height="12" fill="#fff"/></g></svg>';
+		case 'vn':
+			// Vietnam: red field with a single yellow star.
+			return '<svg class="kg-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">'
+				. '<clipPath id="' . $uid . '"><rect width="60" height="40" rx="5"/></clipPath>'
+				. '<g clip-path="url(#' . $uid . ')"><rect width="60" height="40" fill="#DA251D"/>'
+				. '<polygon points="30,13 31.65,17.74 36.66,17.84 32.66,20.87 34.11,25.66 30,22.8 25.89,25.66 27.34,20.87 23.34,17.84 28.35,17.74" fill="#FFFF00"/></g></svg>';
+		case 'zh':
+			// China: red field with five yellow stars in the canton.
+			return '<svg class="kg-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">'
+				. '<clipPath id="' . $uid . '"><rect width="60" height="40" rx="5"/></clipPath>'
+				. '<g clip-path="url(#' . $uid . ')"><rect width="60" height="40" fill="#DE2910"/>'
+				. '<g fill="#FFDE00"><circle cx="11" cy="11" r="4.2"/>'
+				. '<circle cx="20" cy="5" r="1.5"/><circle cx="24" cy="9" r="1.5"/>'
+				. '<circle cx="24" cy="14" r="1.5"/><circle cx="20" cy="18" r="1.5"/></g></g></svg>';
+		case 'nz':
+			// New Zealand: blue field, Union Jack canton, Southern Cross.
+			return '<svg class="kg-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">'
+				. '<clipPath id="' . $uid . '"><rect width="60" height="40" rx="5"/></clipPath>'
+				. '<g clip-path="url(#' . $uid . ')"><rect width="60" height="40" fill="#00247D"/>'
+				. '<path d="M0 0 30 20M30 0 0 20" stroke="#fff" stroke-width="4"/>'
+				. '<path d="M0 0 30 20M30 0 0 20" stroke="#CC142B" stroke-width="2.5"/>'
+				. '<path d="M15 0v20M0 10h30" stroke="#fff" stroke-width="6"/>'
+				. '<path d="M15 0v20M0 10h30" stroke="#CC142B" stroke-width="3.5"/>'
+				. '<g fill="#CC142B" stroke="#fff" stroke-width=".7">'
+				. '<circle cx="47" cy="11" r="2"/><circle cx="53" cy="21" r="2"/>'
+				. '<circle cx="45" cy="30" r="2"/><circle cx="41" cy="20" r="1.6"/></g></g></svg>';
+		case 'sg':
+			// Singapore: red over white, crescent and five stars in the canton.
+			return '<svg class="kg-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">'
+				. '<clipPath id="' . $uid . '"><rect width="60" height="40" rx="5"/></clipPath>'
+				. '<g clip-path="url(#' . $uid . ')"><rect width="60" height="40" fill="#fff"/>'
+				. '<rect width="60" height="20" fill="#EF3340"/>'
+				. '<circle cx="12" cy="10" r="6.5" fill="#fff"/>'
+				. '<circle cx="15.5" cy="10" r="5.5" fill="#EF3340"/>'
+				. '<g fill="#fff"><circle cx="19" cy="5" r="1.1"/><circle cx="23" cy="8" r="1.1"/>'
+				. '<circle cx="23" cy="13" r="1.1"/><circle cx="19" cy="16" r="1.1"/>'
+				. '<circle cx="16" cy="10.5" r="1.1"/></g></g></svg>';
 		case 'us':
 			return '<svg class="kg-flag" viewBox="0 0 60 40" aria-hidden="true" focusable="false">'
 				. '<clipPath id="' . $uid . '"><rect width="60" height="40" rx="5"/></clipPath>'
@@ -656,11 +770,12 @@ function kg_language_switcher( $id_suffix = '' ) {
 		'en' => 'English',
 		'id' => 'Bahasa Indonesia',
 		'th' => 'ไทย',
+			'zh' => '中文',
 	);
 	$current = kg_lang();
 	$market  = kg_country();
 	// Pre-compute the market that will be in each choice value.
-	$lang_market = array( 'en' => 'us', 'id' => 'id', 'th' => 'th' );
+	$lang_market = array( 'en' => 'us', 'id' => 'id', 'th' => 'th', 'zh' => 'sg' );
 	?>
 	<div class="kg-lang" data-kg-lang>
 		<button class="kg-lang__btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="kg-lang-menu<?php echo esc_attr( $id_suffix ); ?>">
@@ -692,8 +807,14 @@ function kg_market_switcher( $id_suffix = '' ) {
 	$markets = array(
 		'au' => array( 'label' => 'Australia',     'currency' => 'AUD' ),
 		'us' => array( 'label' => 'United States', 'currency' => 'USD' ),
+		'nz' => array( 'label' => 'New Zealand',   'currency' => 'NZD' ),
+		'sg' => array( 'label' => 'Singapore',     'currency' => 'SGD' ),
 		'id' => array( 'label' => 'Indonesia',     'currency' => 'IDR' ),
 		'th' => array( 'label' => 'Thailand',      'currency' => 'THB' ),
+		'in' => array( 'label' => 'India',         'currency' => 'INR' ),
+		'ph' => array( 'label' => 'Philippines',   'currency' => 'PHP' ),
+		'kh' => array( 'label' => 'Cambodia',      'currency' => 'KHR' ),
+		'vn' => array( 'label' => 'Vietnam',       'currency' => 'VND' ),
 	);
 	$current = kg_country();
 	$lang    = kg_lang() ?: 'en';
@@ -741,8 +862,14 @@ function kg_region_banner() {
 	$options = array(
 		array( 'market' => 'au', 'label' => 'Australia',     'currency' => 'AUD' ),
 		array( 'market' => 'us', 'label' => 'United States', 'currency' => 'USD' ),
+		array( 'market' => 'nz', 'label' => 'New Zealand',   'currency' => 'NZD' ),
+		array( 'market' => 'sg', 'label' => 'Singapore',     'currency' => 'SGD' ),
 		array( 'market' => 'id', 'label' => 'Indonesia',     'currency' => 'IDR' ),
 		array( 'market' => 'th', 'label' => 'Thailand',      'currency' => 'THB' ),
+		array( 'market' => 'in', 'label' => 'India',         'currency' => 'INR' ),
+		array( 'market' => 'ph', 'label' => 'Philippines',   'currency' => 'PHP' ),
+		array( 'market' => 'kh', 'label' => 'Cambodia',      'currency' => 'KHR' ),
+		array( 'market' => 'vn', 'label' => 'Vietnam',       'currency' => 'VND' ),
 	);
 	echo '<div class="kg-region-bar" data-kg-region-bar role="complementary" aria-label="Choose your region">';
 	echo '<p class="kg-region-bar__msg">Choose your region to see local pricing:</p>';
@@ -774,6 +901,18 @@ function kg_store_badges() {
 		</a>
 	</div>
 	<?php
+}
+
+/**
+ * Small accessible info tooltip: a "?" button that reveals a bubble on hover,
+ * keyboard focus, or tap (tap handled by main.js). Returns markup as a string.
+ */
+function kg_tip( $text, $label = '' ) {
+	$label = $label ? $label : $text;
+	return '<span class="kg-tip" data-kg-tip>'
+		. '<button type="button" class="kg-tip__btn" aria-label="' . esc_attr( $label ) . '" aria-expanded="false">?</button>'
+		. '<span class="kg-tip__bubble" role="tooltip">' . esc_html( $text ) . '</span>'
+		. '</span>';
 }
 
 // Reusable FAQ accordion. $items: array of ['q' => ..., 'a' => ...].

@@ -74,6 +74,10 @@ body.kg-lang-th {
 	--kg-font-body: 'Anuphan', 'Nunito Sans', system-ui, sans-serif;
 }
 body.kg-lang-th { line-height: 1.75; }
+body.kg-lang-zh {
+	--kg-font-display: 'Noto Sans SC', 'Baloo 2', system-ui, sans-serif;
+	--kg-font-body: 'Noto Sans SC', 'Nunito Sans', system-ui, sans-serif;
+}
 
 /* ---- Reset & base ---- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -314,6 +318,7 @@ a.kg-chip:hover { transform: translateY(-2px); background: var(--kg-amber-soft);
 	letter-spacing: -.01em;
 }
 .kg-logo__word em { font-style: normal; color: var(--kg-amber-deep); }
+.kg-logo__the { font-weight: 600; }
 
 /* Logo hover — "Home Page" swap (desktop only) */
 .kg-logo__word { position: relative; }
@@ -365,8 +370,9 @@ a.kg-chip:hover { transform: translateY(-2px); background: var(--kg-amber-soft);
 }
 .kg-nav__mobile-extra, .kg-nav__mobile-foot { display: none; }
 
-.kg-header__actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.kg-header__actions { display: flex; align-items: center; gap: 10px; margin-left: auto; flex: none; }
 .kg-nav + .kg-header__actions { margin-left: 0; }
+.kg-header__cta { flex: none; white-space: nowrap; }
 /* Nav CTA: no glow, no 3-D bottom shadow — clean pill that sits flush in the header */
 .kg-header__cta.kg-btn--primary { box-shadow: var(--kg-clay-inset); padding-top: 11px; padding-bottom: 11px; }
 .kg-header__cta.kg-btn--primary:active { box-shadow: var(--kg-clay-inset); }
@@ -426,6 +432,10 @@ a.kg-chip:hover { transform: translateY(-2px); background: var(--kg-amber-soft);
 	border-radius: var(--kg-r-md);
 	box-shadow: var(--kg-shadow-lg);
 	padding: 8px;
+	/* Cap the list so a long market list scrolls instead of running off-screen. */
+	max-height: 280px;
+	overflow-y: auto;
+	overscroll-behavior: contain;
 	opacity: 0; visibility: hidden; transform: translateY(-6px);
 	transition: opacity 180ms, transform 180ms var(--kg-ease-out), visibility 180ms;
 	z-index: var(--kg-z-menu);
@@ -1422,12 +1432,15 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 	background: transparent; color: var(--kg-text);
 	transition: background-color 200ms, color 200ms;
 	min-height: 44px;
+	display: inline-flex; align-items: center; justify-content: center;
+	white-space: nowrap;
 }
 .kg-price-toggle button[aria-pressed="true"] { background: var(--kg-navy); color: #fff; }
 .kg-price-toggle .kg-save-pill {
 	background: var(--kg-teal-soft); color: var(--kg-teal-deep);
 	font-size: .78rem; font-weight: 800;
 	border-radius: 999px; padding: 3px 10px; margin-left: 7px;
+	white-space: nowrap;
 }
 .kg-price-toggle button[aria-pressed="true"] .kg-save-pill { background: var(--kg-teal); color: #fff; }
 
@@ -1462,7 +1475,27 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 	box-shadow: var(--kg-shadow-sm);
 	white-space: nowrap;
 }
-.kg-plan__price { display: flex; align-items: baseline; gap: 8px; margin: 10px 0 2px; }
+.kg-plan__price { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: 8px; row-gap: 0; margin: 10px 0 2px; }
+.kg-plan__save {
+	order: 3; margin-left: auto; align-self: center;
+	background: var(--kg-teal-soft); color: var(--kg-teal-deep);
+	font-family: var(--kg-font-display); font-weight: 800; font-size: .8rem;
+	border-radius: 999px; padding: 4px 11px; white-space: nowrap;
+}
+.kg-plan--featured .kg-plan__save { background: var(--kg-teal); color: #fff; }
+.kg-plan__save[hidden] { display: none; }
+/* Visible, labelled reference price that substantiates the two-subject saving. */
+.kg-plan__was {
+	order: -1; flex-basis: 100%;
+	margin: 0 0 1px; font-size: .82rem; font-weight: 600;
+	color: var(--kg-text-soft);
+}
+.kg-plan--featured .kg-plan__was { color: var(--kg-text-on-dark-soft); }
+.kg-plan__was s { color: var(--kg-teal-deep); opacity: 1; }
+.kg-plan--featured .kg-plan__was s { color: var(--kg-teal); }
+/* Invisible spacer on the One subject card so its price lines up with the
+   Two subjects card, which has the reference price line above the amount. */
+.kg-plan__was--ghost { visibility: hidden; }
 .kg-plan__amount { font-family: var(--kg-font-display); font-size: clamp(2.4rem, 4vw, 3.2rem); font-weight: 800; color: var(--kg-navy); line-height: 1; }
 .kg-plan--featured .kg-plan__amount { color: var(--kg-amber); }
 .kg-plan__per { color: var(--kg-text-soft); font-weight: 600; }
@@ -1551,7 +1584,71 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 .kg-builder__total strong { font-family: var(--kg-font-display); font-size: 1.9rem; color: var(--kg-amber); font-variant-numeric: tabular-nums; line-height: 1.1; }
 .kg-builder__total span { font-weight: 700; }
 .kg-builder__total [data-kg-builder-period] { white-space: nowrap; color: var(--kg-text-on-dark-soft); }
+.kg-builder__year { font-size: .9rem; font-weight: 700; color: var(--kg-text-on-dark); text-align: right; margin: 8px 0 0; font-variant-numeric: tabular-nums; }
 .kg-builder__note { font-size: .85rem; color: var(--kg-text-on-dark-soft); margin: 12px 0 18px; }
+
+/* One-time activation (small, above the total) + first-payment + tax note */
+.kg-builder__activation {
+	display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+	font-size: .82rem; color: var(--kg-text-on-dark-soft); margin-top: 2px;
+}
+.kg-builder__activation strong { font-weight: 700; }
+.kg-builder__activation small { display: block; opacity: .75; font-size: .92em; }
+.kg-builder__activation .kg-row-price { font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kg-builder__activation[hidden] { display: none; }
+.kg-builder__firstpay {
+	display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+	margin-top: 12px; font-weight: 700; font-size: .95rem; color: var(--kg-text-on-dark);
+}
+.kg-builder__firstpay strong { font-family: var(--kg-font-display); color: #fff; font-variant-numeric: tabular-nums; }
+/* "The first 30 days are free, then:" lead-in — carries the dashed divider so
+   it reads directly into the Total below it. */
+.kg-builder__trial-lead {
+	border-top: 2px dashed rgba(255, 255, 255, .2);
+	padding-top: 15px; margin: 8px 0 0;
+	font-family: var(--kg-font-display); font-weight: 800; font-size: .82rem;
+	color: var(--kg-amber);
+}
+.kg-builder__trial-lead + .kg-builder__total { border-top: 0; padding-top: 2px; margin-top: 0; }
+.kg-builder__note--tax { margin: 12px 0 6px; opacity: .85; }
+
+/* ---- Info tooltip ("?" bubble) ---- */
+.kg-tip { position: relative; display: inline-flex; vertical-align: middle; margin-left: 6px; }
+.kg-tip__btn {
+	width: 18px; height: 18px; padding: 0;
+	border: 1.5px solid currentColor; border-radius: 50%;
+	background: transparent; color: inherit; opacity: .65;
+	font-family: var(--kg-font-display); font-weight: 800; font-size: .72rem; line-height: 1;
+	display: inline-flex; align-items: center; justify-content: center;
+	cursor: pointer;
+	transition: opacity 160ms, background-color 160ms, color 160ms;
+}
+.kg-tip__btn:hover, .kg-tip__btn:focus-visible { opacity: 1; }
+.kg-tip__bubble {
+	position: absolute; bottom: calc(100% + 11px); left: 50%;
+	transform: translateX(-50%) translateY(4px);
+	width: max-content; max-width: min(266px, 76vw);
+	background: var(--kg-white); color: var(--kg-text);
+	border-radius: 14px; padding: 12px 14px;
+	font-size: .82rem; font-weight: 500; line-height: 1.45; text-align: left;
+	box-shadow: var(--kg-shadow-lg);
+	opacity: 0; visibility: hidden; pointer-events: none;
+	transition: opacity 160ms, transform 160ms, visibility 160ms;
+	z-index: 30;
+}
+.kg-tip__bubble::after {
+	content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+	border: 7px solid transparent; border-top-color: var(--kg-white);
+}
+.kg-tip:hover .kg-tip__bubble,
+.kg-tip__btn:focus-visible + .kg-tip__bubble,
+.kg-tip.is-open .kg-tip__bubble {
+	opacity: 1; visibility: visible; pointer-events: auto;
+	transform: translateX(-50%) translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+	.kg-tip__bubble { transition: none; }
+}
 
 .kg-pricing-disclaimer {
 	max-width: 980px;
@@ -2425,6 +2522,13 @@ body.kg-lightbox-open { overflow: hidden; }
 .kg-payment__email a:hover { text-decoration: underline; }
 
 /* ---- Schools page ---- */
+.kg-schools-savings {
+	max-width: 640px;
+	margin: -6px auto clamp(22px, 3vw, 30px);
+	text-align: center;
+	font-weight: 700;
+	color: var(--kg-text-soft);
+}
 .kg-schools-form { max-width: 640px; margin-inline: auto; }
 .kg-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
 .kg-form-grid .kg-field--full { grid-column: 1 / -1; }
@@ -2545,8 +2649,9 @@ body.kg-lightbox-open { overflow: hidden; }
 	.kg-nav__list a { padding: 10px 10px; font-size: .92rem; }
 }
 
-/* The desktop header (nav + language + CTA) needs ~1150px of room */
-@media (max-width: 1150px) {
+/* The desktop header (nav + language + CTA) needs ~1240px of room; below that
+   it collapses to the burger so the Start Free Trial CTA never gets clipped. */
+@media (max-width: 1240px) {
 	.kg-burger { display: flex; }
 	.kg-header__cta, .kg-header__actions .kg-lang { display: none; }
 	/* backdrop-filter would become the containing block for the fixed

@@ -1,0 +1,1241 @@
+<?php
+/**
+ * The Kids Gate — Simplified Chinese (简体中文) content.
+ * Prices follow the active market. Edit copy here; templates read it via kg_t( 'dot.path' ).
+ */
+
+return array(
+
+	'meta' => array(
+		'description' => 'The Kids Gate 是一个面向 5–12 岁儿童的 AI 智能学习平台：通过游戏、故事和测验学习剑桥英语和国际数学。30 天免费试用，无需信用卡。',
+	),
+
+	'common' => array(
+		'skip_to_content' => '跳到主要内容',
+		'home_aria'       => 'The Kids Gate 首页',
+		'nav_aria'        => '主导航',
+		'menu'            => '菜单',
+		'cta_primary'     => '开始免费试用',
+		'cta_secondary'   => '了解运作方式',
+		'store_on'        => '下载于',
+		'store_get'       => '获取于',
+		'view_larger'     => '查看大图',
+		'zoom_hint'       => '点击图片放大',
+		'zoom_out_hint'   => '点击图片缩小',
+		'trust_chips'     => array(
+			'30 天免费试用',
+			'5–12 岁',
+			'剑桥课程',
+			array( 'text' => '永不含广告', 'cross' => true ),
+		),
+		'cancel_chips'    => array(
+			'无需信用卡',
+			'随时取消',
+			'30 天免费试用',
+		),
+		'choose_region'   => '选择地区',
+	),
+
+	'nav' => array(
+		'home'         => '首页',
+		'home_hover'   => '返回<em>首页</em>',
+		'how_it_works' => '运作方式',
+		'features'     => '功能特色',
+		'parents'      => '家长专区',
+		'pricing'      => '价格',
+		'schools'      => '学校',
+		'leaderboard'  => '排行榜',
+		'about'        => '关于我们',
+		'sponsors'     => '赞助商',
+		'support'      => '支持',
+	),
+
+	'footer' => array(
+		'tagline'                => 'AI 智能学习，玩中学，专为全球 5–12 岁儿童打造。',
+		'explore'                => '探索',
+		'company'                => '公司',
+		'help'                   => '需要帮助？',
+		'support_title'          => '前往支持中心',
+		'support_sub'            => '常见问题与联系表单',
+		'privacy'                => '隐私政策',
+		'terms'                  => '服务条款',
+		'coming_soon'            => '页面即将上线',
+		'rights'                 => '版权所有。',
+		'email_placeholder_note' => '占位地址，最终支持邮箱待确认。',
+	),
+
+	/* ---------------------------------------------------------------- Home */
+	'home' => array(
+		'hero' => array(
+			'eyebrow'  => 'iOS &amp; Android 均可下载',
+			'title'    => '让孩子<br><span class="kg-squiggle kg-squiggle--draw">主动要求</span>的学习',
+			'lede'     => 'AI 智能的剑桥英语和国际数学，专为 5&ndash;12 岁儿童设计，包含游戏、故事和测验，每答一题都会自动调整。',
+			'badge_lessons'  => '1,800+',
+			'badge_lessons_label' => '节课程',
+			'badge_daily'    => '20 分钟',
+			'badge_daily_label'   => '每天就足够',
+			'img_alt'  => '一个孩子在平板上用 The Kids Gate 学习时开心微笑',
+			'scroll_cue' => '进入看看',
+			'card_mastery'     => '掌握度提升',
+			'card_mastery_sub' => '分数 &middot; 四年级',
+			'card_tokens'      => '+25 代币',
+			'card_tokens_sub'  => '完成一课！',
+			'card_correct'     => '答对了！',
+		),
+
+		'stats' => array(
+			'kicker' => '家庭为何选择 The Kids Gate',
+			'title'  => '认真的学习，<span class="kg-hl-amber">玩得超开心</span>',
+			'lede'   => '',
+			'items'  => array(
+				array( 'num' => '1800', 'suffix' => '+', 'label' => '节互动课程' ),
+				array( 'num' => '6',    'suffix' => '', 'label' => '个年级，全面覆盖' ),
+				array( 'num' => '20',   'suffix' => ' 分钟', 'label' => '每天只需这么久' ),
+				array( 'num' => '30',   'suffix' => '', 'label' => '天免费试用，无需信用卡' ),
+			),
+		),
+
+		'problem' => array(
+			'kicker' => '听起来很熟悉？',
+			'title'  => '大多数学习工具<span class="kg-underline-red">并非</span>为<em>你的</em>孩子打造',
+			'lede'   => '',
+			'items'  => array(
+				array(
+					'title' => '私教很贵',
+					'text'  => '私人家教按小时收费，费用攀升很快，孩子越多越明显。',
+				),
+				array(
+					'title' => '通用应用不会因人而异',
+					'text'  => '千篇一律的课程对一些孩子太快，对另一些孩子又太慢。',
+				),
+				array(
+					'title' => '重复扼杀兴趣',
+					'text'  => '当学习变成苦差事，孩子就会失去兴趣，进步随之停滞。',
+				),
+			),
+			'turn_title' => 'The Kids Gate 改写剧本',
+			'turn_text'  => '一位 AI 家教，花费比一份披萨还少，每答一题都为孩子调整，让他们<strong>主动</strong>要求每天的课程。',
+		),
+
+		'loop' => array(
+			'kicker' => '运作方式',
+			'title'  => '每天四步：<span class="kg-squiggle kg-squiggle--draw">步步皆调整</span>',
+			'lede'   => '简单的每日循环，积累成真正的进步。亲自体验自适应引擎。',
+			'repeat' => '每天，循环往复',
+			'steps'  => array(
+				array(
+					'title' => '评估',
+					'text'  => '友好的入门测验找出孩子在每个科目的真实水平，没有压力，没有评分。',
+				),
+				array(
+					'title' => '个性化路径',
+					'text'  => 'AI 打造一条恰好契合孩子当前水平的学习路径，而不是课程大纲规定他们该在哪里。',
+				),
+				array(
+					'title' => '每日 20 分钟课程',
+					'text'  => '游戏、故事、测验、歌曲和谜题，短到保持有趣，长到足以记牢。',
+				),
+				array(
+					'title' => '奖励与进步',
+					'text'  => '代币、徽章和不断成长的世界让动力满满，你则看着进步曲线节节攀升。',
+				),
+			),
+			'cta_label' => '探索完整学习旅程',
+		),
+
+		'experience' => array(
+			'kicker' => '应用内一览',
+			'title'  => '孩子真正看到的内容',
+			'lede'   => '点击切换标签，每一种课程类型都以玩为先。',
+			'tabs'   => array(
+				'english' => array(
+					'label'  => '英语',
+					'title'  => '剑桥英语，一个故事接一个故事',
+					'text'   => '自然拼读、阅读、词汇和语法，融入互动故事和歌曲。',
+					'topics' => array(
+						array( 'name' => '自然拼读与阅读', 'desc' => '读出每一个新词' ),
+						array( 'name' => '写作与语法', 'desc' => '从字母到完整故事' ),
+						array( 'name' => '词汇', 'desc' => '真正记得住的新词' ),
+						array( 'name' => '听力', 'desc' => '跟着听，再回应' ),
+						array( 'name' => '理解', 'desc' => '不只是认字，更要理解' ),
+						array( 'name' => '自信开口', 'desc' => '大声说出来，充满自信' ),
+					),
+				),
+				'maths' => array(
+					'label'  => '数学',
+					'title'  => '一点就通的国际数学',
+					'text'   => '从数数到分数，概念以视觉方式讲解，再通过游戏练习。',
+					'topics' => array(
+						array( 'name' => '数与运算', 'desc' => '从数数到计算' ),
+						array( 'name' => '几何', 'desc' => '形状、空间与对称' ),
+						array( 'name' => '测量', 'desc' => '长度、时间、金钱、重量' ),
+						array( 'name' => '数据与统计', 'desc' => '读懂图表' ),
+						array( 'name' => '解决问题', 'desc' => '贴近生活的数学谜题' ),
+						array( 'name' => '规律与代数', 'desc' => '找出规律，预测下一个' ),
+					),
+				),
+				'games' => array(
+					'label'  => '游戏与测验',
+					'title'  => '好玩本身就是目的',
+					'text'   => '测验、谜题和小游戏，把练习变成孩子真心期待的事。',
+					'topics' => array(
+						array( 'name' => '测验对战', 'desc' => '在友好的压力下回忆' ),
+						array( 'name' => '故事冒险', 'desc' => '技能融入情节' ),
+						array( 'name' => '记忆与配对', 'desc' => '巩固刚学到的内容' ),
+						array( 'name' => '速算挑战', 'desc' => '快速回忆变本能' ),
+						array( 'name' => '每日挑战', 'desc' => '每天一点点练习' ),
+						array( 'name' => '奖励连胜', 'desc' => '坚持赢得真实代币' ),
+					),
+				),
+				'rewards' => array(
+					'label'  => '代币与奖励',
+					'title'  => '努力赢得真实奖励',
+					'text'   => '学习赢取代币，在 The Kids Gate 商店兑换头像、配饰和惊喜。',
+					'points' => array(
+						'完成课程与连胜赢取代币',
+						'满是头像升级的商店',
+						'可参加每月抽奖',
+					),
+				),
+				'world' => array(
+					'label'  => '虚拟世界',
+					'title'  => '与孩子一同成长的世界',
+					'text'   => '孩子探索一个沉浸式学习世界，随着进步不断开启新天地。',
+					'points' => array(
+						'掌握内容解锁新区域',
+						'学习任务与角色',
+						'安全、无广告、适合儿童',
+					),
+				),
+			),
+			'placeholder' => '占位：此活动的应用截图或短录屏',
+		),
+
+		'ai' => array(
+			'kicker' => '聪明之处',
+			'title'  => '它聆听每一个回答',
+			'lede'   => '不仅是对或错。The Kids Gate 解读速度、自信和错误模式，然后调整下一个活动。亲眼看看：',
+			'reassess' => '每两周，整条路径都会经过一次全面重新评估。',
+			'nodes'  => array(
+				array( 'title' => '孩子作答', 'text' => '每一次点击、每一个回答、每一次迟疑都是信号。' ),
+				array( 'title' => 'AI 解读', 'text' => '是掌握了、蒙对了，还是有缺口？系统会判断出来。' ),
+				array( 'title' => '路径调整', 'text' => '下一个活动变得更易、更难，或从新角度切入同一概念。' ),
+				array( 'title' => '进步更新', 'text' => '掌握度分数实时更新，每两周还会经过一次全面重新评估。' ),
+			),
+			'demo_label'   => '试试看。像你的孩子那样作答：',
+			'demo_question' => '7 × 8 等于多少？',
+			'demo_correct_btn' => '56',
+			'demo_wrong_btn'   => '54',
+			'demo_correct' => '太棒了！下一题会升级到带余数的除法，让挑战恰到好处。',
+			'demo_wrong'   => '没关系。The Kids Gate 会在这里放慢节奏：接下来是一个可视化的乘法表活动，然后我们再试一次。',
+		),
+
+		'dashboard' => array(
+			'kicker' => '为你，家长',
+			'title'  => '一切尽收眼底，毫无遗漏。',
+			'lede'   => '家长仪表盘展示孩子已掌握什么、在哪些地方有困难，以及晚餐时值得一起庆祝的事。',
+			'points' => array(
+				array( 'title' => '进度一目了然', 'text' => '每个孩子完成的课程、花费的时间和连胜。' ),
+				array( 'title' => '掌握度追踪', 'text' => '逐个知识点的分数，清楚显示哪些已经学牢。' ),
+				array( 'title' => '标记困难知识点', 'text' => '及早发现困难，在它们变成缺口之前。' ),
+				array( 'title' => '智能建议', 'text' => '在需要帮助时，给出简单的协助建议。' ),
+			),
+			'img_alt'   => 'The Kids Gate 家长仪表盘，显示活动和进度图表',
+			'cta_label' => '探索家长仪表盘',
+		),
+
+		'rewards' => array(
+			'kicker' => '内建动力',
+			'title'  => '代币、奖杯和等待解锁的世界',
+			'lede'   => '奖励嘉奖坚持，每天一点点胜过一周一大把。',
+			'cards'  => array(
+				array( 'title' => 'The Kids Gate 商店', 'text' => '用辛苦赚来的代币兑换头像、服饰和有趣的惊喜。' ),
+				array( 'title' => '全球排行榜', 'text' => '按国家和年级的友好排名，嘉奖坚持学习的人。' ),
+				array( 'title' => '每月抽奖', 'text' => '活跃的学习者将进入每月抽奖，赢取真实奖品。' ),
+			),
+			'map_alt'     => 'The Kids Gate 虚拟世界地图，岛屿等待探索',
+			'map_caption' => 'The Kids Gate 世界。随着孩子进步，新区域不断解锁。',
+			'cta_label'   => '看看排行榜',
+		),
+
+		'testimonials' => array(
+			'kicker' => '来自和你一样的家庭',
+			'title'  => '家长们怎么说',
+			'lede'   => '',
+			'flag'   => '占位',
+			'items'  => array(
+				array(
+					'quote' => '占位评价。请替换为家长关于孩子热爱每日课程的真实证言。',
+					'name'  => '家长姓名',
+					'meta'  => '二年级学员的家长',
+				),
+				array(
+					'quote' => '占位评价。请替换为关于家长仪表盘中可见进步的真实证言。',
+					'name'  => '家长姓名',
+					'meta'  => '两名 The Kids Gate 学员的家长',
+				),
+				array(
+					'quote' => '占位评价。请替换为关于免费试用打动怀疑家长的真实证言。',
+					'name'  => '家长姓名',
+					'meta'  => '五年级学员的家长',
+				),
+			),
+		),
+
+		'pricing' => array(
+			'kicker'    => '价格简单透明',
+			'title'     => '每月花费，<span class="kg-hl-teal">不到家教一节课</span>',
+			'lede'      => '每个孩子一份订阅，每个家庭最多六个孩子。先享 30 天免费。',
+			'cta_label' => '查看完整价格',
+		),
+
+		'final' => array(
+			'title' => '送孩子一个月<span class="kg-squiggle--teal kg-squiggle">充满爱</span>的学习。我们请客。',
+			'lede'  => '设置只需五分钟。第一个笑容只需一节课。',
+		),
+	),
+
+	/* ------------------------------------------------------- How It Works */
+	'hiw' => array(
+		'hero' => array(
+			'kicker' => '运作方式',
+			'title'  => '从第一次测验到第一座奖杯',
+			'lede'   => '这是你按下「开始免费试用」之后发生的一切，一步步来，没有术语。',
+		),
+		'steps' => array(
+			array(
+				'title' => '1. 友好的评估',
+				'text'  => '孩子玩一遍每个科目的简短入门测验。感觉像游戏；幕后则在阅读、词汇、数字和逻辑上勾勒他们的真实水平。',
+				'detail' => '不会向孩子展示分数，只有鼓励。你在仪表盘中查看结果。',
+			),
+			array(
+				'title' => '2. 专为一个孩子打造的路径',
+				'text'  => 'AI 从 1,800+ 节课程中编排个性化序列。同年级的两个孩子可能得到完全不同的路径。',
+				'detail' => '路径瞄准孩子能力的边缘：永不无聊，永不吃力。',
+			),
+			array(
+				'title' => '3. 每日 20 分钟课程',
+				'text'  => '每天，孩子都会得到全新组合：热身游戏、通过故事或歌曲讲授的新概念、练习测验，以及收尾的谜题。',
+				'detail' => '观看下方演示视频，看看真实课程如何进行。',
+			),
+			array(
+				'title' => '4. AI 回应每一个回答',
+				'text'  => '答错不是失败，而是信息。系统会从不同角度重新讲解这个概念，然后再继续。',
+				'detail' => '速度、迟疑和错误模式都会决定接下来的内容。',
+			),
+			array(
+				'title' => '5. 每两周重新评估',
+				'text'  => '每两周，The Kids Gate 会自动重新检查孩子的水平，让路径永远不脱离实际。',
+				'detail' => '升级了？路径加速。需要巩固？它会温柔地回头。',
+			),
+			array(
+				'title' => '6. 代币、奖励与世界',
+				'text'  => '完成的课程赢取代币，在 The Kids Gate 商店消费；持续的连胜解锁虚拟世界的新区域。',
+				'detail' => '奖励嘉奖到场。坚持才能积累复利。',
+			),
+			array(
+				'title' => '7. 你目睹这一切发生',
+				'text'  => '你的家长仪表盘在每次课程后更新：进度、掌握度、棘手知识点和建议。',
+				'detail' => '多个孩子？每人都有自己的档案和路径。',
+			),
+		),
+		'video' => array(
+			'kicker' => '亲眼看看',
+			'title'  => '一节真实课程，两分钟看完',
+			'lede'   => '这是真实的应用内体验，绝非样稿。',
+			'play'   => '播放演示',
+		),
+		'session' => array(
+			'kicker' => '典型的一天',
+			'title'  => '20 分钟课程的结构',
+			'lede'   => '',
+			'items'  => array(
+				array( 'time' => '第 0–3 分钟', 'title' => '热身游戏', 'text' => '一个快速、建立信心的游戏让孩子进入状态。' ),
+				array( 'time' => '第 3–10 分钟', 'title' => '新概念', 'text' => '一个故事、歌曲或可视化讲解引入今天的概念。' ),
+				array( 'time' => '第 10–17 分钟', 'title' => '自适应练习', 'text' => '实时调整难度的测验和活动。' ),
+				array( 'time' => '第 17–20 分钟', 'title' => '谜题与奖励', 'text' => '一个收尾谜题，赢取代币，延续连胜。今天完成！' ),
+			),
+		),
+		'cta' => array(
+			'title' => '理解它最好的方式？看孩子亲自试试。',
+			'lede'  => '30 天免费。无需信用卡。随时取消。',
+		),
+	),
+
+	/* ------------------------------------------------------------ Features */
+	'features' => array(
+		'hero' => array(
+			'kicker' => '功能特色',
+			'title'  => 'Gate 之内，应有尽有',
+			'lede'   => '为想玩的孩子打造，也为想看到成果的家长打造。',
+		),
+		'spotlight_ai' => array(
+			'kicker' => '旗舰功能',
+			'title'  => '自适应 AI 个性化',
+			'text'   => 'The Kids Gate 的核心。孩子给出的每一个回答——对、错、快或慢——都会喂给一个学习模型，调整紧接着的下一个活动。每两周一次的全面重新评估让路径始终诚实。',
+			'points' => array(
+				'每答一题后即调整',
+				'从新角度重讲遗漏的概念',
+				'每两周自动重新评估',
+			),
+			'aiviz'  => array(
+				'label'  => '自适应引擎',
+				'live'   => '实时',
+				'answer' => '作答于',
+				'core'   => 'AI 模型',
+				'action' => '强化',
+				'map'    => '知识图谱',
+				'missed' => '遗漏',
+				'got'    => '正确',
+				'skills' => array( '乘法表', '分数', '自然拼读', '词汇' ),
+				'phases' => array(
+					'收到新回答',
+					'阅读速度、自信和错误',
+					'发现缺口',
+					'从新角度重新讲解',
+					'掌握度上升',
+				),
+			),
+		),
+		'spotlight_dash' => array(
+			'kicker' => '为家长',
+			'title'  => '一个能回答「进展如何？」的仪表盘',
+			'text'   => '进度摘要、掌握度分数、困难知识点提醒和实用建议，覆盖你账户上的每个孩子。',
+			'points' => array(
+				'每个孩子的档案和进度',
+				'逐个知识点追踪掌握度',
+				'及早标记困难并给出建议',
+			),
+			'img_alt' => '家长仪表盘预览',
+		),
+		'grid' => array(
+			'kicker' => '工具箱里的其他法宝',
+			'title'  => '让孩子主动按下播放的另外八个理由',
+			'lede'   => '',
+			'items'  => array(
+				array( 'title' => '剑桥英语', 'text' => '从自然拼读到语法，对齐 5–12 岁的剑桥英语阶段。' ),
+				array( 'title' => '国际数学', 'text' => '完整的 1–6 年级课程，以视觉方式讲授，通过游戏练习。' ),
+				array( 'title' => '1,800+ 节课程', 'text' => '游戏、故事、测验、歌曲和谜题，每个级别都有新内容。' ),
+				array( 'title' => '沉浸式虚拟世界', 'text' => '一个随孩子掌握新知识点而扩展的学习世界。' ),
+				array( 'title' => '代币与商店', 'text' => '真实的努力赢取代币，兑换头像和惊喜。' ),
+				array( 'title' => '全球排行榜', 'text' => '按国家和年级的安全、友好排名，外加每月抽奖。' ),
+				array( 'title' => '教师仪表盘', 'text' => '为学校提供的可选课堂工具：进度图表和掌握度图谱。' ),
+				array( 'title' => '安全无广告', 'text' => '没有广告，不与陌生人聊天，没有套路设计。只有学习。' ),
+			),
+		),
+		'cta' => array(
+			'title' => '看看这些功能的实际表现',
+			'lede'  => '30 天免费试用包含本页的全部内容。',
+		),
+	),
+
+	/* ------------------------------------------------------------- Parents */
+	'parents' => array(
+		'hero' => array(
+			'kicker' => '家长专区',
+			'title'  => '你随时了解情况，无需时刻盯着',
+			'lede'   => 'The Kids Gate 建立在一个简单的承诺上：孩子获得乐趣，你获得实情。',
+		),
+		'tour' => array(
+			'kicker' => '仪表盘逐项讲解',
+			'title'  => '你的仪表盘，逐项标注',
+			'lede'   => '点击任意区域查看它告诉你什么，然后在「活动」和「表现」视图之间切换。',
+			'activity_alt'      => 'The Kids Gate 家长仪表盘，活动视图',
+			'performance_alt'   => 'The Kids Gate 家长仪表盘，表现视图',
+			'activity_label'    => '进度仪表盘：活动',
+			'performance_label' => '进度仪表盘：表现',
+			'items' => array(
+				array(
+					'title_a' => '活动总计',
+					'text_a'  => '快速概览：赢得的 GATE 代币、完成的活动和总访问次数。',
+					'title_b' => '表现总计',
+					'text_b'  => '快速概览：完成的测验、孩子的排名和赢得的金币。',
+				),
+				array(
+					'title_a' => '成就图表',
+					'text_a'  => '孩子赢得的 GATE 代币与你所在国家、州/省和城市其他孩子平均水平的对比，包括前十名佼佼者。',
+					'title_b' => '进度图表',
+					'text_b'  => '孩子完成的难、中、易测验数量，与你所在国家、州/省和城市的其他孩子对比。',
+				),
+				array(
+					'title_a' => '活动图表',
+					'text_a'  => '完成的课程模块数量与你所在国家、州/省和城市其他孩子的对比，显示前十名佼佼者。',
+					'title_b' => '进度报告',
+					'text_b'  => '每个已完成测验的详细表格视图，包含孩子每次尝试的更多信息。',
+				),
+				array(
+					'title_a' => '访问图表',
+					'text_a'  => '总访问次数与你所在国家、州/省和城市其他孩子的对比。',
+					'title_b' => '测验表现报告',
+					'text_b'  => '孩子完成的难、中、易测验百分比与本地其他孩子的对比。',
+				),
+				array(
+					'title_a' => '活动记录报告',
+					'text_a'  => '详细的表格记录，显示每个模块或活动的完成时间及所属科目。',
+					'title_b' => '榜首报告与图表',
+					'text_b'  => '在较高难度下完成的测验，与你所在国家和城市同年级前十名孩子排名对比。',
+				),
+			),
+			'toggle' => array(
+				'title_a' => '查看表现视图',
+				'text_a'  => '你正在查看活动仪表盘。点击切换到表现：测验、排名和进度。',
+				'title_b' => '返回活动视图',
+				'text_b'  => '你正在查看表现仪表盘。点击切换回活动：代币、活动和访问。',
+			),
+		),
+		'profiles' => array(
+			'kicker' => '为家庭打造',
+			'title'  => '最多六个孩子，一个账户',
+			'lede'   => '每个孩子都有自己的档案、自己的路径、自己的奖励，而你在一个地方全部看到。',
+			'items'  => array(
+				array( 'title' => '独立档案', 'text' => '每个孩子独立的进度、级别和奖励。' ),
+				array( 'title' => '每个孩子不同科目', 'text' => '一个孩子可以学两门科目，另一个只学数学。' ),
+				array( 'title' => '公平的家庭定价', 'text' => '额外的孩子享受折扣价，详见价格页面。' ),
+			),
+		),
+		'perks' => array(
+			'kicker' => '给家长的更多',
+			'title'  => '让生活更轻松的小细节',
+			'lede'   => '围绕真实家庭如何使用 The Kids Gate 而精心设计的贴心额外功能。',
+			'items'  => array(
+				array( 'title' => '离线模式', 'text' => '课程会缓存，即使没有 Wi-Fi 孩子也能继续学习，非常适合长途旅行。' ),
+				array( 'title' => '随时取消', 'text' => '没有锁定合约。可随时在账户设置中直接取消订阅。' ),
+				array( 'title' => '薄弱点提醒', 'text' => '标记孩子需要额外支持的知识点，便于你介入或与老师讨论。' ),
+			),
+		),
+		'safety' => array(
+			'kicker' => '安全第一',
+			'title'  => '一座围墙花园，以最好的方式',
+			'lede'   => '',
+			'items'  => array(
+				array( 'title' => '完全无广告', 'text' => '应用内任何地方都没有任何形式的广告。' ),
+				array( 'title' => '不与陌生人接触', 'text' => '没有开放聊天。排行榜只显示安全昵称和头像。' ),
+				array( 'title' => '钥匙在你手中', 'text' => '订阅、档案、每日屏幕时间限制和设置全部在家长账户中。' ),
+			),
+		),
+		'join' => array(
+			'kicker' => '快速上手',
+			'title'  => '四个简单步骤即可运行',
+			'lede'   => '从注册到第一份进度报告，运作方式如下。',
+			'items'  => array(
+				array( 'title' => '创建家庭账户', 'text' => '注册并添加你的孩子。每个孩子都有自己的档案和个性化学习路径。' ),
+				array( 'title' => '孩子完成评估', 'text' => '简短的诊断测试勾勒孩子在英语和数学上的确切水平。' ),
+				array( 'title' => '开始学习', 'text' => '孩子按照个性化课程计划学习。你可以实时查看他们的进度。' ),
+				array( 'title' => '你随时知情', 'text' => '每周报告送达你的收件箱。随时登录查看详细进度、连胜和成就。' ),
+			),
+		),
+		'faq' => array(
+			'kicker' => '家长的疑问',
+			'title'  => '常被问到',
+			'lede'   => '',
+			'items'  => array(
+				array(
+					'q' => '这需要多少屏幕时间？',
+					'a' => 'The Kids Gate 围绕每天约 20 分钟的一节短课程设计。应用鼓励在自然结束点停下，而不是无止境地刷下去。',
+				),
+				array(
+					'q' => '它真的能匹配孩子的学校课业吗？',
+					'a' => 'The Kids Gate 教授 1–6 年级的剑桥英语和国际数学。自适应路径意味着它通过填补缺口和拓展优势来补充学校教育，而不是重复家庭作业。',
+				),
+				array(
+					'q' => '如果孩子觉得太简单或太难怎么办？',
+					'a' => '这正是 AI 所防止的。难度在每答一题后调整，每两周的全面重新评估让水平始终诚实。',
+				),
+				array(
+					'q' => '我能看到孩子每天做了什么吗？',
+					'a' => '可以。家长仪表盘显示完成的课程、花费的时间、掌握度变化，以及任何值得庆祝或留意的事。',
+				),
+				array(
+					'q' => '奖励系统健康吗？',
+					'a' => '奖励嘉奖坚持，而非速度或竞争。代币来自完成的学习，排行榜旨在鼓励到场，而非给孩子施压。',
+				),
+			),
+		),
+	),
+
+	/* ------------------------------------------------------------- Pricing */
+	'pricing' => array(
+		'hero' => array(
+			'kicker' => '价格',
+			'title'  => '为真实家庭而设的诚实定价',
+			'lede'   => '每个方案都以 30 天免费试用开始。无需信用卡。随时取消。',
+		),
+		'toggle' => array(
+			'monthly' => '按月',
+			'yearly'  => '按年',
+			'save'    => '省 20%',
+		),
+		'save_label' => '省 {n}%',
+		'activation_faq_q' => '一次性激活费是什么？',
+		'activation_help'  => '关于一次性激活费',
+		'activation_info'  => '按每名孩子（以及每名学校学生）收取的一次性费用，在持续订阅期间只收取一次。当你从按月切换为按年时，此费用会延续（不会再次收取），仅当账户失效或取消后重新加入时才会再次收取。它用于支持代币奖励和应用内的学习功能，让孩子持续回来学习并稳步进步。',
+		'plans' => array(
+			'one' => array(
+				'name'   => '单科目',
+				'desc'   => '剑桥英语 或 国际数学',
+				'features' => array(
+					'完整的自适应 AI 个性化',
+					'你所选科目的全部课程',
+					'代币、奖励与虚拟世界',
+					'含家长仪表盘',
+					'每两周重新评估',
+				),
+			),
+			'two' => array(
+				'name'   => '双科目',
+				'desc'   => '剑桥英语 与 国际数学',
+				'flag'   => '最受欢迎',
+					'vs_singles' => '分开购买两门单科',
+				'features' => array(
+					'包含单科目的一切',
+					'两门完整课程',
+					'一次合并的每日课程',
+					'跨科目进度视图',
+					'每科目最超值',
+				),
+			),
+			'per_month'     => '/月',
+			'billed_yearly' => '按年计费',
+			'addl_note'     => '额外孩子低至 {price}/月',
+		),
+		'builder' => array(
+			'kicker' => '搭建你的家庭方案',
+			'title'  => '为最多六个孩子自由组合',
+			'lede'   => '为每个孩子选择科目。科目最多的孩子按标准价付费；其他每个孩子享受额外孩子价。',
+			'add_child'    => '再添加一个孩子',
+			'remove_child' => '移除此孩子',
+			'english'      => '剑桥英语',
+			'maths'        => '国际数学',
+			'summary_title' => '你的家庭方案',
+			'total_label'   => '合计',
+			'select_cta'    => '选择此方案',
+			'select_note'   => '我们会带你前往支持团队完成设置，在线结账即将上线。',
+			'trial_note'    => '你的 30 天免费试用涵盖此方案的全部内容。',
+				'trial_lead'    => '前 30 天免费，之后：',
+			'activation_label' => '一次性激活费',
+			'first_payment'    => '首次付款',
+			'tax_note'         => '结账时可能会收取额外的地区费用和税费。',
+		),
+		'calc' => array(
+			'per_month'     => '/月',
+			'billed_yearly' => '/月，按年计费',
+			'billed_total'  => '今日扣款 {price}',
+			'child'         => '孩子',
+			'full_rate'     => '标准价',
+			'addl_rate'     => '额外孩子价',
+			'one_subject'   => '1 门科目',
+			'two_subjects'  => '2 门科目',
+			'activation_sub' => '每个孩子 {price} × {n}',
+		),
+		'disclaimer' => '家庭计费方式：如果你的孩子学习的科目数量不同，科目最多的孩子按标准的第一个孩子价计费。其他每个孩子按与其自身科目数量匹配的额外孩子价计费。按月和按年计费适用相同规则。',
+		'faq' => array(
+			'kicker' => '价格疑问',
+			'title'  => '在你开口之前',
+			'lede'   => '',
+			'items'  => array(
+				array(
+					'q' => '免费试用之后会怎样？',
+					'a' => '30 天后你选择一个方案继续。不会自动扣款，除非你添加信用卡，否则不会留存任何卡信息。',
+				),
+				array(
+					'q' => '开始时需要信用卡吗？',
+					'a' => '不需要。你可以在不输入任何付款信息的情况下开始并完成整个 30 天试用。',
+				),
+				array(
+					'q' => '我们可以随时取消吗？',
+					'a' => '可以。随时取消，你的方案只会运行到你已付费周期的结束。',
+				),
+				array(
+					'q' => '我们可以更换方案吗？',
+					'a' => '可以，你可以随时在单科目和双科目方案之间切换，或在按月和按年计费之间切换。',
+				),
+				array(
+					'q' => '额外孩子是怎么算的？',
+					'a' => '一个家庭账户最多容纳六个孩子。科目最多的孩子按标准价付费；其他每个孩子按其自身科目享受折扣的额外孩子价。',
+				),
+				array(
+					'q' => '我的孩子可以学不同科目吗？',
+					'a' => '当然。一个孩子可以学两门科目，而兄弟姐妹只学英语或只学数学，上方的价格搭建器会准确显示费用。',
+				),
+				array(
+					'q' => '按年计费是怎么运作的？',
+					'a' => '按年方案每年计费一次，按折后的每月等价计算，比按月付费省约 20%。',
+				),
+			),
+		),
+	),
+
+	/* ------------------------------------------------------------- Schools */
+	'schools' => array(
+		'hero' => array(
+			'kicker' => '学校与教师',
+			'title'  => '为课堂里的每个座位提供个性化学习',
+			'lede'   => 'The Kids Gate 以自适应练习补充课堂教学，并赋予教师本需向家教付费才能获得的可见性。',
+		),
+		'align' => array(
+			'kicker' => '课程契合',
+			'title'  => '与你已在教授的内容对齐',
+			'lede'   => '',
+			'items'  => array(
+				array( 'title' => '剑桥英语', 'text' => '阶段对齐的英语内容，从自然拼读到自信的读写。' ),
+				array( 'title' => '国际数学', 'text' => '完整的 1–6 年级进阶，对应国际框架。' ),
+				array( 'title' => '1–6 年级', 'text' => '一个平台覆盖整个小学，从初识拼读到升入中学之前。' ),
+			),
+		),
+		'value' => array(
+			'kicker' => '实际应用',
+			'title'  => '课堂与家庭，协同运作',
+			'lede'   => '无论你怎么教，The Kids Gate 都能融入并适应每个学习者，且不增加你的工作量。',
+			'items'  => array(
+				array( 'tag' => '实时分层', 'title' => '课堂上', 'text' => '用 The Kids Gate 进行分层练习，每个学生在同一节课中按自己的水平学习。' ),
+				array( 'tag' => '作业搞定', 'title' => '在家里', 'text' => '会自动批改、自动调整并自动向你汇报的作业。' ),
+				array( 'tag' => '精准帮扶', 'title' => '用于干预', 'text' => '困难知识点标记准确显示哪些学生在哪些概念上需要帮助。' ),
+			),
+		),
+		'viewtoggle' => array(
+			'aria'      => '切换仪表盘视图',
+			'teacher'   => '教师',
+			'principal' => '校长',
+		),
+		'dash' => array(
+			'kicker' => '教师仪表盘',
+			'title'  => '班级层面的洞察，一目了然',
+			'text'   => '对整个班级的实时视图，无需批改、无需表格、无需猜测。',
+			'feats'  => array(
+				array( 'title' => '评估分数图表', 'text' => '追踪全班在测验 1–6 的理解分数。' ),
+				array( 'title' => '总课程时长拆解', 'text' => '在清晰的环形图中查看每个学生占总课程的比例。' ),
+				array( 'title' => '人均平均分', 'text' => '比较全班每个学生的平均测验分数。' ),
+				array( 'title' => '活动完成情况', 'text' => '监控本周期每个学生完成了多少活动。' ),
+			),
+			'img_alt' => 'The Kids Gate 教师仪表盘，显示班级评估分数、课程拆解和活动完成情况',
+		),
+		'principal' => array(
+			'kicker' => '校长视图',
+			'title'  => '全校洞察，一目了然',
+			'text'   => '俯瞰每个班级的全局视图，呈现对领导决策最重要的数据。',
+			'feats'  => array(
+				array( 'title' => '跨班级比较', 'text' => '在同一图表上比较 A 班和 B 班的评估分数。' ),
+				array( 'title' => '年级与科目筛选', 'text' => '按 1–6 年级筛选，并在数学和英语之间即时切换。' ),
+				array( 'title' => '平均赢得代币', 'text' => '通过每班代币收益了解哪些班级最投入。' ),
+				array( 'title' => '平均完成评估数', 'text' => '追踪每个班级平均完成多少评估和视频。' ),
+			),
+			'img_alt' => 'The Kids Gate 校长仪表盘，按评估分数、代币和完成情况比较班级',
+		),
+		'testimonial' => array(
+			'flag'  => '占位',
+			'quote' => '占位：经核实的教师或校长证言将在可用后添加于此。',
+			'name'  => '教师姓名',
+			'meta'  => '学校名称，国家',
+		),
+		'curriculum_cta' => '下载课程大纲',
+		'curriculum_note' => '占位：可下载的课程大纲 PDF 正在最终确定中。',
+		'form' => array(
+			'kicker' => '开始',
+			'title'  => '索取学校信息',
+			'lede'   => '告诉我们你学校的情况，我们将回复价格、入门细节和试点方案。',
+				'pricing_note' => '学校每名学生可比标准价<span class="kg-hl-teal">节省高达 10%</span>，按年计费。',
+			'name'        => '你的姓名',
+			'email'       => '工作邮箱',
+			'school'      => '学校名称',
+			'role'        => '你的职位',
+			'role_opts'   => array( '教师', '教研组长', '校长 / 负责人', '学校管理员', '其他' ),
+			'students'    => '大致学生人数',
+			'message'     => '还有什么我们该了解的吗？',
+			'submit'      => '索取学校信息',
+			'success_title' => '谢谢，已收到请求',
+			'success_text'  => '我们的学校团队将在两个工作日内回复。（注意：咨询后端尚未连接，此提交仅记录用于分析。紧急咨询请见页脚的支持邮箱。）',
+		),
+	),
+
+	/* --------------------------------------------------------- Leaderboard */
+	'leaderboard' => array(
+		'hero' => array(
+			'kicker' => '排行榜',
+			'title'  => '一场环游世界的友好竞赛',
+			'lede'   => '各地的学习者因坚持而赢取代币。排行榜嘉奖到场，每一节课都算数。',
+		),
+		'filters' => array(
+			'scope'   => array( '全球', '我的国家' ),
+			'grades'  => array( '所有年级', '一年级', '二年级', '三年级', '四年级', '五年级', '六年级' ),
+			'subjects' => array( '所有科目', '英语', '数学' ),
+			'periods'  => array( '本周', '本月', '全部时间' ),
+		),
+		'rows' => array(
+			array( 'name' => 'Star_Naya', 'country' => '印度尼西亚', 'code' => 'ID', 'grade' => '三年级', 'grade_n' => 3, 'subject' => 'maths', 'tokens' => '2,840', 'move' => 'up' ),
+			array( 'name' => 'MathTiger', 'country' => '泰国', 'code' => 'TH', 'grade' => '五年级', 'grade_n' => 5, 'subject' => 'maths', 'tokens' => '2,715', 'move' => 'up' ),
+			array( 'name' => 'BookwormBen', 'country' => '澳大利亚', 'code' => 'AU', 'grade' => '四年级', 'grade_n' => 4, 'subject' => 'english', 'tokens' => '2,650', 'move' => 'down' ),
+			array( 'name' => 'PuzzlePim', 'country' => '泰国', 'code' => 'TH', 'grade' => '二年级', 'grade_n' => 2, 'subject' => 'both', 'tokens' => '2,590', 'move' => 'up' ),
+			array( 'name' => 'RocketRani', 'country' => '印度尼西亚', 'code' => 'ID', 'grade' => '六年级', 'grade_n' => 6, 'subject' => 'maths', 'tokens' => '2,470', 'move' => 'same' ),
+			array( 'name' => 'CleverCleo', 'country' => '新加坡', 'code' => 'SG', 'grade' => '一年级', 'grade_n' => 1, 'subject' => 'english', 'tokens' => '2,395', 'move' => 'up' ),
+			array( 'name' => 'GateGazer', 'country' => '马来西亚', 'code' => 'MY', 'grade' => '四年级', 'grade_n' => 4, 'subject' => 'both', 'tokens' => '2,310', 'move' => 'down' ),
+			array( 'name' => 'SunnySom',    'country' => '泰国',        'code' => 'TH', 'grade' => '三年级', 'grade_n' => 3, 'subject' => 'english', 'tokens' => '2,255', 'move' => 'up' ),
+			array( 'name' => 'MindMapMia',  'country' => '菲律宾',     'code' => 'PH', 'grade' => '一年级', 'grade_n' => 1, 'subject' => 'english', 'tokens' => '2,190', 'move' => 'up' ),
+			array( 'name' => 'QuizKingKit', 'country' => '印度',           'code' => 'IN', 'grade' => '六年级', 'grade_n' => 6, 'subject' => 'maths',   'tokens' => '2,120', 'move' => 'down' ),
+			array( 'name' => 'WordWizWin',  'country' => '英国',  'code' => 'GB', 'grade' => '三年级', 'grade_n' => 3, 'subject' => 'english', 'tokens' => '2,055', 'move' => 'up' ),
+			array( 'name' => 'NumNinja',    'country' => '韩国',     'code' => 'KR', 'grade' => '五年级', 'grade_n' => 5, 'subject' => 'maths',   'tokens' => '1,990', 'move' => 'same' ),
+			array( 'name' => 'SparkySam',   'country' => '澳大利亚',       'code' => 'AU', 'grade' => '二年级', 'grade_n' => 2, 'subject' => 'both',    'tokens' => '1,935', 'move' => 'up' ),
+			array( 'name' => 'GlowGabi',    'country' => '越南',         'code' => 'VN', 'grade' => '四年级', 'grade_n' => 4, 'subject' => 'english', 'tokens' => '1,880', 'move' => 'down' ),
+			array( 'name' => 'BrainBolt',   'country' => '美国',   'code' => 'US', 'grade' => '六年级', 'grade_n' => 6, 'subject' => 'both',    'tokens' => '1,820', 'move' => 'up' ),
+			array( 'name' => 'TurboTam',    'country' => '泰国',        'code' => 'TH', 'grade' => '一年级', 'grade_n' => 1, 'subject' => 'maths',   'tokens' => '1,760', 'move' => 'down' ),
+			array( 'name' => 'EagleEli',    'country' => '阿联酋',             'code' => 'AE', 'grade' => '五年级', 'grade_n' => 5, 'subject' => 'english', 'tokens' => '1,700', 'move' => 'up' ),
+			array( 'name' => 'RainbowRia',  'country' => '印度尼西亚',       'code' => 'ID', 'grade' => '二年级', 'grade_n' => 2, 'subject' => 'english', 'tokens' => '1,640', 'move' => 'same' ),
+			array( 'name' => 'JetJoy',      'country' => '日本',           'code' => 'JP', 'grade' => '三年级', 'grade_n' => 3, 'subject' => 'maths',   'tokens' => '1,575', 'move' => 'up' ),
+			array( 'name' => 'ZenZara',     'country' => '马来西亚',        'code' => 'MY', 'grade' => '六年级', 'grade_n' => 6, 'subject' => 'english', 'tokens' => '1,510', 'move' => 'down' ),
+			array( 'name' => 'FlashFinn',   'country' => '加拿大',          'code' => 'CA', 'grade' => '四年级', 'grade_n' => 4, 'subject' => 'maths',   'tokens' => '1,455', 'move' => 'up' ),
+			array( 'name' => 'LucyLumos',   'country' => '新西兰',     'code' => 'NZ', 'grade' => '一年级', 'grade_n' => 1, 'subject' => 'both',    'tokens' => '1,390', 'move' => 'up' ),
+			array( 'name' => 'ChampChris',  'country' => '新加坡',       'code' => 'SG', 'grade' => '五年级', 'grade_n' => 5, 'subject' => 'both',    'tokens' => '1,330', 'move' => 'same' ),
+			array( 'name' => 'PixelPat',    'country' => '香港',       'code' => 'HK', 'grade' => '二年级', 'grade_n' => 2, 'subject' => 'maths',   'tokens' => '1,275', 'move' => 'down' ),
+			array( 'name' => 'BlazeBlue',   'country' => '斯里兰卡',       'code' => 'LK', 'grade' => '三年级', 'grade_n' => 3, 'subject' => 'both',    'tokens' => '1,215', 'move' => 'up' ),
+			array( 'name' => 'CosmoKai',    'country' => '英国',  'code' => 'GB', 'grade' => '四年级', 'grade_n' => 4, 'subject' => 'both',    'tokens' => '1,155', 'move' => 'down' ),
+			array( 'name' => 'StellaStars', 'country' => '南非',    'code' => 'ZA', 'grade' => '一年级', 'grade_n' => 1, 'subject' => 'english', 'tokens' => '1,095', 'move' => 'up' ),
+			array( 'name' => 'BoldBira',    'country' => '巴西',          'code' => 'BR', 'grade' => '六年级', 'grade_n' => 6, 'subject' => 'maths',   'tokens' => '1,035', 'move' => 'same' ),
+			array( 'name' => 'WaveWin',     'country' => '菲律宾',     'code' => 'PH', 'grade' => '五年级', 'grade_n' => 5, 'subject' => 'english', 'tokens' => '975',   'move' => 'up' ),
+			array( 'name' => 'ZestZoe',     'country' => '印度',           'code' => 'IN', 'grade' => '二年级', 'grade_n' => 2, 'subject' => 'both',    'tokens' => '920',   'move' => 'down' ),
+		),
+		'demo_note' => '展示的是示例数据。实时排名见应用内。',
+		'count'      => '{n} 名学习者',
+		'count_one'  => '1 名学习者',
+		'empty'      => '暂无符合这些筛选条件的学习者。试着放宽搜索范围。',
+		'reset'      => '清除筛选',
+		'safety' => array(
+			'kicker' => '安全为本',
+			'title'  => '公开，却也私密',
+			'lede'   => '',
+			'items'  => array(
+				array( 'title' => '安全昵称', 'text' => '孩子以自选昵称和头像出现，绝不显示真实姓名或照片。' ),
+				array( 'title' => '无位置信息', 'text' => '永远只显示国家级别的信息。' ),
+				array( 'title' => '努力胜过速度', 'text' => '排名嘉奖坚持学习，而非赶进度。' ),
+			),
+		),
+		'prizes' => array(
+			'kicker' => '每月抽奖',
+			'title'  => '每位活跃学习者都有一张抽奖券',
+			'text'   => '每个月，保持连胜的学习者都会进入抽奖。重点不是争第一。到场才能赢得参与资格。',
+		),
+		'cta_label' => '加入排行榜',
+	),
+
+	/* --------------------------------------------------------------- About */
+	'about' => array(
+		'hero' => array(
+			'kicker' => '关于我们',
+			'title'  => '我们为何打造 Gate',
+			'lede'   => '',
+		),
+		'mission' => '我们相信，每个孩子都值得拥有恰好契合自身水平、感觉像<span class="kg-hl-amber">玩</span>而非压力的学习。',
+		'story' => array(
+			'kicker' => '我们的故事',
+			'title'  => '从看着孩子失去兴趣，到看着他们眼睛发亮',
+			'paras'  => array(
+				'The Kids Gate 由 GATE Edutech Solutions Pty Ltd 打造，这是一支来自澳大利亚和东南亚的教育者、工程师和家长团队。',
+				'我们看着聪明的孩子在以他人节奏推进的课堂中失去信心，也看着家教让真正的个性化对大多数家庭遥不可及。',
+				'于是我们在孩子的现状与潜能之间架起一道门：一位有着无尽耐心、完美记忆，且价格普通家庭也负担得起的 AI 家教。',
+			),
+		),
+		'values' => array(
+			'kicker' => '我们的坚持',
+			'title'  => '三个承诺',
+			'lede'   => '',
+			'items'  => array(
+				array( 'title' => '教育为先', 'text' => '真正的课程，剑桥英语和国际数学，而非披着学习外衣的娱乐。' ),
+				array( 'title' => '始终个性化', 'text' => 'AI 在这里只为一个目的：为每个孩子打造私人家教才会构建的路径。' ),
+				array( 'title' => '安全又诚实', 'text' => '无广告、无陌生人、无套路设计。奖励培养习惯，而非成瘾。' ),
+			),
+		),
+		'global' => array(
+			'kicker' => '从第一天起就面向全球',
+			'title'  => '一个平台，多种语言',
+			'text'   => 'The Kids Gate 以英语、印尼语、泰语和中文服务各地家庭，提供本地价格和经过文化适配的内容，而不仅仅是翻译。',
+		),
+		'contact' => array(
+			'kicker' => '公司信息',
+			'title'  => '联系我们',
+			'company' => 'GATE Edutech Solutions Pty Ltd',
+			'note'    => '如有支持问题，最快的途径是我们的支持页面。',
+			'cta'     => '联系我们',
+		),
+	),
+
+	/* ------------------------------------------------------------ Sponsors */
+	'sponsors' => array(
+		'hero' => array(
+			'kicker'        => '赞助商与合作伙伴',
+			'title'         => '帮助更多孩子爱上学习',
+			'lede'          => '与 The Kids Gate 合作，为奖励提供动力、资助学习机会，并在一个为 5–12 岁打造的安全无广告世界中，把你的品牌呈现给全球家庭。',
+			'cta'           => '成为赞助商',
+			'cta_secondary' => '查看合作层级',
+			'chips'         => array( '全球触达', '5–12 岁', '安全无广告' ),
+		),
+		'impact' => array(
+			'kicker' => '为何赞助 The Kids Gate',
+			'title'  => '一个不断成长的小学习者世界',
+			'lede'   => '你的支持每天触达跨越多种语言和两门核心科目的投入家庭。',
+			'items'  => array(
+				array( 'num' => '1800', 'suffix' => '+',   'label' => '你的支持所触达的课程' ),
+				array( 'num' => '6',    'suffix' => '',    'label' => '个年级，5–12 岁' ),
+				array( 'num' => '4',    'suffix' => '',    'label' => '种语言：英语 · 印尼语 · 泰语 · 中文' ),
+				array( 'num' => '20',   'suffix' => '分钟', 'label' => '每个孩子每日学习' ),
+			),
+			'note'   => '经核实的受众和参与度数据可应要求提供。',
+		),
+		'ways' => array(
+			'kicker' => '合作方式',
+			'title'  => '选择契合你品牌的影响力',
+			'lede'   => '每一次合作都围绕对你最重要的事来打造。',
+			'items'  => array(
+				array( 'title' => '为抽奖提供动力', 'text' => '赞助每月抽奖，让孩子保持动力、不断回来学习。' ),
+				array( 'title' => '为 The Kids Gate 商店注入活力', 'text' => '资助孩子随进步解锁的代币奖励和头像物品。' ),
+				array( 'title' => '赞助学习机会', 'text' => '让原本无力负担的孩子获得完整的 The Kids Gate 学习与游戏位置。' ),
+			),
+		),
+		'tiers' => array(
+			'kicker'  => '合作层级',
+			'title'   => '找到你的层级',
+			'lede'    => '三个起点，我们也乐意为你量身定制任何一个。',
+			'popular' => '最受欢迎',
+			'cta'     => '选择此层级',
+			'note'    => '所有层级都灵活可调。告诉我们你的目标和预算，我们会打造一段行之有效的合作。',
+			'items'   => array(
+				array(
+					'name'   => '社区赞助商',
+					'price'  => '面议',
+					'blurb'  => '热烈欢迎加入 The Kids Gate 大家庭。',
+					'points' => array( '你的标志展示在赞助商页面', '在我们各渠道的社交致谢', '每月影响力简报' ),
+				),
+				array(
+					'name'     => '学习伙伴',
+					'price'    => '面议',
+					'blurb'    => '为学习者带来看得见的改变。',
+					'featured' => true,
+					'points'   => array( '包含社区赞助商的一切', '赞助一次每月抽奖', '资助一批学习位置', '商店中的联名奖励', '每季度合作报告' ),
+				),
+				array(
+					'name'   => '创始冠军',
+					'price'  => '面议',
+					'blurb'  => '与我们共同塑造平台的未来。',
+					'points' => array( '包含学习伙伴的一切', '一场冠名抽奖', '专属的 The Kids Gate 商店活动', '在首页和应用中的重点展示', '一段战略性的持续合作' ),
+				),
+			),
+		),
+		'partners' => array(
+			'kicker'      => '我们的合作伙伴',
+			'title'       => '成为我们的创始赞助商之一',
+			'lede'        => '这里将展示我们合作伙伴的标志。还有位置留给你。',
+			'placeholder' => '你的标志展示于此',
+		),
+		'steps' => array(
+			'kicker' => '运作方式',
+			'title'  => '合作只需三个简单步骤',
+			'lede'   => '',
+			'items'  => array(
+				array( 'title' => '联系我们', 'text' => '告诉我们你的品牌以及你希望达成什么。' ),
+				array( 'title' => '塑造你的影响力', 'text' => '我们围绕你的目标、受众和预算设计一段合作。' ),
+				array( 'title' => '看见改变', 'text' => '定期收到关于你所支持的孩子和学习的报告。' ),
+			),
+		),
+		'testimonial' => array(
+			'flag'  => '合作伙伴证言占位',
+			'quote' => '一段来自未来赞助商、关于与 The Kids Gate 合作影响力的简短引言将出现在此。',
+			'name'  => '合作伙伴姓名',
+			'meta'  => '机构，国家',
+		),
+		'form' => array(
+			'kicker'        => '开启对话',
+			'title'         => '成为赞助商',
+			'lede'          => '简单告诉我们你的机构情况，会有真人与你联系。',
+			'name'          => '你的姓名',
+			'email'         => '邮箱地址',
+			'org'           => '机构',
+			'interest'      => '你对什么感兴趣？',
+			'interest_opts' => array( '赞助抽奖', '资助 The Kids Gate 商店', '赞助学习机会', '品牌合作', '其他' ),
+			'budget'        => '大致预算（可选）',
+			'message'       => '告诉我们更多（可选）',
+			'submit'        => '发送赞助咨询',
+			'success_title' => '已收到咨询',
+			'success_text'  => '感谢你有意与 The Kids Gate 合作！致网站所有者：邮件后端尚未连接，因此此提交仅记录用于分析。在接通之前，也请发邮件至下方地址，以确保获得回复。',
+		),
+		'cta' => array(
+			'title' => '让我们为孩子打造一些精彩的东西',
+			'lede'  => '无论你的支持规模大小，都能帮助某处的一个孩子更享受学习。',
+		),
+	),
+
+	/* ------------------------------------------------------------- Support */
+	'support' => array(
+		'hero' => array(
+			'kicker' => '支持',
+			'title'  => '我们能帮你什么？',
+			'lede'   => '搜索下方答案、按主题浏览，或与真人交流。两种方式我们都乐意帮忙。',
+		),
+		'search_placeholder' => '搜索答案，试试「试用」或「科目」',
+		'no_results' => '没有答案匹配你的搜索。试试不同的词，或在下方给我们留言。',
+		'cats' => array(
+			'plans'   => '方案与价格',
+			'product' => '使用 The Kids Gate',
+			'account' => '账户与应用',
+		),
+		'faq_items' => array(
+			array(
+				'cat' => 'product',
+				'q'   => 'The Kids Gate 是什么？',
+				'a'   => 'The Kids Gate 是一个面向 5–12 岁儿童的 AI 智能学习平台。它通过游戏、故事、测验、歌曲、谜题和其他互动活动，为 1–6 年级提供剑桥英语和国际数学课程。',
+			),
+			array(
+				'cat' => 'plans',
+				'q'   => '30 天免费试用如何运作？',
+				'a'   => '家庭可以免费试用 The Kids Gate 30 天。开始试用无需信用卡，你可以随时取消。',
+			),
+			array(
+				'cat' => 'product',
+				'q'   => 'AI 个性化是如何运作的？',
+				'a'   => 'The Kids Gate 根据每个孩子的回答、错误、速度、自信和进度调整学习体验。学习水平也会每两周自动重新评估一次。',
+			),
+			array(
+				'cat' => 'product',
+				'q'   => '我的孩子每天应该用 The Kids Gate 多久？',
+				'a'   => 'The Kids Gate 围绕每天约 20 分钟的简短学习课程设计。',
+			),
+			array(
+				'cat' => 'product',
+				'q'   => '提供哪些科目？',
+				'a'   => '孩子可以学习剑桥英语、国际数学，或两门科目。',
+			),
+			array(
+				'cat' => 'account',
+				'q'   => '我可以为账户添加多个孩子吗？',
+				'a'   => '可以。一个家庭账户最多可包含六个孩子。每个孩子都有自己的档案、进度追踪、奖励和学习路径。',
+			),
+			array(
+				'cat' => 'plans',
+				'q'   => '我的孩子可以学不同科目吗？',
+				'a'   => '可以。同一家庭账户中的孩子可以使用不同的科目组合。完成科目最多的孩子按标准的第一个孩子价收费；其他孩子按其学习的科目数量，以相应的额外孩子价收费。',
+			),
+			array(
+				'cat' => 'product',
+				'q'   => '家长如何监控进度？',
+				'a'   => '家长仪表盘为账户上的每个孩子显示进度、掌握度分数、困难知识点、建议和其他有用的学习信息。',
+			),
+			array(
+				'cat' => 'product',
+				'q'   => 'The Kids Gate 包含奖励吗？',
+				'a'   => '包含。孩子通过学习活动赢取代币，并在 The Kids Gate 商店消费。The Kids Gate 还包括全球排行榜和每月抽奖。',
+			),
+			array(
+				'cat' => 'product',
+				'q'   => 'The Kids Gate 对孩子安全吗？',
+				'a'   => 'The Kids Gate 设计为安全、无广告的学习体验。排行榜使用安全昵称和头像，且没有开放聊天。',
+			),
+			array(
+				'cat' => 'account',
+				'q'   => '我在哪里下载应用？',
+				'a'   => '使用任意页面页脚的 App Store 和 Google Play 按钮下载 The Kids Gate。（在确认的商店上架之前，商店链接为占位。）',
+			),
+			array(
+				'cat' => 'account',
+				'q'   => '我如何更改或取消我的方案？',
+				'a'   => '账户管理工具即将登陆应用。在此之前，请通过下方的支持表单给我们留言，或发邮件给我们，我们会迅速处理。',
+			),
+			array(
+				'cat' => 'plans',
+				'q'   => '学校和教师可以使用 The Kids Gate 吗？',
+				'a'   => '可以。The Kids Gate 包含可选的教师和学校仪表盘。请访问<a href="{schools_url}">学校与教师</a>页面并使用那里的咨询表单。',
+			),
+			array(
+				'cat' => 'account',
+				'q'   => '我仍然需要帮助。如何联系支持团队？',
+				'a'   => '使用本页的支持表单，或直接发邮件至 {support_email}。我们力争在两个工作日内回复。',
+			),
+		),
+		'form' => array(
+			'kicker' => '还是卡住了？',
+			'title'  => '给我们留言',
+			'lede'   => '每一条请求都有真人阅读。',
+			'name'    => '你的姓名',
+			'email'   => '邮箱地址',
+			'topic'   => '主题',
+			'topics'  => array( '价格与家庭方案', '免费试用', '家长仪表盘', '技术帮助', '学校与教师', '其他' ),
+			'account' => '账户邮箱或孩子档案名称（可选）',
+			'message' => '我们能帮你什么？',
+			'submit'  => '发送支持请求',
+			'success_title' => '已收到请求',
+			'success_text'  => '感谢你的联系！致网站所有者：邮件后端尚未连接，因此此提交仅记录用于分析。在接通之前，也请发邮件至下方支持地址，以确保获得回复。',
+			'email_label' => '更想用邮件？',
+		),
+		'links' => array(
+			'kicker' => '快速链接',
+			'title'  => '热门去处',
+			'items'  => array(
+				array( 'label' => '价格与家庭方案', 'slug' => 'pricing' ),
+				array( 'label' => '家长专区', 'slug' => 'parents' ),
+				array( 'label' => '运作方式', 'slug' => 'how-it-works' ),
+				array( 'label' => '赞助商', 'slug' => 'sponsors' ),
+			),
+		),
+		'helper' => array(
+			'fab_label'   => '快速帮助',
+			'title'       => 'The Kids Gate 帮助',
+			'greeting'    => '你好！今天我们能帮你什么？在下方选择一个主题 👇',
+			'restart'     => '很高兴帮到你！还有什么我们可以了解的？',
+			'helpful_q'   => '这有帮助吗？',
+			'helpful_yes' => '有，谢谢！',
+			'helpful_no'  => '不太有',
+			'back'        => '← 返回',
+			'no_help'     => '没关系。我们的支持团队可以直接帮你。',
+			'no_help_cta' => '前往支持',
+			'form_cta'    => '前往支持表单',
+			'nodes'       => array(
+				array(
+					'id'       => 'pricing',
+					'label'    => '价格与家庭方案',
+					'children' => array(
+						array(
+							'id'     => 'pricing-cost',
+							'label'  => '需要多少费用？',
+							'answer' => '方案从第一个孩子的单科目开始，第二门科目和额外孩子享受更低价格。<a href="{pricing_url}">价格页面</a>有一个互动搭建器，显示你确切的每月或每年总额。',
+						),
+						array(
+							'id'       => 'pricing-add',
+							'label'    => '添加更多孩子',
+							'children' => array(
+								array(
+									'id'     => 'pricing-add-count',
+									'label'  => '我可以添加多少个孩子？',
+									'answer' => '一个家庭账户最多容纳六个孩子，每人都有自己的档案、进度和奖励。',
+								),
+								array(
+									'id'     => 'pricing-add-cost',
+									'label'  => '额外的孩子付全价吗？',
+									'answer' => '不。你只为科目最多的孩子付全价。其他孩子按其学习内容，以更低的额外孩子价收费。',
+								),
+							),
+						),
+						array(
+							'id'     => 'pricing-subjects',
+							'label'  => '每个孩子不同科目',
+							'answer' => '可以。同一账户上的孩子可以学习不同科目。你只需为每个孩子额外学习的科目支付额外费用。',
+						),
+						array(
+							'id'     => 'pricing-billing',
+							'label'  => '按月与按年',
+							'answer' => '你可以按月或按年付费，按年计费全年算下来更便宜。在<a href="{pricing_url}">价格页面</a>上切换两者。',
+						),
+					),
+				),
+				array(
+					'id'       => 'trial',
+					'label'    => '开始免费试用',
+					'children' => array(
+						array(
+							'id'     => 'trial-how',
+							'label'  => '30 天试用如何运作？',
+							'answer' => '每个方案都以 30 天免费开始，让孩子探索完整体验。只需在应用中创建一个家庭账户即可开始。',
+						),
+						array(
+							'id'     => 'trial-card',
+							'label'  => '我需要信用卡吗？',
+							'answer' => '开始免费试用无需信用卡。',
+						),
+						array(
+							'id'     => 'trial-cancel',
+							'label'  => '取消',
+							'answer' => '你可以随时取消。在自助取消接通之前，我们的<a href="{support_url}">支持团队</a>会为你处理。',
+						),
+					),
+				),
+				array(
+					'id'       => 'dashboard',
+					'label'    => '家长仪表盘',
+					'children' => array(
+						array(
+							'id'     => 'dash-what',
+							'label'  => '我能看到什么？',
+							'answer' => '每个孩子的进度、花费时间、掌握度分数、困难知识点和简单建议。<a href="{parents_url}">家长专区页面</a>有完整的逐项讲解。',
+						),
+						array(
+							'id'     => 'dash-multi',
+							'label'  => '追踪多个孩子',
+							'answer' => '每个孩子都有自己的档案，因此你可以在他们之间切换，查看各自的进度、连胜和奖励。',
+						),
+						array(
+							'id'     => 'dash-help',
+							'label'  => '发现困难',
+							'answer' => '仪表盘及早标记困难知识点并建议如何帮助，让小缺口不会变成大问题。',
+						),
+					),
+				),
+				array(
+					'id'       => 'using',
+					'label'    => '使用应用',
+					'children' => array(
+						array(
+							'id'     => 'using-time',
+							'label'  => '每天多久？',
+							'answer' => 'The Kids Gate 围绕每天约 20 分钟的简短课程设计，足以取得进步又不失乐趣。',
+						),
+						array(
+							'id'     => 'using-subjects',
+							'label'  => '科目与年级',
+							'answer' => '孩子可以学习剑桥英语、国际数学，或两者，覆盖 1–6 年级（5–12 岁）。',
+						),
+						array(
+							'id'     => 'using-safe',
+							'label'  => '它安全且无广告吗？',
+							'answer' => '是的。The Kids Gate 设计为一个安全、无广告的空间，供孩子学习与玩乐。',
+						),
+						array(
+							'id'      => 'using-tech',
+							'label'   => '有些功能不正常',
+							'answer'  => '很抱歉！更新到最新的应用版本可解决大多数问题。如果仍然存在，请使用支持表单并选择主题「技术帮助」，我们会深入排查。',
+							'escalate' => true,
+						),
+					),
+				),
+				array(
+					'id'       => 'schools',
+					'label'    => '学校与教师',
+					'children' => array(
+						array(
+							'id'     => 'schools-dash',
+							'label'  => '教师与校长仪表盘',
+							'answer' => '教师获得班级层面的进度和掌握度视图；校长获得跨班级的全校洞察。请见<a href="{schools_url}">学校与教师页面</a>。',
+						),
+						array(
+							'id'     => 'schools-pricing',
+							'label'  => '学校或批量价格',
+							'answer' => '关于课堂或全校方案，请通过<a href="{schools_url}">学校与教师页面</a>上的咨询表单把详情发给我们，我们的学校团队会与你联系。',
+						),
+						array(
+							'id'     => 'schools-enquiry',
+							'label'  => '发起咨询',
+							'answer' => '<a href="{schools_url}">学校与教师页面</a>上的咨询表单会直达我们的学校团队。',
+						),
+					),
+				),
+				array(
+					'id'       => 'contact',
+					'label'    => '联系支持团队',
+					'answer'   => '你可以通过支持表单联系到真人，或发邮件至 <a href="mailto:{support_email}">{support_email}</a>。我们力争在两个工作日内回复。',
+					'escalate' => true,
+				),
+			),
+		),
+	),
+
+	/* ----------------------------------------------------------------- 404 */
+	'e404' => array(
+		'title'      => '这道门通往虚无！',
+		'text'       => '你要找的页面走丢了。也许它正在探索虚拟世界。让我们带你回到正轨。',
+		'home_cta'   => '返回首页',
+		'support_cta' => '前往支持',
+		'links_label' => '或直接前往：',
+	),
+
+	'payment' => array(
+		'kicker'      => '马上就好',
+		'title'       => '在线支付暂未设置',
+		'text'        => '感谢你选择方案！我们仍在为安全结账做最后的收尾，因此目前还无法在线支付。在此期间，我们的支持团队可以帮你开始或解答任何问题。',
+		'support_cta' => '前往支持',
+		'home_cta'    => '返回首页',
+		'email_label' => '更想用邮件？请联系我们：',
+	),
+);
