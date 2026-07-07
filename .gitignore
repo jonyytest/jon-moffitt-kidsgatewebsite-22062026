@@ -17,6 +17,7 @@ build/
 # Local AI tooling
 .claude/
 __pycache__/
+graphify-out/
 
 # Claude implementation brief (internal only)
 CLAUDE.md

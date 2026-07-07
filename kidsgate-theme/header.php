@@ -38,7 +38,7 @@
 				<li><a href="<?php echo esc_url( kg_url( 'parents' ) ); ?>"<?php kg_nav_active_attr( 'parents' ); ?>><?php kg_e( 'nav.parents' ); ?></a></li>
 				<li><a href="<?php echo esc_url( kg_url( 'pricing' ) ); ?>"<?php kg_nav_active_attr( 'pricing' ); ?>><?php kg_e( 'nav.pricing' ); ?></a></li>
 				<li><a href="<?php echo esc_url( kg_url( 'schools' ) ); ?>"<?php kg_nav_active_attr( 'schools' ); ?>><?php kg_e( 'nav.schools' ); ?></a></li>
-				<li><a href="<?php echo esc_url( kg_url( 'leaderboard' ) ); ?>"<?php kg_nav_active_attr( 'leaderboard' ); ?>><?php kg_e( 'nav.leaderboard' ); ?></a></li>
+				<li><a href="<?php echo esc_url( kg_url( 'rewards' ) ); ?>"<?php kg_nav_active_attr( 'rewards' ); ?>><?php kg_e( 'nav.rewards' ); ?></a></li>
 			</ul>
 			<div class="kg-nav__mobile-foot">
 				<?php kg_language_switcher( '-m' ); ?>

@@ -91,7 +91,13 @@ function kg_persist_lang_cookie() {
 		return; // Language is in the URL — no cookie needed.
 	}
 	if ( isset( $_GET['lang'] ) && in_array( $_GET['lang'], kg_valid_langs(), true ) && ! headers_sent() ) {
-		setcookie( 'kg_lang', $_GET['lang'], time() + YEAR_IN_SECONDS, '/' );
+		setcookie( 'kg_lang', $_GET['lang'], array(
+			'expires'  => time() + YEAR_IN_SECONDS,
+			'path'     => '/',
+			'secure'   => is_ssl(),
+			'httponly' => false, // read by client JS for the language switcher
+			'samesite' => 'Lax',
+		) );
 	}
 }
 add_action( 'init', 'kg_persist_lang_cookie' );
@@ -130,8 +136,69 @@ function kg_strings() {
 			$file = get_template_directory() . '/inc/lang/en.php';
 		}
 		$strings = require $file;
+		$strings = kg_apply_country_overrides( $strings );
 	}
 	return $strings;
+}
+
+/**
+ * Country-specific copy overrides applied on top of the language file.
+ *
+ * US trials require a refundable US$1 card charge to verify parental consent
+ * (COPPA), so the "no credit card required" reassurance and the FAQ answers that
+ * restate it in other words are not accurate for the US and are replaced here.
+ * Other countries keep their free, no-card trial wording untouched.
+ */
+function kg_apply_country_overrides( $strings ) {
+	if ( 'us' !== kg_country() ) {
+		return $strings;
+	}
+
+	// Exact whole-string replacements (original English copy => US copy).
+	$exact = array(
+		'No credit card required'
+			=> 'Refundable $1 to verify',
+		'30 days free. No credit card. Cancel anytime.'
+			=> '30 days free. Cancel anytime.',
+		'Every plan starts with a 30-day free trial. No credit card required. Cancel anytime.'
+			=> 'Every plan starts with a 30-day free trial. Cancel anytime.',
+		'After 30 days you choose a plan to continue. Nothing is charged automatically, there\'s no credit card on file unless you add one.'
+			=> 'After 30 days you choose a plan to continue. We do not bill the subscription unless you pick a plan.',
+		'Is a credit card required to start?'
+			=> 'Do I need a card to start the trial?',
+		'No. You can start and complete the entire 30-day trial without entering any payment details.'
+			=> 'To confirm you\'re a parent, we take a refundable $1 charge when your trial begins and give it straight back. You are not charged for the trial itself, and nothing further is billed unless you choose a plan.',
+		'Families can try The Kids Gate free for 30 days. No credit card is required to start the trial, and you can cancel at any time.'
+			=> 'Families can try The Kids Gate free for 30 days and can cancel at any time. To confirm the account holder is a parent, US trials begin with a refundable $1 verification charge that we give straight back.',
+		'No credit card is needed to start the free trial.'
+			=> 'Your trial begins with a refundable $1 check to confirm you\'re a parent — we give it straight back, so there is nothing to pay for the trial itself.',
+	);
+
+	// Substring replacements for longer copy (e.g. the meta description).
+	$fragments = array(
+		', no credit card required' => '',
+	);
+
+	return kg_deep_replace_strings( $strings, $exact, $fragments );
+}
+
+// Recursively apply exact + substring string overrides to a strings array.
+function kg_deep_replace_strings( $value, $exact, $fragments ) {
+	if ( is_array( $value ) ) {
+		foreach ( $value as $k => $v ) {
+			$value[ $k ] = kg_deep_replace_strings( $v, $exact, $fragments );
+		}
+		return $value;
+	}
+	if ( is_string( $value ) ) {
+		if ( isset( $exact[ $value ] ) ) {
+			return $exact[ $value ];
+		}
+		if ( '' !== $value && ! empty( $fragments ) ) {
+			$value = strtr( $value, $fragments );
+		}
+	}
+	return $value;
 }
 
 function kg_t( $key ) {
@@ -278,6 +345,17 @@ add_action( 'parse_request', function( $wp ) {
 
 	$market = isset( $wp->query_vars['kg_market'] )    ? sanitize_key( $wp->query_vars['kg_market'] )    : '';
 	$lang   = isset( $wp->query_vars['kg_lang_code'] ) ? sanitize_key( $wp->query_vars['kg_lang_code'] ) : '';
+
+	// Whitelist both segments — never let an arbitrary ?kg_market=/?kg_lang_code=
+	// value reach the routing constants (they feed canonical/hreflang tags and
+	// the country-only 301 redirect below).
+	$valid_countries = array( 'au', 'us', 'nz', 'sg', 'id', 'th', 'in', 'ph', 'kh', 'vn' );
+	if ( $market && ! in_array( $market, $valid_countries, true ) ) {
+		$market = '';
+	}
+	if ( $lang && ! in_array( $lang, kg_valid_langs(), true ) ) {
+		$lang = '';
+	}
 
 	if ( ! $market ) {
 		define( 'KG_CURRENT_COUNTRY', '' );
@@ -474,10 +552,6 @@ function kg_enqueue_assets() {
 		) );
 	}
 
-	if ( is_page( 'leaderboard' ) ) {
-		wp_enqueue_script( 'kg-leaderboard', kg_asset( 'js/leaderboard.js' ), array(), KG_VERSION, true );
-	}
-
 	// support.js powers the guided helper and form validation globally.
 	wp_enqueue_script( 'kg-support', kg_asset( 'js/support.js' ), array(), KG_VERSION, true );
 	wp_localize_script( 'kg-support', 'KG_DATA', array(
@@ -561,10 +635,11 @@ function kg_social_links() {
 			'instagram' => 'https://www.instagram.com/kidsgate.id/',
 			'tiktok'    => 'https://www.tiktok.com/@kidsgate.id',
 			'facebook'  => 'https://www.facebook.com/profile.php?id=61578094916488',
+			'youtube'   => 'https://www.youtube.com/@thekidsgate3295',
 		),
-		'au' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate' ),
-		'us' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate' ),
-		'th' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate' ),
+		'au' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate', 'youtube' => 'https://www.youtube.com/@thekidsgate3295' ),
+		'us' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate', 'youtube' => 'https://www.youtube.com/@thekidsgate3295' ),
+		'th' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate', 'youtube' => 'https://www.youtube.com/@thekidsgate3295' ),
 	);
 
 	$country = kg_country();
@@ -589,7 +664,7 @@ function kg_create_pages() {
 		'parents'      => 'For Parents',
 		'pricing'      => 'Pricing',
 		'schools'      => 'For Schools & Teachers',
-		'leaderboard'  => 'Leaderboard',
+		'rewards'      => 'Rewards',
 		'about'        => 'About Us',
 		'sponsors'     => 'Sponsors',
 		'support'      => 'Support',
@@ -872,11 +947,15 @@ function kg_region_banner() {
 		array( 'market' => 'vn', 'label' => 'Vietnam',       'currency' => 'VND' ),
 	);
 	echo '<div class="kg-region-bar" data-kg-region-bar role="complementary" aria-label="Choose your region">';
-	echo '<p class="kg-region-bar__msg">Choose your region to see local pricing:</p>';
-	echo '<div class="kg-region-bar__options">';
+	echo '<div class="kg-region-bar__inner">';
+	echo '<div class="kg-region-bar__head">';
+	echo '<span class="kg-region-bar__globe" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 2.8c2.5 2.6 3.7 5.8 3.7 9.2s-1.2 6.6-3.7 9.2C9.5 18.6 8.3 15.4 8.3 12S9.5 5.4 12 2.8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>';
+	echo '<span class="kg-region-bar__title">Choose your region<small>See prices in your local currency</small></span>';
+	echo '</div>';
+	echo '<ul class="kg-region-bar__options">';
 	foreach ( $options as $opt ) {
 		printf(
-			'<a class="kg-region-bar__btn" href="%s" data-kg-choice="%s">%s <strong>%s</strong> <small>%s</small></a>',
+			'<li><a class="kg-region-bar__btn" href="%s" data-kg-choice="%s"><span class="kg-region-bar__flag">%s</span><span class="kg-region-bar__name">%s</span><span class="kg-region-bar__cur">%s</span></a></li>',
 			esc_url( kg_url_for_market( $opt['market'] ) ),
 			esc_attr( $opt['market'] . ':' . $current_lang ),
 			kg_flag( $opt['market'] ), // phpcs:ignore
@@ -884,6 +963,7 @@ function kg_region_banner() {
 			esc_html( $opt['currency'] )
 		);
 	}
+	echo '</ul>';
 	echo '</div></div>';
 }
 
@@ -970,6 +1050,47 @@ function kg_render_helper() {
 		'{support_email}' => esc_html( kg_support_email() ),
 	);
 
+	$nodes = kg_helper_prepare_nodes( $helper['nodes'], $replacements );
+
+	// Page-aware opener: float the topic most relevant to the current page
+	// to the top of the first level, so the helper leads with it.
+	$lead_map = array(
+		'pricing'      => 'pricing',
+		'schools'      => 'schools',
+		'parents'      => 'dashboard',
+		'how-it-works' => 'using',
+		'features'     => 'using',
+		'download'     => 'using',
+	);
+	foreach ( $lead_map as $page_slug => $topic_id ) {
+		if ( kg_nav_is_active( $page_slug ) ) {
+			usort( $nodes, function ( $a, $b ) use ( $topic_id ) {
+				return ( $b['id'] === $topic_id ) <=> ( $a['id'] === $topic_id );
+			} );
+			break;
+		}
+	}
+
+	// The support-page FAQ rides along so the helper's free-text search can
+	// find every published answer, even ones without a button in the tree.
+	$faq = array();
+	foreach ( kg_list( 'support.faq_items' ) as $item ) {
+		$faq[] = array(
+			'q'        => $item['q'],
+			'a'        => strtr( $item['a'], $replacements ),
+			'cat'      => isset( $item['cat'] ) ? $item['cat'] : 'product',
+			// Items whose resolution is "contact us" show the widget's
+			// go-to-support-form button instead of "Was this helpful?".
+			'escalate' => ! empty( $item['escalate'] ),
+		);
+	}
+	// Shared activation-fee explainer (also appended to the support page FAQ).
+	$faq[] = array(
+		'q'   => kg_t( 'pricing.activation_faq_q' ),
+		'a'   => strtr( kg_t( 'pricing.activation_info' ), $replacements ),
+		'cat' => 'plans',
+	);
+
 	$helper_data = array(
 		'greeting'         => $helper['greeting'],
 		'restart'          => $helper['restart'],
@@ -980,12 +1101,18 @@ function kg_render_helper() {
 		'no_help'          => $helper['no_help'],
 		'no_help_cta'      => $helper['no_help_cta'],
 		'form_cta'         => $helper['form_cta'],
+		'search_intro'     => $helper['search_intro'],
+		'search_none'      => $helper['search_none'],
+		'search_escalate'  => $helper['search_escalate'],
+		'related_q'        => $helper['related_q'],
+		'lang'             => kg_lang(),
 		'support_url'      => esc_url( kg_url( 'support' ) ),
 		'support_form_url' => esc_url( kg_url( 'support' ) . '#support-form' ),
-		'nodes'            => kg_helper_prepare_nodes( $helper['nodes'], $replacements ),
+		'nodes'            => $nodes,
+		'faq'              => $faq,
 	);
 	?>
-	<script type="application/json" id="kg-helper-data"><?php echo wp_json_encode( $helper_data ); ?></script>
+	<script type="application/json" id="kg-helper-data"><?php echo wp_json_encode( $helper_data, JSON_HEX_TAG | JSON_HEX_AMP ); ?></script>
 
 	<button class="kg-helper-fab" type="button" data-kg-helper-fab aria-expanded="false" aria-controls="kg-helper">
 		<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5-1.3c1.5.8 3.2 1.3 5 1.3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
@@ -1000,6 +1127,14 @@ function kg_render_helper() {
 			</button>
 		</div>
 		<div class="kg-helper__body"></div>
+		<form class="kg-helper__foot" data-kg-helper-form>
+			<label class="kg-visually-hidden" for="kg-helper-input"><?php echo esc_html( $helper['input_placeholder'] ); ?></label>
+			<input type="text" id="kg-helper-input" autocomplete="off" maxlength="140"
+				placeholder="<?php echo esc_attr( $helper['input_placeholder'] ); ?>">
+			<button type="submit" aria-label="<?php echo esc_attr( $helper['send_label'] ); ?>">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+			</button>
+		</form>
 	</div>
 	<?php
 }

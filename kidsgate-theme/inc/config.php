@@ -13,10 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Support team email.
  *
- * PLACEHOLDER — replace with the confirmed support address (or set it in
- * Appearance → Customize → The Kids Gate Settings, which takes precedence).
+ * Confirmed support address (or set it in Appearance → Customize →
+ * The Kids Gate Settings, which takes precedence).
  */
-define( 'KG_SUPPORT_EMAIL_PLACEHOLDER', 'support@kidsgate.ai' );
+define( 'KG_SUPPORT_EMAIL_PLACEHOLDER', 'support@thekidsgate.com' );
 
 function kg_support_email() {
 	$custom = get_theme_mod( 'kg_support_email', '' );
@@ -25,7 +25,7 @@ function kg_support_email() {
 
 // True once a real (non-placeholder) support email has been configured.
 function kg_support_email_is_live() {
-	return true; // support@kidsgate.ai is the confirmed address
+	return true; // support@thekidsgate.com is the confirmed address
 }
 
 /**

@@ -84,6 +84,15 @@ $faq_items[] = array(
 			<?php endforeach; ?>
 			<p class="kg-faq__empty"><?php kg_e( 'support.no_results' ); ?></p>
 		</div>
+
+		<!-- Progressive disclosure: JS shows 10 questions at a time and reveals
+		     this button when more match the current search/category filter. -->
+		<div class="kg-faq-more" data-kg-faq-more-wrap hidden>
+			<button class="kg-btn kg-btn--secondary" type="button" data-kg-faq-more>
+				<span data-kg-faq-more-label><?php kg_e( 'support.faq_more' ); ?></span>
+				<svg class="kg-faq-more__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+			</button>
+		</div>
 	</div>
 </section>
 

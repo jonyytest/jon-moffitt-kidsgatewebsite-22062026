@@ -24,8 +24,9 @@
 				'instagram' => '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.9"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>',
 				'tiktok'    => '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>',
 				'facebook'  => '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>',
+				'youtube'   => '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.51 3.5 12 3.5 12 3.5s-7.51 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.49 20.5 12 20.5 12 20.5s7.51 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>',
 			);
-			$labels = array( 'instagram' => 'Instagram', 'tiktok' => 'TikTok', 'facebook' => 'Facebook' );
+			$labels = array( 'instagram' => 'Instagram', 'tiktok' => 'TikTok', 'facebook' => 'Facebook', 'youtube' => 'YouTube' );
 			?>
 			<div class="kg-footer__social">
 				<?php foreach ( $icons as $key => $svg ) :
@@ -50,7 +51,7 @@
 				<li><a href="<?php echo esc_url( kg_url( 'features' ) ); ?>"><?php kg_e( 'nav.features' ); ?></a></li>
 				<li><a href="<?php echo esc_url( kg_url( 'parents' ) ); ?>"><?php kg_e( 'nav.parents' ); ?></a></li>
 				<li><a href="<?php echo esc_url( kg_url( 'pricing' ) ); ?>"><?php kg_e( 'nav.pricing' ); ?></a></li>
-				<li><a href="<?php echo esc_url( kg_url( 'leaderboard' ) ); ?>"><?php kg_e( 'nav.leaderboard' ); ?></a></li>
+				<li><a href="<?php echo esc_url( kg_url( 'rewards' ) ); ?>"><?php kg_e( 'nav.rewards' ); ?></a></li>
 			</ul>
 		</nav>
 

@@ -43,7 +43,10 @@ get_header();
 <section class="kg-section kg-section--cream-deep">
 	<div class="kg-container">
 		<?php kg_section_head( 'sponsors.ways' ); ?>
-		<div class="kg-problems">
+		<!-- Impact options: each partnership angle is a pickable card — sponsor
+		     seal, an option number, and a selection bar that fills on hover —
+		     leading into the sponsorship tiers below. -->
+		<div class="kg-impact">
 			<?php
 			$icons = array(
 				// Gift — prize draws
@@ -55,44 +58,82 @@ get_header();
 				// Globe — brand presence
 				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2c2.5 2.7 4 6.3 4 10s-1.5 7.3-4 10c-2.5-2.7-4-6.3-4-10s1.5-7.3 4-10z" stroke="currentColor" stroke-width="2"/></svg>',
 			);
-			$bubbles = array( 'kg-bubble--red', 'kg-bubble--amber', 'kg-bubble--teal', 'kg-bubble--navy' );
+			$tones = array( 'red', 'amber', 'teal', 'navy' );
 			foreach ( kg_list( 'sponsors.ways.items' ) as $i => $item ) :
+				$tone = $tones[ $i % 4 ];
 				?>
-				<div class="kg-card kg-card--arch" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 100 ); ?>ms">
-					<span class="kg-bubble <?php echo esc_attr( $bubbles[ $i % 4 ] ); ?>"><?php echo $icons[ $i % 4 ]; // phpcs:ignore ?></span>
+				<a class="kg-card kg-card--arch kg-impact__card kg-impact--<?php echo esc_attr( $tone ); ?>" href="#kg-sponsor-tiers" data-kg-partner="<?php echo (int) $i; ?>" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 100 ); ?>ms">
+					<span class="kg-impact__seal">
+						<span class="kg-bubble kg-bubble--<?php echo esc_attr( $tone ); ?>"><?php echo $icons[ $i % 4 ]; // phpcs:ignore ?></span>
+						<svg class="kg-impact__star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.5-6.3 4.5L8 13.8 2 9.2h7.6z"/></svg>
+					</span>
 					<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
-					<p style="margin:0;"><?php echo $item['text']; // phpcs:ignore ?></p>
-				</div>
+					<p class="kg-impact__text"><?php echo $item['text']; // phpcs:ignore ?></p>
+					<span class="kg-impact__go" aria-hidden="true">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 5v14m-6-6 6 6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</span>
+				</a>
 			<?php endforeach; ?>
 		</div>
 	</div>
 </section>
 
-<!-- Sponsorship tiers -->
+<!-- Sponsorship tiers: a podium of four levels, each pitched at a different
+     kind of sponsor (local business → product brand → CSR company → strategic
+     partner). Cards step upward toward the highest tier. -->
 <section class="kg-section kg-section--white" id="kg-sponsor-tiers">
 	<div class="kg-container">
 		<?php kg_section_head( 'sponsors.tiers' ); ?>
 		<div class="kg-tiers">
-			<?php foreach ( kg_list( 'sponsors.tiers.items' ) as $i => $tier ) :
+			<?php
+			$tier_tones = array( 'teal', 'red', 'amber', 'navy' );
+			$tier_icons = array(
+				// Smile — community sponsor
+				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 9h.01M15 9h.01" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>',
+				// Gift — prize partner
+				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 12v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+				// Graduation cap — learning partner
+				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 9 12 4 2 9l10 5 10-5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 11.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-4.5M22 9v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+				// Crown — founding champion
+				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 8.5 7 12l5-7 5 7 4-3.5L19.4 18H4.6L3 8.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
+			);
+			$tiers_items = kg_list( 'sponsors.tiers.items' );
+			$tier_count  = count( $tiers_items );
+			foreach ( $tiers_items as $i => $tier ) :
+				$tone     = $tier_tones[ $i % 4 ];
 				$featured = ! empty( $tier['featured'] );
+				$last     = ( $i === $tier_count - 1 );
 				?>
-				<div class="kg-tier<?php echo $featured ? ' kg-tier--featured' : ''; ?>" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 110 ); ?>ms">
+				<div class="kg-tier kg-tier--<?php echo esc_attr( $tone ); ?><?php echo $featured ? ' kg-tier--featured' : ''; ?>" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 110 ); ?>ms; --kg-tier-step:<?php echo (int) ( $tier_count - 1 - $i ); ?>;">
 					<?php if ( $featured ) : ?>
 						<span class="kg-tier__flag"><?php kg_e( 'sponsors.tiers.popular' ); ?></span>
+					<?php elseif ( $last ) : ?>
+						<span class="kg-tier__flag kg-tier__flag--top"><?php kg_e( 'sponsors.tiers.highest' ); ?></span>
 					<?php endif; ?>
+					<div class="kg-tier__head">
+						<span class="kg-bubble kg-bubble--<?php echo esc_attr( $tone ); ?>"><?php echo $tier_icons[ $i % 4 ]; // phpcs:ignore ?></span>
+						<span class="kg-tier__level" aria-hidden="true"><?php for ( $d = 0; $d < $tier_count; $d++ ) : ?><i<?php echo $d <= $i ? ' class="is-on"' : ''; ?>></i><?php endfor; ?></span>
+					</div>
 					<h3 class="kg-tier__name"><?php echo $tier['name']; // phpcs:ignore ?></h3>
-					<p class="kg-tier__price"><?php echo $tier['price']; // phpcs:ignore ?></p>
+					<p class="kg-tier__who"><?php echo $tier['who']; // phpcs:ignore ?></p>
 					<p class="kg-tier__blurb"><?php echo $tier['blurb']; // phpcs:ignore ?></p>
+					<?php if ( $i > 0 ) : ?>
+						<p class="kg-tier__prev"><?php echo esc_html( str_replace( '{tier}', wp_strip_all_tags( $tiers_items[ $i - 1 ]['name'] ), kg_t( 'sponsors.tiers.everything_in' ) ) ); ?></p>
+					<?php endif; ?>
 					<ul class="kg-tier__points">
 						<?php foreach ( $tier['points'] as $point ) : ?>
 							<li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span><?php echo $point; // phpcs:ignore ?></span></li>
 						<?php endforeach; ?>
 					</ul>
-					<a class="kg-btn <?php echo $featured ? 'kg-btn--primary' : 'kg-btn--secondary'; ?> kg-btn--block" href="#kg-sponsor-form" data-kg-event="sponsor_enquiry_start"><span><?php kg_e( 'sponsors.tiers.cta' ); ?></span></a>
+					<a class="kg-btn <?php echo $featured ? 'kg-btn--primary' : 'kg-btn--secondary'; ?> kg-btn--block" href="#kg-sponsor-form" data-kg-tier="<?php echo (int) $i; ?>" data-kg-event="sponsor_enquiry_start"><span><?php kg_e( 'sponsors.tiers.cta' ); ?></span></a>
 				</div>
 			<?php endforeach; ?>
 		</div>
-		<p style="text-align:center; color:var(--kg-text-soft); font-size:.9rem; margin-top:20px;" data-kg-reveal><?php kg_e( 'sponsors.tiers.note' ); ?></p>
+		<div class="kg-tiers__adfree" data-kg-reveal>
+			<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 4 5.5V11c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5.5L12 2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m8.6 12 2.3 2.3 4.5-4.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+			<p style="margin:0;"><?php kg_e( 'sponsors.tiers.adfree_note' ); ?></p>
+		</div>
+		<p style="text-align:center; color:var(--kg-text-soft); font-size:.9rem; margin-top:18px;" data-kg-reveal><?php kg_e( 'sponsors.tiers.note' ); ?></p>
 	</div>
 </section>
 
@@ -155,10 +196,18 @@ get_header();
 						<label for="kg-sponsor-email"><?php kg_e( 'sponsors.form.email' ); ?></label>
 						<input type="email" id="kg-sponsor-email" name="kg_email" required autocomplete="email">
 					</div>
+					<!-- Auto-filled from the tier cards above (data-kg-tier); index-aligned
+					     with the tiers so it works across every locale. -->
 					<div class="kg-field">
-						<label for="kg-sponsor-org"><?php kg_e( 'sponsors.form.org' ); ?></label>
-						<input type="text" id="kg-sponsor-org" name="kg_org" required autocomplete="organization">
+						<label for="kg-sponsor-level"><?php kg_e( 'sponsors.form.level' ); ?></label>
+						<select id="kg-sponsor-level" name="kg_level">
+							<option value=""><?php kg_e( 'sponsors.form.level_default' ); ?></option>
+							<?php foreach ( kg_list( 'sponsors.tiers.items' ) as $tier ) : ?>
+								<option><?php echo esc_html( wp_strip_all_tags( $tier['name'] ) ); ?></option>
+							<?php endforeach; ?>
+						</select>
 					</div>
+					<!-- Auto-filled from the "Ways to partner" cards (data-kg-partner). -->
 					<div class="kg-field">
 						<label for="kg-sponsor-interest"><?php kg_e( 'sponsors.form.interest' ); ?></label>
 						<select id="kg-sponsor-interest" name="kg_topic" required>
@@ -167,7 +216,11 @@ get_header();
 							<?php endforeach; ?>
 						</select>
 					</div>
-					<div class="kg-field kg-field--full">
+					<div class="kg-field">
+						<label for="kg-sponsor-org"><?php kg_e( 'sponsors.form.org' ); ?></label>
+						<input type="text" id="kg-sponsor-org" name="kg_org" required autocomplete="organization">
+					</div>
+					<div class="kg-field">
 						<label for="kg-sponsor-budget"><?php kg_e( 'sponsors.form.budget' ); ?></label>
 						<input type="text" id="kg-sponsor-budget" name="kg_budget">
 					</div>

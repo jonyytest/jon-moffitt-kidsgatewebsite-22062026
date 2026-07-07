@@ -85,8 +85,25 @@ $p = kg_pricing_for_lang();
 	<div class="kg-container">
 		<?php kg_section_head( 'home.stats' ); ?>
 		<div class="kg-stats">
-			<?php foreach ( kg_list( 'home.stats.items' ) as $i => $stat ) : ?>
-				<div class="kg-stat kg-card" data-kg-reveal="pop" style="--kg-delay:<?php echo (int) ( $i * 90 ); ?>ms">
+			<?php
+			// Icons + accent tone per stat (locale-independent, so keyed by index):
+			// lessons, grade levels, minutes-a-day, free-trial days.
+			$stat_tones = array( 'amber', 'teal', 'red', 'green' );
+			$stat_icons = array(
+				// Open book — interactive lessons
+				'<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 6.5C10.5 5 8 4.4 4 4.4V18c4 0 6.5.6 8 2 1.5-1.4 4-2 8-2V4.4c-4 0-6.5.6-8 2.1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 6.5V20" stroke="currentColor" stroke-width="1.8"/></svg>',
+				// Stacked layers — grade levels
+				'<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M3 12l9 5 9-5M3 16.5l9 5 9-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+				// Clock — 20 minutes a day
+				'<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5.2l3.3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+				// Gift — free trial, no card
+				'<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="8.5" width="17" height="12.5" rx="1.6" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 12.5h17M12 8.5V21" stroke="currentColor" stroke-width="1.8"/><path d="M12 8.5S10.6 4 8.2 4.9 8 8.5 8 8.5h4zm0 0s1.4-4.5 3.8-3.6S16 8.5 16 8.5h-4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+			);
+			foreach ( kg_list( 'home.stats.items' ) as $i => $stat ) :
+				$tone = $stat_tones[ $i % 4 ];
+				?>
+				<div class="kg-stat kg-card kg-stat--<?php echo esc_attr( $tone ); ?>" data-kg-reveal="pop" style="--kg-delay:<?php echo (int) ( $i * 90 ); ?>ms">
+					<span class="kg-stat__icon" aria-hidden="true"><?php echo $stat_icons[ $i % 4 ]; // phpcs:ignore ?></span>
 					<span class="kg-stat__num kg-counter" data-kg-count="<?php echo esc_attr( $stat['num'] ); ?>" data-kg-suffix="<?php echo esc_attr( $stat['suffix'] ); ?>">0</span>
 					<span class="kg-stat__label"><?php echo $stat['label']; // phpcs:ignore ?></span>
 				</div>
@@ -99,7 +116,15 @@ $p = kg_pricing_for_lang();
 <section class="kg-section kg-section--cream">
 	<div class="kg-container">
 		<?php kg_section_head( 'home.problem' ); ?>
-		<div class="kg-problems">
+
+		<!-- "Them": the three pains, boxed and labelled so they clearly read
+		     as other tools' failures, never The Kids Gate's -->
+		<div class="kg-vs kg-vs--bad" data-kg-reveal>
+			<span class="kg-vs__pill kg-vs__pill--bad">
+				<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></svg>
+				<?php kg_e( 'home.problem.others_label' ); ?>
+			</span>
+			<div class="kg-problems">
 			<?php
 			$problem_icons = array(
 				/* Rising cost — dollar sign in circle */
@@ -117,13 +142,26 @@ $p = kg_pricing_for_lang();
 					<p><?php echo $item['text']; // phpcs:ignore ?></p>
 				</div>
 			<?php endforeach; ?>
+			</div>
 		</div>
-		<div class="kg-solution-turn" data-kg-reveal="pop">
-			<h2 class="kg-h2"><span class="kg-squiggle kg-squiggle--green kg-squiggle--draw"><?php kg_e( 'home.problem.turn_title' ); ?></span></h2>
-			<p class="kg-lede"><?php
-				$_kg_turn_map = array( 'in' => 'home.problem.turn_text_in', 'ph' => 'home.problem.turn_text_ph', 'id' => 'home.problem.turn_text_id' );
-				kg_e( $_kg_turn_map[ kg_country() ] ?? 'home.problem.turn_text' );
-			?></p>
+
+		<div class="kg-vs__turnarrow" aria-hidden="true" data-kg-reveal="pop">
+			<svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0 6-6m-6 6-6-6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+		</div>
+
+		<!-- "Us": the flip, boxed green and labelled with the brand -->
+		<div class="kg-vs kg-vs--good" data-kg-reveal="pop">
+			<span class="kg-vs__pill kg-vs__pill--good">
+				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				<?php kg_e( 'home.problem.us_label' ); ?>
+			</span>
+			<div class="kg-solution-turn">
+				<h2 class="kg-h2"><span class="kg-squiggle kg-squiggle--green kg-squiggle--draw"><?php kg_e( 'home.problem.turn_title' ); ?></span></h2>
+				<p class="kg-lede"><?php
+					$_kg_turn_map = array( 'in' => 'home.problem.turn_text_in', 'ph' => 'home.problem.turn_text_ph', 'id' => 'home.problem.turn_text_id' );
+					kg_e( $_kg_turn_map[ kg_country() ] ?? 'home.problem.turn_text' );
+				?></p>
+			</div>
 		</div>
 	</div>
 </section>
@@ -177,7 +215,7 @@ $p = kg_pricing_for_lang();
 			</div>
 			<div class="kg-ai__demo" data-kg-ai-demo>
 				<div class="kg-ai__demo-q">
-					<p><strong><?php kg_e( 'home.ai.demo_label' ); ?></strong> <?php kg_e( 'home.ai.demo_question' ); ?></p>
+					<p><strong><?php kg_e( 'home.ai.demo_label' ); ?></strong> <span class="kg-nowrap"><?php kg_e( 'home.ai.demo_question' ); ?></span></p>
 					<div class="kg-ai__demo-buttons">
 						<button type="button" data-kg-answer="correct"><?php kg_e( 'home.ai.demo_correct_btn' ); ?></button>
 						<button type="button" data-kg-answer="wrong"><?php kg_e( 'home.ai.demo_wrong_btn' ); ?></button>
@@ -260,14 +298,25 @@ $p = kg_pricing_for_lang();
 </section>
 
 <!-- ====================== Parent dashboard ========================= -->
+<!-- "See everything. Miss nothing." — the shot sits in an always-on window
+     (live indicator, watchful-eye badge) and each feature row hangs off a
+     monitoring rail with pulsing status dots: everything watched, nothing
+     slips past. -->
 <section class="kg-section kg-section--white">
 	<div class="kg-container">
 		<?php kg_section_head( 'home.dashboard', false ); ?>
 		<div class="kg-dash">
-			<div class="kg-dash__shot" data-kg-reveal="left">
+			<div class="kg-dash__shot kg-watch__frame" data-kg-reveal="left">
+				<div class="kg-watch__bar" aria-hidden="true">
+					<span class="kg-watch__windot"></span><span class="kg-watch__windot"></span><span class="kg-watch__windot"></span>
+					<span class="kg-watch__live"></span>
+				</div>
 				<a href="<?php echo esc_url( kg_url( 'parents' ) ); ?>" aria-label="<?php echo esc_attr( kg_t( 'home.dashboard.cta_label' ) ); ?>">
 					<img src="<?php echo esc_url( kg_asset( 'img/dashboard-activity.png' ) ); ?>" alt="<?php echo esc_attr( kg_t( 'home.dashboard.img_alt' ) ); ?>" loading="lazy" width="1400" height="884">
 				</a>
+				<span class="kg-watch__eye" aria-hidden="true">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+				</span>
 			</div>
 			<?php
 			$dash_pt_icons = array(
@@ -281,11 +330,12 @@ $p = kg_pricing_for_lang();
 				array( 'cls' => 'kg-bubble--green-dark', 'svg' => '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18h6M10 21h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 2a7 7 0 0 1 5 11.9V16a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-2.1A7 7 0 0 1 12 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' ),
 			);
 			?>
-			<ul class="kg-dash__features">
+			<ul class="kg-dash__features kg-watch__list">
 				<?php foreach ( kg_list( 'home.dashboard.points' ) as $i => $point ) :
 					$icon = $dash_pt_icons[ $i % 4 ];
 					?>
 					<li data-kg-reveal="right" style="--kg-delay:<?php echo (int) ( $i * 90 ); ?>ms">
+						<span class="kg-watch__ping" aria-hidden="true"></span>
 						<span class="kg-bubble <?php echo esc_attr( $icon['cls'] ); ?> kg-dash__pt-icon"><?php echo $icon['svg']; // phpcs:ignore ?></span>
 						<span><strong><?php echo $point['title']; // phpcs:ignore ?></strong><span><?php echo $point['text']; // phpcs:ignore ?></span></span>
 					</li>
@@ -304,11 +354,26 @@ $p = kg_pricing_for_lang();
 <section class="kg-section kg-rewards--world">
 	<div class="kg-rewards__bg" style="background-image:url('<?php echo esc_url( kg_asset( 'img/store-map.jpg' ) ); ?>');" role="img" aria-label="<?php echo esc_attr( kg_t( 'home.rewards.map_alt' ) ); ?>"></div>
 	<div class="kg-rewards__overlay" aria-hidden="true"></div>
+	<?php
+	// Drifting tokens over the world map — the section's currency, made visible.
+	$kg_coin = '<circle cx="19" cy="19" r="16.5" fill="var(--kg-amber)" stroke="var(--kg-amber-deep)" stroke-width="3"/><circle cx="19" cy="19" r="10.5" fill="none" stroke="var(--kg-amber-deep)" stroke-width="2" opacity=".55"/><path d="M19 12.2l1.9 4 4.4.5-3.3 3 .9 4.3-3.9-2.2-3.9 2.2.9-4.3-3.3-3 4.4-.5z" fill="var(--kg-amber-deep)" opacity=".8"/>';
+	?>
+	<div class="kg-rewards__coins" aria-hidden="true">
+		<svg class="kg-coin kg-coin--1" viewBox="0 0 38 38" focusable="false"><?php echo $kg_coin; // phpcs:ignore ?></svg>
+		<svg class="kg-coin kg-coin--2" viewBox="0 0 38 38" focusable="false"><?php echo $kg_coin; // phpcs:ignore ?></svg>
+		<svg class="kg-coin kg-coin--3" viewBox="0 0 38 38" focusable="false"><?php echo $kg_coin; // phpcs:ignore ?></svg>
+		<svg class="kg-coin kg-coin--4" viewBox="0 0 38 38" focusable="false"><?php echo $kg_coin; // phpcs:ignore ?></svg>
+		<svg class="kg-coin kg-coin--5" viewBox="0 0 38 38" focusable="false"><?php echo $kg_coin; // phpcs:ignore ?></svg>
+	</div>
 	<div class="kg-container">
 		<?php kg_section_head( 'home.rewards' ); ?>
-		<div class="kg-rewards__grid3">
+		<!-- Winners' podium: the leaderboard card takes first place with the
+		     crown; store and prizes flank it on the lower steps. Icon bubbles
+		     wear medal-rosette ribbons. -->
+		<div class="kg-rewards__grid3 kg-podium">
 			<?php
 			$reward_bubbles = array( 'kg-bubble--amber', 'kg-bubble--teal', 'kg-bubble--red' );
+			$reward_medals  = array( 'amber', 'teal', 'red' );
 			$reward_icons   = array(
 				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 8h12l-1 13H7L6 8zM9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
 				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z" stroke="currentColor" stroke-width="2"/></svg>',
@@ -316,16 +381,23 @@ $p = kg_pricing_for_lang();
 			);
 			foreach ( kg_list( 'home.rewards.cards' ) as $i => $card ) :
 				?>
-				<div class="kg-card kg-card--arch kg-card--hover" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 110 ); ?>ms">
-					<span class="kg-bubble <?php echo esc_attr( $reward_bubbles[ $i % 3 ] ); ?>"><?php echo $reward_icons[ $i % 3 ]; // phpcs:ignore ?></span>
-					<h3 class="kg-h3"><?php echo $card['title']; // phpcs:ignore ?></h3>
-					<p><?php echo $card['text']; // phpcs:ignore ?></p>
+				<div class="kg-podium__slot<?php echo 1 === $i ? ' kg-podium__slot--first' : ''; ?>" data-kg-reveal="pop" style="--kg-delay:<?php echo (int) ( $i * 110 ); ?>ms">
+					<?php if ( 1 === $i ) : ?>
+						<svg class="kg-podium__crown" width="46" height="36" viewBox="0 0 44 34" fill="none" aria-hidden="true" focusable="false"><path d="M4 26 2 8l10 7L22 2l10 13L42 8l-2 18z" fill="var(--kg-amber)" stroke="var(--kg-amber-deep)" stroke-width="2.5" stroke-linejoin="round"/><rect x="5" y="26" width="34" height="6" rx="3" fill="var(--kg-amber-deep)"/></svg>
+					<?php endif; ?>
+					<div class="kg-card kg-card--arch kg-card--hover">
+						<span class="kg-medal kg-medal--<?php echo esc_attr( $reward_medals[ $i % 3 ] ); ?>">
+							<span class="kg-bubble <?php echo esc_attr( $reward_bubbles[ $i % 3 ] ); ?>"><?php echo $reward_icons[ $i % 3 ]; // phpcs:ignore ?></span>
+						</span>
+						<h3 class="kg-h3"><?php echo $card['title']; // phpcs:ignore ?></h3>
+						<p><?php echo $card['text']; // phpcs:ignore ?></p>
+					</div>
 				</div>
 			<?php endforeach; ?>
 		</div>
 		<p class="kg-rewards__caption" data-kg-reveal><?php kg_e( 'home.rewards.map_caption' ); ?></p>
 		<div style="text-align:center; margin-top: clamp(24px, 3vw, 36px);" data-kg-reveal>
-			<?php kg_cta( 'home.rewards.cta_label', kg_url( 'leaderboard' ), '', 'kg-btn kg-btn--teal' ); ?>
+			<?php kg_cta( 'home.rewards.cta_label', kg_url( 'rewards' ), '', 'kg-btn kg-btn--teal' ); ?>
 		</div>
 	</div>
 </section>

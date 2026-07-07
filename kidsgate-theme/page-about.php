@@ -1,36 +1,51 @@
 <?php
 /**
- * About Us — mission statement, brand story, values, global scope
- * and company contact details.
+ * About Us — the brand story told as a scrolling storybook: numbered
+ * chapters on a dashed story-thread, a vague origin tale, the question
+ * that started it, the journey, the four pillars holding up the Gate,
+ * the global spread, and an epilogue with company contact details.
  */
 get_header();
+
+/** Chapter badge on the story thread. */
+if ( ! function_exists( 'kg_about_chap' ) ) {
+	function kg_about_chap( $num, $label_key ) {
+		?>
+		<div class="kg-chap" data-kg-reveal>
+			<span class="kg-chap__num" aria-hidden="true"><?php echo esc_html( $num ); ?></span>
+			<span class="kg-chap__label"><?php kg_e( $label_key ); ?></span>
+		</div>
+		<?php
+	}
+}
 ?>
 
 <section class="kg-page-hero kg-section--cream">
 	<div class="kg-container">
 		<span class="kg-kicker" data-kg-reveal><?php kg_e( 'about.hero.kicker' ); ?></span>
 		<h1 class="kg-h1" data-kg-reveal style="--kg-delay:80ms"><?php kg_e( 'about.hero.title' ); ?></h1>
+		<p class="kg-lede" data-kg-reveal style="--kg-delay:160ms"><?php kg_e( 'about.hero.lede' ); ?></p>
 	</div>
 </section>
 
-<!-- Mission -->
-<section class="kg-section kg-section--white">
+<!-- Prologue: the mission as a pull-quote -->
+<section class="kg-section kg-section--white" style="padding-bottom: clamp(40px, 6vw, 72px);">
 	<div class="kg-container">
 		<p class="kg-mission" data-kg-reveal="pop"><?php kg_e( 'about.mission' ); ?></p>
 	</div>
 </section>
 
-<!-- Story -->
-<section class="kg-section kg-section--cream-deep">
+<!-- Chapter 1: the noticing -->
+<section class="kg-section kg-section--cream-deep" style="padding-top: clamp(40px, 6vw, 72px);">
 	<div class="kg-container">
+		<?php kg_about_chap( 1, 'about.ch1.label' ); ?>
 		<div class="kg-spot">
 			<div class="kg-spot__visual kg-spot__visual--arch" data-kg-reveal="left">
-				<img src="<?php echo esc_url( kg_asset( 'img/achievement.jpg' ) ); ?>" alt="A child celebrating a learning achievement with The Kids Gate" loading="lazy" width="1600" height="1195">
+				<img src="<?php echo esc_url( kg_asset( 'img/aboutus.png' ) ); ?>" alt="A child smiling while holding a tablet showing The Kids Gate rewards" loading="lazy" width="1672" height="941">
 			</div>
 			<div data-kg-reveal="right">
-				<span class="kg-kicker"><?php kg_e( 'about.story.kicker' ); ?></span>
-				<h2 class="kg-h2"><?php kg_e( 'about.story.title' ); ?></h2>
-				<?php foreach ( kg_list( 'about.story.paras' ) as $para ) : ?>
+				<h2 class="kg-h2"><?php kg_e( 'about.ch1.title' ); ?></h2>
+				<?php foreach ( kg_list( 'about.ch1.paras' ) as $para ) : ?>
 					<p class="kg-lede" style="font-size:1.05rem;"><?php echo $para; // phpcs:ignore ?></p>
 				<?php endforeach; ?>
 			</div>
@@ -38,49 +53,118 @@ get_header();
 	</div>
 </section>
 
-<!-- Values -->
+<!-- Chapter 2: the question -->
 <section class="kg-section kg-section--white">
 	<div class="kg-container">
-		<?php kg_section_head( 'about.values' ); ?>
-		<div class="kg-values">
+		<?php kg_about_chap( 2, 'about.ch2.label' ); ?>
+		<div class="kg-storyq">
+			<h2 class="kg-h2" data-kg-reveal><?php kg_e( 'about.ch2.title' ); ?></h2>
+			<blockquote class="kg-storyq__quote" data-kg-reveal="pop"><?php kg_e( 'about.ch2.question' ); ?></blockquote>
+			<div class="kg-storyq__cards">
+				<?php
+				$q_icons = array(
+					// Book — make school stick
+					'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4a2 2 0 0 0-2-2H6.5A2.5 2.5 0 0 0 4 4.5v15zM20 17v5H6.5a2.5 2.5 0 0 1 0-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+					// Compass — follow the child
+					'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
+					// Home-heart — honour the home
+					'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 16.5s-2.8-1.9-2.8-3.6c0-1 .8-1.7 1.6-1.7.5 0 1 .3 1.2.7.2-.4.7-.7 1.2-.7.8 0 1.6.7 1.6 1.7 0 1.7-2.8 3.6-2.8 3.6z" fill="currentColor"/></svg>',
+				);
+				$q_bubbles = array( 'kg-bubble--amber', 'kg-bubble--teal', 'kg-bubble--red' );
+				foreach ( kg_list( 'about.ch2.cards' ) as $i => $card ) :
+					?>
+					<div class="kg-card" data-kg-reveal style="--kg-delay:<?php echo (int) ( 120 + $i * 110 ); ?>ms">
+						<span class="kg-bubble <?php echo esc_attr( $q_bubbles[ $i % 3 ] ); ?>"><?php echo $q_icons[ $i % 3 ]; // phpcs:ignore ?></span>
+						<h3 class="kg-h3" style="font-size:1.1rem;"><?php echo $card['title']; // phpcs:ignore ?></h3>
+						<p style="margin:0; font-size:.95rem;"><?php echo $card['text']; // phpcs:ignore ?></p>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Chapter 3: the journey -->
+<section class="kg-section kg-section--cream">
+	<div class="kg-container">
+		<?php kg_about_chap( 3, 'about.ch3.label' ); ?>
+		<h2 class="kg-h2" style="text-align:center;" data-kg-reveal><?php kg_e( 'about.ch3.title' ); ?></h2>
+		<div class="kg-storyline">
 			<?php
-			$icons = array(
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-			);
-			$bubbles = array( 'kg-bubble--amber', 'kg-bubble--red', 'kg-bubble--teal' );
-			foreach ( kg_list( 'about.values.items' ) as $i => $item ) :
+			$j_tones = array( 'amber', 'red', 'teal', 'navy' );
+			foreach ( kg_list( 'about.ch3.steps' ) as $i => $step ) :
 				?>
-				<div class="kg-card kg-card--arch" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 110 ); ?>ms">
-					<span class="kg-bubble <?php echo esc_attr( $bubbles[ $i % 3 ] ); ?>"><?php echo $icons[ $i % 3 ]; // phpcs:ignore ?></span>
-					<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
-					<p style="margin:0;"><?php echo $item['text']; // phpcs:ignore ?></p>
+				<div class="kg-storyline__step kg-storyline__step--<?php echo esc_attr( $j_tones[ $i % 4 ] ); ?>" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 130 ); ?>ms">
+					<span class="kg-storyline__dot" aria-hidden="true"></span>
+					<h3 class="kg-h3" style="font-size:1.05rem; margin-bottom:4px;"><?php echo $step['title']; // phpcs:ignore ?></h3>
+					<p style="margin:0; font-size:.93rem; color:var(--kg-text-soft);"><?php echo $step['text']; // phpcs:ignore ?></p>
 				</div>
 			<?php endforeach; ?>
 		</div>
 	</div>
 </section>
 
-<!-- Global -->
-<section class="kg-section kg-section--navy">
-	<div class="kg-container kg-container--narrow" style="text-align:center;">
-		<div data-kg-reveal>
-			<span class="kg-kicker"><?php kg_e( 'about.global.kicker' ); ?></span>
-			<h2 class="kg-h2"><?php kg_e( 'about.global.title' ); ?></h2>
-			<p class="kg-lede" style="margin-inline:auto;"><?php kg_e( 'about.global.text' ); ?></p>
-			<div style="display:flex; gap:14px; justify-content:center; margin-top:24px; font-size:2rem;" aria-hidden="true">
-				<span>🇬🇧</span><span>🇮🇩</span><span>🇹🇭</span>
+<!-- Chapter 4: the four pillars, holding up the Gate -->
+<section class="kg-section kg-section--white">
+	<div class="kg-container">
+		<?php kg_about_chap( 4, 'about.ch4.label' ); ?>
+		<h2 class="kg-h2" style="text-align:center;" data-kg-reveal><?php kg_e( 'about.ch4.title' ); ?></h2>
+		<p class="kg-lede" style="text-align:center; margin-inline:auto; margin-bottom: clamp(28px, 4vw, 44px);" data-kg-reveal><?php kg_e( 'about.ch4.lede' ); ?></p>
+		<div class="kg-pillars" data-kg-reveal="pop">
+			<div class="kg-pillars__arch" aria-hidden="true"><?php kg_e( 'about.ch4.arch_label' ); ?></div>
+			<div class="kg-pillars__grid">
+				<?php
+				$p_tones = array( 'amber', 'red', 'teal', 'navy' );
+				$p_icons = array(
+					// Megaphone — continuous encouragement
+					'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m3 11 15-6v14L3 13v-2zM6 13v4a2 2 0 0 0 2 2h1v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 9.5c.6.6 1 1.5 1 2.5s-.4 1.9-1 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+					// Chart up — capability development
+					'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m7 14 4-4 3 3 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 7h-4m4 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+					// Target — custom personalisation
+					'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
+					// Eye — parental awareness
+					'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/></svg>',
+				);
+				foreach ( kg_list( 'about.ch4.items' ) as $i => $pillar ) :
+					$tone = $p_tones[ $i % 4 ];
+					?>
+					<div class="kg-pillar kg-pillar--<?php echo esc_attr( $tone ); ?>">
+						<span class="kg-bubble kg-bubble--<?php echo esc_attr( $tone ); ?>" style="width:46px; height:46px;"><?php echo $p_icons[ $i % 4 ]; // phpcs:ignore ?></span>
+						<h3 class="kg-h3" style="font-size:1.02rem; margin:10px 0 6px;"><?php echo $pillar['title']; // phpcs:ignore ?></h3>
+						<p style="margin:0 0 12px; font-size:.9rem; color:var(--kg-text-soft);"><?php echo $pillar['text']; // phpcs:ignore ?></p>
+						<span class="kg-pillar__chips">
+							<?php foreach ( $pillar['chips'] as $chip ) : ?>
+								<i><?php echo $chip; // phpcs:ignore ?></i>
+							<?php endforeach; ?>
+						</span>
+					</div>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>
 </section>
 
-<!-- Contact -->
+<!-- Chapter 5: the story goes global -->
+<section class="kg-section kg-section--navy">
+	<div class="kg-container kg-container--narrow" style="text-align:center;">
+		<?php kg_about_chap( 5, 'about.ch5.label' ); ?>
+		<div data-kg-reveal>
+			<h2 class="kg-h2"><?php kg_e( 'about.ch5.title' ); ?></h2>
+			<p class="kg-lede" style="margin-inline:auto;"><?php kg_e( 'about.ch5.text' ); ?></p>
+			<div class="kg-about-flags" aria-hidden="true">
+				<?php foreach ( array( 'en', 'id', 'th', 'zh' ) as $flag_code ) : ?>
+					<span><?php echo kg_flag( $flag_code ); // phpcs:ignore ?></span>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Epilogue: contact -->
 <section class="kg-section kg-section--cream">
 	<div class="kg-container kg-container--narrow" style="text-align:center;">
+		<?php kg_about_chap( '✦', 'about.contact.label' ); ?>
 		<div data-kg-reveal>
-			<span class="kg-kicker"><?php kg_e( 'about.contact.kicker' ); ?></span>
 			<h2 class="kg-h2"><?php kg_e( 'about.contact.title' ); ?></h2>
 			<p class="kg-lede" style="margin-inline:auto;">
 				<?php kg_e( 'about.contact.company' ); ?><br>

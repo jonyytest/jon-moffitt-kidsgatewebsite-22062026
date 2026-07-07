@@ -20,58 +20,6 @@ get_header();
 	</div>
 </section>
 
-<!-- Curriculum alignment -->
-<section class="kg-section kg-section--white">
-	<div class="kg-container">
-		<?php kg_section_head( 'schools.align' ); ?>
-		<div class="kg-problems">
-			<?php
-			$icons = array(
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 7h6m-6 4h6m-6 4h3M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-			);
-			foreach ( kg_list( 'schools.align.items' ) as $i => $item ) :
-				?>
-				<div class="kg-card" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 100 ); ?>ms">
-					<span class="kg-bubble kg-bubble--navy"><?php echo $icons[ $i % 3 ]; // phpcs:ignore ?></span>
-					<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
-					<p style="margin:0;"><?php echo $item['text']; // phpcs:ignore ?></p>
-				</div>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
-
-<!-- Use cases -->
-<section class="kg-section kg-section--cream-deep">
-	<div class="kg-container">
-		<?php kg_section_head( 'schools.value' ); ?>
-		<div class="kg-problems">
-			<?php
-			$value_icons = array(
-				// Chalkboard / class — in class
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M8 21h8M12 17v4M7 9h7M7 12.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-				// House — at home
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 20v-5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-				// Target / lifebuoy — interventions
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="2"/><path d="m4.6 4.6 4.3 4.3m6.2 6.2 4.3 4.3M19.4 4.6l-4.3 4.3M8.9 15.1l-4.3 4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-			);
-			$value_bubbles = array( 'kg-bubble--teal', 'kg-bubble--amber', 'kg-bubble--red' );
-			foreach ( kg_list( 'schools.value.items' ) as $i => $item ) : ?>
-				<div class="kg-card kg-card--hover" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 100 ); ?>ms">
-					<span class="kg-bubble <?php echo esc_attr( $value_bubbles[ $i % 3 ] ); ?>"><?php echo $value_icons[ $i % 3 ]; // phpcs:ignore ?></span>
-					<?php if ( ! empty( $item['tag'] ) ) : ?>
-						<span class="kg-card__tag"><?php echo $item['tag']; // phpcs:ignore ?></span>
-					<?php endif; ?>
-					<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
-					<p style="margin:0;"><?php echo $item['text']; // phpcs:ignore ?></p>
-				</div>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
-
 <?php
 // Two dashboard "views" — Teacher and Principal — sharing one section and an
 // Apple-style sliding toggle. Each view reuses the same spot layout; the JS in
@@ -169,14 +117,67 @@ $dash_bubbles = array( 'kg-bubble--teal', 'kg-bubble--amber', 'kg-bubble--red', 
 				<?php endforeach; ?>
 			</div>
 		</div>
+	</div>
+</section>
 
-		<div class="kg-card kg-card--navy kg-testimonial kg-testimonial--placeholder" style="max-width:680px; margin: clamp(32px,5vw,56px) auto 0;" data-kg-reveal>
-			<span class="kg-testimonial__flag"><?php kg_e( 'schools.testimonial.flag' ); ?></span>
-			<p class="kg-testimonial__quote">“<?php kg_e( 'schools.testimonial.quote' ); ?>”</p>
-			<div class="kg-testimonial__who">
-				<span class="kg-testimonial__avatar" style="background:var(--kg-teal);" aria-hidden="true">T</span>
-				<span><strong style="color:#fff;"><?php kg_e( 'schools.testimonial.name' ); ?></strong><small style="color:var(--kg-text-on-dark-soft);"><?php kg_e( 'schools.testimonial.meta' ); ?></small></span>
-			</div>
+<!-- Curriculum alignment -->
+<section class="kg-section kg-section--white">
+	<div class="kg-container">
+		<?php kg_section_head( 'schools.align' ); ?>
+		<div class="kg-problems">
+			<?php
+			$icons = array(
+				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 7h6m-6 4h6m-6 4h3M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+			);
+			$book_tones = array( '', ' kg-book--amber', ' kg-book--red' );
+			foreach ( kg_list( 'schools.align.items' ) as $i => $item ) :
+				?>
+				<div class="kg-card kg-card--hover kg-book<?php echo esc_attr( $book_tones[ $i % 3 ] ); ?>" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 100 ); ?>ms">
+					<span class="kg-book__ribbon" aria-hidden="true"></span>
+					<span class="kg-bubble kg-bubble--navy"><?php echo $icons[ $i % 3 ]; // phpcs:ignore ?></span>
+					<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
+					<p style="margin:0;"><?php echo $item['text']; // phpcs:ignore ?></p>
+				</div>
+			<?php endforeach; ?>
+		</div>
+	</div>
+</section>
+
+<!-- Use cases: same platform, three places. Each card sits under a map-marker
+     pin; a dashed route threads through all three, so it reads as one tool
+     travelling with the learner from classroom to home to targeted help. -->
+<section class="kg-section kg-section--cream-deep">
+	<div class="kg-container">
+		<?php kg_section_head( 'schools.value' ); ?>
+		<div class="kg-places">
+			<?php
+			$value_icons = array(
+				// Chalkboard / class — in class
+				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M8 21h8M12 17v4M7 9h7M7 12.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+				// House — at home
+				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5 10v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 20v-5h5v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+				// Target / lifebuoy — interventions
+				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="2"/><path d="m4.6 4.6 4.3 4.3m6.2 6.2 4.3 4.3M19.4 4.6l-4.3 4.3M8.9 15.1l-4.3 4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+			);
+			$value_tones = array( 'teal', 'amber', 'red' );
+			foreach ( kg_list( 'schools.value.items' ) as $i => $item ) :
+				$tone = $value_tones[ $i % 3 ];
+				?>
+				<div class="kg-place kg-place--<?php echo esc_attr( $tone ); ?>" data-kg-reveal="pop" style="--kg-delay:<?php echo (int) ( $i * 130 ); ?>ms">
+					<span class="kg-place__pin" aria-hidden="true">
+						<span class="kg-bubble kg-bubble--<?php echo esc_attr( $tone ); ?>"><?php echo $value_icons[ $i % 3 ]; // phpcs:ignore ?></span>
+					</span>
+					<div class="kg-card kg-card--hover kg-place__card">
+						<?php if ( ! empty( $item['tag'] ) ) : ?>
+							<span class="kg-place__label"><?php echo $item['tag']; // phpcs:ignore ?></span>
+						<?php endif; ?>
+						<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
+						<p style="margin:0;"><?php echo $item['text']; // phpcs:ignore ?></p>
+					</div>
+				</div>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>
@@ -184,6 +185,17 @@ $dash_bubbles = array( 'kg-bubble--teal', 'kg-bubble--amber', 'kg-bubble--red', 
 <!-- Enquiry form -->
 <section class="kg-section kg-section--white" id="kg-school-form">
 	<div class="kg-container">
+		<!-- Social proof leading into the enquiry form (placeholder until a
+		     verified teacher/principal quote is supplied). -->
+		<div class="kg-card kg-testimonial kg-testimonial--placeholder" style="max-width:640px; margin: 0 auto clamp(34px,5vw,52px);" data-kg-reveal>
+			<span class="kg-testimonial__flag"><?php kg_e( 'schools.testimonial.flag' ); ?></span>
+			<p class="kg-testimonial__quote">“<?php kg_e( 'schools.testimonial.quote' ); ?>”</p>
+			<div class="kg-testimonial__who">
+				<span class="kg-testimonial__avatar" style="background:var(--kg-teal);" aria-hidden="true">T</span>
+				<span><strong><?php kg_e( 'schools.testimonial.name' ); ?></strong><small><?php kg_e( 'schools.testimonial.meta' ); ?></small></span>
+			</div>
+		</div>
+
 		<?php kg_section_head( 'schools.form' ); ?>
 		<p class="kg-schools-savings" data-kg-reveal><?php kg_e( 'schools.form.pricing_note' ); ?></p>
 		<div class="kg-schools-form">

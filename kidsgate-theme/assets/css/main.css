@@ -255,6 +255,73 @@ a.kg-card { text-decoration: none; color: inherit; display: block; cursor: point
 /* Arch card: the child's-world variant */
 .kg-card--arch { border-radius: var(--kg-arch); padding-top: clamp(36px, 4vw, 52px); text-align: center; }
 
+/* ---- Sponsors: "choose the impact" partnership options ----
+   Each arch card is a pickable partnership option — a sponsor seal, a big
+   option number and a selection bar that fills on hover — that links into the
+   sponsorship tiers. */
+.kg-impact { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.5vw, 28px); }
+.kg-impact .kg-impact__card {
+	--acc: var(--kg-red); --acc-deep: var(--kg-red-deep); --acc-soft: var(--kg-red-soft);
+	position: relative; overflow: hidden;
+	display: flex; flex-direction: column; align-items: center;
+	padding-bottom: clamp(24px, 3vw, 34px);
+	/* Soft accent wash under the arch, fading to white behind the copy */
+	background: linear-gradient(180deg, color-mix(in srgb, var(--acc-soft) 60%, #fff), #fff 48%);
+}
+.kg-impact--red   { --acc: var(--kg-red);   --acc-deep: var(--kg-red-deep);   --acc-soft: var(--kg-red-soft); }
+.kg-impact--amber { --acc: var(--kg-amber); --acc-deep: var(--kg-amber-deep); --acc-soft: var(--kg-amber-soft); }
+.kg-impact--teal  { --acc: var(--kg-teal);  --acc-deep: var(--kg-teal-deep);  --acc-soft: var(--kg-teal-soft); }
+.kg-impact--navy  { --acc: var(--kg-navy);  --acc-deep: var(--kg-navy);        --acc-soft: rgba(28, 43, 58, .12); }
+.kg-impact .kg-impact__card:hover {
+	transform: translateY(-8px);
+	box-shadow: var(--kg-clay-inset), 0 24px 44px -16px color-mix(in srgb, var(--acc) 60%, transparent);
+}
+
+/* Sponsor seal: icon bubble ringed by a dashed circle, with a small star badge. */
+.kg-impact__seal { position: relative; display: inline-grid; margin-bottom: 8px; }
+.kg-impact__seal::before {
+	content: ""; position: absolute; inset: -9px;
+	border: 2px dashed var(--acc-soft); border-radius: 50%;
+	transition: transform .5s var(--kg-ease-out);
+}
+.kg-impact .kg-impact__card:hover .kg-impact__seal::before { transform: rotate(45deg); }
+.kg-impact__star {
+	position: absolute; top: -5px; right: -7px;
+	color: var(--acc);
+	filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .18));
+}
+
+.kg-impact__text { margin: 0; color: var(--kg-text-soft); }
+
+/* Actionable arrow — the "choose this" cue. */
+.kg-impact__go {
+	margin-top: 18px;
+	width: 42px; height: 42px; border-radius: 50%;
+	display: grid; place-items: center;
+	background: var(--acc-soft); color: var(--acc-deep);
+	transition: transform .28s var(--kg-ease-pop), background-color .2s, color .2s;
+}
+.kg-impact .kg-impact__card:hover .kg-impact__go {
+	background: var(--acc); color: #fff;
+	transform: translateY(2px) scale(1.08);
+}
+
+/* Selection bar filling along the (straight) bottom edge on hover. */
+.kg-impact__card::after {
+	content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+	background: var(--acc);
+	transform: scaleX(0); transform-origin: center;
+	transition: transform .35s var(--kg-ease-out);
+}
+.kg-impact .kg-impact__card:hover::after { transform: scaleX(1); }
+
+@media (max-width: 760px) { .kg-impact { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) {
+	.kg-impact .kg-impact__card:hover { transform: none; }
+	.kg-impact .kg-impact__card:hover .kg-impact__seal::before { transform: none; }
+	.kg-impact .kg-impact__card:hover .kg-impact__go { transform: none; }
+}
+
 .kg-card--navy { background: var(--kg-navy-soft); color: var(--kg-text-on-dark); box-shadow: var(--kg-clay-inset-dark), var(--kg-shadow-md); }
 .kg-card--navy h3 { color: #fff; }
 
@@ -452,29 +519,73 @@ a.kg-chip:hover { transform: translateY(-2px); background: var(--kg-amber-soft);
 
 /* Region selector banner (bare domain only) */
 .kg-region-bar {
-	background: var(--kg-navy);
+	background:
+		radial-gradient(680px 260px at 10% -30%, rgba(42, 191, 191, .28), transparent 60%),
+		radial-gradient(560px 240px at 100% 130%, rgba(245, 166, 35, .16), transparent 58%),
+		linear-gradient(180deg, #23364E, var(--kg-navy));
 	color: #fff;
-	padding: 14px clamp(16px, 4vw, 40px);
-	display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px;
-	font-size: .9rem;
+	border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
-.kg-region-bar__msg { margin: 0; font-weight: 600; white-space: nowrap; }
-.kg-region-bar__options { display: flex; flex-wrap: wrap; gap: 8px; }
+.kg-region-bar__inner {
+	max-width: var(--kg-container); margin-inline: auto;
+	padding: clamp(20px, 3vw, 30px) var(--kg-gutter);
+	display: flex; flex-direction: column; gap: clamp(14px, 2vw, 20px);
+}
+.kg-region-bar__head { display: flex; align-items: center; gap: 14px; }
+.kg-region-bar__globe {
+	width: 46px; height: 46px; flex: none;
+	display: grid; place-items: center; border-radius: 14px;
+	background: rgba(42, 191, 191, .16); color: var(--kg-teal);
+	box-shadow: inset 0 0 0 1px rgba(42, 191, 191, .4);
+}
+.kg-region-bar__title {
+	display: flex; flex-direction: column; line-height: 1.2;
+	font-family: var(--kg-font-display); font-weight: 800; font-size: 1.15rem;
+}
+.kg-region-bar__title small {
+	font-family: var(--kg-font-body); font-weight: 500; font-size: .85rem;
+	color: rgba(255, 255, 255, .62); margin-top: 3px;
+}
+.kg-region-bar__options {
+	list-style: none; margin: 0; padding: 0;
+	display: grid; grid-template-columns: repeat(auto-fit, minmax(162px, 1fr));
+	gap: 10px;
+}
 .kg-region-bar__btn {
-	display: inline-flex; align-items: center; gap: 8px;
-	background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22);
-	border-radius: 999px; padding: 7px 16px 7px 10px;
-	text-decoration: none; color: #fff; font-weight: 700; font-size: .88rem;
-	transition: background-color 180ms, transform 120ms;
+	display: flex; align-items: center; gap: 10px;
+	height: 100%;
+	background: rgba(255, 255, 255, .06);
+	border: 1px solid rgba(255, 255, 255, .14);
+	border-radius: 14px; padding: 9px 12px;
+	text-decoration: none; color: #fff;
+	transition: background-color .2s, border-color .2s, transform .16s var(--kg-ease-pop), box-shadow .2s;
 }
-.kg-region-bar__btn:hover { background: rgba(255,255,255,.22); transform: translateY(-1px); }
-.kg-region-bar__btn small { font-weight: 500; opacity: .8; font-size: .8rem; }
+.kg-region-bar__btn:hover {
+	background: rgba(255, 255, 255, .11);
+	border-color: var(--kg-amber);
+	transform: translateY(-3px);
+	box-shadow: 0 12px 24px -12px rgba(245, 166, 35, .55);
+}
+.kg-region-bar__flag { display: inline-grid; flex: none; }
+.kg-region-bar__flag .kg-flag { width: 27px; border-radius: 5px; display: block; box-shadow: 0 0 0 1px rgba(255, 255, 255, .18); }
+.kg-region-bar__name { flex: 1; min-width: 0; font-weight: 700; font-size: .9rem; }
+.kg-region-bar__cur {
+	flex: none;
+	font-family: var(--kg-font-display); font-weight: 700; font-size: .68rem; letter-spacing: .05em;
+	color: #86e4e4; background: rgba(42, 191, 191, .18);
+	padding: 3px 8px; border-radius: 999px;
+}
 @keyframes kg-region-pulse {
-	0%   { outline: 3px solid rgba(245,166,35,0);   outline-offset: 2px; }
-	30%  { outline: 3px solid rgba(245,166,35,.9);   outline-offset: 4px; }
-	100% { outline: 3px solid rgba(245,166,35,0);   outline-offset: 6px; }
+	0%   { box-shadow: inset 0 0 0 3px rgba(245, 166, 35, 0); }
+	35%  { box-shadow: inset 0 0 0 3px rgba(245, 166, 35, .9); }
+	100% { box-shadow: inset 0 0 0 3px rgba(245, 166, 35, 0); }
 }
 .kg-region-bar--pulse { animation: kg-region-pulse .7s ease 2; }
+/* One column on phones so long names ("Philippines") never collide with the
+   currency pill. */
+@media (max-width: 480px) {
+	.kg-region-bar__options { grid-template-columns: 1fr; }
+}
 
 /* Burger (mobile) */
 .kg-burger {
@@ -633,7 +744,34 @@ a.kg-chip:hover { transform: translateY(-2px); background: var(--kg-amber-soft);
 }
 .kg-faq__icon { flex: none; color: var(--kg-amber-deep); transition: transform 260ms var(--kg-ease-pop); }
 .kg-faq__item.is-open .kg-faq__icon { transform: rotate(45deg); }
-.kg-faq__a-inner { padding: 0 24px 22px; color: var(--kg-text-soft); }
+/* Open/close animation: the panel is a grid row animating 0fr → 1fr (smooth
+   height without JS measuring), while the answer fades and slides in. The
+   visibility swap waits for the collapse so closing text doesn't vanish early,
+   and keeps closed answers out of the tab order and accessibility tree. */
+.kg-faq__a {
+	display: grid;
+	grid-template-rows: 0fr;
+	visibility: hidden;
+	transition: grid-template-rows 300ms var(--kg-ease-out), visibility 0s linear 300ms;
+}
+.kg-faq__a[hidden] { display: none; } /* no-JS: stays collapsed */
+.kg-faq__item.is-open .kg-faq__a {
+	grid-template-rows: 1fr;
+	visibility: visible;
+	transition: grid-template-rows 300ms var(--kg-ease-out), visibility 0s;
+}
+.kg-faq__a-inner {
+	min-height: 0; overflow: hidden;
+	padding: 0 24px;
+	color: var(--kg-text-soft);
+	opacity: 0; transform: translateY(-6px);
+	transition: opacity 200ms var(--kg-ease-out), transform 240ms var(--kg-ease-out), padding-bottom 300ms var(--kg-ease-out);
+}
+.kg-faq__item.is-open .kg-faq__a-inner {
+	opacity: 1; transform: none;
+	padding-bottom: 22px;
+	transition: opacity 240ms var(--kg-ease-out) 80ms, transform 280ms var(--kg-ease-out) 60ms, padding-bottom 300ms var(--kg-ease-out);
+}
 .kg-faq__a-inner p:last-child { margin-bottom: 0; }
 .kg-section--navy .kg-faq__item { background: var(--kg-navy-soft); box-shadow: var(--kg-clay-inset-dark), var(--kg-shadow-sm); }
 .kg-section--navy .kg-faq__q button { color: #fff; }
@@ -903,14 +1041,64 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 
 /* ---- Stats band ---- */
 .kg-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 2.5vw, 28px); }
-.kg-stat { text-align: center; padding: clamp(20px, 3vw, 32px) 16px; }
+.kg-stat {
+	--acc: var(--kg-amber); --acc-deep: var(--kg-amber-deep); --acc-soft: var(--kg-amber-soft);
+	position: relative; overflow: hidden;
+	text-align: center;
+	padding: clamp(26px, 3vw, 34px) 16px clamp(20px, 3vw, 26px);
+	transition: transform .3s var(--kg-ease-pop), box-shadow .3s var(--kg-ease-out);
+}
+.kg-stat--amber { --acc: var(--kg-amber); --acc-deep: var(--kg-amber-deep); --acc-soft: var(--kg-amber-soft); }
+.kg-stat--teal  { --acc: var(--kg-teal);  --acc-deep: var(--kg-teal-deep);  --acc-soft: var(--kg-teal-soft); }
+.kg-stat--red   { --acc: var(--kg-red);   --acc-deep: var(--kg-red-deep);   --acc-soft: var(--kg-red-soft); }
+.kg-stat--green { --acc: var(--kg-green); --acc-deep: var(--kg-green-deep); --acc-soft: var(--kg-green-soft); }
+
+/* Soft accent wash bleeding in from the top-right corner. */
+.kg-stat::before {
+	content: ""; position: absolute; top: -46%; right: -34%;
+	width: 160px; height: 160px; border-radius: 50%;
+	background: radial-gradient(circle, var(--acc-soft), transparent 70%);
+	pointer-events: none; z-index: 0;
+	transition: transform .45s var(--kg-ease-out);
+}
+/* Accent bar along the top edge, drawn in when the card reveals. */
+.kg-stat::after {
+	content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px;
+	background: var(--acc);
+	transform: scaleX(0); transform-origin: left;
+	transition: transform .5s var(--kg-ease-out) var(--kg-delay, 0ms);
+}
+.kg-stat.is-in::after { transform: scaleX(1); }
+.kg-stat > * { position: relative; z-index: 1; }
+.kg-stat:hover { transform: translateY(-6px); box-shadow: var(--kg-clay-inset), 0 18px 34px -12px color-mix(in srgb, var(--acc) 55%, transparent); }
+.kg-stat:hover::before { transform: scale(1.25); }
+
+.kg-stat__icon {
+	display: inline-grid; place-items: center;
+	width: 56px; height: 56px; margin: 0 auto clamp(10px, 1.4vw, 14px);
+	border-radius: 16px;
+	background: var(--acc-soft); color: var(--acc-deep);
+	box-shadow: var(--kg-clay-inset);
+	transition: transform .32s var(--kg-ease-pop);
+}
+.kg-stat__icon svg { width: 28px; height: 28px; }
+.kg-stat:hover .kg-stat__icon { transform: translateY(-3px) scale(1.1) rotate(-5deg); }
+
 .kg-stat__num {
 	font-family: var(--kg-font-display);
-	font-size: clamp(2rem, 4.2vw, 3rem); font-weight: 800;
+	font-size: clamp(2.1rem, 4.4vw, 3.1rem); font-weight: 800;
 	color: var(--kg-navy); line-height: 1.05;
 	display: block;
 }
-.kg-stat__label { color: var(--kg-text-soft); font-weight: 700; font-size: .95rem; }
+/* The suffix (+, min) picks up the card's accent colour to pop off the number. */
+.kg-stat__num .kg-counter__suffix { color: var(--acc-deep); }
+.kg-stat__label { color: var(--kg-text-soft); font-weight: 700; font-size: .95rem; margin-top: 4px; display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+	.kg-stat:hover { transform: none; }
+	.kg-stat:hover .kg-stat__icon { transform: none; }
+	.kg-stat::after { transition: none; }
+}
 
 /* ---- Problem / solution ---- */
 .kg-problems { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.5vw, 28px); margin-bottom: clamp(40px, 6vw, 64px); }
@@ -919,6 +1107,50 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 .kg-problem .kg-bubble--red { background: rgba(230, 51, 41, 0.14); color: var(--kg-red-deep); }
 .kg-solution-turn { text-align: center; max-width: 720px; margin-inline: auto; }
 .kg-solution-turn .kg-h2 { margin-bottom: .35em; }
+/* nudges the lede down away from the squiggle underline; bottom padding
+   on .kg-vs--good is trimmed by the same amount so the panel doesn't grow */
+.kg-solution-turn .kg-lede { margin-top: 14px; }
+
+/* "Them vs us" framing on the homepage: the pains sit in a dashed red
+   box labelled as other tools; the flip sits in a vibrant green panel
+   labelled with the brand, joined by a turn arrow. */
+.kg-vs { position: relative; border-radius: var(--kg-r-lg); }
+.kg-vs__pill {
+	position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
+	display: inline-flex; align-items: center; gap: 8px;
+	padding: 9px 20px; border-radius: 999px;
+	font-family: var(--kg-font-display); font-weight: 800; font-size: .95rem;
+	line-height: 1.2; white-space: nowrap; z-index: 2;
+}
+.kg-vs--bad {
+	padding: clamp(34px, 4.5vw, 50px) clamp(16px, 2.6vw, 30px) clamp(18px, 2.6vw, 28px);
+	border: 2px dashed rgba(230, 51, 41, .5);
+	/* faint hatching: reads as "warning zone" without hurting legibility */
+	background: repeating-linear-gradient(-45deg, rgba(28, 43, 58, .025) 0 14px, transparent 14px 28px);
+}
+.kg-vs__pill--bad { background: var(--kg-red-deep); color: #fff; box-shadow: var(--kg-shadow-sm); }
+.kg-vs--bad .kg-problems { margin-bottom: 0; }
+/* cards recede slightly so the green panel below owns the section */
+.kg-vs--bad .kg-card { background: #FCFAF6; box-shadow: var(--kg-shadow-sm); }
+.kg-vs__turnarrow {
+	display: flex; align-items: center; justify-content: center;
+	/* the brand pill overhangs the green panel's top edge by ~17px,
+	   so the bottom margin needs extra room to keep clear air */
+	margin: clamp(12px, 1.8vw, 20px) auto clamp(30px, 3.2vw, 40px);
+	color: #1A1A1A; /* brand Rich Black */
+}
+.kg-vs--good {
+	padding: clamp(38px, 5vw, 58px) clamp(20px, 4vw, 48px) clamp(32px, 4.5vw, 52px);
+	/* offsets the lede's added margin-top so the panel's height is unchanged */
+	padding-bottom: calc(clamp(32px, 4.5vw, 52px) - 14px);
+	background:
+		radial-gradient(640px 300px at 12% 0%, rgba(42, 191, 191, .16), transparent 60%),
+		radial-gradient(640px 300px at 88% 100%, rgba(245, 166, 35, .2), transparent 60%),
+		linear-gradient(180deg, #fff, var(--kg-green-soft));
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-lg);
+}
+/* darker than --kg-green-deep so the white label passes AA at this size */
+.kg-vs__pill--good { background: #256B3C; color: #fff; box-shadow: var(--kg-clay-inset-dark), var(--kg-shadow-md); }
 
 /* ---- Journey (how-it-works loop) ---- */
 .kg-journey { position: relative; max-width: 900px; margin-inline: auto; }
@@ -1165,6 +1397,69 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 }
 .kg-dash__pt-icon svg { width: 20px; height: 20px; }
 
+/* ---- "See everything. Miss nothing." watch treatment ----
+   The dashboard shot becomes an always-on window (title bar + live
+   indicator + watchful-eye badge); the feature rows hang off a monitoring
+   rail whose dots pulse in turn — everything watched, nothing missed. */
+.kg-watch__frame { overflow: visible; }
+.kg-watch__frame > a { overflow: hidden; border-radius: 0 0 var(--kg-r-lg) var(--kg-r-lg); }
+.kg-watch__bar {
+	display: flex; align-items: center; gap: 7px;
+	padding: 13px 16px;
+	background: var(--kg-navy);
+	border-radius: var(--kg-r-lg) var(--kg-r-lg) 0 0;
+}
+.kg-watch__windot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255, 255, 255, .28); }
+.kg-watch__live {
+	position: relative;
+	margin-left: auto;
+	width: 9px; height: 9px; border-radius: 50%;
+	background: var(--kg-red);
+}
+.kg-watch__live::after {
+	content: ""; position: absolute; inset: -3px;
+	border-radius: 50%; border: 2px solid var(--kg-red);
+	animation: kg-watch-pulse 2.2s ease-out infinite;
+}
+.kg-watch__eye {
+	position: absolute; right: -14px; bottom: -14px;
+	width: 52px; height: 52px;
+	display: grid; place-items: center;
+	border-radius: 50%;
+	background: var(--kg-amber); color: var(--kg-navy);
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-md);
+	transform: rotate(-8deg);
+}
+
+.kg-watch__list { position: relative; padding-left: 30px; }
+.kg-watch__list::before {
+	content: "";
+	position: absolute; left: 8px; top: 30px; bottom: 30px;
+	border-left: 2px dotted rgba(42, 191, 191, .45);
+}
+.kg-watch__list li { position: relative; }
+.kg-watch__ping {
+	position: absolute; left: -26px; top: 50%;
+	width: 10px; height: 10px; margin-top: -5px;
+	border-radius: 50%;
+	background: var(--kg-teal);
+}
+.kg-watch__ping::after {
+	content: ""; position: absolute; inset: -4px;
+	border-radius: 50%; border: 2px solid var(--kg-teal);
+	animation: kg-watch-pulse 3.2s ease-out infinite;
+	/* Reuse each row's reveal delay so the dots pulse in sequence down the rail. */
+	animation-delay: var(--kg-delay, 0ms);
+}
+@keyframes kg-watch-pulse {
+	0%   { transform: scale(.6); opacity: .9; }
+	60%  { transform: scale(1.9); opacity: 0; }
+	100% { transform: scale(1.9); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.kg-watch__live::after, .kg-watch__ping::after { animation: none; opacity: 0; }
+}
+
 /* ---- Parent dashboard tour (live annotated mock) ---- */
 .kg-tour { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(28px, 5vw, 56px); align-items: center; }
 .kg-tour__stage { position: relative; }
@@ -1333,11 +1628,68 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 .kg-rewards__grid3 .kg-card .kg-bubble { transition: transform .32s var(--kg-ease-pop); display: inline-grid; }
 .kg-rewards__grid3 .kg-card:hover .kg-bubble { transform: translateY(-6px) scale(1.18); }
 .kg-rewards__caption { text-align: center; color: var(--kg-text-on-dark-soft); font-weight: 600; margin: clamp(22px, 3vw, 32px) 0 0; }
-@media (max-width: 680px) { .kg-rewards__grid3 { grid-template-columns: 1fr; } }
+
+/* ---- Winners' podium treatment ----
+   Slots stagger like a podium (2nd | 1st | 3rd); the crown belongs to the
+   leaderboard card; the sheen-swept cards keep overflow:hidden, so the crown
+   lives on the slot wrapper. */
+.kg-podium { align-items: start; }
+.kg-podium__slot { position: relative; }
+.kg-podium__slot:nth-child(1) { margin-top: 30px; }
+.kg-podium__slot:nth-child(3) { margin-top: 48px; }
+.kg-podium__slot--first .kg-card {
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-md), 0 0 34px rgba(245, 166, 35, .3);
+}
+.kg-podium__crown {
+	position: absolute; top: 0; left: 50%; z-index: 2;
+	transform: translate(-50%, -52%) rotate(-8deg);
+	filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .35));
+	pointer-events: none;
+}
+
+/* Medal rosette: ribbon tails tucked behind each icon bubble. */
+.kg-medal { position: relative; display: inline-grid; isolation: isolate; }
+.kg-medal::before, .kg-medal::after {
+	content: "";
+	position: absolute; top: 58%; left: 50%; z-index: -1;
+	width: 13px; height: 26px;
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 72%, 0 100%);
+}
+.kg-medal::before { transform: translateX(-115%) rotate(16deg); }
+.kg-medal::after  { transform: translateX(15%) rotate(-16deg); }
+.kg-medal--amber::before, .kg-medal--amber::after { background: var(--kg-amber); }
+.kg-medal--teal::before,  .kg-medal--teal::after  { background: var(--kg-teal); }
+.kg-medal--red::before,   .kg-medal--red::after   { background: var(--kg-red); }
+.kg-medal .kg-bubble { box-shadow: 0 0 0 3px rgba(255, 255, 255, .95), var(--kg-shadow-sm); }
+
+/* Tokens drifting over the world map, behind the podium. */
+.kg-rewards__coins { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.kg-coin {
+	position: absolute;
+	opacity: .85;
+	filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .35));
+	animation: kg-coin-drift 7s ease-in-out infinite;
+}
+.kg-coin--1 { width: 40px; left: 6%;  top: 20%; }
+.kg-coin--2 { width: 26px; left: 91%; top: 14%; animation-delay: 1.2s; animation-duration: 8.5s; }
+.kg-coin--3 { width: 32px; left: 13%; bottom: 16%; animation-delay: 2.4s; animation-duration: 6.5s; }
+.kg-coin--4 { width: 46px; left: 85%; bottom: 22%; animation-delay: .7s; animation-duration: 9s; }
+.kg-coin--5 { width: 22px; left: 48%; top: 9%;  animation-delay: 3.1s; animation-duration: 7.5s; }
+@keyframes kg-coin-drift {
+	0%, 100% { transform: translateY(0) rotate(-9deg); }
+	50%      { transform: translateY(-14px) rotate(9deg); }
+}
+
+@media (max-width: 680px) {
+	.kg-rewards__grid3 { grid-template-columns: 1fr; }
+	.kg-podium__slot:nth-child(1), .kg-podium__slot:nth-child(3) { margin-top: 0; }
+	.kg-podium__slot--first { order: -1; margin-bottom: 10px; }
+}
 @media (prefers-reduced-motion: reduce) {
 	.kg-rewards__grid3 .kg-card:hover { transform: translateY(-6px); }
 	.kg-rewards__grid3 .kg-card:hover .kg-bubble { transform: none; }
 	.kg-rewards__grid3 .kg-card::after { display: none; }
+	.kg-coin { animation: none; }
 }
 
 /* ---- Testimonials carousel ---- */
@@ -1464,16 +1816,65 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 
 .kg-plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 3vw, 32px); max-width: 880px; margin-inline: auto; }
 .kg-plan { position: relative; display: flex; flex-direction: column; }
-.kg-plan--featured { background: var(--kg-navy); color: var(--kg-text-on-dark); }
+/* Once revealed, retake the transition from the reveal system (600ms + stagger
+   delay) so the hover lift answers instantly. */
+.kg-plan.is-in {
+	transition: transform var(--kg-dur) var(--kg-ease-pop), box-shadow var(--kg-dur) var(--kg-ease-out);
+	transition-delay: 0ms;
+}
+.kg-plan:hover {
+	transform: translateY(-6px);
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-lg), 0 26px 46px -18px color-mix(in srgb, var(--kg-teal) 55%, transparent);
+}
+/* Ghosted subject count in the corner, echoing the sponsor option cards */
+.kg-plan::after {
+	position: absolute; top: 18px; right: 24px;
+	font-family: var(--kg-font-display); font-weight: 800; font-size: 3.4rem; line-height: 1;
+	pointer-events: none; user-select: none;
+}
+.kg-plan:not(.kg-plan--featured)::after { content: "1"; color: var(--kg-teal-deep); opacity: .12; }
+.kg-plan--featured::after { content: "2"; color: var(--kg-amber); opacity: .18; }
+/* Featured card: navy depth gradient inside an amber→red→teal border ring */
+.kg-plan--featured {
+	color: var(--kg-text-on-dark);
+	border: 2px solid transparent;
+	background:
+		linear-gradient(165deg, var(--kg-navy-soft) -20%, var(--kg-navy) 38%, var(--kg-navy-deep)) padding-box,
+		linear-gradient(140deg, var(--kg-amber), var(--kg-red) 38%, var(--kg-teal) 85%) border-box;
+	box-shadow: var(--kg-clay-inset-dark), var(--kg-shadow-lg);
+}
+/* Soft brand glows in the featured card's corners */
+.kg-plan--featured::before {
+	content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+	background:
+		radial-gradient(58% 44% at 84% -6%, rgba(245, 166, 35, .24), transparent 70%),
+		radial-gradient(52% 42% at -8% 106%, rgba(42, 191, 191, .22), transparent 70%);
+}
+.kg-plan--featured:hover {
+	box-shadow: var(--kg-clay-inset-dark), var(--kg-shadow-lg), 0 28px 50px -16px color-mix(in srgb, var(--kg-amber) 50%, transparent);
+}
 .kg-plan--featured h3, .kg-plan--featured .kg-h3 { color: #fff; }
 .kg-plan__flag {
 	position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-	background: var(--kg-amber); color: var(--kg-navy);
+	background: linear-gradient(110deg, var(--kg-amber-deep), var(--kg-amber) 45%, #FFC145);
+	color: var(--kg-navy);
 	font-family: var(--kg-font-display); font-weight: 800; font-size: .8rem;
 	letter-spacing: .06em; text-transform: uppercase;
 	border-radius: 999px; padding: 6px 18px;
-	box-shadow: var(--kg-shadow-sm);
+	box-shadow: 0 3px 0 var(--kg-amber-deep), var(--kg-shadow-sm);
 	white-space: nowrap;
+	overflow: hidden;
+}
+/* Periodic shine sweeping across the flag */
+.kg-plan__flag::after {
+	content: ""; position: absolute; inset: 0;
+	background: linear-gradient(105deg, transparent 32%, rgba(255, 255, 255, .55) 50%, transparent 68%);
+	transform: translateX(-130%);
+	animation: kg-flag-shine 3.4s var(--kg-ease-out) 1.2s infinite;
+}
+@keyframes kg-flag-shine {
+	0%, 55% { transform: translateX(-130%); }
+	85%, 100% { transform: translateX(130%); }
 }
 .kg-plan__price { display: flex; align-items: baseline; flex-wrap: wrap; column-gap: 8px; row-gap: 0; margin: 10px 0 2px; }
 .kg-plan__save {
@@ -1496,8 +1897,18 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 /* Invisible spacer on the One subject card so its price lines up with the
    Two subjects card, which has the reference price line above the amount. */
 .kg-plan__was--ghost { visibility: hidden; }
-.kg-plan__amount { font-family: var(--kg-font-display); font-size: clamp(2.4rem, 4vw, 3.2rem); font-weight: 800; color: var(--kg-navy); line-height: 1; }
-.kg-plan--featured .kg-plan__amount { color: var(--kg-amber); }
+.kg-plan__amount {
+	font-family: var(--kg-font-display); font-size: clamp(2.4rem, 4vw, 3.2rem); font-weight: 800; color: var(--kg-navy); line-height: 1;
+	display: inline-block; transform-origin: left bottom;
+	transition: transform var(--kg-dur) var(--kg-ease-pop);
+}
+.kg-plan:hover .kg-plan__amount { transform: scale(1.06) rotate(-1.5deg); }
+.kg-plan--featured .kg-plan__amount {
+	color: var(--kg-amber);
+	background: linear-gradient(100deg, #FFD37A, var(--kg-amber) 45%, #F08A00);
+	-webkit-background-clip: text; background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
 .kg-plan__per { color: var(--kg-text-soft); font-weight: 600; }
 .kg-plan--featured .kg-plan__per { color: var(--kg-text-on-dark-soft); }
 [data-kg-billing-note] { font-size: 0.78rem; font-weight: 500; margin: -4px 0 0; }
@@ -1506,8 +1917,31 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 .kg-plan__strike { text-decoration: line-through; opacity: .6; font-weight: 600; }
 .kg-plan__list { list-style: none; display: grid; gap: 10px; margin: 18px 0 24px; flex: 1; }
 .kg-plan__list li { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; font-size: .97rem; }
-.kg-plan__list svg { flex: none; color: var(--kg-teal-deep); margin-top: 4px; }
-.kg-plan--featured .kg-plan__list svg { color: var(--kg-teal); }
+/* Features cascade in after the card itself reveals */
+.kg-plan[data-kg-reveal] .kg-plan__list li {
+	opacity: 0; transform: translateX(-10px);
+	transition: opacity 420ms var(--kg-ease-out), transform 420ms var(--kg-ease-out);
+}
+.kg-plan[data-kg-reveal].is-in .kg-plan__list li { opacity: 1; transform: none; }
+.kg-plan[data-kg-reveal].is-in .kg-plan__list li:nth-child(1) { transition-delay: 260ms; }
+.kg-plan[data-kg-reveal].is-in .kg-plan__list li:nth-child(2) { transition-delay: 330ms; }
+.kg-plan[data-kg-reveal].is-in .kg-plan__list li:nth-child(3) { transition-delay: 400ms; }
+.kg-plan[data-kg-reveal].is-in .kg-plan__list li:nth-child(4) { transition-delay: 470ms; }
+.kg-plan[data-kg-reveal].is-in .kg-plan__list li:nth-child(5) { transition-delay: 540ms; }
+.kg-plan[data-kg-reveal].is-in .kg-plan__list li:nth-child(6) { transition-delay: 610ms; }
+/* Check ticks sit in soft round chips */
+.kg-plan__list svg {
+	flex: none; width: 21px; height: 21px; padding: 4px; margin-top: 2px;
+	border-radius: 50%;
+	background: var(--kg-teal-soft); color: var(--kg-teal-deep);
+}
+.kg-plan--featured .kg-plan__list svg { background: rgba(42, 191, 191, .22); color: #6FDCDC; }
+@media (prefers-reduced-motion: reduce) {
+	.kg-plan:hover { transform: none; }
+	.kg-plan:hover .kg-plan__amount { transform: none; }
+	.kg-plan__flag::after { animation: none; }
+	.kg-plan[data-kg-reveal] .kg-plan__list li { opacity: 1; transform: none; transition: none; }
+}
 
 /* Pricing builder */
 .kg-builder {
@@ -1661,133 +2095,502 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 }
 .kg-pricing-disclaimer svg { flex: none; color: var(--kg-amber-deep); margin-top: 2px; }
 
-/* ---- Leaderboard ---- */
-.kg-lb-filters { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: clamp(28px, 4vw, 40px); }
-.kg-lb-filters select {
-	font-family: var(--kg-font-display); font-weight: 700; font-size: .95rem;
-	color: var(--kg-navy);
-	background: var(--kg-white);
-	border: 0; border-radius: 999px;
-	padding: 12px 38px 12px 20px;
-	box-shadow: var(--kg-clay-inset), var(--kg-shadow-sm);
-	cursor: pointer;
-	appearance: none;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='m6 9 6 6 6-6' stroke='%231C2B3A' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-	background-repeat: no-repeat;
-	background-position: right 16px center;
-	min-height: 44px;
-}
-.kg-lb-filters select.is-active {
-	color: var(--kg-teal-deep);
-	box-shadow: var(--kg-clay-inset), 0 0 0 2px var(--kg-teal);
-}
+/* ---- Rewards page ----
+   Effort-based motivation: the token meter that fills on reveal, the
+   avatar studio awaiting real app art, and the milestone badges. */
 
-/* Result count + clear-filters bar */
-.kg-lb__meta {
-	max-width: 760px; margin: 0 auto 14px;
-	display: flex; align-items: center; justify-content: space-between; gap: 12px;
-	min-height: 30px;
-}
-.kg-lb__count { color: var(--kg-text-soft); font-weight: 700; font-size: .92rem; }
-.kg-lb__reset {
-	background: none; border: 0; cursor: pointer;
-	color: var(--kg-teal-deep); font-weight: 800; font-size: .9rem;
-	font-family: var(--kg-font-display);
-	padding: 6px 10px; border-radius: 999px;
-	transition: background-color 160ms;
-}
-.kg-lb__reset:hover { background: var(--kg-teal-soft); }
-
-.kg-lb { max-width: 760px; margin-inline: auto; display: grid; gap: 12px; }
-/* Re-entry animation when filters/sorting change the visible rows. */
-.kg-lb__row.is-shuffle {
-	animation: kg-lb-shuffle 440ms var(--kg-ease-out) both;
-}
-@keyframes kg-lb-shuffle {
-	from { opacity: 0; transform: translateY(10px) scale(.985); }
-	to   { opacity: 1; transform: none; }
-}
-.kg-lb__empty {
-	max-width: 760px; margin: 4px auto 0;
-	text-align: center; color: var(--kg-text-soft); font-weight: 700;
-	background: var(--kg-cream); border-radius: var(--kg-r-md);
-	padding: 26px 20px;
-}
-.kg-lb__row {
+/* The earning demo: three factor cards take turns "earning" — a token flies
+   from the live card into the jar, the jar fills, and at 60 tokens a reward
+   pops and the jar banks. Sequenced by main.js; the stage is the coin's
+   positioned ancestor. */
+/* Two-column composition: the three factor cards stack on the left, the jar
+   is a hero on the right — so "three sources feeding one jar" reads
+   horizontally and coins fly card → jar across the row. */
+.kg-earn {
+	position: relative;
 	display: grid;
-	grid-template-columns: 52px 52px 1fr auto auto;
-	align-items: center; gap: 14px;
+	grid-template-columns: 1.15fr 0.85fr;
+	gap: clamp(28px, 4vw, 56px);
+	align-items: center;
+	max-width: 980px; margin-inline: auto;
+}
+.kg-earn__cards { display: grid; gap: clamp(12px, 1.6vw, 16px); }
+/* Rich horizontal factor card: bubble | copy | "+10" earn pill, with a
+   coloured left edge tying each card to its accent. */
+.kg-earn__card {
+	--acc: var(--kg-amber);
+	display: grid; grid-template-columns: auto 1fr auto; align-items: center;
+	gap: clamp(14px, 1.6vw, 18px);
+	padding: 16px 18px;
 	background: var(--kg-white);
 	border-radius: var(--kg-r-md);
-	padding: 14px 18px;
-	box-shadow: var(--kg-clay-inset), var(--kg-shadow-sm);
-	transition: transform var(--kg-dur) var(--kg-ease-pop), box-shadow var(--kg-dur);
+	border-left: 5px solid var(--acc);
+	box-shadow: var(--kg-shadow-md);
+	text-align: left;
+	transition: transform var(--kg-dur) var(--kg-ease-pop), box-shadow var(--kg-dur) var(--kg-ease-out), background var(--kg-dur) var(--kg-ease-out);
 }
-.kg-lb__row:hover { transform: translateY(-3px) scale(1.01); box-shadow: var(--kg-clay-inset), var(--kg-shadow-md); }
-.kg-lb__rank { font-family: var(--kg-font-display); font-weight: 800; font-size: 1.25rem; color: var(--kg-text-soft); text-align: center; }
-.kg-lb__row--gold .kg-lb__rank { color: var(--kg-amber-deep); }
-.kg-lb__row--silver .kg-lb__rank { color: #8A97A5; }
-.kg-lb__row--bronze .kg-lb__rank { color: #B5722F; }
-.kg-lb__avatar {
-	width: 52px; height: 52px; border-radius: 50%;
-	display: flex; align-items: center; justify-content: center;
-	font-family: var(--kg-font-display); font-weight: 800; color: #fff; font-size: 1.05rem;
-}
-.kg-lb__who strong { display: block; color: var(--kg-navy); font-family: var(--kg-font-display); }
-.kg-lb__who small { color: var(--kg-text-soft); }
-.kg-lb__movement { display: inline-flex; align-items: center; gap: 4px; font-weight: 800; font-size: .88rem; }
-.kg-lb__movement--up { color: var(--kg-teal-deep); }
-.kg-lb__movement--down { color: var(--kg-red); }
-.kg-lb__tokens {
-	display: inline-flex; align-items: center; gap: 7px;
+.kg-earn__card:nth-child(1) { --acc: var(--kg-amber); }
+.kg-earn__card:nth-child(2) { --acc: var(--kg-teal); }
+.kg-earn__card:nth-child(3) { --acc: var(--kg-red); }
+.kg-earn__card .kg-bubble { margin: 0; width: 56px; height: 56px; }
+.kg-earn__card-body h3 { margin: 0 0 2px; font-size: 1.08rem; }
+.kg-earn__card-body p { margin: 0; font-size: .92rem; color: var(--kg-text-soft); line-height: 1.45; }
+/* "+10" token pill — reinforces that each action earns tokens */
+.kg-earn__card-earn {
+	display: inline-flex; align-items: center; gap: 5px;
+	padding: 5px 11px 5px 8px; border-radius: 999px;
 	background: var(--kg-amber-soft);
-	border-radius: 999px; padding: 8px 16px;
+	font-family: var(--kg-font-display); font-weight: 800; font-size: .9rem; color: var(--kg-amber-deep);
+	white-space: nowrap;
+}
+.kg-earn__card-earn svg { width: 18px; height: 18px; }
+.kg-earn__card.is-live {
+	transform: translateX(8px);
+	background: color-mix(in srgb, var(--acc) 8%, white);
+	box-shadow: var(--kg-shadow-lg), 0 0 0 2px var(--acc);
+}
+.kg-earn__card.is-live .kg-bubble { animation: kg-earn-bounce .55s var(--kg-ease-pop); }
+@media (max-width: 820px) {
+	.kg-earn { grid-template-columns: 1fr; gap: clamp(30px, 5vw, 42px); }
+	.kg-earn__jarwrap { order: 2; }
+}
+@media (max-width: 420px) {
+	.kg-earn__card { grid-template-columns: auto 1fr; }
+	.kg-earn__card-earn { display: none; }
+}
+@keyframes kg-earn-bounce {
+	0%, 100% { transform: scale(1); }
+	40% { transform: scale(1.18) rotate(-8deg); }
+	70% { transform: scale(.96) rotate(4deg); }
+}
+
+/* The flying token: outer span moves on X, inner on Y with a "gravity"
+   bezier, tracing an arc between card and jar. */
+.kg-earncoin {
+	position: absolute; z-index: 5;
+	width: 26px; height: 26px; margin: -13px 0 0 -13px;
+	pointer-events: none;
+	transition: transform .82s cubic-bezier(.4, 0, .6, 1);
+}
+.kg-earncoin i {
+	display: block; width: 100%; height: 100%;
+	transition: transform .82s cubic-bezier(.5, -0.45, .75, .55);
+}
+.kg-earncoin svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 3px 8px rgba(245, 166, 35, .5)); }
+
+/* The jar — the hero of the right column, sitting on a soft amber glow */
+.kg-earn__jarwrap {
+	position: relative;
+	display: flex; flex-direction: column; align-items: center; justify-content: center;
+	text-align: center;
+}
+.kg-earn__jarwrap::before {
+	content: ""; position: absolute; top: 44%; left: 50%; z-index: 0;
+	transform: translate(-50%, -50%);
+	width: min(300px, 92%); aspect-ratio: 1; border-radius: 50%;
+	background: radial-gradient(circle, rgba(245, 166, 35, .22) 0%, rgba(245, 166, 35, 0) 68%);
+	pointer-events: none;
+}
+.kg-earn__jar { position: relative; z-index: 1; display: inline-block; }
+.kg-earnjar { display: block; width: clamp(150px, 15vw, 190px); height: auto; }
+.kg-earnjar__fill { transition: y .45s var(--kg-ease-out), height .45s var(--kg-ease-out); }
+.kg-earn__jar.is-catch .kg-earnjar { animation: kg-earn-catch .4s var(--kg-ease-pop); transform-origin: 50% 100%; }
+@keyframes kg-earn-catch {
+	0%, 100% { transform: scale(1); }
+	40% { transform: scale(1.07, .92); }
+}
+.kg-earn__count {
+	position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%);
+	display: inline-flex; align-items: center; gap: 6px;
+	padding: 4px 12px; border-radius: 999px;
+	background: var(--kg-white);
+	box-shadow: var(--kg-shadow-sm);
 	font-family: var(--kg-font-display); font-weight: 800; color: var(--kg-navy);
 	font-variant-numeric: tabular-nums;
 }
-.kg-lb__note { text-align: center; color: var(--kg-text-soft); font-size: .9rem; max-width: 560px; margin: 22px auto 0; }
+/* "+10" floater rising off the jar mouth after each catch */
+.kg-earnplus {
+	position: absolute; top: -6px; left: 50%;
+	font-family: var(--kg-font-display); font-weight: 800; color: var(--kg-amber-deep);
+	pointer-events: none;
+	animation: kg-earnplus-rise .9s var(--kg-ease-out) forwards;
+}
+@keyframes kg-earnplus-rise {
+	from { opacity: 0; transform: translate(-50%, 4px) scale(.8); }
+	25% { opacity: 1; }
+	to { opacity: 0; transform: translate(-50%, -30px) scale(1.15); }
+}
+/* Reward chip popping above the jar when it banks */
+.kg-earn__unlock {
+	position: absolute; left: 50%; bottom: calc(100% + 8px); z-index: 6;
+	display: inline-flex; align-items: center; gap: 7px;
+	padding: 8px 16px; border-radius: 999px;
+	background: var(--kg-amber); color: var(--kg-navy);
+	font-family: var(--kg-font-display); font-weight: 800; font-size: .92rem;
+	white-space: nowrap;
+	box-shadow: 0 4px 0 var(--kg-amber-deep), var(--kg-shadow-md);
+	animation: kg-earn-unlock .5s var(--kg-ease-pop);
+	translate: -50% 0;
+}
+.kg-earn__unlock em { font-style: normal; }
+.kg-earn__unlock[hidden] { display: none; }
+@keyframes kg-earn-unlock {
+	from { opacity: 0; transform: scale(.5) rotate(-6deg); }
+	to { opacity: 1; transform: none; }
+}
+.kg-earn__caption { position: relative; z-index: 1; margin: 12px 0 0; color: var(--kg-text-soft); font-weight: 700; font-size: .92rem; }
+@media (prefers-reduced-motion: reduce) {
+	.kg-earn__card.is-live { transform: none; }
+	.kg-earn__card.is-live .kg-bubble { animation: none; }
+}
 
-/* ---- Leaderboard pagination ---- */
-.kg-lb__pagination {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 12px;
-	margin-top: 18px;
-	min-height: 44px;
+/* "No child is punished for finding something hard" note */
+.kg-earn-note {
+	display: flex; gap: 10px; align-items: flex-start; justify-content: center;
+	max-width: 640px; margin: clamp(22px, 3vw, 32px) auto 0;
+	padding: 14px 18px;
+	background: var(--kg-teal-soft); border-radius: var(--kg-r-md);
+	font-size: .95rem; font-weight: 600;
 }
-.kg-lb__page-btn {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-	padding: 8px 20px;
+.kg-earn-note svg { flex: none; color: var(--kg-red); margin-top: 2px; }
+
+/* ---- Tokens & the Store: the shop window ----
+   Navy night-market section. Left: a mock storefront card — striped awning
+   with a scalloped edge, live token balance, the store-map render as the
+   shop banner and three tappable items (main.js runs the buying demo).
+   Right: the copy and a coin-bulleted reassurance list. Oversized faint
+   coins drift behind the container; they hold still for reduced motion. */
+.kg-storefront { position: relative; overflow: hidden; }
+.kg-storefront .kg-container { position: relative; z-index: 1; }
+.kg-storefront__coins { position: absolute; inset: 0; pointer-events: none; }
+.kg-storefront__coins span { position: absolute; opacity: .09; animation: kg-coin-drift 8s ease-in-out infinite; }
+.kg-storefront__coins svg { display: block; width: 100%; height: auto; }
+.kg-storefront__coins span:nth-child(1) { width: 96px; top: 9%; left: 3%; }
+.kg-storefront__coins span:nth-child(2) { width: 52px; top: 66%; left: 10%; animation-delay: -2.6s; }
+.kg-storefront__coins span:nth-child(3) { width: 72px; top: 12%; right: 5%; animation-delay: -4.4s; }
+.kg-storefront__coins span:nth-child(4) { width: 44px; top: 72%; right: 9%; animation-delay: -1.3s; }
+@keyframes kg-coin-drift {
+	0%, 100% { transform: translateY(0) rotate(-9deg); }
+	50% { transform: translateY(-20px) rotate(9deg); }
+}
+
+/* The storefront card: a lit shop window against the navy night */
+.kg-storecard {
 	background: var(--kg-white);
-	border: 2px solid var(--kg-teal);
-	border-radius: 999px;
-	color: var(--kg-teal-deep);
-	font-family: var(--kg-font-ui);
-	font-size: .92rem;
-	font-weight: 700;
-	cursor: pointer;
-	transition: background .18s, color .18s, box-shadow .18s;
+	border-radius: var(--kg-r-lg);
+	box-shadow: 0 0 0 6px rgba(255, 255, 255, .07), var(--kg-shadow-lg);
+	overflow: hidden;
 }
-.kg-lb__page-btn:hover:not(:disabled) {
-	background: var(--kg-teal);
-	color: var(--kg-white);
+/* Striped awning; the ::after scallops share the 26px stripe rhythm so each
+   half-circle lands under its own stripe colour. */
+.kg-storecard__awning {
+	position: relative; z-index: 2;
+	height: 24px;
+	background: repeating-linear-gradient(90deg, var(--kg-red) 0 26px, var(--kg-cream) 26px 52px);
+}
+.kg-storecard__awning::after {
+	content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 13px;
+	background:
+		radial-gradient(circle at 13px 0, var(--kg-red) 12px, rgba(0, 0, 0, 0) 13px) 0 0 / 52px 13px repeat-x,
+		radial-gradient(circle at 13px 0, var(--kg-cream) 12px, rgba(0, 0, 0, 0) 13px) 26px 0 / 52px 13px repeat-x;
+	filter: drop-shadow(0 2px 2px rgba(28, 43, 58, .12));
+}
+.kg-storecard__head {
+	display: flex; align-items: center; justify-content: space-between; gap: 12px;
+	padding: 26px 18px 12px;
+}
+.kg-storecard__name { font-family: var(--kg-font-display); font-weight: 800; color: var(--kg-navy); font-size: 1.02rem; }
+.kg-storecard__balance {
+	position: relative;
+	display: inline-flex; align-items: center; gap: 7px; flex: none;
+	padding: 5px 13px; border-radius: 999px;
+	background: var(--kg-amber-soft);
+	box-shadow: inset 0 0 0 2px rgba(217, 140, 0, .28);
+	font-family: var(--kg-font-display); font-weight: 800; color: var(--kg-navy);
+	font-variant-numeric: tabular-nums;
+}
+.kg-storecard__balance > svg { width: 18px; height: 18px; }
+.kg-storecard__balance.is-tick { animation: kg-store-tick .45s var(--kg-ease-pop); }
+@keyframes kg-store-tick {
+	0%, 100% { transform: scale(1); }
+	40% { transform: scale(1.14); }
+}
+/* "−25" floater rising off the balance after a purchase (mirrors kg-earnplus) */
+.kg-storeminus {
+	position: absolute; left: 50%; bottom: calc(100% + 2px);
+	font-family: var(--kg-font-display); font-weight: 800; color: var(--kg-red);
+	pointer-events: none; white-space: nowrap;
+	animation: kg-earnplus-rise .9s var(--kg-ease-out) forwards;
+}
+.kg-storecard__banner { margin: 2px 14px 0; border-radius: var(--kg-r-md); overflow: hidden; }
+.kg-storecard__banner img { display: block; width: 100%; height: clamp(150px, 15vw, 200px); object-fit: cover; }
+/* The shelf: three buyable items */
+.kg-storecard__shelf {
+	display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px;
+	padding: 14px 14px 16px;
+}
+.kg-storecard__item {
+	position: relative;
+	display: flex; flex-direction: column; align-items: center; gap: 8px;
+	padding: 14px 6px 12px;
+	background: var(--kg-cream);
+	border: 2px solid rgba(28, 43, 58, .08); border-radius: var(--kg-r-md);
+	font: inherit; text-align: center; cursor: pointer;
+	transition: transform var(--kg-dur) var(--kg-ease-pop), border-color var(--kg-dur) var(--kg-ease-out), box-shadow var(--kg-dur) var(--kg-ease-out);
+}
+.kg-storecard__item:hover:not(.is-owned),
+.kg-storecard__item:focus-visible:not(.is-owned) {
+	transform: translateY(-3px);
+	border-color: var(--kg-amber);
 	box-shadow: var(--kg-shadow-sm);
 }
-.kg-lb__page-btn:disabled {
-	opacity: .38;
-	cursor: default;
+.kg-storecard__item small { font-weight: 700; color: var(--kg-navy); font-size: .8rem; line-height: 1.25; }
+.kg-storecard__item-icon {
+	width: 46px; height: 46px; border-radius: 50%;
+	display: grid; place-items: center;
 }
-.kg-lb__page-btn svg { flex-shrink: 0; }
-.kg-lb__page-info {
-	font-family: var(--kg-font-ui);
-	font-size: .92rem;
-	font-weight: 700;
-	color: var(--kg-text-soft);
-	min-width: 64px;
+.kg-storecard__item:nth-child(1) .kg-storecard__item-icon { background: var(--kg-amber-soft); color: var(--kg-amber-deep); }
+.kg-storecard__item:nth-child(2) .kg-storecard__item-icon { background: var(--kg-teal-soft); color: var(--kg-teal-deep); }
+.kg-storecard__item:nth-child(3) .kg-storecard__item-icon { background: var(--kg-red-soft); color: var(--kg-red); }
+.kg-storecard__price {
+	display: inline-flex; align-items: center; gap: 5px;
+	padding: 3px 10px; border-radius: 999px;
+	background: var(--kg-navy); color: #fff;
+	font-family: var(--kg-font-display); font-weight: 800; font-size: .8rem;
+	font-variant-numeric: tabular-nums;
+}
+.kg-storecard__price svg { width: 13px; height: 13px; }
+.kg-storecard__owned {
+	display: none;
+	align-items: center; gap: 5px;
+	padding: 3px 10px; border-radius: 999px;
+	background: var(--kg-green); color: #fff;
+	font-family: var(--kg-font-display); font-weight: 800; font-size: .8rem;
+}
+.kg-storecard__item.is-owned { cursor: default; border-color: var(--kg-green); background: #F1FAF3; }
+.kg-storecard__item.is-owned .kg-storecard__price { display: none; }
+.kg-storecard__item.is-owned .kg-storecard__owned { display: inline-flex; animation: kg-earn-unlock .5s var(--kg-ease-pop); }
+.kg-storecard__item.is-owned .kg-storecard__item-icon { animation: kg-earn-bounce .55s var(--kg-ease-pop); }
+.kg-storecard__hint {
+	margin: 14px 4px 0; text-align: center;
+	color: var(--kg-text-on-dark-soft); font-weight: 600; font-size: .92rem;
+}
+/* Coin-bulleted reassurance list (right column) */
+.kg-storepts { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 15px; }
+.kg-storepts li {
+	display: grid; grid-template-columns: 28px 1fr; align-items: start; gap: 13px;
+	font-weight: 600; line-height: 1.5; color: var(--kg-text-on-dark);
+}
+.kg-storepts li > svg {
+	width: 28px; height: 28px; margin-top: -1px;
+	filter: drop-shadow(0 2px 6px rgba(245, 166, 35, .35));
+}
+@media (prefers-reduced-motion: reduce) {
+	.kg-storefront__coins span,
+	.kg-storecard__balance.is-tick,
+	.kg-storecard__item.is-owned .kg-storecard__owned,
+	.kg-storecard__item.is-owned .kg-storecard__item-icon { animation: none; }
+	.kg-storecard__item:hover:not(.is-owned),
+	.kg-storecard__item:focus-visible:not(.is-owned) { transform: none; }
+}
+@media (max-width: 560px) {
+	.kg-storefront__coins span:nth-child(1),
+	.kg-storefront__coins span:nth-child(3) { display: none; }
+	.kg-storecard__head { flex-wrap: wrap; }
+}
+
+/* WP-style visually-hidden utility (used by the store balance label) */
+.screen-reader-text {
+	position: absolute !important;
+	width: 1px; height: 1px;
+	margin: -1px; padding: 0; border: 0;
+	clip-path: inset(50%); overflow: hidden;
+	white-space: nowrap;
+}
+/* Keep a short phrase (e.g. the "7 × 8?" demo question) from breaking mid-line */
+.kg-nowrap { white-space: nowrap; }
+
+/* Avatar studio: stage + item slots, all clearly placeholder until real art */
+.kg-avastudio {
+	display: grid; grid-template-columns: 0.9fr 1.1fr;
+	gap: clamp(20px, 3vw, 36px);
+	max-width: 900px; margin-inline: auto;
+	align-items: stretch;
+}
+.kg-avastudio__stage {
+	display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+	background: linear-gradient(165deg, var(--kg-navy-soft) -20%, var(--kg-navy) 60%);
+	border-radius: var(--kg-arch);
+	padding: clamp(28px, 4vw, 44px) 20px;
+	color: rgba(255, 255, 255, .5);
+	box-shadow: var(--kg-clay-inset-dark), var(--kg-shadow-md);
+}
+.kg-avastudio__stage svg { width: clamp(110px, 12vw, 150px); height: auto; }
+.kg-avastudio__ph {
+	font-family: var(--kg-font-display); font-weight: 700; font-size: .82rem;
+	letter-spacing: .04em; text-transform: uppercase;
+	color: var(--kg-amber);
+	background: var(--kg-navy-soft);
+	border: 1.5px dashed rgba(245, 166, 35, .5);
+	border-radius: 999px; padding: 6px 16px;
 	text-align: center;
+}
+.kg-avastudio__slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 1.6vw, 18px); }
+.kg-avastudio__slot {
+	display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+	background: var(--kg-white);
+	border: 1.5px dashed var(--kg-cream-deep);
+	border-radius: var(--kg-r-md);
+	padding: 16px 10px;
+	box-shadow: var(--kg-shadow-sm);
+	transition: transform var(--kg-dur) var(--kg-ease-pop), box-shadow var(--kg-dur), border-color var(--kg-dur);
+}
+.kg-avastudio__slot:hover { transform: translateY(-4px); border-color: var(--kg-amber); box-shadow: var(--kg-shadow-md); }
+.kg-avastudio__slot-box {
+	width: 46px; height: 46px; border-radius: 50%;
+	display: grid; place-items: center;
+	background: var(--kg-amber-soft); color: var(--kg-amber-deep);
+}
+.kg-avastudio__slot small { font-family: var(--kg-font-display); font-weight: 700; font-size: .82rem; color: var(--kg-navy); }
+
+/* Milestone badges on the navy section */
+.kg-badges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 2vw, 24px); }
+.kg-badge {
+	--acc: var(--kg-amber); --acc-deep: var(--kg-amber-deep);
+	text-align: center;
+	background: var(--kg-navy-soft);
+	border-radius: var(--kg-r-lg);
+	padding: clamp(20px, 2.4vw, 28px) 16px;
+	box-shadow: var(--kg-clay-inset-dark), var(--kg-shadow-sm);
+	transition: transform var(--kg-dur) var(--kg-ease-pop), box-shadow var(--kg-dur) var(--kg-ease-out);
+}
+.kg-badge:hover {
+	transform: translateY(-6px);
+	box-shadow: var(--kg-clay-inset-dark), var(--kg-shadow-md), 0 0 0 2px color-mix(in srgb, var(--acc) 55%, transparent);
+}
+.kg-badge--teal  { --acc: var(--kg-teal);  --acc-deep: var(--kg-teal-deep); }
+.kg-badge--red   { --acc: var(--kg-red);   --acc-deep: var(--kg-red-deep); }
+.kg-badge--green { --acc: var(--kg-green); --acc-deep: var(--kg-green-deep); }
+.kg-badge__medal {
+	position: relative;
+	width: 62px; height: 62px; margin-bottom: 22px;
+	display: inline-grid; place-items: center;
+	border-radius: 50%;
+	background: var(--acc); color: #fff;
+	box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .18), 0 0 0 5px color-mix(in srgb, var(--acc) 30%, transparent);
+	transition: box-shadow var(--kg-dur) var(--kg-ease-out);
+}
+.kg-badge:hover .kg-badge__medal {
+	box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .18), 0 0 0 8px color-mix(in srgb, var(--acc) 42%, transparent);
+	animation: kg-badge-wobble .6s var(--kg-ease-pop);
+}
+@keyframes kg-badge-wobble {
+	0%, 100% { transform: rotate(0); }
+	30% { transform: rotate(-9deg) scale(1.06); }
+	65% { transform: rotate(6deg) scale(1.03); }
+}
+/* Ribbon tails under the medal */
+.kg-badge__medal::before, .kg-badge__medal::after {
+	content: ""; position: absolute; top: 82%;
+	width: 13px; height: 26px;
+	background: var(--acc-deep);
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 74%, 0 100%);
+}
+.kg-badge__medal::before { left: 14px; transform: rotate(14deg); }
+.kg-badge__medal::after { right: 14px; transform: rotate(-14deg); }
+.kg-badge h3 { color: #fff; font-size: 1.05rem; margin: 0 0 4px; }
+.kg-badge p { margin: 0; font-size: .88rem; color: var(--kg-text-on-dark-soft); }
+
+@media (max-width: 900px) {
+	.kg-avastudio { grid-template-columns: 1fr; }
+	.kg-badges { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+	.kg-avastudio__slots { grid-template-columns: repeat(2, 1fr); }
+	.kg-badges { grid-template-columns: 1fr; max-width: 340px; margin-inline: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.kg-earnmeter__fill, .kg-earnmeter__coin { transition: none; }
+	.kg-avastudio__slot:hover { transform: none; }
+	.kg-badge:hover { transform: none; }
+	.kg-badge:hover .kg-badge__medal { animation: none; }
+}
+
+/* ---- Parent reassurance: the "safe zone" ----
+   The three reassurances sit inside an enclosed panel with a dashed "guarded
+   boundary" and a shield-check seal overlapping the top edge — the whole
+   thing reads as a protected space. A faint shield watermark sits behind,
+   and each icon lives in a shield-shaped badge in calming trust colours. */
+.kg-guard__zone {
+	position: relative;
+	margin-top: clamp(34px, 4vw, 50px);
+	padding: clamp(44px, 5vw, 62px) clamp(20px, 3vw, 40px) clamp(28px, 3vw, 42px);
+	background: linear-gradient(168deg, var(--kg-teal-soft) 0%, #EAF9F1 100%);
+	border: 2px dashed color-mix(in srgb, var(--kg-teal) 48%, transparent);
+	border-radius: var(--kg-r-lg);
+}
+/* Clipping layer for the watermark — keeps the seal (a sibling) unclipped so
+   it can straddle the top border without being cut off. */
+.kg-guard__bg {
+	position: absolute; inset: 0; z-index: 0;
+	border-radius: inherit; overflow: hidden; pointer-events: none;
+}
+/* Big faint shield watermark, bottom-right */
+.kg-guard__watermark {
+	position: absolute; right: -34px; bottom: -46px; width: 230px;
+	color: var(--kg-teal); opacity: .07;
+}
+.kg-guard__watermark svg { display: block; width: 100%; height: auto; }
+/* Shield-check seal overlapping the top border */
+.kg-guard__seal {
+	position: absolute; top: 0; left: 50%; z-index: 2;
+	transform: translate(-50%, -50%);
+	width: 58px; height: 58px; display: grid; place-items: center;
+	border-radius: 50%;
+	background: linear-gradient(160deg, #46C06E 0%, var(--kg-green) 100%); color: #fff;
+	box-shadow: 0 0 0 6px var(--kg-cream), 0 8px 18px rgba(59, 165, 92, .38);
+}
+.kg-guard__grid {
+	position: relative; z-index: 1;
+	display: grid; grid-template-columns: repeat(3, 1fr);
+	gap: clamp(16px, 2.4vw, 26px);
+}
+.kg-guard__card {
+	background: var(--kg-white);
+	border-radius: var(--kg-r-md);
+	padding: clamp(22px, 2.6vw, 30px) clamp(18px, 2vw, 24px);
+	border: 1px solid rgba(42, 191, 191, .18);
+	box-shadow: var(--kg-shadow-sm);
+	transition: transform var(--kg-dur) var(--kg-ease-pop), box-shadow var(--kg-dur) var(--kg-ease-out);
+}
+.kg-guard__card:hover {
+	transform: translateY(-5px);
+	box-shadow: var(--kg-shadow-md);
+}
+/* Shield-shaped icon badge */
+.kg-guard__shield {
+	--acc: var(--kg-teal);
+	position: relative;
+	width: 58px; height: 64px; margin-bottom: 18px;
+	display: grid; place-items: center;
+	color: #fff;
+	background: linear-gradient(158deg, color-mix(in srgb, var(--acc) 74%, white) 0%, var(--acc) 100%);
+	clip-path: polygon(50% 0%, 100% 12%, 100% 50%, 82% 88%, 50% 100%, 18% 88%, 0% 50%, 0% 12%);
+	filter: drop-shadow(0 6px 12px color-mix(in srgb, var(--acc) 36%, transparent));
+}
+.kg-guard__card:nth-child(1) .kg-guard__shield { --acc: var(--kg-teal); }
+.kg-guard__card:nth-child(2) .kg-guard__shield { --acc: var(--kg-green); }
+.kg-guard__card:nth-child(3) .kg-guard__shield { --acc: var(--kg-navy); }
+.kg-guard__card:hover .kg-guard__shield { animation: kg-badge-wobble .6s var(--kg-ease-pop); }
+.kg-guard__card h3 { margin: 0 0 6px; }
+.kg-guard__card p { margin: 0; color: var(--kg-text-soft); }
+
+@media (max-width: 760px) {
+	.kg-guard__grid { grid-template-columns: 1fr; max-width: 420px; margin-inline: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.kg-guard__card:hover { transform: none; }
+	.kg-guard__card:hover .kg-guard__shield { animation: none; }
 }
 
 /* ---- Video block (how it works) ---- */
@@ -2089,6 +2892,91 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 /* Wider visual column — gives screenshots a bit more presence */
 .kg-spot--wide { grid-template-columns: 1.18fr 0.82fr; }
 
+/* ---- Features: parent dashboard showcase ----
+   Centred composition: real screenshot in a floating laptop frame over a
+   soft glow, one-shot glass shine on reveal, capability chips beneath. */
+.kg-dashspot__head { text-align: center; max-width: 680px; margin-inline: auto; }
+.kg-dashspot__head .kg-lede { margin-inline: auto; }
+.kg-dashspot__stage {
+	position: relative;
+	max-width: 780px;
+	margin: clamp(32px, 4.5vw, 52px) auto 0;
+}
+.kg-dashspot__glow {
+	position: absolute; inset: -6% -12%;
+	background:
+		radial-gradient(45% 55% at 30% 40%, rgba(42, 191, 191, .38), transparent 70%),
+		radial-gradient(45% 55% at 72% 62%, rgba(245, 166, 35, .34), transparent 70%);
+	filter: blur(46px);
+	border-radius: 50%;
+	pointer-events: none;
+	animation: kg-dashspot-glow 7s ease-in-out infinite;
+}
+@keyframes kg-dashspot-glow {
+	0%, 100% { opacity: .7; transform: scale(1); }
+	50% { opacity: 1; transform: scale(1.05); }
+}
+.kg-dashspot__laptop { position: relative; animation: kg-dashspot-hover 7.5s ease-in-out infinite; }
+@keyframes kg-dashspot-hover {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-9px); }
+}
+.kg-dashspot__screen,
+.kg-dashspot__screen.kg-lightbox-trigger {
+	display: block; width: 100%;
+	padding: clamp(10px, 1.4vw, 14px);
+	border: 0; font: inherit; color: inherit;
+	background: var(--kg-navy);
+	border-radius: clamp(16px, 2vw, 22px) clamp(16px, 2vw, 22px) 0 0;
+	cursor: zoom-in;
+	position: relative; overflow: hidden;
+	box-shadow: var(--kg-shadow-lg);
+}
+.kg-dashspot__screen img { width: 100%; border-radius: 8px; }
+.kg-dashspot__base {
+	display: block; position: relative;
+	height: clamp(12px, 1.6vw, 16px);
+	margin-inline: -4.5%;
+	background: linear-gradient(180deg, var(--kg-navy-soft), var(--kg-navy-deep));
+	border-radius: 6px 6px 999px 999px;
+	box-shadow: var(--kg-shadow-md);
+}
+.kg-dashspot__base::after {
+	content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+	width: 12%; height: 46%;
+	background: rgba(255, 255, 255, .14);
+	border-radius: 0 0 10px 10px;
+}
+/* glass shine sweeps across the screen once, after the stage pops in */
+.kg-dashspot__glare {
+	position: absolute; top: -20%; bottom: -20%; left: 0;
+	width: 34%;
+	background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .45), transparent);
+	transform: skewX(-18deg) translateX(-160%);
+	pointer-events: none;
+}
+.kg-dashspot__stage.is-in .kg-dashspot__glare { animation: kg-dashspot-glare 1.2s var(--kg-ease-out) .7s both; }
+@keyframes kg-dashspot-glare {
+	from { transform: skewX(-18deg) translateX(-160%); }
+	to { transform: skewX(-18deg) translateX(460%); }
+}
+.kg-dashspot__chips {
+	list-style: none; margin: clamp(32px, 4.5vw, 48px) 0 0; padding: 0;
+	display: flex; flex-wrap: wrap; justify-content: center;
+	gap: 12px 14px;
+}
+.kg-dashspot__chips li {
+	display: inline-flex; align-items: center; gap: 9px;
+	background: var(--kg-white);
+	border-radius: 999px;
+	padding: 12px 20px;
+	font-weight: 700; font-size: .97rem; color: var(--kg-navy);
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-sm);
+	transition: transform var(--kg-dur) var(--kg-ease-pop), box-shadow var(--kg-dur) var(--kg-ease-out);
+}
+.kg-dashspot__chips li:hover { transform: translateY(-3px); box-shadow: var(--kg-clay-inset), var(--kg-shadow-md); }
+.kg-dashspot__chips svg { color: var(--kg-teal-deep); flex: none; }
+
 /* Clickable screenshot → opens the lightbox */
 .kg-lightbox-trigger {
 	display: block; width: 100%; padding: 0; border: 0; font: inherit; color: inherit;
@@ -2142,14 +3030,41 @@ body.kg-lightbox-open { overflow: hidden; }
 }
 
 /* Teacher-dashboard feature list (navy section) */
-.kg-dash-feats { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 18px; }
-.kg-dash-feat { display: flex; align-items: flex-start; gap: 14px; }
+.kg-dash-feats { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 6px; }
+/* Each feature is an interactive row: a soft highlight surface with a growing
+   accent bar; on hover it slides right and the icon pops. */
+.kg-dash-feat {
+	position: relative;
+	display: flex; align-items: flex-start; gap: 14px;
+	padding: 12px 14px; margin: 0 -14px;
+	border-radius: var(--kg-r-md);
+	transition: transform var(--kg-dur) var(--kg-ease-out), background-color var(--kg-dur) var(--kg-ease-out);
+}
+.kg-dash-feat::before {
+	content: ""; position: absolute; left: 2px; top: 14px; bottom: 14px; width: 3px;
+	border-radius: 3px; background: var(--kg-amber);
+	transform: scaleY(0); transform-origin: center;
+	transition: transform var(--kg-dur) var(--kg-ease-pop);
+}
+.kg-dash-feat:hover { transform: translateX(6px); background-color: rgba(255, 255, 255, .06); }
+.kg-dash-feat:hover::before { transform: scaleY(1); }
 .kg-dash-feat__icon {
 	flex: none; width: 46px; height: 46px; border-radius: 14px;
 	margin-bottom: 0;
+	transition: transform var(--kg-dur) var(--kg-ease-pop), box-shadow var(--kg-dur) var(--kg-ease-out);
 }
-.kg-dash-feat__title { font-family: var(--kg-font-display); font-size: 1.05rem; color: #fff; margin: 2px 0 3px; }
+.kg-dash-feat:hover .kg-dash-feat__icon {
+	transform: scale(1.12) rotate(-6deg);
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-md);
+}
+.kg-dash-feat__title { font-family: var(--kg-font-display); font-size: 1.05rem; color: #fff; margin: 2px 0 3px; transition: color var(--kg-dur) var(--kg-ease-out); }
 .kg-dash-feat__text { margin: 0; color: var(--kg-text-on-dark-soft); font-size: .94rem; line-height: 1.5; }
+/* Principal view sits on cream — use a dark highlight tint instead of white */
+.kg-dash-section.is-principal .kg-dash-feat:hover { background-color: rgba(28, 43, 58, .05); }
+@media (prefers-reduced-motion: reduce) {
+	.kg-dash-feat:hover { transform: none; }
+	.kg-dash-feat:hover .kg-dash-feat__icon { transform: none; }
+}
 
 /* ---- Teacher / Principal view switch ---- */
 /* The section eases from dark navy (Teacher) to light cream (Principal); the
@@ -2235,61 +3150,108 @@ body.kg-lightbox-open { overflow: hidden; }
 	border: 1px solid rgba(42, 191, 191, .32); padding: 4px 10px; border-radius: 999px;
 }
 
-.kg-aiviz__flow { position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: clamp(8px, 1.4vw, 16px); }
-/* Connecting rail behind the pipeline; visible in the gaps around the core. */
-.kg-aiviz__flow::before {
-	content: ""; position: absolute; top: 50%; left: 20%; right: 20%; height: 2px; transform: translateY(-50%);
-	background: linear-gradient(90deg, rgba(42, 191, 191, .12), rgba(42, 191, 191, .42), rgba(42, 191, 191, .12));
-	z-index: 0;
+/* Living learning path — the child's dot travels lesson nodes; a missed
+   topic makes the AI grow a re-teach detour that rejoins once mastered. */
+.kg-aipath { position: relative; margin-top: 2px; }
+.kg-aipath__ai {
+	position: absolute; top: 4px; right: 6px; z-index: 1;
+	display: inline-flex; align-items: center; gap: 5px;
+	font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 700;
+	color: var(--kg-text-on-dark-soft);
 }
-.kg-aiviz__card {
-	position: relative; z-index: 1;
-	background: rgba(255, 255, 255, .045);
-	border: 1px solid rgba(255, 255, 255, .08);
-	border-radius: 14px; padding: 12px 13px; min-height: 86px;
-	display: flex; flex-direction: column; gap: 5px; justify-content: center;
-	transition: border-color .35s, background-color .35s, opacity .35s;
-}
-.kg-aiviz__card small { font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--kg-text-on-dark-soft); font-weight: 700; }
-.kg-aiviz__skill { font-family: var(--kg-font-display); font-weight: 700; font-size: 1rem; }
-.kg-aiviz__result { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: .85rem; color: var(--kg-text-on-dark-soft); }
-.kg-aiviz__result::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
-.kg-aiviz__result.is-missed { color: var(--kg-red); }
-.kg-aiviz__result.is-got { color: var(--kg-green); }
-.kg-aiviz__card--answer.is-active { border-color: rgba(230, 51, 41, .45); background: rgba(230, 51, 41, .09); }
-.kg-aiviz__card--action { opacity: .4; }
-.kg-aiviz__card--action.is-active { opacity: 1; border-color: rgba(42, 191, 191, .5); background: rgba(42, 191, 191, .1); }
-.kg-aiviz__action-text { font-family: var(--kg-font-display); font-weight: 700; font-size: .95rem; color: var(--kg-teal); }
+.kg-aipath__ai svg { color: var(--kg-teal); }
+.kg-aipath__svg { display: block; width: 100%; height: auto; transition: opacity .45s; }
+.kg-aipath.is-fade .kg-aipath__svg { opacity: 0; }
 
-.kg-aiviz__core { position: relative; z-index: 1; width: clamp(58px, 7vw, 72px); height: clamp(58px, 7vw, 72px); display: grid; place-items: center; }
-.kg-aiviz__core-label {
-	position: relative; z-index: 2; width: 100%; height: 100%; display: grid; place-items: center;
-	border-radius: 50%; font-family: var(--kg-font-display); font-weight: 800; font-size: .7rem;
-	background: radial-gradient(circle at 50% 32%, var(--kg-teal), var(--kg-teal-deep)); color: #fff;
-	box-shadow: 0 6px 16px rgba(42, 191, 191, .4);
+.kg-aipath__rail { fill: none; stroke: rgba(255, 255, 255, .13); stroke-width: 2.5; stroke-linecap: round; }
+.kg-aipath__rail--detour { stroke: rgba(245, 166, 35, .38); }
+.kg-aipath__prog {
+	fill: none; stroke: url(#kg-apgrad); stroke-width: 3.5; stroke-linecap: round;
+	filter: drop-shadow(0 0 6px rgba(42, 191, 191, .55));
 }
-.kg-aiviz__core-ring { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(42, 191, 191, .55); opacity: 0; }
-.kg-aiviz__core.is-thinking .kg-aiviz__core-ring { animation: kg-aiviz-ring 1.4s ease-out infinite; }
-.kg-aiviz__core.is-thinking .kg-aiviz__core-ring:nth-child(2) { animation-delay: .7s; }
-.kg-aiviz__core.is-thinking .kg-aiviz__core-label { animation: kg-aiviz-breathe 1.4s ease-in-out infinite; }
+.kg-aipath__prog--detour { stroke: url(#kg-apgrad-det); filter: drop-shadow(0 0 6px rgba(245, 166, 35, .5)); }
+
+.kg-aipath__dot {
+	fill: #fff; stroke: var(--kg-teal); stroke-width: 3.5;
+	filter: drop-shadow(0 0 7px rgba(42, 191, 191, .9));
+}
+
+/* Path nodes. The inner group scales for pops so the label stays put. */
+.kg-ainode__in { transform-box: fill-box; transform-origin: center; }
+.kg-ainode__c {
+	fill: var(--kg-navy-soft); stroke: rgba(255, 255, 255, .22); stroke-width: 2;
+	transition: fill .35s, stroke .35s;
+}
+.kg-ainode__check {
+	fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+	stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset .45s var(--kg-ease-out) .1s;
+}
+.kg-ainode__label {
+	fill: var(--kg-text-on-dark-soft); font-family: var(--kg-font-display);
+	font-size: 12.5px; font-weight: 700; text-anchor: middle;
+	paint-order: stroke; stroke: #1B2B3A; stroke-width: 4px; stroke-linejoin: round;
+	transition: fill .35s;
+}
+.kg-ainode.is-done .kg-ainode__c { fill: var(--kg-teal-deep); stroke: var(--kg-teal); }
+.kg-ainode.is-done .kg-ainode__check, .kg-ainode.is-mastered .kg-ainode__check { stroke-dashoffset: 0; }
+.kg-ainode.is-done .kg-ainode__in { animation: kg-ainode-pop .4s var(--kg-ease-out); }
+.kg-ainode.is-done .kg-ainode__label, .kg-ainode.is-mastered .kg-ainode__label { fill: #fff; }
+.kg-ainode.is-miss .kg-ainode__c { fill: rgba(230, 51, 41, .3); stroke: var(--kg-red); animation: kg-ainode-alert .9s ease-in-out infinite; }
+.kg-ainode.is-mastered .kg-ainode__c { fill: var(--kg-green); stroke: #fff; }
+.kg-ainode__burst {
+	fill: none; stroke: var(--kg-green); stroke-width: 2.5; opacity: 0;
+	transform-box: fill-box; transform-origin: center;
+}
+.kg-ainode.is-mastered .kg-ainode__burst { animation: kg-ainode-burst .8s var(--kg-ease-out); }
+
+/* Goal node: a star instead of a check. */
+.kg-ainode--goal .kg-ainode__check { display: none; }
+.kg-ainode__star { fill: rgba(255, 255, 255, .4); font-size: 15px; text-anchor: middle; transition: fill .4s; }
+.kg-ainode--goal.is-done .kg-ainode__c { fill: var(--kg-amber-deep); stroke: var(--kg-amber); }
+.kg-ainode--goal.is-done .kg-ainode__star { fill: #fff; }
+
+/* Detour mini-nodes sprout from nothing with a springy pop. */
+.kg-ainode--mini .kg-ainode__in { transform: scale(0); transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
+.kg-ainode--mini.is-in .kg-ainode__in { transform: scale(1); }
+.kg-ainode--mini .kg-ainode__c { fill: rgba(245, 166, 35, .16); stroke: rgba(245, 166, 35, .55); }
+.kg-ainode--mini.is-done .kg-ainode__c { fill: var(--kg-amber-deep); stroke: var(--kg-amber); }
+.kg-ainode--mini .kg-ainode__label { font-size: 11.5px; opacity: 0; transition: opacity .4s .15s; }
+.kg-ainode--mini.is-in .kg-ainode__label { opacity: 1; }
+.kg-ainode--mini .kg-ainode__check { stroke-width: 2.6; }
+
+/* AI scan: marching dashed beam from the AI chip plus ripples at the miss. */
+.kg-aipath__beam {
+	stroke: var(--kg-teal); stroke-width: 1.6; stroke-dasharray: 5 7; stroke-linecap: round;
+	opacity: 0; transition: opacity .3s;
+}
+.kg-aipath__beam.is-on { opacity: .85; animation: kg-aipath-march .5s linear infinite; }
+@keyframes kg-aipath-march { to { stroke-dashoffset: -12; } }
+.kg-aipath__ripple {
+	fill: none; stroke: var(--kg-teal); stroke-width: 2;
+	transform-box: fill-box; transform-origin: center;
+	animation: kg-aipath-ripple 1.25s ease-out infinite;
+}
+@keyframes kg-aipath-ripple {
+	from { opacity: .85; transform: scale(.45); }
+	to { opacity: 0; transform: scale(2.5); }
+}
+
+/* Verdict chip above the missed node: "✗ missed" flips to "✓ correct". */
+.kg-aipath__card { opacity: 0; transition: opacity .35s; }
+.kg-aipath__card.is-show { opacity: 1; }
+.kg-aipath__card rect { fill: rgba(15, 26, 37, .92); stroke: rgba(255, 255, 255, .16); stroke-width: 1; }
+.kg-aipath__card text { text-anchor: middle; font-family: var(--kg-font-display); font-size: 13px; font-weight: 800; fill: #fff; }
+.kg-aipath__card.is-bad rect { stroke: rgba(230, 51, 41, .55); }
+.kg-aipath__card.is-good rect { stroke: rgba(59, 165, 92, .6); }
+.kg-aipath__card.is-bad [data-kg-card-glyph] { fill: #FF7B72; }
+.kg-aipath__card.is-good [data-kg-card-glyph] { fill: #5FD68B; }
+
+@keyframes kg-ainode-pop { 0% { transform: scale(1); } 45% { transform: scale(1.22); } 100% { transform: scale(1); } }
+@keyframes kg-ainode-alert { 0%, 100% { stroke-width: 2; } 50% { stroke-width: 4; } }
+@keyframes kg-ainode-burst { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(2.2); } }
 
 .kg-aiviz__status { margin: 14px 2px 0; font-size: .9rem; font-weight: 600; color: var(--kg-text-on-dark-soft); min-height: 1.4em; }
 .kg-aiviz__status strong { color: #fff; font-weight: 800; }
-
-.kg-aiviz__map { margin-top: clamp(16px, 2vw, 22px); display: grid; gap: 9px; }
-.kg-aiviz__map-label { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--kg-text-on-dark-soft); font-weight: 700; }
-.kg-aiviz__row { display: grid; grid-template-columns: 96px 1fr 44px; align-items: center; gap: 12px; padding: 6px 8px; border-radius: 10px; transition: background-color .35s; }
-.kg-aiviz__row.is-active { background: rgba(255, 255, 255, .06); }
-.kg-aiviz__row-name { font-size: .85rem; font-weight: 700; white-space: nowrap; }
-.kg-aiviz__bar { height: 8px; border-radius: 999px; background: rgba(255, 255, 255, .1); overflow: hidden; }
-.kg-aiviz__bar-fill {
-	display: block; height: 100%; width: 0; border-radius: 999px;
-	background: linear-gradient(90deg, var(--kg-teal), var(--kg-amber));
-	transition: width 1s cubic-bezier(.4, 0, .2, 1), background .5s;
-}
-.kg-aiviz__row.is-active .kg-aiviz__bar-fill { background: linear-gradient(90deg, var(--kg-amber), var(--kg-red)); }
-.kg-aiviz__row.is-mastered .kg-aiviz__bar-fill { background: linear-gradient(90deg, var(--kg-teal), var(--kg-green)); }
-.kg-aiviz__pct { font-size: .8rem; font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; color: var(--kg-text-on-dark-soft); }
 
 .kg-aiviz__disclaimer {
 	margin: 14px 0 0;
@@ -2303,37 +3265,147 @@ body.kg-lightbox-open { overflow: hidden; }
 	70% { box-shadow: 0 0 0 7px rgba(42, 191, 191, 0); }
 	100% { box-shadow: 0 0 0 0 rgba(42, 191, 191, 0); }
 }
-@keyframes kg-aiviz-ring { 0% { opacity: .7; transform: scale(.7); } 100% { opacity: 0; transform: scale(1.55); } }
+/* kg-aiviz-breathe is still used by the feature-grid hero glow. */
 @keyframes kg-aiviz-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 @media (prefers-reduced-motion: reduce) {
-	.kg-aiviz__live-dot, .kg-aiviz__core-ring, .kg-aiviz__core-label { animation: none !important; }
+	.kg-aiviz__live-dot, .kg-aipath__ripple, .kg-aipath__beam,
+	.kg-ainode.is-miss .kg-ainode__c, .kg-ainode.is-done .kg-ainode__in,
+	.kg-ainode.is-mastered .kg-ainode__burst { animation: none !important; }
 }
-.kg-feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.5vw, 26px); }
 
-/* Featured hero card — sits in the center of the 3×3 grid */
-.kg-feature-grid__hero {
-	position: relative; overflow: hidden;
-	background: linear-gradient(155deg, var(--kg-navy-soft) 0%, var(--kg-navy-deep) 100%);
-	border: 1px solid rgba(255, 255, 255, .10);
-	color: #fff;
-	display: flex; flex-direction: column; align-items: center;
-	justify-content: center; text-align: center; gap: clamp(14px, 1.8vw, 20px);
-	padding: clamp(20px, 2.4vw, 28px) clamp(16px, 2vw, 24px);
-	box-shadow: var(--kg-shadow-lg), inset 0 1px 0 rgba(255,255,255,.08);
+/* Spotlight explanation checklist (Features: adaptive AI copy column). */
+.kg-exp__points {
+	list-style: none; margin: 26px 0 0; padding: 0;
+	display: grid; gap: 13px;
 }
-.kg-feature-grid__hero-glow {
-	position: absolute; inset: -30%; border-radius: 50%;
-	background: radial-gradient(circle, rgba(245,166,35,.14) 0%, transparent 70%);
-	animation: kg-aiviz-breathe 4s ease-in-out infinite;
-	pointer-events: none;
+.kg-exp__points li {
+	display: grid; grid-template-columns: 26px 1fr; align-items: start; gap: 13px;
+	font-weight: 600; line-height: 1.5; color: var(--kg-text-on-dark);
 }
-.kg-feature-grid__hero-logo { width: clamp(96px, 10vw, 124px); height: auto; filter: drop-shadow(0 8px 22px rgba(0,0,0,.4)); }
-.kg-feature-grid__hero-stats {
-	display: flex; gap: clamp(18px, 3vw, 34px); justify-content: center; flex-wrap: wrap;
+.kg-exp__points li svg {
+	width: 26px; height: 26px; padding: 5px; box-sizing: border-box;
+	color: var(--kg-teal); background: rgba(42, 191, 191, .16);
+	border: 1px solid rgba(42, 191, 191, .32); border-radius: 50%;
+	margin-top: 1px;
 }
-.kg-feature-grid__hero-stats span { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.kg-feature-grid__hero-stats strong { font-family: var(--kg-font-display); font-size: 1.15rem; color: var(--kg-amber); }
-.kg-feature-grid__hero-stats small { font-size: .68rem; color: rgba(255,255,255,.6); font-weight: 600; letter-spacing: .03em; }
+
+/* ---- Features: the orbit — KG logo as the sun, features as planets ----
+   Desktop: an absolutely-positioned solar system (two slowly counter-rotating
+   dashed rings, each carrying an orbiting dot; the logo breathing at the
+   centre; eight compact cards bobbing around it). Below 1100px it collapses
+   to a plain grid with the sun on top. */
+.kg-orbit {
+	position: relative;
+	height: clamp(660px, 60vw, 780px);
+	max-width: 1140px;
+	margin-inline: auto;
+	margin-top: clamp(40px, 5vw, 70px); /* clear the section lede above the top planet */
+}
+.kg-orbit__rings { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.kg-orbit__ring {
+	position: absolute; top: 50%; left: 50%;
+	translate: -50% -50%;
+	border: 2px dashed rgba(245, 166, 35, .4);
+	border-radius: 50%;
+}
+.kg-orbit__ring--1 { width: min(40vw, 440px); height: min(40vw, 440px); animation: kg-orbit-spin 70s linear infinite; }
+.kg-orbit__ring--2 {
+	width: min(58vw, 660px); height: min(58vw, 660px);
+	border-color: rgba(42, 191, 191, .35);
+	animation: kg-orbit-spin 110s linear infinite reverse;
+}
+/* Each ring carries a little planet-dot; the ring's own rotation orbits it. */
+.kg-orbit__ring::before {
+	content: ""; position: absolute; top: -7px; left: 50%; margin-left: -6px;
+	width: 12px; height: 12px; border-radius: 50%;
+	background: var(--kg-amber);
+	box-shadow: 0 0 0 5px rgba(245, 166, 35, .22);
+}
+.kg-orbit__ring--2::before { background: var(--kg-teal); box-shadow: 0 0 0 5px rgba(42, 191, 191, .2); }
+@keyframes kg-orbit-spin { to { transform: rotate(360deg); } }
+
+/* The sun */
+.kg-orbit__sun {
+	position: absolute; top: 50%; left: 50%;
+	translate: -50% -50%;
+	display: flex; flex-direction: column; align-items: center; gap: 14px;
+	z-index: 1;
+}
+.kg-orbit__core { position: relative; display: inline-grid; place-items: center; }
+.kg-orbit__core img {
+	position: relative; z-index: 2;
+	width: clamp(150px, 16vw, 210px); height: auto;
+	filter: drop-shadow(0 12px 34px rgba(245, 166, 35, .5));
+	animation: kg-sun-breathe 6s ease-in-out infinite;
+}
+@keyframes kg-sun-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+.kg-orbit__glow {
+	position: absolute; inset: -46%; z-index: 0; border-radius: 50%;
+	background: radial-gradient(circle, rgba(245, 166, 35, .4), rgba(245, 166, 35, .14) 48%, transparent 72%);
+}
+/* Slow-turning sun rays, masked to a halo band around the logo */
+.kg-orbit__rays {
+	position: absolute; inset: -58%; z-index: 1; border-radius: 50%;
+	background: repeating-conic-gradient(rgba(245, 166, 35, .28) 0deg 7deg, transparent 7deg 24deg);
+	-webkit-mask-image: radial-gradient(circle, transparent 34%, #000 37%, transparent 70%);
+	mask-image: radial-gradient(circle, transparent 34%, #000 37%, transparent 70%);
+	animation: kg-orbit-spin 46s linear infinite;
+}
+.kg-orbit__stats { display: flex; gap: 10px; position: relative; z-index: 2; }
+.kg-orbit__stats span {
+	display: flex; flex-direction: column; align-items: center; gap: 1px;
+	padding: 8px 16px; border-radius: 999px;
+	background: var(--kg-white);
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-sm);
+}
+.kg-orbit__stats strong { font-family: var(--kg-font-display); font-size: 1.05rem; line-height: 1.1; color: var(--kg-amber-deep); }
+.kg-orbit__stats small { font-size: .66rem; color: var(--kg-text-soft); font-weight: 700; letter-spacing: .03em; }
+
+/* The planets */
+.kg-orbit__item { position: absolute; translate: -50% -50%; width: min(250px, 23vw); z-index: 2; }
+.kg-orbit__item--1 { top: 15%; left: 19%; }   /* Cambridge English   — top-left */
+.kg-orbit__item--2 { top: 15%; left: 81%; }   /* International Maths — top-right */
+.kg-orbit__item--3 { top: 51%; left: 9%; }    /* 1,800+ lessons      — left */
+.kg-orbit__item--4 { top: 51%; left: 91%; }   /* Immersive world     — right */
+.kg-orbit__item--5 { top: 86%; left: 19%; }   /* Tokens & the Store  — bottom-left */
+.kg-orbit__item--6 { top: 86%; left: 81%; }   /* Global leaderboard  — bottom-right */
+.kg-orbit__item--7 { top: 8%;  left: 50%; }   /* Teacher dashboards  — top */
+.kg-orbit__item--8 { top: 94%; left: 50%; }   /* Safe & ad-free      — bottom */
+.kg-orbit__card {
+	background: var(--kg-white);
+	border-radius: var(--kg-r-lg);
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-md);
+	padding: 18px 18px 16px;
+	text-align: center;
+	transition: box-shadow var(--kg-dur) var(--kg-ease-out);
+	animation: kg-orbit-bob var(--kg-bob, 6.5s) ease-in-out var(--kg-bob-delay, 0s) infinite;
+}
+@keyframes kg-orbit-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+/* Vary each planet's rhythm so the system never moves in lockstep */
+.kg-orbit__item:nth-child(3n)   .kg-orbit__card { --kg-bob: 7.6s; --kg-bob-delay: .9s; }
+.kg-orbit__item:nth-child(3n+1) .kg-orbit__card { --kg-bob: 6.1s; --kg-bob-delay: 1.7s; }
+.kg-orbit__item:nth-child(4n)   .kg-orbit__card { --kg-bob: 8.2s; --kg-bob-delay: .4s; }
+.kg-orbit__card:hover { box-shadow: var(--kg-clay-inset), var(--kg-shadow-lg), 0 22px 40px -18px rgba(245, 166, 35, .5); }
+.kg-orbit__card .kg-bubble { width: 46px; height: 46px; margin-bottom: 10px; transition: transform .28s var(--kg-ease-pop); }
+.kg-orbit__card:hover .kg-bubble { transform: scale(1.12) rotate(-6deg); }
+.kg-orbit__card h3 { font-size: 1.04rem; margin: 0 0 4px; }
+.kg-orbit__card p { margin: 0; font-size: .86rem; line-height: 1.45; color: var(--kg-text-soft); }
+
+@media (max-width: 1100px) {
+	/* Fallback: sun on top, planets in a plain grid */
+	.kg-orbit { height: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+	.kg-orbit__rings { display: none; }
+	.kg-orbit__sun { position: static; translate: none; grid-column: 1 / -1; order: -1; margin-bottom: 14px; }
+	.kg-orbit__item { position: static; translate: none; width: auto; }
+	.kg-orbit__card { height: 100%; animation: none; }
+}
+@media (max-width: 560px) {
+	.kg-orbit { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.kg-orbit__ring, .kg-orbit__rays, .kg-orbit__core img, .kg-orbit__card { animation: none; }
+	.kg-orbit__card:hover .kg-bubble { transform: none; }
+}
 
 /* ---- Support page ---- */
 .kg-support-grid {
@@ -2358,6 +3430,10 @@ body.kg-lightbox-open { overflow: hidden; }
 .kg-support-cat .kg-bubble { width: 52px; height: 52px; margin-bottom: 10px; }
 .kg-support-cat[aria-pressed="true"] { outline: 3px solid var(--kg-teal); }
 .kg-faq__empty { text-align: center; color: var(--kg-text-soft); padding: 28px; display: none; }
+.kg-faq-more { text-align: center; margin-top: clamp(22px, 3vw, 32px); }
+.kg-faq-more[hidden] { display: none; }
+.kg-faq-more__icon { transition: transform var(--kg-dur) var(--kg-ease-pop); }
+.kg-faq-more button:hover .kg-faq-more__icon { transform: translateY(3px); }
 
 /* Support helper widget */
 .kg-helper-fab {
@@ -2388,7 +3464,7 @@ body.kg-lightbox-open { overflow: hidden; }
 	position: fixed; right: 20px; bottom: 20px;
 	z-index: var(--kg-z-helper);
 	width: min(380px, calc(100vw - 40px));
-	max-height: min(560px, calc(100vh - 120px));
+	max-height: min(640px, calc(100vh - 110px));
 	background: var(--kg-white);
 	border-radius: var(--kg-r-lg);
 	box-shadow: var(--kg-shadow-lg);
@@ -2405,7 +3481,7 @@ body.kg-lightbox-open { overflow: hidden; }
 .kg-helper__head strong { font-family: var(--kg-font-display); font-size: 1.08rem; flex: 1; }
 .kg-helper__close { background: none; border: 0; color: #fff; cursor: pointer; padding: 6px; border-radius: 8px; display: flex; }
 .kg-helper__close:hover { background: rgba(255, 255, 255, .12); }
-.kg-helper__body { padding: 18px; overflow-y: auto; display: grid; gap: 12px; align-content: start; }
+.kg-helper__body { flex: 1; padding: 18px; overflow-y: auto; display: grid; gap: 12px; align-content: start; }
 .kg-helper__msg {
 	background: var(--kg-cream-deep);
 	border-radius: 18px 18px 18px 6px;
@@ -2433,6 +3509,10 @@ body.kg-lightbox-open { overflow: hidden; }
 	min-height: 44px;
 }
 .kg-helper__opt:hover { border-color: var(--kg-teal); background: var(--kg-teal-soft); transform: translateX(3px); }
+/* Anchor variant: the "none of these fit" escape under search results */
+a.kg-helper__opt { display: block; text-decoration: none; }
+.kg-helper__opt--escalate { border-style: dashed; border-color: var(--kg-amber-soft); color: var(--kg-amber-deep); }
+.kg-helper__opt--escalate:hover { border-color: var(--kg-amber); background: var(--kg-amber-soft); }
 .kg-helper__msg a { color: var(--kg-teal-deep); font-weight: 700; }
 
 /* Back button — quieter than topic options */
@@ -2472,6 +3552,51 @@ body.kg-lightbox-open { overflow: hidden; }
 	transition: transform 180ms var(--kg-ease-pop), box-shadow 180ms;
 }
 .kg-helper__cta:hover { transform: translateY(-2px); box-shadow: var(--kg-shadow-md); }
+
+/* Typing dots shown briefly before each helper reply */
+.kg-helper__typing { display: inline-flex; gap: 5px; align-items: center; min-height: 20px; }
+.kg-helper__typing span {
+	width: 7px; height: 7px; border-radius: 50%;
+	background: var(--kg-navy-soft);
+	animation: kg-typing 900ms ease-in-out infinite;
+}
+.kg-helper__typing span:nth-child(2) { animation-delay: 150ms; }
+.kg-helper__typing span:nth-child(3) { animation-delay: 300ms; }
+@keyframes kg-typing {
+	0%, 60%, 100% { opacity: .35; transform: translateY(0); }
+	30% { opacity: 1; transform: translateY(-3px); }
+}
+
+/* Free-text question bar pinned under the transcript */
+.kg-helper__foot {
+	display: flex; gap: 8px; align-items: center;
+	padding: 12px 14px;
+	margin: 0;
+	border-top: 1.5px solid var(--kg-cream-deep);
+	background: var(--kg-white);
+}
+.kg-helper__foot input {
+	flex: 1; min-width: 0;
+	border: 2px solid var(--kg-teal-soft);
+	border-radius: 999px;
+	padding: 10px 16px;
+	font: inherit; font-size: .93rem;
+	color: var(--kg-navy);
+	min-height: 44px;
+	background: var(--kg-white);
+}
+.kg-helper__foot input:focus { border-color: var(--kg-teal); }
+.kg-helper__foot button {
+	flex: none;
+	width: 44px; height: 44px;
+	display: inline-flex; align-items: center; justify-content: center;
+	border: 0; border-radius: 50%;
+	background: var(--kg-teal); color: #fff;
+	cursor: pointer;
+	box-shadow: var(--kg-shadow-sm);
+	transition: transform 160ms var(--kg-ease-pop), background-color 160ms;
+}
+.kg-helper__foot button:hover { background: var(--kg-teal-deep); transform: scale(1.06); }
 
 /* ---- 404 ---- */
 .kg-404 {
@@ -2522,6 +3647,36 @@ body.kg-lightbox-open { overflow: hidden; }
 .kg-payment__email a:hover { text-decoration: underline; }
 
 /* ---- Schools page ---- */
+
+/* Curriculum cards styled as exercise-book pages: faint ruled lines,
+   the classic red margin line, and a subject bookmark ribbon. */
+.kg-book {
+	position: relative;
+	overflow: hidden;
+	padding-left: clamp(40px, 4.4vw, 52px);
+	background:
+		repeating-linear-gradient(180deg,
+			transparent 0 26px,
+			rgba(42, 111, 191, .09) 26px 27px),
+		var(--kg-white);
+}
+.kg-book::before {
+	content: ""; position: absolute; top: 0; bottom: 0;
+	left: clamp(24px, 2.8vw, 32px);
+	width: 2px;
+	background: rgba(230, 51, 41, .3);
+}
+.kg-book__ribbon {
+	position: absolute; top: 0; right: clamp(20px, 2.6vw, 28px);
+	width: 26px; height: 54px;
+	background: var(--kg-teal);
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+	transition: height var(--kg-dur) var(--kg-ease-pop);
+}
+.kg-book--amber .kg-book__ribbon { background: var(--kg-amber); }
+.kg-book--red .kg-book__ribbon { background: var(--kg-red); }
+.kg-book:hover .kg-book__ribbon { height: 64px; }
+
 .kg-schools-savings {
 	max-width: 640px;
 	margin: -6px auto clamp(22px, 3vw, 30px);
@@ -2572,6 +3727,112 @@ body.kg-lightbox-open { overflow: hidden; }
 	border-radius: 999px;
 }
 
+/* ---- Schools: "in practice" places route ----
+   One platform, three places. Cards hang under map-marker pins strung along a
+   dashed route, so it reads as The Kids Gate travelling from classroom to home
+   to targeted help. */
+.kg-places {
+	position: relative;
+	display: grid; grid-template-columns: repeat(3, 1fr);
+	gap: clamp(20px, 3vw, 40px);
+	padding-top: 12px;
+}
+/* The route: a dashed line threading through the three pin centres. */
+.kg-places::before {
+	content: ""; position: absolute; z-index: 0;
+	top: 46px; left: 16.66%; right: 16.66%;
+	border-top: 3px dashed rgba(28, 43, 58, .22);
+}
+.kg-place {
+	--acc: var(--kg-teal); --acc-deep: var(--kg-teal-deep); --acc-soft: var(--kg-teal-soft);
+	position: relative; z-index: 1;
+	display: flex; flex-direction: column; align-items: center;
+}
+.kg-place--teal  { --acc: var(--kg-teal);  --acc-deep: var(--kg-teal-deep);  --acc-soft: var(--kg-teal-soft); }
+.kg-place--amber { --acc: var(--kg-amber); --acc-deep: var(--kg-amber-deep); --acc-soft: var(--kg-amber-soft); }
+.kg-place--red   { --acc: var(--kg-red);   --acc-deep: var(--kg-red-deep);   --acc-soft: var(--kg-red-soft); }
+
+/* Map-marker pin sitting on the route: droplet-rounded, white-ringed. */
+.kg-place__pin {
+	position: relative; z-index: 2;
+	display: grid; place-items: center;
+	/* Rotating a 76px square teardrop pushes its point ~16px below the box, so
+	   a small positive margin lets that point rest on the card's top edge
+	   instead of tucking behind it. z-index keeps the tip above the card. */
+	width: 76px; height: 76px; margin-bottom: 6px;
+	/* Teardrop with a sharp bottom-left corner; rotate -45° so the point aims
+	   straight down, like a map marker planted on the route. */
+	border-radius: 50% 50% 50% 0;
+	transform: rotate(-45deg);
+	background: var(--kg-white);
+	box-shadow: 0 0 0 3px var(--acc-soft), var(--kg-shadow-md);
+}
+.kg-place__pin .kg-bubble { transform: rotate(45deg); width: 52px; height: 52px; margin: 0; }
+.kg-place__pin::after {
+	content: ""; position: absolute; inset: -3px;
+	border-radius: inherit;
+	box-shadow: 0 0 0 2px var(--acc);
+	opacity: 0; transform: scale(.8);
+}
+.kg-place.is-in .kg-place__pin::after { animation: kg-place-ping 2.6s var(--kg-ease-out) infinite; animation-delay: var(--kg-delay, 0ms); }
+@keyframes kg-place-ping {
+	0%   { opacity: .6; transform: scale(.85); }
+	60%  { opacity: 0;  transform: scale(1.4); }
+	100% { opacity: 0;  transform: scale(1.4); }
+}
+
+.kg-place__card {
+	position: relative;
+	width: 100%;
+	/* Grid stretches every .kg-place to the tallest; the card grows to fill it
+	   so all three read as the same height whatever the copy length. */
+	flex: 1 1 auto;
+	padding-top: 40px;
+	text-align: center;
+}
+.kg-place__card::before {
+	content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px;
+	background: var(--acc);
+	border-radius: var(--kg-r-lg) var(--kg-r-lg) 0 0;
+}
+.kg-place__label {
+	display: inline-flex; align-items: center; gap: 7px;
+	margin-bottom: 10px;
+	padding: 4px 13px 4px 10px;
+	font-family: var(--kg-font-display); font-size: .72rem; font-weight: 700;
+	letter-spacing: .05em; text-transform: uppercase;
+	color: var(--acc-deep); background: var(--acc-soft);
+	border-radius: 999px;
+}
+.kg-place__label::before {
+	content: ""; width: 8px; height: 8px; border-radius: 50%;
+	background: var(--acc); flex: none;
+}
+
+@media (max-width: 760px) {
+	.kg-places { grid-template-columns: 1fr; gap: 30px; }
+	/* The single container route is for the horizontal desktop layout only. On
+	   mobile each pin connects to the next with its own segment, so the dashes
+	   run strictly pin-to-pin and never overshoot the first or last marker. */
+	.kg-places::before { display: none; }
+	.kg-place { flex-direction: row; align-items: flex-start; gap: 18px; text-align: left; }
+	/* Pins turn sideways so the point aims right, at the card beside them. */
+	.kg-place__pin { flex: none; margin-bottom: 0; border-radius: 50% 50% 0 50%; }
+	/* Segment from this pin's centre down to the next pin's centre.
+	   Pin centre sits 38px below the row top; rows are 30px apart, so the
+	   segment ends 68px (30 + 38) past this row's bottom, landing on the next pin. */
+	.kg-place:not(:last-child)::after {
+		content: ""; position: absolute; z-index: 0;
+		left: 37px; top: 38px; bottom: -68px;
+		border-left: 3px dashed rgba(28, 43, 58, .22);
+	}
+	.kg-place__card { padding-top: clamp(20px, 5vw, 26px); text-align: left; }
+	.kg-place__card::before { width: 5px; height: auto; top: 0; bottom: 0; right: auto; border-radius: var(--kg-r-lg) 0 0 var(--kg-r-lg); }
+}
+@media (prefers-reduced-motion: reduce) {
+	.kg-place.is-in .kg-place__pin::after { animation: none; }
+}
+
 /* ---- Parents: how to join ---- */
 .kg-join {
 	position: relative;
@@ -2617,9 +3878,360 @@ body.kg-lightbox-open { overflow: hidden; }
 .kg-join__step--cta .kg-join__num { background: var(--kg-amber); color: var(--kg-navy); }
 .kg-join__cta { margin-top: 20px; }
 
+/* ---- Parents: everyday extras — pinned notes ----
+   Tilt lives on the inner .kg-perk because the reveal transform on the
+   <li> wrapper must end at `transform: none`. */
+.kg-perks {
+	display: grid; grid-template-columns: repeat(3, 1fr);
+	gap: clamp(22px, 3vw, 36px);
+	align-items: start;
+	list-style: none; margin: 0; padding: 18px 0 12px;
+}
+.kg-perks__slot:nth-child(2) { margin-top: clamp(20px, 3.4vw, 46px); }
+.kg-perk {
+	position: relative;
+	padding: clamp(30px, 3vw, 38px) clamp(22px, 2.6vw, 30px) clamp(22px, 2.6vw, 28px);
+	border-radius: var(--kg-r-md);
+	transform: rotate(var(--kg-tilt, -1.7deg));
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-md);
+	transition: transform var(--kg-dur) var(--kg-ease-pop), box-shadow var(--kg-dur) var(--kg-ease-out);
+}
+.kg-perks__slot:nth-child(2) .kg-perk { --kg-tilt: 1.9deg; }
+.kg-perks__slot:nth-child(3) .kg-perk { --kg-tilt: -1.2deg; }
+.kg-perk:hover { transform: rotate(0deg) translateY(-6px); box-shadow: var(--kg-clay-inset), var(--kg-shadow-lg); }
+.kg-perk--teal { background: var(--kg-teal-soft); }
+.kg-perk--amber { background: var(--kg-amber-soft); }
+.kg-perk--red { background: var(--kg-red-soft); }
+.kg-perk p { margin: 0; }
+/* washi-tape strip pinning each note to the page */
+.kg-perk__tape {
+	position: absolute; top: -13px; left: 50%;
+	width: 96px; height: 27px;
+	transform: translateX(-50%) rotate(-3.5deg);
+	background: rgba(255, 255, 255, .5);
+	border: 1.5px dashed rgba(28, 43, 58, .22);
+	border-radius: 4px;
+}
+.kg-perks__slot:nth-child(2) .kg-perk__tape { transform: translateX(-50%) rotate(3deg); }
+.kg-perk__icon {
+	display: inline-flex; align-items: center; justify-content: center;
+	width: 56px; height: 56px; margin-bottom: 16px;
+	border-radius: 18px;
+	background: var(--kg-white);
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-sm);
+}
+.kg-perk--teal .kg-perk__icon { color: var(--kg-teal-deep); }
+.kg-perk--amber .kg-perk__icon { color: var(--kg-amber-deep); }
+.kg-perk--red .kg-perk__icon { color: var(--kg-red); }
+@media (max-width: 720px) {
+	.kg-perks { grid-template-columns: 1fr; gap: 30px; }
+	.kg-perks__slot:nth-child(2) { margin-top: 0; }
+}
+
+/* ---- Parents: safety section (shield + security checklist) ----
+   Guarding shield with slow "radar" rings; protections listed as a
+   checklist rail, each row sealed with a verified tick. */
+.kg-safe { overflow: hidden; }
+.kg-safe__grid {
+	display: grid; grid-template-columns: minmax(260px, 380px) 1fr;
+	gap: clamp(32px, 5vw, 72px); align-items: center;
+}
+.kg-safe__shield {
+	position: relative;
+	width: min(320px, 76vw); aspect-ratio: 1;
+	display: grid; place-items: center; justify-self: center;
+}
+.kg-safe__ring { position: absolute; border-radius: 50%; }
+.kg-safe__ring--1 {
+	inset: 0;
+	border: 2px dashed rgba(42, 191, 191, .38);
+	animation: kg-safe-spin 46s linear infinite;
+}
+.kg-safe__ring--2 {
+	inset: 11%;
+	border: 1px solid rgba(245, 166, 35, .3);
+	box-shadow: 0 0 44px rgba(245, 166, 35, .12) inset;
+}
+.kg-safe__ring--3 {
+	inset: 22%;
+	border: 2px dashed rgba(255, 255, 255, .14);
+	animation: kg-safe-spin 64s linear infinite reverse;
+}
+.kg-safe__shield-svg {
+	width: 46%;
+	filter: drop-shadow(0 10px 34px rgba(245, 166, 35, .35));
+}
+.kg-safe__shield-body { fill: var(--kg-amber); }
+.kg-safe__shield-line { stroke: rgba(28, 43, 58, .3); stroke-width: 2.5; }
+.kg-safe__shield-tick {
+	stroke: var(--kg-navy); stroke-width: 10;
+	stroke-linecap: round; stroke-linejoin: round;
+	stroke-dasharray: 70; stroke-dashoffset: 70;
+	transition: stroke-dashoffset 700ms var(--kg-ease-out) 380ms;
+}
+.kg-safe__shield.is-in .kg-safe__shield-tick { stroke-dashoffset: 0; }
+
+.kg-safe__list {
+	position: relative;
+	list-style: none;
+	display: grid; gap: 18px;
+}
+/* Rail connecting the badges — reads as one continuous line of defence. */
+.kg-safe__list::before {
+	content: "";
+	position: absolute; left: 49px; top: 44px; bottom: 44px;
+	border-left: 2px dotted rgba(42, 191, 191, .35);
+}
+.kg-safe__item {
+	position: relative;
+	display: grid; grid-template-columns: 54px 1fr auto;
+	gap: 18px; align-items: center;
+	background: var(--kg-navy-soft);
+	border: 1px solid rgba(42, 191, 191, .22);
+	border-radius: var(--kg-r-md);
+	padding: 20px 22px;
+	box-shadow: var(--kg-clay-inset-dark), var(--kg-shadow-md);
+	transition: transform .28s var(--kg-ease-out), border-color .28s ease;
+}
+.kg-safe__item:hover { transform: translateY(-4px); border-color: rgba(42, 191, 191, .55); }
+.kg-safe__badge {
+	width: 54px; height: 54px;
+	display: grid; place-items: center;
+	border-radius: 18px;
+	background: var(--kg-amber-soft); color: var(--kg-amber-deep);
+	box-shadow: 0 0 0 2px rgba(245, 166, 35, .35), 0 0 22px rgba(245, 166, 35, .18);
+}
+.kg-safe__copy h3 { font-size: clamp(1.15rem, 1.8vw, 1.35rem); margin-bottom: 4px; }
+.kg-safe__copy p { margin: 0; color: var(--kg-text-on-dark-soft); }
+.kg-safe__seal { color: var(--kg-teal); flex: none; }
+
+@keyframes kg-safe-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+	.kg-safe__grid { grid-template-columns: 1fr; gap: 36px; }
+	.kg-safe__shield { width: min(240px, 66vw); }
+	.kg-safe__item { grid-template-columns: 46px 1fr auto; padding: 18px; gap: 14px; }
+	.kg-safe__badge { width: 46px; height: 46px; border-radius: 15px; }
+	.kg-safe__list::before { left: 41px; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.kg-safe__ring--1, .kg-safe__ring--3 { animation: none; }
+	.kg-safe__shield-tick { stroke-dashoffset: 0; transition: none; }
+	.kg-safe__item:hover { transform: none; }
+}
+
+/* ---- Parents: family profiles (one-account family hub) ----
+   Six child avatars orbit the parent-account home; feature rows sit beside
+   it. Mirrors the safety section's layout in the light family palette. */
+.kg-fam__grid {
+	display: grid; grid-template-columns: 1fr minmax(260px, 400px);
+	gap: clamp(32px, 5vw, 72px); align-items: center;
+}
+.kg-fam__list { list-style: none; display: grid; gap: 18px; }
+.kg-fam__item {
+	display: grid; grid-template-columns: 54px 1fr;
+	gap: 18px; align-items: center;
+	background: var(--kg-white);
+	border-radius: var(--kg-r-md);
+	padding: 20px 22px;
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-sm);
+	transition: transform .28s var(--kg-ease-out), box-shadow .28s ease;
+}
+.kg-fam__item:hover { transform: translateY(-4px); box-shadow: var(--kg-clay-inset), var(--kg-shadow-md); }
+.kg-fam__item .kg-bubble { width: 54px; height: 54px; }
+.kg-fam__copy h3 { font-size: clamp(1.15rem, 1.8vw, 1.35rem); margin-bottom: 4px; }
+.kg-fam__copy p { margin: 0; color: var(--kg-text-soft); }
+
+.kg-fam__viz { width: min(340px, 78vw); justify-self: center; }
+.kg-fam__viz svg { width: 100%; height: auto; display: block; overflow: visible; }
+.kg-fam__spokes { stroke: rgba(28, 43, 58, .25); }
+.kg-fam__hub-bg { fill: var(--kg-navy); }
+.kg-fam__hub { filter: drop-shadow(0 8px 22px rgba(28, 43, 58, .28)); }
+.kg-fam__hub-door { fill: var(--kg-amber); }
+.kg-fam__heart-bg { fill: var(--kg-red); }
+
+/* Sticker-style avatars: soft fill, white ring, simple smile. */
+.kg-fam__kid-bg { stroke: #fff; stroke-width: 3.5; }
+.kg-fam__kid--amber .kg-fam__kid-bg { fill: var(--kg-amber-soft); }
+.kg-fam__kid--teal  .kg-fam__kid-bg { fill: var(--kg-teal-soft); }
+.kg-fam__kid--red   .kg-fam__kid-bg { fill: var(--kg-red-soft); }
+.kg-fam__kid--green .kg-fam__kid-bg { fill: var(--kg-green-soft); }
+.kg-fam__kid--amber .kg-fam__kid-ink, .kg-fam__kid--amber .kg-fam__kid-smile { fill: var(--kg-amber-deep); stroke: var(--kg-amber-deep); }
+.kg-fam__kid--teal  .kg-fam__kid-ink, .kg-fam__kid--teal  .kg-fam__kid-smile { fill: var(--kg-teal-deep); stroke: var(--kg-teal-deep); }
+.kg-fam__kid--red   .kg-fam__kid-ink, .kg-fam__kid--red   .kg-fam__kid-smile { fill: var(--kg-red); stroke: var(--kg-red); }
+.kg-fam__kid--green .kg-fam__kid-ink, .kg-fam__kid--green .kg-fam__kid-smile { fill: var(--kg-green-deep); stroke: var(--kg-green-deep); }
+.kg-fam__kid-smile { fill: none; stroke-width: 2.5; stroke-linecap: round; }
+.kg-fam__kid-ink { stroke: none; }
+
+/* Open slots: room for two more children on the account. */
+.kg-fam__slot-bg { fill: rgba(255, 255, 255, .6); stroke: rgba(28, 43, 58, .3); stroke-width: 2; stroke-dasharray: 5 6; }
+.kg-fam__slot-plus { stroke: rgba(28, 43, 58, .4); stroke-width: 2.5; stroke-linecap: round; }
+
+/* The family assembles: avatars pop in one by one once the viz scrolls
+   into view, then drift gently. Float and pop live on separate wrappers so
+   the two transforms don't fight. */
+.kg-fam__kid { transform: scale(0); transition: transform .5s var(--kg-ease-pop); transition-delay: var(--kg-kd, 0ms); }
+.kg-fam__viz.is-in .kg-fam__kid { transform: scale(1); }
+.kg-fam__float { animation: kg-fam-float 5.5s ease-in-out infinite; animation-delay: var(--kg-fd, 0s); }
+@keyframes kg-fam-float {
+	0%, 100% { transform: translateY(0); }
+	50%      { transform: translateY(-6px); }
+}
+
+@media (max-width: 900px) {
+	.kg-fam__grid { grid-template-columns: 1fr; gap: 34px; }
+	.kg-fam__viz { order: -1; width: min(270px, 72vw); }
+	.kg-fam__item { grid-template-columns: 46px 1fr; padding: 18px; gap: 14px; }
+	.kg-fam__item .kg-bubble { width: 46px; height: 46px; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.kg-fam__float { animation: none; }
+	.kg-fam__kid { transform: scale(1); transition: none; }
+	.kg-fam__item:hover { transform: none; }
+}
+
 /* ---- About page ---- */
 .kg-mission { font-size: clamp(1.3rem, 2.6vw, 1.8rem); font-family: var(--kg-font-display); font-weight: 600; color: var(--kg-navy); max-width: 26em; margin-inline: auto; text-align: center; line-height: 1.45; }
 .kg-values { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.5vw, 26px); }
+
+/* ---------------------------------------------------------------------------
+ * About page — the storybook: chapter badges on a dashed story thread,
+ * the question block, the journey strip and the four-pillar Gate.
+ * ------------------------------------------------------------------------ */
+.kg-chap {
+	display: flex; flex-direction: column; align-items: center; gap: 8px;
+	margin-bottom: clamp(20px, 3vw, 32px);
+	text-align: center;
+}
+/* The thread: a dashed line dropping into each chapter badge */
+.kg-chap::before {
+	content: ""; width: 0; height: 42px;
+	border-left: 3px dashed var(--kg-amber);
+	opacity: .55;
+}
+.kg-chap__num {
+	width: 44px; height: 44px; border-radius: 50%;
+	display: grid; place-items: center;
+	background: var(--kg-amber); color: var(--kg-navy);
+	font-family: var(--kg-font-display); font-weight: 800; font-size: 1.15rem;
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-sm);
+}
+.kg-chap__label {
+	font-family: var(--kg-font-display); font-weight: 800; font-size: .8rem;
+	letter-spacing: .08em; text-transform: uppercase;
+	color: var(--kg-text-soft);
+}
+.kg-section--navy .kg-chap__label { color: var(--kg-text-on-dark-soft); }
+
+/* Chapter 2: the question, with a ghosted question mark behind it */
+.kg-storyq { position: relative; text-align: center; }
+.kg-storyq::before {
+	content: "?";
+	position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
+	font-family: var(--kg-font-display); font-weight: 800; font-size: clamp(9rem, 20vw, 15rem);
+	line-height: 1; color: var(--kg-amber); opacity: .08;
+	pointer-events: none; user-select: none;
+}
+.kg-storyq__quote {
+	max-width: 21em; margin: 10px auto clamp(30px, 4vw, 46px);
+	font-family: var(--kg-font-display); font-weight: 700;
+	font-size: clamp(1.35rem, 2.8vw, 1.9rem); line-height: 1.4;
+	color: var(--kg-teal-deep);
+}
+.kg-storyq__cards {
+	display: grid; grid-template-columns: repeat(3, 1fr);
+	gap: clamp(14px, 2vw, 24px);
+	max-width: 940px; margin-inline: auto;
+	text-align: left;
+}
+
+/* Chapter 3: the journey — milestones on a dotted path.
+   (Named "storyline" — .kg-journey already belongs to How It Works.) */
+.kg-storyline {
+	position: relative;
+	display: grid; grid-template-columns: repeat(4, 1fr);
+	gap: clamp(16px, 2.4vw, 28px);
+	max-width: 1020px; margin: clamp(24px, 3vw, 40px) auto 0;
+}
+/* The path runs from the first dot's centre to the last dot's centre.
+   Dots sit 10px into each of the four columns, so the right end is a quarter
+   of the row minus three quarters of one gap, minus the dot inset. */
+.kg-storyline::before {
+	content: ""; position: absolute; top: 9px; left: 10px;
+	right: calc(25% - 0.75 * clamp(16px, 2.4vw, 28px) - 10px);
+	border-top: 3px dashed var(--kg-amber); opacity: .45;
+}
+.kg-storyline__step { position: relative; }
+.kg-storyline__step--amber { --acc: var(--kg-amber); }
+.kg-storyline__step--red   { --acc: var(--kg-red); }
+.kg-storyline__step--teal  { --acc: var(--kg-teal); }
+.kg-storyline__step--navy  { --acc: var(--kg-navy); }
+.kg-storyline__dot {
+	display: block; width: 21px; height: 21px; margin-bottom: 12px;
+	border-radius: 50%;
+	background: var(--acc, var(--kg-amber));
+	border: 4px solid var(--kg-cream);
+	box-shadow: var(--kg-shadow-sm);
+}
+
+/* Chapter 4: an arch resting on four pillars — the Gate itself */
+.kg-pillars { max-width: 980px; margin-inline: auto; }
+.kg-pillars__arch {
+	height: clamp(62px, 9vw, 92px);
+	margin: 0 0 10px;
+	border-radius: 999px 999px 0 0;
+	display: grid; place-items: center;
+	background: linear-gradient(180deg, var(--kg-amber), var(--kg-amber-deep));
+	color: var(--kg-navy);
+	font-family: var(--kg-font-display); font-weight: 800;
+	font-size: clamp(1rem, 2vw, 1.3rem); letter-spacing: .02em;
+	box-shadow: var(--kg-clay-inset), var(--kg-shadow-md);
+}
+.kg-pillars__grid {
+	display: grid; grid-template-columns: repeat(4, 1fr);
+	gap: clamp(10px, 1.6vw, 18px);
+}
+.kg-pillar {
+	display: flex; flex-direction: column;
+	padding: 18px 16px 16px;
+	background: #fff;
+	border: 1.5px solid var(--kg-cream-deep);
+	border-top: 5px solid var(--acc, var(--kg-amber));
+	border-radius: 6px 6px var(--kg-r-md) var(--kg-r-md);
+	box-shadow: var(--kg-shadow-sm);
+}
+.kg-pillar--amber { --acc: var(--kg-amber); --acc-deep: var(--kg-amber-deep); --acc-soft: var(--kg-amber-soft); }
+.kg-pillar--red   { --acc: var(--kg-red);   --acc-deep: var(--kg-red-deep);   --acc-soft: var(--kg-red-soft); }
+.kg-pillar--teal  { --acc: var(--kg-teal);  --acc-deep: var(--kg-teal-deep);  --acc-soft: var(--kg-teal-soft); }
+.kg-pillar--navy  { --acc: var(--kg-navy);  --acc-deep: var(--kg-navy);       --acc-soft: rgba(28, 43, 58, .1); }
+.kg-pillar__chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+.kg-pillar__chips i {
+	font-style: normal; font-weight: 700; font-size: .72rem;
+	font-family: var(--kg-font-display);
+	padding: 3px 10px; border-radius: 999px;
+	background: var(--acc-soft); color: var(--acc-deep);
+}
+
+/* Chapter 5: the languages as SVG flags (emoji flags don't render on Windows) */
+.kg-about-flags { display: flex; gap: 16px; justify-content: center; margin-top: 26px; }
+.kg-about-flags .kg-flag {
+	width: 44px; border-radius: 7px;
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, .22), var(--kg-shadow-sm);
+}
+
+@media (max-width: 900px) {
+	.kg-storyq__cards { grid-template-columns: 1fr; max-width: 480px; }
+	.kg-storyline { grid-template-columns: 1fr; gap: 22px; max-width: 480px; }
+	/* Path runs down the left on mobile; dots sit on it */
+	.kg-storyline::before { top: 4%; bottom: 4%; left: 9px; right: auto; border-top: 0; border-left: 3px dashed var(--kg-amber); }
+	.kg-storyline__step { padding-left: 40px; }
+	.kg-storyline__dot { position: absolute; left: 0; top: 2px; }
+	.kg-pillars__grid { grid-template-columns: repeat(2, 1fr); }
+	.kg-pillars__arch { height: 56px; font-size: .95rem; }
+}
+@media (max-width: 520px) {
+	.kg-pillars__grid { grid-template-columns: 1fr; }
+}
 
 /* ---- Final CTA band ---- */
 .kg-final-cta {
@@ -2676,7 +4288,7 @@ body.kg-lightbox-open { overflow: hidden; }
 	.kg-nav__mobile-foot { display: grid; gap: 16px; margin-top: 28px; padding: 0 18px; }
 
 	.kg-stats { grid-template-columns: repeat(2, 1fr); }
-	.kg-problems, .kg-feature-grid, .kg-rewards__grid, .kg-values, .kg-steps-row { grid-template-columns: repeat(2, 1fr); }
+	.kg-problems, .kg-rewards__grid, .kg-values, .kg-steps-row { grid-template-columns: repeat(2, 1fr); }
 	.kg-join { grid-template-columns: repeat(2, 1fr); }
 	.kg-join::before { display: none; }
 	.kg-ai__loop { grid-template-columns: repeat(2, 1fr); }
@@ -2708,8 +4320,10 @@ body.kg-lightbox-open { overflow: hidden; }
 	.kg-squiggle--green { color: var(--kg-green-deep); }
 	.kg-underline-red { text-decoration: none; color: var(--kg-red); }
 	.kg-section--navy .kg-squiggle, .kg-final-cta .kg-squiggle { color: var(--kg-amber); }
-	.kg-problems, .kg-feature-grid, .kg-values, .kg-steps-row, .kg-ai__loop, .kg-plans, .kg-rewards__grid, .kg-join { grid-template-columns: 1fr; }
-	.kg-feature-grid__hero { display: none; }
+	.kg-problems, .kg-values, .kg-steps-row, .kg-ai__loop, .kg-plans, .kg-rewards__grid, .kg-join { grid-template-columns: 1fr; }
+	/* abs-positioned shrink-to-fit would cap width at half the box — force
+	   max-content, wrap only when the label really can't fit */
+	.kg-vs__pill { font-size: .85rem; padding: 8px 14px; width: max-content; max-width: calc(100% - 20px); white-space: normal; text-align: center; }
 	.kg-support-cats { grid-template-columns: repeat(2, 1fr); }
 	/* Phone: brand and support span full width; the two nav columns (Explore,
 	   Company) sit side-by-side to use the space and keep the footer short. */
@@ -2723,12 +4337,6 @@ body.kg-lightbox-open { overflow: hidden; }
 	.kg-footer__social { margin-top: 16px; }
 	.kg-footer__col--support { grid-column: 1 / -1; }
 	.kg-journey__step, .kg-journey__step:nth-child(even) { flex-direction: column; text-align: center; margin: 0 auto; }
-	.kg-lb__row { grid-template-columns: 34px 40px 1fr auto; gap: 9px; padding: 12px 13px; }
-	.kg-lb__movement { display: none; }
-	.kg-lb__avatar { width: 40px; height: 40px; font-size: .95rem; }
-	.kg-lb__rank { font-size: 1.05rem; }
-	.kg-lb__tokens { padding: 7px 11px; font-size: .9rem; gap: 5px; }
-	.kg-lb__who small { font-size: .78rem; }
 	.kg-form-grid { grid-template-columns: 1fr; }
 	.kg-hero__badge { display: none; }
 	.kg-btn { padding: 15px 26px; font-size: 1rem; }
@@ -2746,10 +4354,8 @@ body.kg-lightbox-open { overflow: hidden; }
 	.kg-helper-fab__label { display: none; }
 	.kg-helper-fab svg { width: 24px; height: 24px; }
 
-	.kg-aiviz__flow { gap: 8px; }
-	.kg-aiviz__card { min-height: 78px; padding: 10px 11px; }
-	.kg-aiviz__card small { font-size: .6rem; }
-	.kg-aiviz__row { grid-template-columns: 78px 1fr 40px; gap: 10px; }
+	.kg-ainode__label { font-size: 14.5px; }
+	.kg-ainode--mini .kg-ainode__label { font-size: 13px; }
 }
 
 /* =========================================================================
@@ -2796,24 +4402,42 @@ body.kg-lightbox-open { overflow: hidden; }
  * ------------------------------------------------------------------------ */
 .kg-tiers {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: clamp(18px, 2.4vw, 28px);
+	grid-template-columns: repeat(4, 1fr);
+	gap: clamp(14px, 1.8vw, 22px);
 	align-items: stretch;
 }
+/* Podium: --kg-tier-step (set in markup, highest tier = 0) pushes lower tiers
+   down so the cards climb toward the Founding Champion. */
 .kg-tier {
+	--acc: var(--kg-teal); --acc-deep: var(--kg-teal-deep); --acc-soft: var(--kg-teal-soft);
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	padding: clamp(24px, 3vw, 34px);
+	margin-top: calc(var(--kg-tier-step, 0) * 30px);
+	padding: clamp(20px, 2.4vw, 30px);
 	background: #fff;
 	border: 1.5px solid var(--kg-cream-deep);
 	border-radius: var(--kg-r-lg);
 	box-shadow: var(--kg-shadow-sm);
 }
-.kg-tier--featured {
-	border-color: var(--kg-amber);
-	box-shadow: var(--kg-shadow-lg);
+.kg-tier--red   { --acc: var(--kg-red);   --acc-deep: var(--kg-red-deep);   --acc-soft: var(--kg-red-soft); }
+.kg-tier--amber { --acc: var(--kg-amber); --acc-deep: var(--kg-amber-deep); --acc-soft: var(--kg-amber-soft); }
+/* Snappy hover once revealed (retakes the transition from the reveal system) */
+.kg-tier.is-in {
+	transition: transform var(--kg-dur) var(--kg-ease-pop), box-shadow var(--kg-dur) var(--kg-ease-out);
+	transition-delay: 0ms;
+}
+.kg-tier:hover {
 	transform: translateY(-6px);
+	box-shadow: var(--kg-shadow-lg), 0 22px 40px -18px color-mix(in srgb, var(--acc) 45%, transparent);
+}
+.kg-tier--featured { border-color: var(--kg-amber); box-shadow: var(--kg-shadow-lg); }
+/* Founding Champion: the dark, premium card at the top of the podium */
+.kg-tier--navy {
+	background: linear-gradient(165deg, var(--kg-navy-soft) -20%, var(--kg-navy) 45%, var(--kg-navy-deep));
+	border-color: transparent;
+	color: var(--kg-text-on-dark);
+	box-shadow: var(--kg-clay-inset-dark), var(--kg-shadow-md);
 }
 .kg-tier__flag {
 	position: absolute;
@@ -2830,14 +4454,53 @@ body.kg-lightbox-open { overflow: hidden; }
 	border-radius: 999px;
 	box-shadow: 0 4px 0 var(--kg-amber-deep);
 }
-.kg-tier__name { font-size: 1.3rem; margin: 4px 0 6px; }
-.kg-tier__price { font-family: var(--kg-font-display); font-size: 1.5rem; color: var(--kg-teal-deep); margin: 0 0 10px; }
-.kg-tier--featured .kg-tier__price { color: var(--kg-amber-deep); }
-.kg-tier__blurb { color: var(--kg-text-soft); margin: 0 0 18px; }
-.kg-tier__points { list-style: none; margin: 0 0 24px; padding: 0; display: grid; gap: 12px; flex: 1 1 auto; }
-.kg-tier__points li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.4; }
-.kg-tier__points svg { flex: none; margin-top: 3px; color: var(--kg-teal); }
-.kg-tier--featured .kg-tier__points svg { color: var(--kg-amber-deep); }
+.kg-tier__flag--top { background: var(--kg-teal); color: #fff; box-shadow: 0 4px 0 var(--kg-teal-deep); }
+.kg-tier__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+/* Level dots: filled dots = tier level, echoing in-app progress */
+.kg-tier__level { display: inline-flex; gap: 5px; }
+.kg-tier__level i { width: 9px; height: 9px; border-radius: 50%; background: var(--kg-cream-deep); }
+.kg-tier__level i.is-on { background: var(--acc); }
+.kg-tier--navy .kg-tier__level i { background: rgba(255, 255, 255, .16); }
+.kg-tier--navy .kg-tier__level i.is-on { background: var(--kg-amber); }
+.kg-tier__name { font-size: 1.25rem; margin: 0 0 2px; }
+.kg-tier--navy .kg-tier__name { color: #fff; }
+/* Who this tier suits — the sponsor persona line */
+.kg-tier__who {
+	margin: 0 0 10px;
+	font-family: var(--kg-font-display);
+	font-size: .78rem; font-weight: 700;
+	letter-spacing: .05em; text-transform: uppercase;
+	color: var(--acc-deep);
+}
+.kg-tier--navy .kg-tier__who { color: var(--kg-amber); }
+.kg-tier__blurb { color: var(--kg-text-soft); margin: 0 0 14px; font-size: .95rem; }
+.kg-tier--navy .kg-tier__blurb { color: var(--kg-text-on-dark-soft); }
+/* "Everything in <previous tier>, plus" pill */
+.kg-tier__prev {
+	align-self: flex-start;
+	margin: 0 0 12px;
+	padding: 4px 12px;
+	font-family: var(--kg-font-display);
+	font-size: .78rem; font-weight: 700;
+	color: var(--acc-deep); background: var(--acc-soft);
+	border-radius: 999px;
+}
+.kg-tier--navy .kg-tier__prev { background: var(--kg-navy-soft); color: var(--kg-text-on-dark); }
+.kg-tier__points { list-style: none; margin: 0 0 22px; padding: 0; display: grid; gap: 11px; flex: 1 1 auto; align-content: start; }
+.kg-tier__points li { display: flex; gap: 9px; align-items: flex-start; line-height: 1.4; font-size: .93rem; }
+.kg-tier__points svg { flex: none; margin-top: 3px; color: var(--acc-deep); }
+.kg-tier--navy .kg-tier__points svg { color: var(--kg-teal); }
+/* Ad-free reassurance band under the tier podium */
+.kg-tiers__adfree {
+	display: flex; gap: 12px; align-items: flex-start;
+	max-width: 720px;
+	margin: 30px auto 0;
+	padding: 14px 18px;
+	background: var(--kg-teal-soft);
+	border-radius: var(--kg-r-md);
+	font-size: .92rem; font-weight: 600;
+}
+.kg-tiers__adfree svg { flex: none; color: var(--kg-teal-deep); margin-top: 2px; }
 
 .kg-logos {
 	display: grid;
@@ -2862,10 +4525,17 @@ body.kg-lightbox-open { overflow: hidden; }
 }
 .kg-logo-tile svg { color: var(--kg-teal); opacity: .65; }
 
-@media (max-width: 880px) {
+@media (max-width: 1060px) {
+	/* Two columns: drop the podium stagger, keep room for the flags */
+	.kg-tiers { grid-template-columns: repeat(2, 1fr); row-gap: 30px; }
+	.kg-tier { margin-top: 0; }
+}
+@media (max-width: 640px) {
 	.kg-tiers { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; }
-	.kg-tier--featured { transform: none; }
 }
 @media (max-width: 600px) {
 	.kg-logos { grid-template-columns: repeat(2, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+	.kg-tier:hover { transform: none; }
 }

@@ -117,34 +117,96 @@ get_header();
 	</div>
 </section>
 
-<!-- Family profiles -->
-<section class="kg-section kg-section--teal-wash">
+<!-- Family profiles: one-account family hub. Six child avatars orbit a single
+     parent-account home (four smiling, two open "room to grow" slots) —
+     literally "up to six children, one account" — with the three family
+     features as warm rows beside it. Mirrors the safety section's
+     visual-plus-list composition, in the light family palette. -->
+<section class="kg-section kg-section--teal-wash kg-fam">
 	<div class="kg-container">
 		<?php kg_section_head( 'parents.profiles' ); ?>
-		<div class="kg-problems">
-			<?php
-			$icons = array(
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3.1a4 4 0 1 1 0 7.8M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-			);
-			foreach ( kg_list( 'parents.profiles.items' ) as $i => $item ) :
-				?>
-				<div class="kg-card" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 100 ); ?>ms">
-					<span class="kg-bubble kg-bubble--teal"><?php echo $icons[ $i % 3 ]; // phpcs:ignore ?></span>
-					<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
-					<p style="margin:0;"><?php echo $item['text']; // phpcs:ignore ?></p>
-				</div>
-			<?php endforeach; ?>
+		<div class="kg-fam__grid">
+			<ul class="kg-fam__list">
+				<?php
+				$fam_icons = array(
+					'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 3.1a4 4 0 1 1 0 7.8M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+					'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+					'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+				);
+				$fam_tones = array( 'teal', 'amber', 'red' );
+				foreach ( kg_list( 'parents.profiles.items' ) as $i => $item ) :
+					?>
+					<li class="kg-fam__item" data-kg-reveal="left" style="--kg-delay:<?php echo (int) ( $i * 140 ); ?>ms">
+						<span class="kg-bubble kg-bubble--<?php echo esc_attr( $fam_tones[ $i % 3 ] ); ?>"><?php echo $fam_icons[ $i % 3 ]; // phpcs:ignore ?></span>
+						<div class="kg-fam__copy">
+							<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
+							<p><?php echo $item['text']; // phpcs:ignore ?></p>
+						</div>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+
+			<div class="kg-fam__viz" data-kg-reveal="pop" aria-hidden="true">
+				<svg viewBox="0 0 320 320" fill="none" focusable="false">
+					<!-- spokes: every profile connects to the one parent account -->
+					<g class="kg-fam__spokes" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 8">
+						<path d="M160 160 275 160"/><path d="M160 160 217.5 259.6"/><path d="M160 160 102.5 259.6"/>
+						<path d="M160 160 45 160"/><path d="M160 160 102.5 60.4"/><path d="M160 160 217.5 60.4"/>
+					</g>
+
+					<!-- parent-account home at the centre -->
+					<g class="kg-fam__hub">
+						<rect x="114" y="114" width="92" height="92" rx="26" class="kg-fam__hub-bg"/>
+						<path d="M160 138l-19 16v22a3 3 0 0 0 3 3h32a3 3 0 0 0 3-3v-22l-19-16z" fill="#fff"/>
+						<rect x="153" y="162" width="14" height="17" rx="2" class="kg-fam__hub-door"/>
+						<g transform="translate(198 122)">
+							<circle r="13" class="kg-fam__heart-bg"/>
+							<path d="M0 5.4C-1.8 2.4 -5.6 1.2 -5.6 -1.9a3.2 3.2 0 0 1 5.6-2.1 3.2 3.2 0 0 1 5.6 2.1C5.6 1.2 1.8 2.4 0 5.4z" fill="#fff"/>
+						</g>
+					</g>
+
+					<!-- six slots: four children home, two spots waiting -->
+					<g transform="translate(275 160)"><g class="kg-fam__float" style="--kg-fd:0s"><g class="kg-fam__kid kg-fam__kid--amber" style="--kg-kd:120ms">
+						<circle r="30" class="kg-fam__kid-bg"/>
+						<circle cx="-10" cy="-5" r="2.8" class="kg-fam__kid-ink"/><circle cx="10" cy="-5" r="2.8" class="kg-fam__kid-ink"/>
+						<path d="M-10 7q10 9 20 0" class="kg-fam__kid-smile"/>
+					</g></g></g>
+					<g transform="translate(217.5 259.6)"><g class="kg-fam__float" style="--kg-fd:.9s"><g class="kg-fam__kid kg-fam__kid--teal" style="--kg-kd:240ms">
+						<circle r="30" class="kg-fam__kid-bg"/>
+						<circle cx="-10" cy="-5" r="2.8" class="kg-fam__kid-ink"/><circle cx="10" cy="-5" r="2.8" class="kg-fam__kid-ink"/>
+						<path d="M-10 7q10 9 20 0" class="kg-fam__kid-smile"/>
+					</g></g></g>
+					<g transform="translate(102.5 259.6)"><g class="kg-fam__float" style="--kg-fd:1.8s"><g class="kg-fam__kid kg-fam__kid--red" style="--kg-kd:360ms">
+						<circle r="30" class="kg-fam__kid-bg"/>
+						<circle cx="-10" cy="-5" r="2.8" class="kg-fam__kid-ink"/><circle cx="10" cy="-5" r="2.8" class="kg-fam__kid-ink"/>
+						<path d="M-10 7q10 9 20 0" class="kg-fam__kid-smile"/>
+					</g></g></g>
+					<g transform="translate(45 160)"><g class="kg-fam__float" style="--kg-fd:2.7s"><g class="kg-fam__kid kg-fam__kid--green" style="--kg-kd:480ms">
+						<circle r="30" class="kg-fam__kid-bg"/>
+						<circle cx="-10" cy="-5" r="2.8" class="kg-fam__kid-ink"/><circle cx="10" cy="-5" r="2.8" class="kg-fam__kid-ink"/>
+						<path d="M-10 7q10 9 20 0" class="kg-fam__kid-smile"/>
+					</g></g></g>
+					<g transform="translate(102.5 60.4)"><g class="kg-fam__float" style="--kg-fd:1.3s"><g class="kg-fam__kid kg-fam__kid--slot" style="--kg-kd:600ms">
+						<circle r="30" class="kg-fam__slot-bg"/>
+						<path d="M-9 0h18M0-9v18" class="kg-fam__slot-plus"/>
+					</g></g></g>
+					<g transform="translate(217.5 60.4)"><g class="kg-fam__float" style="--kg-fd:2.2s"><g class="kg-fam__kid kg-fam__kid--slot" style="--kg-kd:720ms">
+						<circle r="30" class="kg-fam__slot-bg"/>
+						<path d="M-9 0h18M0-9v18" class="kg-fam__slot-plus"/>
+					</g></g></g>
+				</svg>
+			</div>
 		</div>
 	</div>
 </section>
 
-<!-- Everyday extras -->
+<!-- Everyday extras: pinned-note strip. Deliberately breaks from the card
+     grids above (profiles) and below (safety) — tilted colour-wash notes
+     "taped" to the page, with the middle note hung lower. -->
 <section class="kg-section kg-section--white">
 	<div class="kg-container">
 		<?php kg_section_head( 'parents.perks' ); ?>
-		<div class="kg-problems">
+		<ul class="kg-perks">
 			<?php
 			$perk_icons = array(
 				// Cloud with down arrow — offline / cached lessons
@@ -154,38 +216,58 @@ get_header();
 				// Flag — weakness alerts
 				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 22V4M4 4s1.5-1 4-1 4 2 6.5 2S19 4 19 4v10s-2 1-4.5 1S10 13 7.5 13 4 14 4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
 			);
-			$perk_bubbles = array( 'kg-bubble--teal', 'kg-bubble--amber', 'kg-bubble--red' );
+			$perk_tones = array( 'teal', 'amber', 'red' );
 			foreach ( kg_list( 'parents.perks.items' ) as $i => $item ) :
 				?>
-				<div class="kg-card" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 100 ); ?>ms">
-					<span class="kg-bubble <?php echo esc_attr( $perk_bubbles[ $i % 3 ] ); ?>"><?php echo $perk_icons[ $i % 3 ]; // phpcs:ignore ?></span>
-					<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
-					<p style="margin:0;"><?php echo $item['text']; // phpcs:ignore ?></p>
-				</div>
+				<li class="kg-perks__slot" data-kg-reveal="pop" style="--kg-delay:<?php echo (int) ( $i * 120 ); ?>ms">
+					<div class="kg-perk kg-perk--<?php echo esc_attr( $perk_tones[ $i % 3 ] ); ?>">
+						<span class="kg-perk__tape" aria-hidden="true"></span>
+						<span class="kg-perk__icon"><?php echo $perk_icons[ $i % 3 ]; // phpcs:ignore ?></span>
+						<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
+						<p><?php echo $item['text']; // phpcs:ignore ?></p>
+					</div>
+				</li>
 			<?php endforeach; ?>
-		</div>
+		</ul>
 	</div>
 </section>
 
-<!-- Safety -->
-<section class="kg-section kg-section--navy">
+<!-- Safety: shield-and-checklist security treatment. A guarding shield with
+     slow radar rings on the left; the three protections as a connected
+     "security checklist" rail with verified seals on the right. -->
+<section class="kg-section kg-section--navy kg-safe">
 	<div class="kg-container">
 		<?php kg_section_head( 'parents.safety' ); ?>
-		<div class="kg-problems">
-			<?php
-			$safety_icons = array(
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.4 18.4A9 9 0 0 1 5.6 5.6m2.2-1.5A9 9 0 0 1 19.9 16.2M2 2l20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-				'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-			);
-			foreach ( kg_list( 'parents.safety.items' ) as $i => $item ) :
-				?>
-				<div class="kg-card kg-card--navy" data-kg-reveal style="--kg-delay:<?php echo (int) ( $i * 100 ); ?>ms">
-					<span class="kg-bubble kg-bubble--amber"><?php echo $safety_icons[ $i % 3 ]; // phpcs:ignore ?></span>
-					<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
-					<p style="margin:0; color:var(--kg-text-on-dark-soft);"><?php echo $item['text']; // phpcs:ignore ?></p>
-				</div>
-			<?php endforeach; ?>
+		<div class="kg-safe__grid">
+			<div class="kg-safe__shield" data-kg-reveal="pop" aria-hidden="true">
+				<span class="kg-safe__ring kg-safe__ring--1"></span>
+				<span class="kg-safe__ring kg-safe__ring--2"></span>
+				<span class="kg-safe__ring kg-safe__ring--3"></span>
+				<svg class="kg-safe__shield-svg" viewBox="0 0 120 132" fill="none" focusable="false">
+					<path class="kg-safe__shield-body" d="M60 5 14 23v37c0 30.8 19.6 52.6 46 62 26.4-9.4 46-31.2 46-62V23L60 5z"/>
+					<path class="kg-safe__shield-line" d="M60 15 23 29.5V60c0 25.4 15.9 43.8 37 52.4 21.1-8.6 37-27 37-52.4V29.5L60 15z"/>
+					<path class="kg-safe__shield-tick" d="m41 64 14 14 26-28"/>
+				</svg>
+			</div>
+			<ul class="kg-safe__list">
+				<?php
+				$safety_icons = array(
+					'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 4 6v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+					'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18.4 18.4A9 9 0 0 1 5.6 5.6m2.2-1.5A9 9 0 0 1 19.9 16.2M2 2l20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+					'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+				);
+				foreach ( kg_list( 'parents.safety.items' ) as $i => $item ) :
+					?>
+					<li class="kg-safe__item" data-kg-reveal="right" style="--kg-delay:<?php echo (int) ( $i * 140 ); ?>ms">
+						<span class="kg-safe__badge" aria-hidden="true"><?php echo $safety_icons[ $i % 3 ]; // phpcs:ignore ?></span>
+						<div class="kg-safe__copy">
+							<h3 class="kg-h3"><?php echo $item['title']; // phpcs:ignore ?></h3>
+							<p><?php echo $item['text']; // phpcs:ignore ?></p>
+						</div>
+						<svg class="kg-safe__seal" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".14"/><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="m8 12.2 2.6 2.6L16 9.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+					</li>
+				<?php endforeach; ?>
+			</ul>
 		</div>
 	</div>
 </section>

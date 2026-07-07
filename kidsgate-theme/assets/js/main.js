@@ -49,7 +49,7 @@
 	// Page-view style events derived from the body template class.
 	var body = document.body;
 	if (body.classList.contains('page-template-page-pricing')) { track('pricing_page_view'); }
-	if (body.classList.contains('page-template-page-leaderboard')) { track('leaderboard_view'); }
+	if (body.classList.contains('page-template-page-rewards')) { track('rewards_page_view'); }
 	if (body.classList.contains('page-template-page-support')) { track('support_page_view'); }
 
 	/* ----------------------------------------------------------------
@@ -121,13 +121,24 @@
 	function animateCounter(el) {
 		var target = parseFloat(el.getAttribute('data-kg-count'));
 		var suffix = el.getAttribute('data-kg-suffix') || '';
-		var duration = 1400;
+		var duration = 2200;
 		var start = null;
+		// Number and suffix live in separate nodes so the suffix can be styled
+		// (e.g. tinted with the card accent) and only the number updates per frame.
+		el.textContent = '';
+		var numNode = document.createTextNode('0');
+		el.appendChild(numNode);
+		if (suffix) {
+			var sufEl = document.createElement('span');
+			sufEl.className = 'kg-counter__suffix';
+			sufEl.textContent = suffix;
+			el.appendChild(sufEl);
+		}
 		function tick(ts) {
 			if (!start) { start = ts; }
 			var p = Math.min((ts - start) / duration, 1);
 			var eased = 1 - Math.pow(1 - p, 3);
-			el.textContent = Math.round(target * eased).toLocaleString() + suffix;
+			numNode.nodeValue = Math.round(target * eased).toLocaleString();
 			if (p < 1) { requestAnimationFrame(tick); }
 		}
 		requestAnimationFrame(tick);
@@ -308,9 +319,13 @@
 	document.querySelectorAll('[data-kg-faq]').forEach(function (faq) {
 		var context = faq.getAttribute('data-kg-faq-context') || 'faq';
 		faq.querySelectorAll('.kg-faq__q button').forEach(function (btn) {
+			// Panels ship [hidden] for no-JS visitors. The open/close animation
+			// (grid-rows 0fr→1fr) needs them rendered, so unhide once wired up —
+			// the closed state is CSS-driven (collapsed + visibility:hidden).
+			var initPanel = document.getElementById(btn.getAttribute('aria-controls'));
+			if (initPanel) { initPanel.removeAttribute('hidden'); }
 			btn.addEventListener('click', function () {
 				var item = btn.closest('.kg-faq__item');
-				var panel = document.getElementById(btn.getAttribute('aria-controls'));
 				var open = btn.getAttribute('aria-expanded') === 'true';
 
 				// Close all other items in this accordion group first
@@ -318,16 +333,13 @@
 					faq.querySelectorAll('.kg-faq__item.is-open').forEach(function (other) {
 						if (other === item) { return; }
 						var otherBtn = other.querySelector('.kg-faq__q button');
-						var otherPanel = otherBtn && document.getElementById(otherBtn.getAttribute('aria-controls'));
 						if (otherBtn) { otherBtn.setAttribute('aria-expanded', 'false'); }
 						other.classList.remove('is-open');
-						if (otherPanel) { otherPanel.hidden = true; }
 					});
 				}
 
 				btn.setAttribute('aria-expanded', open ? 'false' : 'true');
 				item.classList.toggle('is-open', !open);
-				if (panel) { panel.hidden = open; }
 				if (!open) {
 					track(context === 'support' ? 'support_faq_expand' : 'faq_expand', {
 						faq_question: btn.textContent.trim().slice(0, 100)
@@ -601,119 +613,257 @@
 	/* ----------------------------------------------------------------
 	 * Adaptive AI engine visualisation (Features spotlight).
 	 *
-	 * A self-running, looping story of the backend: an answer comes in,
-	 * the model analyses it, finds a knowledge gap, queues reinforcement,
-	 * then mastery climbs on the live knowledge map. The map levels persist
-	 * across cycles so every revisited skill trends upward, conveying how
-	 * the system adapts to the child's level over time.
+	 * A living learning path: the child's dot travels through lesson
+	 * nodes, lighting the trail as it goes. When a topic is missed the
+	 * AI visibly reacts — it scans the miss, grows a re-teach detour
+	 * (story, game, quiz) beneath the path, walks the child through it,
+	 * then returns to master the original topic before the journey
+	 * continues. The path literally reshapes itself around the mistake,
+	 * which is the whole pitch. Skills rotate each cycle.
 	 * -------------------------------------------------------------- */
 	document.querySelectorAll('[data-kg-aiviz]').forEach(function (viz) {
 		var dataEl = viz.querySelector('[data-kg-aiviz-data]');
 		if (!dataEl) { return; }
 		var d = JSON.parse(dataEl.textContent);
 		var skills = d.skills || [];
-		if (!skills.length) { return; }
+		var angles = d.angles || [];
+		var phases = d.phases || [];
 
-		var answerCard   = viz.querySelector('[data-kg-answer-card]');
-		var answerSkill  = viz.querySelector('[data-kg-answer-skill]');
-		var answerResult = viz.querySelector('[data-kg-answer-result]');
-		var actionCard   = viz.querySelector('[data-kg-action-card]');
-		var actionText   = viz.querySelector('[data-kg-action-text]');
-		var core         = viz.querySelector('[data-kg-core]');
-		var statusEl     = viz.querySelector('[data-kg-aiviz-status]');
-		var rows         = Array.prototype.slice.call(viz.querySelectorAll('[data-kg-row]'));
-		var phases       = d.phases || [];
+		var stage    = viz.querySelector('[data-kg-aipath]');
+		var statusEl = viz.querySelector('[data-kg-aiviz-status]');
+		if (!stage || !skills.length) { return; }
 
-		// Starting mastery per skill (persisted and nudged upward each cycle).
-		var seed = [58, 46, 67, 41];
-		var levels = skills.map(function (_, i) { return seed[i % seed.length]; });
+		var NS = 'http://www.w3.org/2000/svg';
+		var mainPath = stage.querySelector('[data-kg-path-main]');
+		var mainProg = stage.querySelector('[data-kg-prog-main]');
+		var detPath  = stage.querySelector('[data-kg-path-detour]');
+		var detProg  = stage.querySelector('[data-kg-prog-detour]');
+		var beam     = stage.querySelector('[data-kg-beam]');
+		var fxG      = stage.querySelector('[data-kg-fx]');
+		var nodesG   = stage.querySelector('[data-kg-nodes]');
+		var card     = stage.querySelector('[data-kg-card]');
+		var cardRect = card.querySelector('rect');
+		var cardGlyph = card.querySelector('[data-kg-card-glyph]');
+		var cardWord  = card.querySelector('[data-kg-card-word]');
+		var dot      = stage.querySelector('[data-kg-dot]');
 
-		function renderBars() {
-			rows.forEach(function (row, i) {
-				var fill = row.querySelector('[data-kg-fill]');
-				var pct  = row.querySelector('[data-kg-pct]');
-				if (fill) { fill.style.width = levels[i] + '%'; }
-				if (pct) { pct.textContent = Math.round(levels[i]) + '%'; }
-			});
+		// Node waypoints along the main trail; index 2 is the miss node.
+		var mainLen = mainPath.getTotalLength();
+		var MAIN_FR = [0, 0.25, 0.5, 0.75, 1];
+		var MISS = 2;
+		var mainPts = MAIN_FR.map(function (f) { return mainPath.getPointAtLength(f * mainLen); });
+		var n2 = mainPts[MISS];
+
+		// The re-teach detour loops out of the miss node and back into it.
+		detPath.setAttribute('d',
+			'M' + n2.x + ' ' + n2.y +
+			' C ' + (n2.x - 52) + ' ' + (n2.y + 46) + ', ' + (n2.x - 30) + ' ' + (n2.y + 92) + ', ' + (n2.x + 38) + ' ' + (n2.y + 90) +
+			' C ' + (n2.x + 102) + ' ' + (n2.y + 88) + ', ' + (n2.x + 116) + ' ' + (n2.y + 38) + ', ' + n2.x + ' ' + n2.y);
+		detProg.setAttribute('d', detPath.getAttribute('d'));
+		var detLen = detPath.getTotalLength();
+		var DET_FR = [0.3, 0.58, 0.84];
+		var detPts = DET_FR.map(function (f) { return detPath.getPointAtLength(f * detLen); });
+
+		beam.setAttribute('x2', n2.x);
+		beam.setAttribute('y2', n2.y - 20);
+		card.setAttribute('transform', 'translate(' + n2.x + ' ' + (n2.y - 56) + ')');
+
+		// Progress strokes are driven per-frame; the detour rail draw-in is
+		// a one-off CSS transition set inline when the AI grows the branch.
+		mainProg.style.strokeDasharray = mainLen;
+		mainProg.style.strokeDashoffset = mainLen;
+		detProg.style.strokeDasharray = detLen;
+		detProg.style.strokeDashoffset = detLen;
+		detPath.style.strokeDasharray = detLen;
+		detPath.style.strokeDashoffset = detLen;
+
+		function makeNode(p, mini, labelDy) {
+			var g = document.createElementNS(NS, 'g');
+			g.setAttribute('class', 'kg-ainode' + (mini ? ' kg-ainode--mini' : ''));
+			g.setAttribute('transform', 'translate(' + p.x + ' ' + p.y + ')');
+			var inner = document.createElementNS(NS, 'g');
+			inner.setAttribute('class', 'kg-ainode__in');
+			var burst = document.createElementNS(NS, 'circle');
+			burst.setAttribute('class', 'kg-ainode__burst');
+			burst.setAttribute('r', mini ? 11 : 15);
+			var c = document.createElementNS(NS, 'circle');
+			c.setAttribute('class', 'kg-ainode__c');
+			c.setAttribute('r', mini ? 11 : 15);
+			var check = document.createElementNS(NS, 'path');
+			check.setAttribute('class', 'kg-ainode__check');
+			check.setAttribute('d', mini ? 'M-4 .5 L-1 3.5 L4.5 -3' : 'M-5.5 .5 L-1.5 4.5 L6 -4');
+			var t = document.createElementNS(NS, 'text');
+			t.setAttribute('class', 'kg-ainode__label');
+			t.setAttribute('y', labelDy);
+			inner.appendChild(burst); inner.appendChild(c); inner.appendChild(check);
+			g.appendChild(inner); g.appendChild(t);
+			nodesG.appendChild(g);
+			return { g: g, label: t, inner: inner };
 		}
+
+		var mainNodes = mainPts.map(function (p, i) {
+			var n = makeNode(p, false, p.y >= 110 ? 33 : -25);
+			if (i === 0) { n.label.setAttribute('x', 18); } // keep the edge label inside the canvas
+			if (i === mainPts.length - 1) {
+				n.g.classList.add('kg-ainode--goal');
+				var star = document.createElementNS(NS, 'text');
+				star.setAttribute('class', 'kg-ainode__star');
+				star.setAttribute('dy', '.38em');
+				star.textContent = '★';
+				n.inner.appendChild(star);
+			}
+			return n;
+		});
+		var detNodes = detPts.map(function (p, i) {
+			var n = makeNode(p, true, 27);
+			n.label.textContent = angles[i] || '';
+			return n;
+		});
+
 		function setStatus(base, skill) {
 			statusEl.innerHTML = base + (skill ? ' &middot; <strong>' + skill + '</strong>' : '');
 		}
-		function resetVisuals() {
-			rows.forEach(function (r) { r.classList.remove('is-active', 'is-mastered'); });
-			answerCard.classList.remove('is-active');
-			actionCard.classList.remove('is-active');
-			core.classList.remove('is-thinking');
-			answerResult.className = 'kg-aiviz__result';
+		// Rotate which subject sits on each node so the missed topic varies.
+		var cycle = 0;
+		function setLabels() {
+			var off = cycle % skills.length;
+			for (var i = 0; i < skills.length && i < mainNodes.length - 1; i++) {
+				mainNodes[i].label.textContent = skills[(i + off) % skills.length];
+			}
+			return skills[(MISS + off) % skills.length];
 		}
+		function showCard(good, word) {
+			cardGlyph.textContent = good ? '✓' : '✗';
+			cardWord.textContent = ' ' + word;
+			card.setAttribute('class', 'kg-aipath__card is-show ' + (good ? 'is-good' : 'is-bad'));
+			var w = card.querySelector('text').getComputedTextLength() + 30;
+			cardRect.setAttribute('width', w);
+			cardRect.setAttribute('x', -w / 2);
+		}
+		function hideCard() { card.setAttribute('class', 'kg-aipath__card'); }
+		function ripple() {
+			for (var i = 0; i < 2; i++) {
+				var r = document.createElementNS(NS, 'circle');
+				r.setAttribute('class', 'kg-aipath__ripple');
+				r.setAttribute('cx', n2.x); r.setAttribute('cy', n2.y);
+				r.setAttribute('r', 16);
+				r.style.animationDelay = (i * 0.4) + 's';
+				fxG.appendChild(r);
+			}
+		}
+		function clearRipples() { while (fxG.firstChild) { fxG.removeChild(fxG.firstChild); } }
 
-		renderBars();
-
-		// Static, motion-free snapshot for reduced-motion users.
+		// Static, motion-free snapshot for reduced-motion users: the whole
+		// journey shown complete, detour included, miss node mastered.
 		if (reducedMotion) {
-			answerSkill.textContent = skills[0];
-			answerResult.textContent = d.missed;
-			answerResult.classList.add('is-missed');
-			rows[0].classList.add('is-active');
-			actionCard.classList.add('is-active');
-			actionText.textContent = skills[0];
-			setStatus(phases[2] || '', skills[0]);
+			var skill0 = setLabels();
+			mainProg.style.strokeDashoffset = 0;
+			detPath.style.strokeDashoffset = 0;
+			detProg.style.strokeDashoffset = 0;
+			mainNodes.forEach(function (n, i) { n.g.classList.add(i === MISS ? 'is-mastered' : 'is-done'); });
+			detNodes.forEach(function (n) { n.g.classList.add('is-in', 'is-done'); });
+			showCard(true, d.got);
+			var pEnd = mainPath.getPointAtLength(mainLen);
+			dot.setAttribute('cx', pEnd.x); dot.setAttribute('cy', pEnd.y);
+			setStatus(phases[4] || '', skill0);
 			return;
 		}
 
 		var timers = [];
 		function after(ms, fn) { timers.push(setTimeout(fn, ms)); }
-		function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+		function stopAll() { timers.forEach(clearTimeout); timers = []; }
 
-		var idx = 0;
-		function cycle() {
-			clearTimers();
-			resetVisuals();
-			var i = idx % skills.length;
-			var skill = skills[i];
-			var start = levels[i];
+		// Move the dot from fraction f0 to f1 of a path, lighting the
+		// progress stroke behind it and ticking nodes as they are passed.
+		// Timer-driven (like the rest of this file) rather than rAF so a
+		// backgrounded tab degrades to coarse steps instead of freezing.
+		function travel(path, prog, f0, f1, dur, onFrac, done) {
+			var t0 = performance.now();
+			var L = path.getTotalLength();
+			function step() {
+				var k = Math.min(1, (performance.now() - t0) / dur);
+				var e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+				var f = f0 + (f1 - f0) * e;
+				var p = path.getPointAtLength(f * L);
+				dot.setAttribute('cx', p.x); dot.setAttribute('cy', p.y);
+				prog.style.strokeDashoffset = L * (1 - f);
+				if (onFrac) { onFrac(f); }
+				if (k < 1) { after(28, step); }
+				else if (done) { done(); }
+			}
+			step();
+		}
+		function tickMain(f) {
+			mainNodes.forEach(function (n, i) {
+				if (i !== MISS && f >= MAIN_FR[i] - 0.01 && !n.g.classList.contains('is-done')) { n.g.classList.add('is-done'); }
+			});
+		}
+		function tickDet(f) {
+			detNodes.forEach(function (n, i) {
+				if (f >= DET_FR[i] && !n.g.classList.contains('is-done')) { n.g.classList.add('is-done'); }
+			});
+		}
 
-			// 0 — answer arrives, marked wrong.
-			answerSkill.textContent = skill;
-			answerResult.textContent = d.missed;
-			answerResult.classList.add('is-missed');
-			answerCard.classList.add('is-active');
+		function resetStage() {
+			mainProg.style.strokeDashoffset = mainLen;
+			detProg.style.strokeDashoffset = detLen;
+			detPath.style.transition = 'none';
+			detPath.style.strokeDashoffset = detLen;
+			mainNodes.forEach(function (n) { n.g.classList.remove('is-done', 'is-miss', 'is-mastered'); });
+			detNodes.forEach(function (n) { n.g.classList.remove('is-in', 'is-done'); });
+			hideCard();
+			clearRipples();
+			beam.classList.remove('is-on');
+			var p0 = mainPath.getPointAtLength(0);
+			dot.setAttribute('cx', p0.x); dot.setAttribute('cy', p0.y);
+		}
+
+		function run() {
+			stopAll();
+			var skill = setLabels();
+			resetStage();
+			stage.classList.remove('is-fade');
 			setStatus(phases[0]);
-
-			// 1 — model analyses the response.
-			after(1500, function () {
-				core.classList.add('is-thinking');
+			after(500, function () {
 				setStatus(phases[1]);
+				// Leg 1: travel to the miss node, ticking earlier topics done.
+				travel(mainPath, mainProg, 0, MAIN_FR[MISS], 2600, tickMain, function () {
+					// The miss: red pulse, "✗ missed" chip, AI scan beam + ripples.
+					mainNodes[MISS].g.classList.add('is-miss');
+					showCard(false, d.missed);
+					beam.classList.add('is-on');
+					ripple();
+					setStatus(phases[2], skill);
+					after(1600, function () {
+						// The AI grows the re-teach branch; its stops pop in.
+						beam.classList.remove('is-on');
+						clearRipples();
+						detPath.style.transition = 'stroke-dashoffset .9s cubic-bezier(.22,.9,.36,1)';
+						detPath.style.strokeDashoffset = 0;
+						detNodes.forEach(function (n, i) { after(350 + i * 220, function () { n.g.classList.add('is-in'); }); });
+						setStatus(phases[3], skill);
+						after(1000, function () {
+							// Leg 2: around the detour — story, game, quiz.
+							travel(detPath, detProg, 0, 1, 3400, tickDet, function () {
+								// Back at the topic: mastered, burst, chip flips to ✓.
+								mainNodes[MISS].g.classList.remove('is-miss');
+								mainNodes[MISS].g.classList.add('is-mastered');
+								showCard(true, d.got);
+								setStatus(phases[4], skill);
+								after(1300, function () {
+									// Leg 3: on to the goal star.
+									travel(mainPath, mainProg, MAIN_FR[MISS], 1, 2300, tickMain, function () {
+										after(1900, function () {
+											stage.classList.add('is-fade');
+											after(500, function () { cycle++; run(); });
+										});
+									});
+								});
+							});
+						});
+					});
+				});
 			});
-
-			// 2 — gap found: highlight the skill and dip its mastery.
-			after(3100, function () {
-				rows[i].classList.add('is-active');
-				levels[i] = Math.max(20, start - 14);
-				renderBars();
-				setStatus(phases[2], skill);
-			});
-
-			// 3 — queue reinforcement from a new angle.
-			after(4600, function () {
-				actionCard.classList.add('is-active');
-				actionText.textContent = skill;
-				setStatus(phases[3], skill);
-			});
-
-			// 4 — child now answers correctly; mastery climbs past where it started.
-			after(6200, function () {
-				answerResult.className = 'kg-aiviz__result is-got';
-				answerResult.textContent = d.got;
-				rows[i].classList.remove('is-active');
-				rows[i].classList.add('is-mastered');
-				levels[i] = Math.min(96, start + 12);
-				renderBars();
-				core.classList.remove('is-thinking');
-				setStatus(phases[4], skill);
-			});
-
-			after(8300, function () { idx++; cycle(); });
 		}
 
 		// Only animate while the widget is on screen.
@@ -721,12 +871,12 @@
 		if ('IntersectionObserver' in window) {
 			new IntersectionObserver(function (entries) {
 				entries.forEach(function (e) {
-					if (e.isIntersecting && !running) { running = true; idx = 0; cycle(); }
-					else if (!e.isIntersecting && running) { running = false; clearTimers(); }
+					if (e.isIntersecting && !running) { running = true; run(); }
+					else if (!e.isIntersecting && running) { running = false; stopAll(); }
 				});
 			}, { threshold: 0.25 }).observe(viz);
 		} else {
-			cycle();
+			run();
 		}
 	});
 
@@ -971,7 +1121,8 @@
 	function kgSetChoice(market, lang) {
 		if (!market || !lang) { return; }
 		var val = market + ':' + lang;
-		document.cookie = 'kg_choice=' + val + ';path=/;max-age=31536000;SameSite=Lax';
+		var secure = location.protocol === 'https:' ? ';Secure' : '';
+		document.cookie = 'kg_choice=' + val + ';path=/;max-age=31536000;SameSite=Lax' + secure;
 		try { localStorage.setItem('kg_choice', val); } catch (e) {}
 	}
 
@@ -1054,4 +1205,211 @@
 			bar.classList.remove('kg-region-bar--pulse');
 		}, { once: true });
 	});
+
+	/* ----------------------------------------------------------------
+	 * Rewards page — the earning demo.
+	 *
+	 * The three factor cards take turns "earning": the live card lights
+	 * up, a token flies from its icon into the jar (outer span moves on
+	 * X, inner on Y with a gravity bezier = an arc), the jar fills and
+	 * the count ticks up. At 60 tokens a reward chip pops, the jar banks
+	 * and the loop starts over. Pure illustration, no real data. Runs
+	 * only while on screen; reduced motion gets a static, part-filled jar.
+	 * -------------------------------------------------------------- */
+	var earn = document.querySelector('[data-kg-earn]');
+	if (earn) {
+		var earnCards = earn.querySelectorAll('.kg-earn__card');
+		var earnJar = earn.querySelector('[data-kg-earn-jar]');
+		var earnJarSvg = earnJar.querySelector('.kg-earnjar');
+		var earnFill = earn.querySelector('[data-kg-earn-fill]');
+		var earnCount = earn.querySelector('[data-kg-earn-count]');
+		var earnUnlock = earn.querySelector('[data-kg-earn-unlock]');
+		var EARN_TARGET = 60, EARN_STEP = 10, EARN_FLIGHT = 840;
+		// SVG interior: the fill rect grows upward inside x18 y32 w84 h96.
+		var EARN_JAR_H = 96, EARN_JAR_BOTTOM = 128;
+		var earnTotal = 0, earnIdx = -1, earnTimer = null, earnBanking = false;
+
+		var EARN_COIN_SVG = '<svg viewBox="0 0 38 38" focusable="false" aria-hidden="true"><circle cx="19" cy="19" r="16.5" fill="#F5A623" stroke="#D98C00" stroke-width="3"/><path d="M19 12.2l1.9 4 4.4.5-3.3 3 .9 4.3-3.9-2.2-3.9 2.2.9-4.3-3.3-3 4.4-.5z" fill="#D98C00" opacity=".8"/></svg>';
+
+		function earnSetFill(n) {
+			var h = Math.round(EARN_JAR_H * Math.min(n / EARN_TARGET, 1));
+			earnFill.style.height = h + 'px';
+			earnFill.style.y = (EARN_JAR_BOTTOM - h) + 'px';
+		}
+
+		if (reducedMotion) {
+			// Static tableau: a part-filled jar and a believable count.
+			earnTotal = 40;
+			earnCount.textContent = '40';
+			earnFill.style.transition = 'none';
+			earnSetFill(40);
+		} else {
+			var earnFly = function (fromEl, done) {
+				var s = fromEl.getBoundingClientRect();
+				var t = earnJarSvg.getBoundingClientRect();
+				var base = earn.getBoundingClientRect();
+				var sx = s.left + s.width / 2 - base.left;
+				var sy = s.top + s.height / 2 - base.top;
+				var tx = t.left + t.width / 2 - base.left;
+				var ty = t.top + 10 - base.top;
+				var coin = document.createElement('span');
+				coin.className = 'kg-earncoin';
+				coin.innerHTML = '<i>' + EARN_COIN_SVG + '</i>';
+				coin.style.left = sx + 'px';
+				coin.style.top = sy + 'px';
+				earn.appendChild(coin);
+				var innerEl = coin.firstChild;
+				requestAnimationFrame(function () {
+					requestAnimationFrame(function () {
+						coin.style.transform = 'translateX(' + (tx - sx) + 'px)';
+						innerEl.style.transform = 'translateY(' + (ty - sy) + 'px)';
+					});
+				});
+				setTimeout(function () {
+					coin.remove();
+					done();
+				}, EARN_FLIGHT);
+			};
+
+			var earnBank = function () {
+				earnBanking = true;
+				earnUnlock.hidden = false;
+				setTimeout(function () {
+					earnUnlock.hidden = true;
+					earnTotal = 0;
+					earnCount.textContent = '0';
+					earnSetFill(0);
+					earnCards.forEach(function (c) { c.classList.remove('is-live'); });
+					earnBanking = false;
+				}, 2000);
+			};
+
+			var earnStep = function () {
+				if (earnBanking) { return; }
+				earnIdx = (earnIdx + 1) % earnCards.length;
+				earnCards.forEach(function (c, i) { c.classList.toggle('is-live', i === earnIdx); });
+				var bubble = earnCards[earnIdx].querySelector('.kg-bubble');
+				earnFly(bubble, function () {
+					earnTotal += EARN_STEP;
+					earnCount.textContent = earnTotal;
+					earnSetFill(earnTotal);
+					earnJar.classList.remove('is-catch');
+					void earnJar.offsetWidth;
+					earnJar.classList.add('is-catch');
+					var plus = document.createElement('span');
+					plus.className = 'kg-earnplus';
+					plus.textContent = '+' + EARN_STEP;
+					earnJar.appendChild(plus);
+					setTimeout(function () { plus.remove(); }, 900);
+					if (earnTotal >= EARN_TARGET) { earnBank(); }
+				});
+			};
+
+			var earnStart = function () {
+				if (!earnTimer) { earnTimer = setInterval(earnStep, 1500); }
+			};
+			var earnStop = function () {
+				if (earnTimer) { clearInterval(earnTimer); earnTimer = null; }
+			};
+
+			if ('IntersectionObserver' in window) {
+				new IntersectionObserver(function (entries) {
+					entries.forEach(function (entry) {
+						if (entry.isIntersecting) { earnStart(); } else { earnStop(); }
+					});
+				}, { threshold: 0.3 }).observe(earn);
+			} else {
+				earnStart();
+			}
+		}
+	}
+
+	/* ----------------------------------------------------------------
+	 * Rewards page — the storefront demo.
+	 *
+	 * Tapping a shelf item "buys" it: the balance ticks down, a "−price"
+	 * floats off the balance pill and the item flips to its unlocked
+	 * state. Once the shelf is empty the shop restocks and the balance
+	 * refills for the next browser. Pure illustration, no real data;
+	 * the starting balance is read from the markup so it never drifts. -- */
+	var store = document.querySelector('[data-kg-store]');
+	if (store) {
+		var storeBalanceEl = store.querySelector('[data-kg-store-balance]');
+		var storeItems = Array.prototype.slice.call(store.querySelectorAll('[data-kg-store-item]'));
+		var storeStart = parseInt(storeBalanceEl.textContent, 10) || 0;
+		var storeLeft = storeStart;
+		var storeRestockTimer = null;
+
+		var storeTick = function () {
+			var pill = storeBalanceEl.parentNode;
+			pill.classList.remove('is-tick');
+			void pill.offsetWidth; // eslint-disable-line no-void
+			pill.classList.add('is-tick');
+		};
+
+		var storeRestock = function () {
+			storeLeft = storeStart;
+			storeBalanceEl.textContent = storeLeft;
+			storeItems.forEach(function (it) {
+				it.classList.remove('is-owned');
+				it.setAttribute('aria-pressed', 'false');
+			});
+			storeTick();
+		};
+
+		storeItems.forEach(function (item) {
+			item.addEventListener('click', function () {
+				if (item.classList.contains('is-owned')) { return; }
+				var price = parseInt(item.getAttribute('data-kg-price'), 10) || 0;
+				if (price > storeLeft) { return; }
+				storeLeft -= price;
+				storeBalanceEl.textContent = storeLeft;
+				item.classList.add('is-owned');
+				item.setAttribute('aria-pressed', 'true');
+				storeTick();
+				if (!reducedMotion) {
+					var minus = document.createElement('span');
+					minus.className = 'kg-storeminus';
+					minus.textContent = '−' + price;
+					storeBalanceEl.parentNode.appendChild(minus);
+					setTimeout(function () { minus.remove(); }, 900);
+				}
+				var allOwned = storeItems.every(function (it) { return it.classList.contains('is-owned'); });
+				if (allOwned) {
+					clearTimeout(storeRestockTimer);
+					storeRestockTimer = setTimeout(storeRestock, 2200);
+				}
+			});
+		});
+	}
+
+	/* ----------------------------------------------------------------
+	 * Sponsors page — pre-fill the enquiry form from the visitor's choices.
+	 *
+	 * The "Ways to partner" cards carry data-kg-partner (index-aligned with
+	 * the "What are you interested in?" options) and the sponsorship-tier
+	 * buttons carry data-kg-tier (index-aligned with the "Partnership level"
+	 * options). Clicking a card sets the matching <select> before its anchor
+	 * scrolls the visitor down, so both boxes arrive already filled. Index
+	 * alignment keeps this working across every locale.
+	 * -------------------------------------------------------------- */
+	var sponsorInterest = document.getElementById('kg-sponsor-interest');
+	var sponsorLevel = document.getElementById('kg-sponsor-level');
+	if (sponsorInterest || sponsorLevel) {
+		document.querySelectorAll('[data-kg-partner]').forEach(function (card) {
+			card.addEventListener('click', function () {
+				if (!sponsorInterest) { return; }
+				var i = parseInt(card.getAttribute('data-kg-partner'), 10);
+				if (i >= 0 && i < sponsorInterest.options.length) { sponsorInterest.selectedIndex = i; }
+			});
+		});
+		document.querySelectorAll('[data-kg-tier]').forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				if (!sponsorLevel) { return; }
+				var i = parseInt(btn.getAttribute('data-kg-tier'), 10);
+				// +1 skips the "not sure yet" placeholder option at index 0.
+				if (i >= 0 && i + 1 < sponsorLevel.options.length) { sponsorLevel.selectedIndex = i + 1; }
+			});
+		});
+	}
 })();

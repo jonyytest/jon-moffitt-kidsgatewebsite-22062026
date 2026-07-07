@@ -13,6 +13,15 @@
  * NOT part of the WordPress theme — never upload tests/ to production.
  */
 
+// Dev harness only — must never run under a real web server (Apache/PHP-FPM).
+// It stubs esc_url()/esc_js() as no-ops, so serving it in production would
+// expose an unescaped, WordPress-bypassing renderer. Allow only the PHP
+// built-in server used by `php -S`.
+if ( PHP_SAPI !== 'cli-server' ) {
+	http_response_code( 404 );
+	exit;
+}
+
 error_reporting( E_ALL & ~E_DEPRECATED );
 
 $theme_root = dirname( __DIR__ );
@@ -62,7 +71,8 @@ function sanitize_email( $s ) { return filter_var( $s, FILTER_SANITIZE_EMAIL ); 
 function sanitize_text_field( $s ) { return trim( strip_tags( $s ) ); }
 function wp_strip_all_tags( $s ) { return strip_tags( $s ); }
 function wpautop( $s ) { return '<p>' . str_replace( "\n\n", '</p><p>', $s ) . '</p>'; }
-function wp_json_encode( $d ) { return json_encode( $d, JSON_UNESCAPED_UNICODE ); }
+function wp_json_encode( $d, $flags = 0 ) { return json_encode( $d, $flags | JSON_UNESCAPED_UNICODE ); }
+function is_ssl() { return ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS']; }
 function wp_enqueue_style( $handle, $src = '', $deps = array(), $ver = null ) {
 	if ( $src ) { $GLOBALS['kg_styles'][ $handle ] = $src; }
 }
@@ -84,7 +94,7 @@ function wp_head() {
 	foreach ( $GLOBALS['kg_styles'] as $src ) {
 		echo '<link rel="stylesheet" href="' . esc_attr( $src ) . "\">\n";
 	}
-	echo '<title>The Kids Gate — preview</title>';
+	echo '<title>The Kids Gate preview</title>';
 	do_action_stub( 'wp_head' );
 }
 function wp_body_open() {}
