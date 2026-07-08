@@ -249,6 +249,27 @@ function kg_url( $slug = '' ) {
 }
 
 /**
+ * Slug of the current page with any market/lang prefix already removed.
+ *
+ * When the mu-plugin (wp-content/mu-plugins/kg-routing.php) is deployed, it
+ * rewrites REQUEST_URI before WordPress parses the request, so REQUEST_URI
+ * is already prefix-free. When running on the theme's built-in rewrite-rule
+ * fallback instead, REQUEST_URI still contains the /market/lang/ prefix —
+ * the slug must come from the pagename query var instead, or the prefix
+ * gets duplicated every time the market/lang switcher is used.
+ */
+function kg_current_slug() {
+	if ( defined( 'KG_CURRENT_COUNTRY' ) && '' !== KG_CURRENT_COUNTRY && get_query_var( 'kg_market', '' ) !== '' ) {
+		// Rewrite-rules fallback path: REQUEST_URI still has the prefix, use pagename.
+		return trim( get_query_var( 'pagename', '' ), '/' );
+	}
+
+	// mu-plugin path (or bare domain): REQUEST_URI is already prefix-free.
+	$uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '/';
+	return trim( parse_url( $uri, PHP_URL_PATH ), '/' );
+}
+
+/**
  * URL for the current page in a different language, keeping the market unchanged.
  * Language change must NOT change currency or market.
  *
@@ -260,8 +281,7 @@ function kg_url_for_lang( $target_lang ) {
 	}
 
 	$country = kg_country();
-	$uri     = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '/';
-	$path    = trim( parse_url( $uri, PHP_URL_PATH ), '/' );
+	$path    = kg_current_slug();
 
 	if ( ! $country ) {
 		// Bare domain: go to target lang's default market.
@@ -280,8 +300,7 @@ function kg_url_for_lang( $target_lang ) {
  */
 function kg_url_for_market( $target_market ) {
 	$lang = kg_lang() ?: kg_country_default_lang( $target_market );
-	$uri  = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '/';
-	$path = trim( parse_url( $uri, PHP_URL_PATH ), '/' );
+	$path = kg_current_slug();
 
 	return home_url( '/' . $target_market . '/' . $lang . '/' . ( $path ? $path . '/' : '' ) );
 }

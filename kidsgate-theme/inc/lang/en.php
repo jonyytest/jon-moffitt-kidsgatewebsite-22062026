@@ -59,6 +59,8 @@ return array(
 		'support_sub'            => 'FAQs & contact form',
 		'privacy'                => 'Privacy Policy',
 		'terms'                  => 'Terms of Service',
+		'cookie_policy'          => 'Cookie Policy',
+		'childrens_privacy'      => 'Children\'s Privacy',
 		'coming_soon'            => 'Page coming soon',
 		'rights'                 => 'All rights reserved.',
 		'email_placeholder_note' => 'Placeholder address. Final support email to be confirmed.',

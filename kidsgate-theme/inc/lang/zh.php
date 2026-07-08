@@ -59,6 +59,8 @@ return array(
 		'support_sub'            => '常见问题与联系表单',
 		'privacy'                => '隐私政策',
 		'terms'                  => '服务条款',
+		'cookie_policy'          => 'Cookie政策',
+		'childrens_privacy'      => '儿童隐私',
 		'coming_soon'            => '页面即将上线',
 		'rights'                 => '版权所有。',
 		'email_placeholder_note' => '占位地址，最终支持邮箱待确认。',

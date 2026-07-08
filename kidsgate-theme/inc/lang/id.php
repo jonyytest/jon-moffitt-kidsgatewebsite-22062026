@@ -59,6 +59,8 @@ return array(
 		'support_sub'            => 'FAQ & formulir kontak',
 		'privacy'                => 'Kebijakan Privasi',
 		'terms'                  => 'Syarat Layanan',
+		'cookie_policy'          => 'Kebijakan Cookie',
+		'childrens_privacy'      => 'Privasi Anak',
 		'coming_soon'            => 'Halaman segera hadir',
 		'rights'                 => 'Hak cipta dilindungi.',
 		'email_placeholder_note' => 'Alamat sementara. Email bantuan resmi akan dikonfirmasi.',

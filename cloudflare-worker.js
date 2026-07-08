@@ -23,14 +23,20 @@
 const MARKET_MAP = {
   AU: { market: 'au', lang: 'en' },
   US: { market: 'us', lang: 'en' },
+  NZ: { market: 'nz', lang: 'en' },
+  SG: { market: 'sg', lang: 'en' },
   ID: { market: 'id', lang: 'id' },
   TH: { market: 'th', lang: 'th' },
+  IN: { market: 'in', lang: 'en' },
+  PH: { market: 'ph', lang: 'en' },
+  KH: { market: 'kh', lang: 'en' },
+  VN: { market: 'vn', lang: 'en' },
   // Extend here as more markets are added.
   // Unknown ISO codes fall through to the selector (no redirect).
 };
 
-const VALID_MARKETS = new Set(['au', 'us', 'id', 'th']);
-const VALID_LANGS   = new Set(['en', 'id', 'th']);
+const VALID_MARKETS = new Set(['au', 'us', 'nz', 'sg', 'id', 'th', 'in', 'ph', 'kh', 'vn']);
+const VALID_LANGS   = new Set(['en', 'id', 'th', 'zh']);
 
 export default {
   async fetch(request) {

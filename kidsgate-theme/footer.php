@@ -51,6 +51,7 @@
 				<li><a href="<?php echo esc_url( kg_url( 'features' ) ); ?>"><?php kg_e( 'nav.features' ); ?></a></li>
 				<li><a href="<?php echo esc_url( kg_url( 'parents' ) ); ?>"><?php kg_e( 'nav.parents' ); ?></a></li>
 				<li><a href="<?php echo esc_url( kg_url( 'pricing' ) ); ?>"><?php kg_e( 'nav.pricing' ); ?></a></li>
+				<li><a href="<?php echo esc_url( kg_url( 'schools' ) ); ?>"><?php kg_e( 'nav.schools' ); ?></a></li>
 				<li><a href="<?php echo esc_url( kg_url( 'rewards' ) ); ?>"><?php kg_e( 'nav.rewards' ); ?></a></li>
 			</ul>
 		</nav>
@@ -59,10 +60,11 @@
 			<h2 class="kg-footer__head"><?php kg_e( 'footer.company' ); ?></h2>
 			<ul>
 				<li><a href="<?php echo esc_url( kg_url( 'about' ) ); ?>"><?php kg_e( 'nav.about' ); ?></a></li>
-				<li><a href="<?php echo esc_url( kg_url( 'schools' ) ); ?>"><?php kg_e( 'nav.schools' ); ?></a></li>
 				<li><a href="<?php echo esc_url( kg_url( 'sponsors' ) ); ?>"><?php kg_e( 'nav.sponsors' ); ?></a></li>
 				<li><a href="/assets/pdf/privacy-policy.pdf" download class="kg-footer__pdf"><?php kg_e( 'footer.privacy' ); ?></a></li>
 				<li><a href="/assets/pdf/terms-of-service.pdf" download class="kg-footer__pdf"><?php kg_e( 'footer.terms' ); ?></a></li>
+				<li><a href="/assets/pdf/cookie-policy.pdf" download class="kg-footer__pdf"><?php kg_e( 'footer.cookie_policy' ); ?></a></li>
+				<li><a href="/assets/pdf/childrens-privacy-notice.pdf" download class="kg-footer__pdf"><?php kg_e( 'footer.childrens_privacy' ); ?></a></li>
 			</ul>
 		</nav>
 
