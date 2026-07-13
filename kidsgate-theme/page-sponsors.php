@@ -187,6 +187,8 @@ get_header();
 		<?php kg_section_head( 'sponsors.form' ); ?>
 		<div class="kg-schools-form">
 			<form data-kg-support-form data-kg-form-subject="The Kids Gate: Sponsor Enquiry" novalidate>
+				<!-- Honeypot: hidden from humans, dropped server-side when filled. -->
+				<input type="text" name="kg_website" tabindex="-1" autocomplete="off" aria-hidden="true" class="kg-visually-hidden">
 				<div class="kg-form-grid">
 					<div class="kg-field">
 						<label for="kg-sponsor-name"><?php kg_e( 'sponsors.form.name' ); ?></label>

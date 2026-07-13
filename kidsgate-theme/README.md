@@ -88,9 +88,13 @@ currently routes to `/support/` (no checkout yet).
 
 ## 8. Integration placeholders (documented, not faked)
 
-- **Support / school enquiry forms**: UI + validation complete; submissions only fire
-  analytics events. Wire the submit handlers in `assets/js/support.js` to a backend
-  (admin-post.php, REST, or a form service) — the placeholder is clearly marked there.
+- **Support / school / sponsor enquiry forms**: delivered by email via the
+  `kg/v1/enquiry` REST endpoint (`functions.php`), which sends to the configured
+  support address through `wp_mail()` with honeypot + rate-limit protection. If the
+  endpoint is unreachable (or in the `tests/preview.php` harness, which has no REST
+  API), `assets/js/support.js` falls back to opening a pre-filled `mailto:` draft.
+  On production, install an SMTP plugin (e.g. WP Mail SMTP) — bare `wp_mail()`
+  relies on PHP `mail()`, which many hosts don't deliver reliably.
 - **Support email**: `support@kidsgate.example` placeholder in `inc/config.php`; set the
   real address in the Customizer (templates label it as a placeholder until then).
 - **Store links / QR code**: `#` placeholders until the listings exist.

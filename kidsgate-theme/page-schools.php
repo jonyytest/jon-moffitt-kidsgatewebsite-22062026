@@ -200,6 +200,8 @@ $dash_bubbles = array( 'kg-bubble--teal', 'kg-bubble--amber', 'kg-bubble--red', 
 		<p class="kg-schools-savings" data-kg-reveal><?php kg_e( 'schools.form.pricing_note' ); ?></p>
 		<div class="kg-schools-form">
 			<form data-kg-support-form data-kg-form-subject="The Kids Gate: School Enquiry" novalidate>
+				<!-- Honeypot: hidden from humans, dropped server-side when filled. -->
+				<input type="text" name="kg_website" tabindex="-1" autocomplete="off" aria-hidden="true" class="kg-visually-hidden">
 				<div class="kg-form-grid">
 					<div class="kg-field">
 						<label for="kg-school-name"><?php kg_e( 'schools.form.name' ); ?></label>

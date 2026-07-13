@@ -50,12 +50,16 @@
 		if (!faqWrap) { return; }
 		if (resetPage) { shownCount = PAGE_SIZE; }
 		var q = search ? search.value.trim().toLowerCase() : '';
+		// Split into words and require each one somewhere in the item's text,
+		// so "forgot password" matches even when the words aren't adjacent.
+		// Thai/Chinese queries rarely contain spaces and pass through as one term.
+		var terms = q ? q.split(/\s+/) : [];
 		var matchCount = 0;
 		var shown = 0;
 		faqWrap.querySelectorAll('.kg-faq__item').forEach(function (item) {
 			var text = item.getAttribute('data-kg-faq-text') || '';
 			var cat = item.getAttribute('data-kg-faq-cat') || '';
-			var matches = (!q || text.indexOf(q) !== -1) && (activeCat === 'all' || cat === activeCat);
+			var matches = (activeCat === 'all' || cat === activeCat) && terms.every(function (t) { return text.indexOf(t) !== -1; });
 			if (!matches) { item.style.display = 'none'; return; }
 			matchCount++;
 			if (shown < shownCount) {
@@ -103,14 +107,13 @@
 	/* ----------------------------------------------------------------
 	 * Support / Schools / Sponsors forms.
 	 *
-	 * On submit: validates required fields, builds a mailto: URL using the
-	 * form's data-kg-form-subject attribute as the email subject, collects
-	 * all named inputs into the body, then opens the user's email client.
-	 * Shows the success state after opening the mailto.
-	 *
-	 * Replace the mailto dispatch with a fetch() to a real backend endpoint
-	 * when one is available — the subject attribute and field collection
-	 * logic can stay as-is.
+	 * On submit: validates required fields, then delivers the enquiry.
+	 * When WordPress is serving the page, KG_DATA.rest_url points at the
+	 * kg/v1/enquiry endpoint (functions.php) and the form POSTs there —
+	 * the server emails the support inbox via wp_mail(). If the endpoint
+	 * is absent (tests/preview.php harness) or the request fails (network,
+	 * stale nonce 403, mail error 500), the handler falls back to opening
+	 * a pre-filled mailto: draft so the enquiry is never silently lost.
 	 * -------------------------------------------------------------- */
 	var form = document.querySelector('[data-kg-support-form]');
 	if (form) {
@@ -132,24 +135,57 @@
 				topic: (form.querySelector('[name="kg_topic"]') || {}).value || ''
 			});
 
-			// Build mailto with distinct subject per form and all field values in body
+			// Collect every named field once: as key/value pairs for the REST
+			// payload and as "Label: value" lines for the mailto body. The topic
+			// <option>s carry no value attribute, so field.value is already the
+			// human-readable label in the page's language.
 			var subject = form.getAttribute('data-kg-form-subject') || 'The Kids Gate Enquiry';
+			var payload = {};
 			var lines = [];
 			form.querySelectorAll('[name]').forEach(function (field) {
 				if (!field.name || field.type === 'submit') { return; }
+				payload[field.name] = field.value.trim();
 				var label = field.closest('.kg-field') && field.closest('.kg-field').querySelector('label');
 				var key = label ? label.textContent.trim().replace(/:$/, '') : field.name;
 				if (field.value.trim()) { lines.push(key + ': ' + field.value.trim()); }
 			});
-			var to = (typeof KG_DATA !== 'undefined' && KG_DATA.support_email) ? KG_DATA.support_email : 'support@thekidsgate.com';
-			var mailto = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
-			window.location.href = mailto;
 
-			form.hidden = true;
-			var success = document.querySelector('[data-kg-support-form-success]');
-			if (success) {
-				success.hidden = false;
-				success.focus();
+			function showSuccess() {
+				form.hidden = true;
+				var success = document.querySelector('[data-kg-support-form-success]');
+				if (success) {
+					success.hidden = false;
+					success.focus();
+				}
+			}
+			function sendMailto() {
+				var to = (typeof KG_DATA !== 'undefined' && KG_DATA.support_email) ? KG_DATA.support_email : 'support@thekidsgate.com';
+				window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+				showSuccess();
+			}
+
+			if (window.KG_DATA && KG_DATA.rest_url && window.fetch) {
+				var submitBtn = form.querySelector('[type="submit"]');
+				if (submitBtn) { submitBtn.disabled = true; }
+				payload.subject = subject;
+				payload.page_url = window.location.href;
+				payload.locale = document.documentElement.lang || '';
+				fetch(KG_DATA.rest_url, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-WP-Nonce': KG_DATA.nonce || ''
+					},
+					body: JSON.stringify(payload)
+				}).then(function (res) {
+					if (res.ok) { showSuccess(); } else { sendMailto(); }
+				}).catch(function () {
+					sendMailto();
+				}).then(function () {
+					if (submitBtn) { submitBtn.disabled = false; }
+				});
+			} else {
+				sendMailto();
 			}
 		});
 	}
@@ -266,7 +302,10 @@
 	var lastQuery = '';
 
 	/* Flat search index over the whole tree: plain lowercase substring
-	 * matching, which also works for Thai/Chinese where spaces are rare. */
+	 * matching, which also works for Thai/Chinese where spaces are rare.
+	 * Nodes and FAQ items may carry an optional `kw` string of hidden,
+	 * locale-specific synonyms ("cost price fee") that are indexed but
+	 * never displayed. */
 	var searchIndex = [];
 	(function buildIndex(nodes, parents, rootId) {
 		nodes.forEach(function (node) {
@@ -279,7 +318,7 @@
 				parents: parents,
 				rootId: root,
 				labelLc: node.label.toLowerCase(),
-				textLc: (node.label + ' ' + answerText + ' ' + childLabels).toLowerCase()
+				textLc: (node.label + ' ' + answerText + ' ' + childLabels + ' ' + (node.kw || '')).toLowerCase()
 			});
 			if (node.children) { buildIndex(node.children, parents.concat([nodes]), root); }
 		});
@@ -298,7 +337,7 @@
 			parents: [],
 			rootId: FAQ_TOPIC[item.cat] || 'contact',
 			labelLc: item.q.toLowerCase(),
-			textLc: (item.q + ' ' + answerText).toLowerCase()
+			textLc: (item.q + ' ' + answerText + ' ' + (item.kw || '')).toLowerCase()
 		});
 	});
 

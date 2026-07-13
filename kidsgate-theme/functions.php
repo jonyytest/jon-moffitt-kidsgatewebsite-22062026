@@ -573,11 +573,108 @@ function kg_enqueue_assets() {
 
 	// support.js powers the guided helper and form validation globally.
 	wp_enqueue_script( 'kg-support', kg_asset( 'js/support.js' ), array(), KG_VERSION, true );
-	wp_localize_script( 'kg-support', 'KG_DATA', array(
+	$kg_data = array(
 		'support_email' => kg_support_email(),
-	) );
+	);
+	// rest_url() does not exist in the tests/preview.php harness — omitting it
+	// there keeps the preview's forms on the mailto fallback path (support.js
+	// feature-detects KG_DATA.rest_url before attempting a fetch).
+	if ( function_exists( 'rest_url' ) ) {
+		$kg_data['rest_url'] = esc_url_raw( rest_url( 'kg/v1/enquiry' ) );
+		$kg_data['nonce']    = wp_create_nonce( 'wp_rest' );
+	}
+	wp_localize_script( 'kg-support', 'KG_DATA', $kg_data );
 }
 add_action( 'wp_enqueue_scripts', 'kg_enqueue_assets' );
+
+/**
+ * Enquiry endpoint — receives the Support / Schools / Sponsors form
+ * submissions from support.js and delivers them to the support inbox via
+ * wp_mail(). On any failure the client falls back to its mailto: path, so
+ * a lost request degrades to an opened email draft rather than silence.
+ */
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'kg/v1', '/enquiry', array(
+		'methods'             => 'POST',
+		'callback'            => 'kg_handle_enquiry',
+		'permission_callback' => '__return_true', // Public form; abuse handled in the callback.
+	) );
+} );
+
+function kg_handle_enquiry( WP_REST_Request $r ) {
+	// Honeypot: bots fill every field. Pretend success so they don't adapt.
+	if ( '' !== trim( (string) $r->get_param( 'kg_website' ) ) ) {
+		return rest_ensure_response( array( 'ok' => true ) );
+	}
+
+	// Rate limit: max 5 submissions per IP per 10 minutes.
+	$ip    = isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '';
+	$key   = 'kg_enq_' . md5( $ip );
+	$count = (int) get_transient( $key );
+	if ( $count >= 5 ) {
+		return new WP_Error( 'kg_rate_limited', 'Too many requests. Please try again later.', array( 'status' => 429 ) );
+	}
+	set_transient( $key, $count + 1, 10 * MINUTE_IN_SECONDS );
+
+	// The subject doubles as the form identifier; only the three known forms
+	// are accepted. Must match the data-kg-form-subject attributes exactly.
+	$subject_whitelist = array(
+		'The Kids Gate: Support Request',
+		'The Kids Gate: School Enquiry',
+		'The Kids Gate: Sponsor Enquiry',
+	);
+	$subject = sanitize_text_field( (string) $r->get_param( 'subject' ) );
+	if ( ! in_array( $subject, $subject_whitelist, true ) ) {
+		return new WP_Error( 'kg_bad_subject', 'Unknown form.', array( 'status' => 400 ) );
+	}
+
+	$name  = sanitize_text_field( (string) $r->get_param( 'kg_name' ) );
+	$email = sanitize_email( (string) $r->get_param( 'kg_email' ) );
+	if ( '' === $name || ! is_email( $email ) ) {
+		return new WP_Error( 'kg_bad_input', 'A name and a valid email address are required.', array( 'status' => 400 ) );
+	}
+
+	// Body: every kg_* field the form sent, in a readable label: value list.
+	// The message is optional (the Schools and Sponsors forms don't require it).
+	$labels = array(
+		'kg_name'     => 'Name',
+		'kg_email'    => 'Email',
+		'kg_topic'    => 'Topic',
+		'kg_account'  => 'Account details',
+		'kg_school'   => 'School',
+		'kg_students' => 'Number of students',
+		'kg_level'    => 'Sponsorship level',
+		'kg_org'      => 'Organisation',
+		'kg_budget'   => 'Budget',
+		'kg_message'  => 'Message',
+	);
+	$lines = array();
+	foreach ( $labels as $field => $label ) {
+		$value = (string) $r->get_param( $field );
+		$value = 'kg_message' === $field
+			? sanitize_textarea_field( mb_substr( $value, 0, 5000 ) )
+			: sanitize_text_field( $value );
+		if ( '' !== trim( $value ) ) {
+			$lines[] = $label . ': ' . $value;
+		}
+	}
+	$lines[] = '';
+	$lines[] = 'Sent from: ' . esc_url_raw( (string) $r->get_param( 'page_url' ) );
+	$lines[] = 'Locale: ' . sanitize_text_field( (string) $r->get_param( 'locale' ) );
+
+	$sent = wp_mail(
+		kg_support_email(),
+		$subject,
+		implode( "\n", $lines ),
+		array( 'Reply-To: ' . $name . ' <' . $email . '>' )
+	);
+
+	if ( ! $sent ) {
+		// 500 tells support.js to fall back to the mailto path.
+		return new WP_Error( 'kg_mail_failed', 'Could not send the message.', array( 'status' => 500 ) );
+	}
+	return rest_ensure_response( array( 'ok' => true ) );
+}
 
 // GA4 events are emitted by main.js through dataLayer.
 function kg_gtm_head() {
@@ -1065,6 +1162,7 @@ function kg_render_helper() {
 		'{schools_url}'   => esc_url( kg_url( 'schools' ) ),
 		'{pricing_url}'   => esc_url( kg_url( 'pricing' ) ),
 		'{parents_url}'   => esc_url( kg_url( 'parents' ) ),
+		'{sponsors_url}'  => esc_url( kg_url( 'sponsors' ) ),
 		'{support_url}'   => esc_url( kg_url( 'support' ) ),
 		'{support_email}' => esc_html( kg_support_email() ),
 	);
@@ -1098,6 +1196,9 @@ function kg_render_helper() {
 			'q'        => $item['q'],
 			'a'        => strtr( $item['a'], $replacements ),
 			'cat'      => isset( $item['cat'] ) ? $item['cat'] : 'product',
+			// Optional hidden search synonyms — indexed by the widget's
+			// free-text search, never displayed.
+			'kw'       => isset( $item['kw'] ) ? $item['kw'] : '',
 			// Items whose resolution is "contact us" show the widget's
 			// go-to-support-form button instead of "Was this helpful?".
 			'escalate' => ! empty( $item['escalate'] ),

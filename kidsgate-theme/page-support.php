@@ -13,6 +13,7 @@ $replacements = array(
 	'{schools_url}'   => esc_url( kg_url( 'schools' ) ),
 	'{pricing_url}'   => esc_url( kg_url( 'pricing' ) ),
 	'{parents_url}'   => esc_url( kg_url( 'parents' ) ),
+	'{sponsors_url}'  => esc_url( kg_url( 'sponsors' ) ),
 	'{support_email}' => esc_html( $support_email ),
 );
 
@@ -70,7 +71,13 @@ $faq_items[] = array(
 		<!-- FAQ -->
 		<div class="kg-faq" data-kg-faq data-kg-faq-context="support">
 			<?php foreach ( $faq_items as $i => $item ) : ?>
-				<div class="kg-faq__item" data-kg-reveal style="--kg-delay:<?php echo (int) ( min( $i, 6 ) * 50 ); ?>ms" data-kg-faq-cat="<?php echo esc_attr( $item['cat'] ); ?>" data-kg-faq-text="<?php echo esc_attr( strtolower( wp_strip_all_tags( $item['q'] . ' ' . $item['a'] ) ) ); ?>">
+				<?php
+				// Optional hidden `kw` synonyms ("cost price fee") ride along in the
+				// search text so common words match even when the visible copy
+				// phrases things differently. Never displayed.
+				$search_text = $item['q'] . ' ' . $item['a'] . ( isset( $item['kw'] ) ? ' ' . $item['kw'] : '' );
+				?>
+				<div class="kg-faq__item" data-kg-reveal style="--kg-delay:<?php echo (int) ( min( $i, 6 ) * 50 ); ?>ms" data-kg-faq-cat="<?php echo esc_attr( $item['cat'] ); ?>" data-kg-faq-text="<?php echo esc_attr( strtolower( wp_strip_all_tags( $search_text ) ) ); ?>">
 				<h3 class="kg-faq__q">
 					<button type="button" aria-expanded="false" aria-controls="kg-faq-panel-support-<?php echo (int) $i; ?>" id="kg-faq-btn-support-<?php echo (int) $i; ?>">
 						<span><?php echo $item['q']; // phpcs:ignore ?></span>
@@ -103,6 +110,8 @@ $faq_items[] = array(
 			<div>
 				<?php kg_section_head( 'support.form', false ); ?>
 				<form data-kg-support-form data-kg-form-subject="The Kids Gate: Support Request" novalidate>
+					<!-- Honeypot: hidden from humans, dropped server-side when filled. -->
+					<input type="text" name="kg_website" tabindex="-1" autocomplete="off" aria-hidden="true" class="kg-visually-hidden">
 					<div class="kg-form-grid">
 						<div class="kg-field">
 							<label for="kg-sup-name"><?php kg_e( 'support.form.name' ); ?></label>
