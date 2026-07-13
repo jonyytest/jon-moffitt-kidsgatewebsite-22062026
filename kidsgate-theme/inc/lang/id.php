@@ -116,8 +116,11 @@ return array(
 			),
 			'others_label' => 'Alat belajar lain',
 			'us_label'     => 'The Kids Gate',
-			'turn_title' => 'The Kids Gate mengubah keadaan',
-			'turn_text'  => 'Tutor AI dengan harga lebih murah dari berlangganan Netflix, menyesuaikan diri dengan anak Anda setiap jawaban, dan membuat mereka <strong>minta</strong> belajar setiap hari.',
+			'turn_title'   => 'The Kids Gate mengubah keadaan',
+			'turn_text'    => 'Tutor AI dengan harga lebih murah dari berlangganan Netflix, menyesuaikan diri dengan anak Anda setiap jawaban, dan membuat mereka <strong>minta</strong> belajar setiap hari.',
+			'turn_text_in' => 'Tutor AI dengan harga lebih murah dari satu sesi les privat per bulan, menyesuaikan diri dengan anak Anda setiap jawaban, dan membuat mereka <strong>minta</strong> belajar setiap hari.',
+			'turn_text_ph' => 'Tutor AI dengan harga lebih murah dari langganan Netflix Anda, menyesuaikan diri dengan anak Anda setiap jawaban, dan membuat mereka <strong>minta</strong> belajar setiap hari.',
+			'turn_text_id' => 'Tutor AI dengan harga lebih murah dari berlangganan Netflix, menyesuaikan diri dengan anak Anda setiap jawaban, dan membuat mereka <strong>minta</strong> belajar setiap hari.',
 		),
 
 		'loop' => array(
@@ -742,7 +745,7 @@ return array(
 			'message'       => 'Ada hal lain yang perlu kami tahu?',
 			'submit'        => 'Minta Informasi Sekolah',
 			'success_title' => 'Terima kasih, permintaan diterima',
-			'success_text'  => 'Tim sekolah kami akan membalas dalam dua hari kerja. (Catatan: backend formulir belum terhubung, kiriman ini hanya tercatat untuk analitik. Lihat email bantuan di footer untuk pertanyaan mendesak.)',
+			'success_text'  => 'Tim sekolah kami akan membalas dalam dua hari kerja.',
 		),
 	),
 
@@ -997,7 +1000,7 @@ return array(
 			'message'       => 'Ceritakan lebih lanjut (opsional)',
 			'submit'        => 'Kirim Permintaan Sponsor',
 			'success_title' => 'Permintaan diterima',
-			'success_text'  => 'Terima kasih atas minat Anda bermitra dengan The Kids Gate! Catatan untuk pemilik situs: backend email belum terhubung, jadi pengiriman ini hanya direkam untuk analitik. Sampai terhubung, mohon email juga ke alamat di bawah untuk respons yang pasti.',
+			'success_text'  => 'Terima kasih atas minat Anda bermitra dengan The Kids Gate! Tim kami akan membalas dalam dua hari kerja.',
 		),
 		'cta' => array(
 			'title' => 'Mari ciptakan sesuatu yang luar biasa untuk anak-anak',
@@ -1014,6 +1017,13 @@ return array(
 		'search_placeholder' => 'Cari jawaban, coba "uji coba" atau "mata pelajaran"',
 		'no_results'         => 'Tidak ada jawaban yang cocok. Coba kata lain, atau kirim pesan kepada kami di bawah.',
 		'faq_more'           => 'Lihat pertanyaan lainnya',
+		'popular_label'      => 'Paling sering ditanya:',
+		'filter_label'       => 'Saring menurut topik',
+		'cats_all'           => 'Semua topik',
+		'results_count'      => '{n} jawaban',
+		'sort_label'         => 'Urutkan',
+		'sort_suggested'     => 'Disarankan',
+		'sort_az'            => 'Sesuai abjad',
 		'cats' => array(
 			'plans'   => 'Paket & harga',
 			'product' => 'Menggunakan The Kids Gate',
@@ -1022,11 +1032,13 @@ return array(
 		'faq_items' => array(
 			array(
 				'cat' => 'product',
+				'pop' => true,
 				'q'   => 'Apa itu The Kids Gate?',
 				'a'   => 'The Kids Gate adalah platform belajar berbasis AI untuk anak usia 5–12 tahun. Menyediakan pelajaran Cambridge English dan Matematika Internasional untuk Kelas 1–6 lewat permainan, cerita, kuis, lagu, teka-teki, dan aktivitas interaktif lainnya.',
 			),
 			array(
 				'cat' => 'plans',
+				'pop' => true,
 				'q'   => 'Bagaimana cara kerja uji coba gratis 30 hari?',
 				'a'   => 'Keluarga dapat mencoba The Kids Gate gratis selama 30 hari. Tidak perlu kartu kredit untuk memulai, dan Anda bisa berhenti kapan saja.',
 			),
@@ -1042,6 +1054,7 @@ return array(
 			),
 			array(
 				'cat' => 'product',
+				'pop' => true,
 				'q'   => 'Mata pelajaran apa saja yang tersedia?',
 				'a'   => 'Anak dapat belajar Cambridge English, Matematika Internasional, atau keduanya.',
 			),
@@ -1077,6 +1090,7 @@ return array(
 			),
 			array(
 				'cat' => 'account',
+				'pop' => true,
 				'q'   => 'Bagaimana cara mengubah atau membatalkan paket saya?',
 				'a'   => 'Alat pengelolaan akun segera hadir di aplikasi. Sementara itu, kirimkan pesan lewat formulir bantuan di bawah, atau email kami, dan akan kami bereskan dengan cepat.',
 			),
@@ -1122,6 +1136,7 @@ return array(
 			),
 			array(
 				'cat' => 'plans',
+				'pop' => true,
 				'q'   => 'Bagaimana cara membayar setelah masa uji coba gratis berakhir?',
 				'a'   => 'Pembayaran online yang aman masih dalam proses penyambungan, jadi untuk saat ini pembayaran belum bisa dilakukan lewat situs. Tim bantuan kami akan membantu mengaktifkan langganan Anda, kirim pesan lewat formulir bantuan atau email.',
 			),
@@ -1148,8 +1163,14 @@ return array(
 			'account'       => 'Email akun atau nama profil anak (opsional)',
 			'message'       => 'Apa yang bisa kami bantu?',
 			'submit'        => 'Kirim Permintaan Bantuan',
+			'sending'       => 'Mengirim…',
+			'error_generic' => 'Pesan tidak dapat terkirim langsung, jadi aplikasi email Anda terbuka dengan pesan yang sudah terisi — cukup tekan kirim di sana.',
+			'err_required'  => 'Mohon isi kolom ini.',
+			'err_email'     => 'Mohon masukkan alamat email yang valid.',
+			'chars_left'    => 'Sisa {n} karakter',
+			'response_note' => 'Kami membalas dalam dua hari kerja.',
 			'success_title' => 'Permintaan diterima',
-			'success_text'  => 'Terima kasih sudah menghubungi! Catatan untuk pemilik situs: backend email belum terhubung, jadi kiriman ini hanya tercatat untuk analitik. Sampai terhubung, mohon juga email alamat bantuan di bawah untuk respons yang terjamin.',
+			'success_text'  => 'Terima kasih sudah menghubungi! Pesan Anda sedang dikirim ke tim bantuan kami, dan orang sungguhan akan membalas dalam dua hari kerja.',
 			'email_label'   => 'Lebih suka email?',
 		),
 		'links' => array(

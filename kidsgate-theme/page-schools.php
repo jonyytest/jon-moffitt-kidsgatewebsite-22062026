@@ -200,6 +200,11 @@ $dash_bubbles = array( 'kg-bubble--teal', 'kg-bubble--amber', 'kg-bubble--red', 
 		<p class="kg-schools-savings" data-kg-reveal><?php kg_e( 'schools.form.pricing_note' ); ?></p>
 		<div class="kg-schools-form">
 			<form data-kg-support-form data-kg-form-subject="The Kids Gate: School Enquiry" novalidate>
+				<input type="hidden" name="action" value="kg_form">
+				<input type="hidden" name="kg_kind" value="schools">
+				<?php wp_nonce_field( 'kg_form', 'kg_form_nonce' ); ?>
+				<!-- Honeypot: hidden from people, tempting to bots. -->
+				<p class="kg-hp" aria-hidden="true"><label>Website<input type="text" name="kg_website" tabindex="-1" autocomplete="off"></label></p>
 				<div class="kg-form-grid">
 					<div class="kg-field">
 						<label for="kg-school-name"><?php kg_e( 'schools.form.name' ); ?></label>

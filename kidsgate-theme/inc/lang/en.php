@@ -754,7 +754,7 @@ return array(
 			'message'     => 'Anything else we should know?',
 			'submit'      => 'Request School Information',
 			'success_title' => 'Thank you, request received',
-			'success_text'  => 'Our schools team will reply within two working days. (Note: the enquiry backend is not yet connected, this submission is recorded for analytics only. See the support email in the footer for urgent enquiries.)',
+			'success_text'  => 'Our schools team will reply within two working days.',
 		),
 	),
 
@@ -1012,7 +1012,7 @@ return array(
 			'message'       => 'Tell us more (optional)',
 			'submit'        => 'Send Sponsorship Enquiry',
 			'success_title' => 'Enquiry received',
-			'success_text'  => 'Thanks for your interest in partnering with The Kids Gate! Note for the site owners: the email backend is not yet connected, so this submission was recorded for analytics only. Until it is wired up, please also email the address below for a guaranteed response.',
+			'success_text'  => 'Thanks for your interest in partnering with The Kids Gate! Our team will reply within two working days.',
 		),
 		'cta' => array(
 			'title' => 'Let\'s build something brilliant for children',
@@ -1030,6 +1030,13 @@ return array(
 		'search_placeholder' => 'Search for answers, try "trial" or "subjects"',
 		'no_results' => 'No answers match your search. Try different words, or send us a message below.',
 		'faq_more'   => 'See more questions',
+		'popular_label'  => 'Most asked:',
+		'filter_label'   => 'Filter by topic',
+		'cats_all'       => 'All topics',
+		'results_count'  => '{n} answers',
+		'sort_label'     => 'Sort',
+		'sort_suggested' => 'Suggested',
+		'sort_az'        => 'A to Z',
 		'cats' => array(
 			'plans'   => 'Plans & pricing',
 			'product' => 'Using The Kids Gate',
@@ -1038,11 +1045,13 @@ return array(
 		'faq_items' => array(
 			array(
 				'cat' => 'product',
+				'pop' => true,
 				'q'   => 'What is The Kids Gate?',
 				'a'   => 'The Kids Gate is an AI-powered learning platform for children aged 5–12. It offers Cambridge English and International Maths lessons for Grades 1–6 through games, stories, quizzes, songs, puzzles and other interactive activities.',
 			),
 			array(
 				'cat' => 'plans',
+				'pop' => true,
 				'q'   => 'How does the 30-day free trial work?',
 				'a'   => 'Families can try The Kids Gate free for 30 days. No credit card is required to start the trial, and you can cancel at any time.',
 			),
@@ -1058,6 +1067,7 @@ return array(
 			),
 			array(
 				'cat' => 'product',
+				'pop' => true,
 				'q'   => 'Which subjects are available?',
 				'a'   => 'Children can study Cambridge English, International Maths, or both subjects.',
 			),
@@ -1093,6 +1103,7 @@ return array(
 			),
 			array(
 				'cat' => 'account',
+				'pop' => true,
 				'q'   => 'How do I change or cancel my plan?',
 				'a'   => 'Account-management tools are coming to the app. Until then, send us a message with the support form below, or email us, and we\'ll sort it out quickly.',
 			),
@@ -1138,6 +1149,7 @@ return array(
 			),
 			array(
 				'cat' => 'plans',
+				'pop' => true,
 				'q'   => 'How do I pay once the free trial ends?',
 				'a'   => 'Secure online checkout is still being connected, so payments can\'t be made on the website just yet. Our support team will help you set up your subscription, send us a message through the support form or by email.',
 			),
@@ -1164,8 +1176,14 @@ return array(
 			'account' => 'Account email or child profile name (optional)',
 			'message' => 'How can we help?',
 			'submit'  => 'Send Support Request',
+			'sending'       => 'Sending…',
+			'error_generic' => 'We couldn\'t send this directly, so your email app has opened with the message pre-filled — just press send there.',
+			'err_required'  => 'Please fill in this field.',
+			'err_email'     => 'Please enter a valid email address.',
+			'chars_left'    => '{n} characters left',
+			'response_note' => 'We reply within two working days.',
 			'success_title' => 'Request received',
-			'success_text'  => 'Thanks for reaching out! Note for the site owners: the email backend is not yet connected, so this submission was recorded for analytics only. Until it\'s wired up, please also email the support address below for a guaranteed response.',
+			'success_text'  => 'Thanks for reaching out! Your message is on its way to our support team, and a real person will reply within two working days.',
 			'email_label' => 'Prefer email?',
 		),
 		'links' => array(

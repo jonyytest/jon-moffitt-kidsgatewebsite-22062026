@@ -44,6 +44,10 @@ $GLOBALS['kg_inline']  = array();
 function get_template_directory() { return $GLOBALS['kg_theme_root']; }
 function get_template_directory_uri() { return ''; }
 function home_url( $path = '/' ) { return $path; }
+function admin_url( $path = '' ) { return '/wp-admin/' . $path; }
+function wp_nonce_field( $action = -1, $name = '_wpnonce', $referer = true ) {
+	echo '<input type="hidden" name="' . esc_attr( $name ) . '" value="preview-nonce">';
+}
 function add_query_arg( $key, $value ) {
 	$params = $_GET;
 	$params[ $key ] = $value;

@@ -21,13 +21,19 @@
 		if (window.kgTrack) { window.kgTrack(name, params); }
 	}
 
+	/* Localised UI strings arrive via wp_localize_script as KG_DATA.strings;
+	 * every use carries an English fallback for the preview harness. */
+	var S = (typeof KG_DATA !== 'undefined' && KG_DATA.strings) || {};
+
 	/* ----------------------------------------------------------------
-	 * FAQ search + category filter
+	 * FAQ search + category pills + sort
 	 * -------------------------------------------------------------- */
 	var search = document.querySelector('[data-kg-support-search]');
 	var faqWrap = document.querySelector('[data-kg-faq-context="support"]');
 	var emptyMsg = document.querySelector('.kg-faq__empty');
 	var catButtons = document.querySelectorAll('[data-kg-support-cat]');
+	var countEl = document.querySelector('[data-kg-faq-count]');
+	var sortSelect = document.querySelector('[data-kg-faq-sort]');
 	var activeCat = 'all';
 
 	/* Progressive disclosure: show PAGE_SIZE questions at a time within the
@@ -41,6 +47,51 @@
 	var moreLabel = document.querySelector('[data-kg-faq-more-label]');
 	var moreLabelBase = moreLabel ? moreLabel.textContent : '';
 
+	/* Item index. Array order always mirrors DOM order (sortItems keeps both
+	 * in sync), so pagination follows whatever order is on screen. Each item
+	 * remembers its question span's original text so search highlighting can
+	 * be applied and undone without touching markup. */
+	var faqItems = [];
+	if (faqWrap) {
+		faqWrap.querySelectorAll('.kg-faq__item').forEach(function (item, i) {
+			var qSpan = item.querySelector('.kg-faq__q button span');
+			faqItems.push({
+				el: item,
+				order: i,
+				cat: item.getAttribute('data-kg-faq-cat') || '',
+				text: item.getAttribute('data-kg-faq-text') || '',
+				qSpan: qSpan,
+				qText: qSpan ? qSpan.textContent : ''
+			});
+		});
+	}
+
+	/* Rebuild a question label with <mark> around case-insensitive matches —
+	 * assembled from text nodes, never concatenated HTML. */
+	function highlightQuestion(entry, q) {
+		if (!entry.qSpan) { return; }
+		var at = q ? entry.qText.toLowerCase().indexOf(q) : -1;
+		if (at === -1) {
+			if (entry.qSpan.textContent !== entry.qText) { entry.qSpan.textContent = entry.qText; }
+			return;
+		}
+		var lower = entry.qText.toLowerCase();
+		var frag = document.createDocumentFragment();
+		var pos = 0;
+		while (at !== -1) {
+			if (at > pos) { frag.appendChild(document.createTextNode(entry.qText.slice(pos, at))); }
+			var mark = document.createElement('mark');
+			mark.className = 'kg-mark';
+			mark.textContent = entry.qText.slice(at, at + q.length);
+			frag.appendChild(mark);
+			pos = at + q.length;
+			at = lower.indexOf(q, pos);
+		}
+		if (pos < entry.qText.length) { frag.appendChild(document.createTextNode(entry.qText.slice(pos))); }
+		entry.qSpan.textContent = '';
+		entry.qSpan.appendChild(frag);
+	}
+
 	/* resetPage: restart at the first PAGE_SIZE (used when the filter changes).
 	 * forceReveal: mark newly shown items visible immediately — the reveal
 	 * observer never fired for items that were display:none, so a filter or
@@ -52,21 +103,37 @@
 		var q = search ? search.value.trim().toLowerCase() : '';
 		var matchCount = 0;
 		var shown = 0;
-		faqWrap.querySelectorAll('.kg-faq__item').forEach(function (item) {
-			var text = item.getAttribute('data-kg-faq-text') || '';
-			var cat = item.getAttribute('data-kg-faq-cat') || '';
-			var matches = (!q || text.indexOf(q) !== -1) && (activeCat === 'all' || cat === activeCat);
-			if (!matches) { item.style.display = 'none'; return; }
+		var catCounts = { all: 0 };
+		faqItems.forEach(function (entry) {
+			// Per-category counts follow the search text only, so every pill
+			// shows how many answers it would reveal for the current query.
+			var textMatch = !q || entry.text.indexOf(q) !== -1;
+			if (textMatch) {
+				catCounts.all++;
+				catCounts[entry.cat] = (catCounts[entry.cat] || 0) + 1;
+			}
+			if (!textMatch || (activeCat !== 'all' && entry.cat !== activeCat)) {
+				entry.el.style.display = 'none';
+				return;
+			}
 			matchCount++;
+			highlightQuestion(entry, q);
 			if (shown < shownCount) {
-				item.style.display = '';
-				if (forceReveal) { item.classList.add('is-in'); }
+				entry.el.style.display = '';
+				if (forceReveal) { entry.el.classList.add('is-in'); }
 				shown++;
 			} else {
-				item.style.display = 'none';
+				entry.el.style.display = 'none';
 			}
 		});
 		if (emptyMsg) { emptyMsg.style.display = matchCount === 0 ? 'block' : 'none'; }
+		if (countEl) {
+			countEl.textContent = (S.results_count || '{n} answers').replace('{n}', matchCount);
+		}
+		catButtons.forEach(function (btn) {
+			var badge = btn.querySelector('[data-kg-cat-count]');
+			if (badge) { badge.textContent = catCounts[btn.getAttribute('data-kg-support-cat')] || 0; }
+		});
 		if (moreWrap) {
 			var remaining = matchCount - shown;
 			moreWrap.hidden = remaining <= 0;
@@ -79,14 +146,34 @@
 	if (search) { search.addEventListener('input', function () { applyFilter(true, true); }); }
 	catButtons.forEach(function (btn) {
 		btn.addEventListener('click', function () {
-			var cat = btn.getAttribute('data-kg-support-cat');
-			activeCat = activeCat === cat ? 'all' : cat;
+			activeCat = btn.getAttribute('data-kg-support-cat');
 			catButtons.forEach(function (b) {
 				b.setAttribute('aria-pressed', b.getAttribute('data-kg-support-cat') === activeCat ? 'true' : 'false');
 			});
 			applyFilter(true, true);
 		});
 	});
+
+	/* Sort: "suggested" is the authored order, "az" sorts by question text in
+	 * the page language. Reordering moves the real DOM nodes (kept before the
+	 * empty-state sentinel) and re-syncs the faqItems array to match. */
+	function sortItems(mode) {
+		faqItems.sort(function (a, b) {
+			return mode === 'az'
+				? a.qText.localeCompare(b.qText, document.documentElement.lang || undefined)
+				: a.order - b.order;
+		});
+		faqItems.forEach(function (entry) {
+			faqWrap.insertBefore(entry.el, emptyMsg);
+		});
+	}
+	if (sortSelect) {
+		sortSelect.addEventListener('change', function () {
+			sortItems(sortSelect.value);
+			applyFilter(true, true);
+			track('support_faq_sort', { order: sortSelect.value });
+		});
+	}
 
 	if (moreBtn) {
 		moreBtn.addEventListener('click', function () {
@@ -96,6 +183,32 @@
 		});
 	}
 
+	/* "Most asked" chips jump straight to one FAQ item: clear the filters so
+	 * it's guaranteed to match, page far enough that progressive disclosure
+	 * can't hide it, then open and scroll to it. */
+	document.querySelectorAll('[data-kg-faq-jump]').forEach(function (chip) {
+		chip.addEventListener('click', function () {
+			var idx = chip.getAttribute('data-kg-faq-jump');
+			var target = null;
+			faqItems.forEach(function (entry, i) {
+				if (entry.el.getAttribute('data-kg-faq-index') === idx) { target = { entry: entry, pos: i }; }
+			});
+			if (!target) { return; }
+			if (search) { search.value = ''; }
+			activeCat = 'all';
+			catButtons.forEach(function (b) {
+				b.setAttribute('aria-pressed', b.getAttribute('data-kg-support-cat') === 'all' ? 'true' : 'false');
+			});
+			shownCount = Math.max(PAGE_SIZE, target.pos + 1);
+			applyFilter(false, true);
+			var btn = target.entry.el.querySelector('.kg-faq__q button');
+			if (btn && btn.getAttribute('aria-expanded') !== 'true') { btn.click(); }
+			target.entry.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			if (btn) { btn.focus({ preventScroll: true }); }
+			track('support_faq_popular', { faq_index: idx });
+		});
+	});
+
 	// Establish the initial 10-question window (no forced reveal, so the first
 	// batch still animates in on scroll).
 	applyFilter(false, false);
@@ -103,24 +216,79 @@
 	/* ----------------------------------------------------------------
 	 * Support / Schools / Sponsors forms.
 	 *
-	 * On submit: validates required fields, builds a mailto: URL using the
-	 * form's data-kg-form-subject attribute as the email subject, collects
-	 * all named inputs into the body, then opens the user's email client.
-	 * Shows the success state after opening the mailto.
-	 *
-	 * Replace the mailto dispatch with a fetch() to a real backend endpoint
-	 * when one is available — the subject attribute and field collection
-	 * logic can stay as-is.
+	 * On submit: validates required fields (with inline error messages
+	 * where the template provides .kg-field__error slots), then POSTs the
+	 * form as FormData to admin-post.php — inc/forms.php relays it to the
+	 * support inbox via wp_mail(). If the endpoint is missing or errors,
+	 * falls back to the previous behaviour: a mailto: draft in the
+	 * visitor's email app, so no message is ever lost.
 	 * -------------------------------------------------------------- */
 	var form = document.querySelector('[data-kg-support-form]');
 	if (form) {
+		var statusEl = form.querySelector('[data-kg-form-status]');
+		var submitBtn = form.querySelector('button[type="submit"]');
+		var submitSpan = submitBtn ? submitBtn.querySelector('span') : null;
+		var submitLabel = submitSpan ? submitSpan.textContent : '';
+
+		var setFieldError = function (field, ok) {
+			var wrap = field.closest('.kg-field');
+			if (!wrap) { return; }
+			wrap.classList.toggle('kg-field--error', !ok);
+			var errEl = wrap.querySelector('.kg-field__error');
+			if (!errEl) { return; }
+			if (ok) {
+				errEl.hidden = true;
+				errEl.textContent = '';
+				return;
+			}
+			errEl.hidden = false;
+			errEl.textContent = (field.type === 'email' && !field.validity.valueMissing)
+				? (S.err_email || 'Please enter a valid email address.')
+				: (S.err_required || 'Please fill in this field.');
+		};
+
+		// Clear a field's error as soon as the visitor fixes it.
+		form.addEventListener('input', function (e) {
+			if (e.target.closest && e.target.closest('.kg-field--error')) {
+				setFieldError(e.target, e.target.checkValidity());
+			}
+		});
+
+		var showSuccess = function () {
+			form.hidden = true;
+			var success = document.querySelector('[data-kg-support-form-success]');
+			if (success) {
+				success.hidden = false;
+				success.focus();
+			}
+		};
+
+		var restoreSubmit = function () {
+			if (submitBtn) { submitBtn.disabled = false; }
+			if (submitSpan) { submitSpan.textContent = submitLabel; }
+		};
+
+		// Previous dispatch, kept as the no-backend fallback: a mailto: draft
+		// with the form's subject attribute and every visible field value.
+		var mailtoFallback = function () {
+			var subject = form.getAttribute('data-kg-form-subject') || 'The Kids Gate Enquiry';
+			var lines = [];
+			form.querySelectorAll('[name]').forEach(function (field) {
+				if (!field.name || field.type === 'submit' || field.type === 'hidden' || field.name === 'kg_website') { return; }
+				var label = field.closest('.kg-field') && field.closest('.kg-field').querySelector('label');
+				var key = label ? label.textContent.trim().replace(/:$/, '') : field.name;
+				if (field.value.trim()) { lines.push(key + ': ' + field.value.trim()); }
+			});
+			var to = (typeof KG_DATA !== 'undefined' && KG_DATA.support_email) ? KG_DATA.support_email : 'support@thekidsgate.com';
+			window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+		};
+
 		form.addEventListener('submit', function (e) {
 			e.preventDefault();
 			var valid = true;
 			form.querySelectorAll('[required]').forEach(function (field) {
-				var wrap = field.closest('.kg-field');
 				var ok = field.checkValidity();
-				if (wrap) { wrap.classList.toggle('kg-field--error', !ok); }
+				setFieldError(field, ok);
 				if (!ok) { valid = false; }
 			});
 			if (!valid) {
@@ -132,25 +300,39 @@
 				topic: (form.querySelector('[name="kg_topic"]') || {}).value || ''
 			});
 
-			// Build mailto with distinct subject per form and all field values in body
-			var subject = form.getAttribute('data-kg-form-subject') || 'The Kids Gate Enquiry';
-			var lines = [];
-			form.querySelectorAll('[name]').forEach(function (field) {
-				if (!field.name || field.type === 'submit') { return; }
-				var label = field.closest('.kg-field') && field.closest('.kg-field').querySelector('label');
-				var key = label ? label.textContent.trim().replace(/:$/, '') : field.name;
-				if (field.value.trim()) { lines.push(key + ': ' + field.value.trim()); }
-			});
-			var to = (typeof KG_DATA !== 'undefined' && KG_DATA.support_email) ? KG_DATA.support_email : 'support@thekidsgate.com';
-			var mailto = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
-			window.location.href = mailto;
-
-			form.hidden = true;
-			var success = document.querySelector('[data-kg-support-form-success]');
-			if (success) {
-				success.hidden = false;
-				success.focus();
+			var ajaxUrl = (typeof KG_DATA !== 'undefined' && KG_DATA.ajax_url) || '';
+			if (!ajaxUrl || !window.fetch || !form.querySelector('[name="action"]')) {
+				mailtoFallback();
+				showSuccess();
+				return;
 			}
+
+			if (submitBtn) { submitBtn.disabled = true; }
+			if (submitSpan) { submitSpan.textContent = S.sending || 'Sending…'; }
+			if (statusEl) { statusEl.hidden = true; }
+
+			fetch(ajaxUrl, { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
+				.then(function (res) { return res.json(); })
+				.then(function (json) {
+					if (!json || !json.success) { throw new Error('server'); }
+					track('support_form_sent', { method: 'server' });
+					showSuccess();
+				})
+				.catch(function () {
+					// Endpoint unreachable or refused: degrade to the mailto:
+					// draft. Where the template has a status slot (support
+					// page) keep the form on screen with an honest note;
+					// elsewhere keep the legacy draft-then-success flow.
+					restoreSubmit();
+					track('support_form_sent', { method: 'mailto' });
+					mailtoFallback();
+					if (statusEl) {
+						statusEl.hidden = false;
+						statusEl.textContent = S.error_generic || 'We couldn\'t send this directly, so your email app has opened with the message pre-filled — just press send there.';
+					} else {
+						showSuccess();
+					}
+				});
 		});
 	}
 
@@ -176,6 +358,21 @@
 		if (carried && messageBox && !messageBox.value) {
 			messageBox.value = carried;
 		}
+	}
+
+	/* ----------------------------------------------------------------
+	 * Message character counter (support form only). Wired after the kg_q
+	 * prefill above so the initial count reflects any carried-over text.
+	 * -------------------------------------------------------------- */
+	var msgCount = document.querySelector('[data-kg-msg-count]');
+	var msgField = document.getElementById('kg-sup-message');
+	if (msgCount && msgField) {
+		var updateCount = function () {
+			var max = parseInt(msgField.getAttribute('maxlength'), 10) || 2000;
+			msgCount.textContent = (S.chars_left || '{n} characters left').replace('{n}', max - msgField.value.length);
+		};
+		msgField.addEventListener('input', updateCount);
+		updateCount();
 	}
 
 	/* ----------------------------------------------------------------

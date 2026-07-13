@@ -49,28 +49,56 @@ $faq_items[] = array(
 			<input type="search" id="kg-support-search-input" data-kg-support-search placeholder="<?php echo esc_attr( kg_t( 'support.search_placeholder' ) ); ?>">
 		</div>
 
-		<!-- Category filters -->
-		<div class="kg-support-cats" data-kg-reveal style="--kg-delay:100ms">
-			<?php
-			$cat_icons = array(
-				'plans'   => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-				'product' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-				'account' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 6.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7zM5 20c.8-3 3.6-5 7-5s6.2 2 7 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-			);
-			$cat_bubbles = array( 'plans' => 'kg-bubble--amber', 'product' => 'kg-bubble--teal', 'account' => 'kg-bubble--red' );
-			foreach ( kg_list( 'support.cats' ) as $cat_key => $cat_label ) :
-				?>
-				<button class="kg-card kg-support-cat" type="button" data-kg-support-cat="<?php echo esc_attr( $cat_key ); ?>" aria-pressed="false">
-					<span class="kg-bubble <?php echo esc_attr( $cat_bubbles[ $cat_key ] ); ?>"><?php echo $cat_icons[ $cat_key ]; // phpcs:ignore ?></span>
-					<span style="display:block;"><?php echo $cat_label; // phpcs:ignore ?></span>
+		<!-- Most-asked questions: chips that jump-open the matching FAQ item -->
+		<?php
+		$popular = array();
+		foreach ( $faq_items as $i => $item ) {
+			if ( ! empty( $item['pop'] ) ) {
+				$popular[ $i ] = $item['q'];
+			}
+		}
+		?>
+		<?php if ( $popular ) : ?>
+			<div class="kg-support-popular" data-kg-reveal style="--kg-delay:60ms">
+				<span class="kg-support-popular__label"><?php kg_e( 'support.popular_label' ); ?></span>
+				<?php foreach ( $popular as $i => $q ) : ?>
+					<button class="kg-support-popular__chip" type="button" data-kg-faq-jump="<?php echo (int) $i; ?>"><?php echo $q; // phpcs:ignore ?></button>
+				<?php endforeach; ?>
+			</div>
+		<?php endif; ?>
+
+		<!-- Filter pills + sort control -->
+		<div class="kg-support-toolbar" data-kg-reveal style="--kg-delay:100ms">
+			<div class="kg-support-pills" role="group" aria-label="<?php echo esc_attr( kg_t( 'support.filter_label' ) ); ?>">
+				<button class="kg-support-pill" type="button" data-kg-support-cat="all" aria-pressed="true">
+					<?php kg_e( 'support.cats_all' ); ?>
+					<span class="kg-support-pill__count" data-kg-cat-count="all"></span>
 				</button>
-			<?php endforeach; ?>
+				<?php
+				$cat_dots = array( 'plans' => 'amber', 'product' => 'teal', 'account' => 'red' );
+				foreach ( kg_list( 'support.cats' ) as $cat_key => $cat_label ) :
+					?>
+					<button class="kg-support-pill" type="button" data-kg-support-cat="<?php echo esc_attr( $cat_key ); ?>" aria-pressed="false">
+						<span class="kg-support-pill__dot kg-support-pill__dot--<?php echo esc_attr( $cat_dots[ $cat_key ] ); ?>" aria-hidden="true"></span>
+						<?php echo $cat_label; // phpcs:ignore ?>
+						<span class="kg-support-pill__count" data-kg-cat-count="<?php echo esc_attr( $cat_key ); ?>"></span>
+					</button>
+				<?php endforeach; ?>
+			</div>
+			<label class="kg-support-sort" for="kg-faq-sort">
+				<span><?php kg_e( 'support.sort_label' ); ?></span>
+				<select id="kg-faq-sort" data-kg-faq-sort>
+					<option value="suggested"><?php kg_e( 'support.sort_suggested' ); ?></option>
+					<option value="az"><?php kg_e( 'support.sort_az' ); ?></option>
+				</select>
+			</label>
 		</div>
+		<p class="kg-support-count" data-kg-faq-count aria-live="polite"></p>
 
 		<!-- FAQ -->
 		<div class="kg-faq" data-kg-faq data-kg-faq-context="support">
 			<?php foreach ( $faq_items as $i => $item ) : ?>
-				<div class="kg-faq__item" data-kg-reveal style="--kg-delay:<?php echo (int) ( min( $i, 6 ) * 50 ); ?>ms" data-kg-faq-cat="<?php echo esc_attr( $item['cat'] ); ?>" data-kg-faq-text="<?php echo esc_attr( strtolower( wp_strip_all_tags( $item['q'] . ' ' . $item['a'] ) ) ); ?>">
+				<div class="kg-faq__item" data-kg-reveal style="--kg-delay:<?php echo (int) ( min( $i, 6 ) * 50 ); ?>ms" data-kg-faq-index="<?php echo (int) $i; ?>" data-kg-faq-cat="<?php echo esc_attr( $item['cat'] ); ?>" data-kg-faq-text="<?php echo esc_attr( strtolower( wp_strip_all_tags( $item['q'] . ' ' . $item['a'] ) ) ); ?>">
 				<h3 class="kg-faq__q">
 					<button type="button" aria-expanded="false" aria-controls="kg-faq-panel-support-<?php echo (int) $i; ?>" id="kg-faq-btn-support-<?php echo (int) $i; ?>">
 						<span><?php echo $item['q']; // phpcs:ignore ?></span>
@@ -103,14 +131,21 @@ $faq_items[] = array(
 			<div>
 				<?php kg_section_head( 'support.form', false ); ?>
 				<form data-kg-support-form data-kg-form-subject="The Kids Gate: Support Request" novalidate>
+					<input type="hidden" name="action" value="kg_form">
+					<input type="hidden" name="kg_kind" value="support">
+					<?php wp_nonce_field( 'kg_form', 'kg_form_nonce' ); ?>
+					<!-- Honeypot: hidden from people, tempting to bots. -->
+					<p class="kg-hp" aria-hidden="true"><label>Website<input type="text" name="kg_website" tabindex="-1" autocomplete="off"></label></p>
 					<div class="kg-form-grid">
 						<div class="kg-field">
 							<label for="kg-sup-name"><?php kg_e( 'support.form.name' ); ?></label>
-							<input type="text" id="kg-sup-name" name="kg_name" required autocomplete="name">
+							<input type="text" id="kg-sup-name" name="kg_name" required autocomplete="name" aria-describedby="kg-sup-name-err">
+							<p class="kg-field__error" id="kg-sup-name-err" hidden></p>
 						</div>
 						<div class="kg-field">
 							<label for="kg-sup-email"><?php kg_e( 'support.form.email' ); ?></label>
-							<input type="email" id="kg-sup-email" name="kg_email" required autocomplete="email">
+							<input type="email" id="kg-sup-email" name="kg_email" required autocomplete="email" aria-describedby="kg-sup-email-err">
+							<p class="kg-field__error" id="kg-sup-email-err" hidden></p>
 						</div>
 						<div class="kg-field kg-field--full">
 							<label for="kg-sup-topic"><?php kg_e( 'support.form.topic' ); ?></label>
@@ -126,10 +161,19 @@ $faq_items[] = array(
 						</div>
 						<div class="kg-field kg-field--full">
 							<label for="kg-sup-message"><?php kg_e( 'support.form.message' ); ?></label>
-							<textarea id="kg-sup-message" name="kg_message" required></textarea>
+							<textarea id="kg-sup-message" name="kg_message" required maxlength="2000" aria-describedby="kg-sup-message-err kg-sup-message-count"></textarea>
+							<div class="kg-field__meta">
+								<p class="kg-field__error" id="kg-sup-message-err" hidden></p>
+								<span class="kg-field__count" id="kg-sup-message-count" data-kg-msg-count></span>
+							</div>
 						</div>
 					</div>
 					<button class="kg-btn kg-btn--primary kg-btn--lg" type="submit"><span><?php kg_e( 'support.form.submit' ); ?></span></button>
+					<p class="kg-form-status" data-kg-form-status hidden></p>
+					<p class="kg-form-response-note">
+						<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+						<?php kg_e( 'support.form.response_note' ); ?>
+					</p>
 				</form>
 				<div class="kg-form-success" data-kg-support-form-success hidden tabindex="-1">
 					<svg width="42" height="42" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>

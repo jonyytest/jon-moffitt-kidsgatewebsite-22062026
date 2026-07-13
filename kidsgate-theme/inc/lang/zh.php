@@ -117,8 +117,11 @@ return array(
 			),
 			'others_label' => '其他学习工具',
 			'us_label'     => 'The Kids Gate',
-			'turn_title' => 'The Kids Gate 改写剧本',
-			'turn_text'  => '一位 AI 家教，花费比一份披萨还少，每答一题都为孩子调整，让他们<strong>主动</strong>要求每天的课程。',
+			'turn_title'   => 'The Kids Gate 改写剧本',
+			'turn_text'    => '一位 AI 家教，花费比一份披萨还少，每答一题都为孩子调整，让他们<strong>主动</strong>要求每天的课程。',
+			'turn_text_in' => '一位 AI 家教，花费比每月一节补习课还少，每答一题都为孩子调整，让他们<strong>主动</strong>要求每天的课程。',
+			'turn_text_ph' => '一位 AI 家教，花费比您的 Netflix 订阅还少，每答一题都为孩子调整，让他们<strong>主动</strong>要求每天的课程。',
+			'turn_text_id' => '一位 AI 家教，花费比一份 Netflix 订阅还少，每答一题都为孩子调整，让他们<strong>主动</strong>要求每天的课程。',
 		),
 
 		'loop' => array(
@@ -748,7 +751,7 @@ return array(
 			'message'     => '还有什么我们该了解的吗？',
 			'submit'      => '索取学校信息',
 			'success_title' => '谢谢，已收到请求',
-			'success_text'  => '我们的学校团队将在两个工作日内回复。（注意：咨询后端尚未连接，此提交仅记录用于分析。紧急咨询请见页脚的支持邮箱。）',
+			'success_text'  => '我们的学校团队将在两个工作日内回复。',
 		),
 	),
 
@@ -1006,7 +1009,7 @@ return array(
 			'message'       => '告诉我们更多（可选）',
 			'submit'        => '发送赞助咨询',
 			'success_title' => '已收到咨询',
-			'success_text'  => '感谢你有意与 The Kids Gate 合作！致网站所有者：邮件后端尚未连接，因此此提交仅记录用于分析。在接通之前，也请发邮件至下方地址，以确保获得回复。',
+			'success_text'  => '感谢你有意与 The Kids Gate 合作！我们的团队将在两个工作日内回复。',
 		),
 		'cta' => array(
 			'title' => '让我们为孩子打造一些精彩的东西',
@@ -1024,6 +1027,13 @@ return array(
 		'search_placeholder' => '搜索答案，试试「试用」或「科目」',
 		'no_results' => '没有答案匹配你的搜索。试试不同的词，或在下方给我们留言。',
 		'faq_more'   => '查看更多问题',
+		'popular_label'  => '最常问：',
+		'filter_label'   => '按主题筛选',
+		'cats_all'       => '全部主题',
+		'results_count'  => '{n} 条解答',
+		'sort_label'     => '排序',
+		'sort_suggested' => '推荐顺序',
+		'sort_az'        => '按字母顺序',
 		'cats' => array(
 			'plans'   => '方案与价格',
 			'product' => '使用 The Kids Gate',
@@ -1032,11 +1042,13 @@ return array(
 		'faq_items' => array(
 			array(
 				'cat' => 'product',
+				'pop' => true,
 				'q'   => 'The Kids Gate 是什么？',
 				'a'   => 'The Kids Gate 是一个面向 5–12 岁儿童的 AI 智能学习平台。它通过游戏、故事、测验、歌曲、谜题和其他互动活动，为 1–6 年级提供剑桥英语和国际数学课程。',
 			),
 			array(
 				'cat' => 'plans',
+				'pop' => true,
 				'q'   => '30 天免费试用如何运作？',
 				'a'   => '家庭可以免费试用 The Kids Gate 30 天。开始试用无需信用卡，你可以随时取消。',
 			),
@@ -1052,6 +1064,7 @@ return array(
 			),
 			array(
 				'cat' => 'product',
+				'pop' => true,
 				'q'   => '提供哪些科目？',
 				'a'   => '孩子可以学习剑桥英语、国际数学，或两门科目。',
 			),
@@ -1087,6 +1100,7 @@ return array(
 			),
 			array(
 				'cat' => 'account',
+				'pop' => true,
 				'q'   => '我如何更改或取消我的方案？',
 				'a'   => '账户管理工具即将登陆应用。在此之前，请通过下方的支持表单给我们留言，或发邮件给我们，我们会迅速处理。',
 			),
@@ -1132,6 +1146,7 @@ return array(
 			),
 			array(
 				'cat' => 'plans',
+				'pop' => true,
 				'q'   => '免费试用结束后如何付费？',
 				'a'   => '安全的在线支付功能仍在接入中，目前还无法在网站上直接付款。我们的支持团队会帮您完成订阅设置，请通过支持表单或邮件联系我们。',
 			),
@@ -1158,8 +1173,14 @@ return array(
 			'account' => '账户邮箱或孩子档案名称（可选）',
 			'message' => '我们能帮你什么？',
 			'submit'  => '发送支持请求',
+			'sending'       => '发送中…',
+			'error_generic' => '无法直接发送，已为你打开邮件应用并预填好内容——在那里点击发送即可。',
+			'err_required'  => '请填写此项。',
+			'err_email'     => '请输入有效的邮箱地址。',
+			'chars_left'    => '还可输入 {n} 字',
+			'response_note' => '我们会在两个工作日内回复。',
 			'success_title' => '已收到请求',
-			'success_text'  => '感谢你的联系！致网站所有者：邮件后端尚未连接，因此此提交仅记录用于分析。在接通之前，也请发邮件至下方支持地址，以确保获得回复。',
+			'success_text'  => '感谢你的联系！你的消息正在发往我们的支持团队，将由真人在两个工作日内回复。',
 			'email_label' => '更想用邮件？',
 		),
 		'links' => array(

@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'KG_VERSION', '1.3.3' );
 
 require_once get_template_directory() . '/inc/config.php';
+require_once get_template_directory() . '/inc/forms.php';
 
 /* -------------------------------------------------------------------------
  * Language + country resolution
@@ -575,6 +576,15 @@ function kg_enqueue_assets() {
 	wp_enqueue_script( 'kg-support', kg_asset( 'js/support.js' ), array(), KG_VERSION, true );
 	wp_localize_script( 'kg-support', 'KG_DATA', array(
 		'support_email' => kg_support_email(),
+		'ajax_url'      => admin_url( 'admin-post.php' ),
+		'strings'       => array(
+			'sending'       => kg_t( 'support.form.sending' ),
+			'error_generic' => kg_t( 'support.form.error_generic' ),
+			'err_required'  => kg_t( 'support.form.err_required' ),
+			'err_email'     => kg_t( 'support.form.err_email' ),
+			'chars_left'    => kg_t( 'support.form.chars_left' ),
+			'results_count' => kg_t( 'support.results_count' ),
+		),
 	) );
 }
 add_action( 'wp_enqueue_scripts', 'kg_enqueue_assets' );
