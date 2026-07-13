@@ -66,27 +66,42 @@
 		});
 	}
 
-	/* Rebuild a question label with <mark> around case-insensitive matches —
-	 * assembled from text nodes, never concatenated HTML. */
-	function highlightQuestion(entry, q) {
+	/* Rebuild a question label with <mark> around each case-insensitive term
+	 * match (the filter is multi-word AND, so terms may sit apart in the
+	 * text). Overlapping term ranges are merged so <mark>s never nest, and
+	 * the label is assembled from text nodes, never concatenated HTML. */
+	function highlightQuestion(entry, terms) {
 		if (!entry.qSpan) { return; }
-		var at = q ? entry.qText.toLowerCase().indexOf(q) : -1;
-		if (at === -1) {
+		var lower = entry.qText.toLowerCase();
+		var ranges = [];
+		terms.forEach(function (t) {
+			var at = lower.indexOf(t);
+			while (at !== -1) {
+				ranges.push([at, at + t.length]);
+				at = lower.indexOf(t, at + t.length);
+			}
+		});
+		if (!ranges.length) {
 			if (entry.qSpan.textContent !== entry.qText) { entry.qSpan.textContent = entry.qText; }
 			return;
 		}
-		var lower = entry.qText.toLowerCase();
+		ranges.sort(function (a, b) { return a[0] - b[0]; });
+		var merged = [ranges[0]];
+		for (var i = 1; i < ranges.length; i++) {
+			var last = merged[merged.length - 1];
+			if (ranges[i][0] <= last[1]) { last[1] = Math.max(last[1], ranges[i][1]); }
+			else { merged.push(ranges[i]); }
+		}
 		var frag = document.createDocumentFragment();
 		var pos = 0;
-		while (at !== -1) {
-			if (at > pos) { frag.appendChild(document.createTextNode(entry.qText.slice(pos, at))); }
+		merged.forEach(function (r) {
+			if (r[0] > pos) { frag.appendChild(document.createTextNode(entry.qText.slice(pos, r[0]))); }
 			var mark = document.createElement('mark');
 			mark.className = 'kg-mark';
-			mark.textContent = entry.qText.slice(at, at + q.length);
+			mark.textContent = entry.qText.slice(r[0], r[1]);
 			frag.appendChild(mark);
-			pos = at + q.length;
-			at = lower.indexOf(q, pos);
-		}
+			pos = r[1];
+		});
 		if (pos < entry.qText.length) { frag.appendChild(document.createTextNode(entry.qText.slice(pos))); }
 		entry.qSpan.textContent = '';
 		entry.qSpan.appendChild(frag);
@@ -101,13 +116,17 @@
 		if (!faqWrap) { return; }
 		if (resetPage) { shownCount = PAGE_SIZE; }
 		var q = search ? search.value.trim().toLowerCase() : '';
+		// Split into words and require each one somewhere in the item's text,
+		// so "forgot password" matches even when the words aren't adjacent.
+		// Thai/Chinese queries rarely contain spaces and pass through as one term.
+		var terms = q ? q.split(/\s+/) : [];
 		var matchCount = 0;
 		var shown = 0;
 		var catCounts = { all: 0 };
 		faqItems.forEach(function (entry) {
 			// Per-category counts follow the search text only, so every pill
 			// shows how many answers it would reveal for the current query.
-			var textMatch = !q || entry.text.indexOf(q) !== -1;
+			var textMatch = terms.every(function (t) { return entry.text.indexOf(t) !== -1; });
 			if (textMatch) {
 				catCounts.all++;
 				catCounts[entry.cat] = (catCounts[entry.cat] || 0) + 1;
@@ -117,7 +136,7 @@
 				return;
 			}
 			matchCount++;
-			highlightQuestion(entry, q);
+			highlightQuestion(entry, terms);
 			if (shown < shownCount) {
 				entry.el.style.display = '';
 				if (forceReveal) { entry.el.classList.add('is-in'); }
@@ -463,7 +482,10 @@
 	var lastQuery = '';
 
 	/* Flat search index over the whole tree: plain lowercase substring
-	 * matching, which also works for Thai/Chinese where spaces are rare. */
+	 * matching, which also works for Thai/Chinese where spaces are rare.
+	 * Nodes and FAQ items may carry an optional `kw` string of hidden,
+	 * locale-specific synonyms ("cost price fee") that are indexed but
+	 * never displayed. */
 	var searchIndex = [];
 	(function buildIndex(nodes, parents, rootId) {
 		nodes.forEach(function (node) {
@@ -476,7 +498,7 @@
 				parents: parents,
 				rootId: root,
 				labelLc: node.label.toLowerCase(),
-				textLc: (node.label + ' ' + answerText + ' ' + childLabels).toLowerCase()
+				textLc: (node.label + ' ' + answerText + ' ' + childLabels + ' ' + (node.kw || '')).toLowerCase()
 			});
 			if (node.children) { buildIndex(node.children, parents.concat([nodes]), root); }
 		});
@@ -495,7 +517,7 @@
 			parents: [],
 			rootId: FAQ_TOPIC[item.cat] || 'contact',
 			labelLc: item.q.toLowerCase(),
-			textLc: (item.q + ' ' + answerText).toLowerCase()
+			textLc: (item.q + ' ' + answerText + ' ' + (item.kw || '')).toLowerCase()
 		});
 	});
 

@@ -54,6 +54,36 @@ Notes: <anything else — e.g. "answer differs for Indonesia", "replaces old ans
 
 ## Processed
 
+**2026-07-13 — persona brainstorm batch #2** (14 entries, generated on request
+by role-playing prospective parents, current subscribers, homeschoolers,
+teachers, sponsors and technical users; fanned out to all four locales at
+support FAQ positions 22–35, before the bug-report + contact items). All are
+FAQ-only (`Helper topic: none`) — every top-level widget topic is already at
+its ~5-child cap, and the widget's free-text search indexes the whole support
+FAQ automatically. This batch also introduced hidden `kw` search synonyms
+(indexed, never displayed) on each new item so common phrasings match — e.g.
+"cost / price / fee", "ipad / iphone", "harga", "ราคา", "多少钱" — supported by
+`kw` handling added to `page-support.php`, `kg_render_helper()` and
+`assets/js/support.js`. Questions the team still needs to answer were parked
+in `UNANSWERED-FAQS.md` (20 items) instead of being published.
+
+| Question (en) | Category | Escalates |
+|---|---|---|
+| How much does The Kids Gate cost? | plans | – |
+| What ages is The Kids Gate designed for? | product | – |
+| Which devices does The Kids Gate work on? | account | – |
+| Is The Kids Gate a replacement for school? | product | – |
+| What makes The Kids Gate different from other learning apps? | product | – |
+| What are tokens and what can my child spend them on? | product | – |
+| Can tokens be bought with real money? | product | – |
+| Does each child need their own profile? | account | – |
+| Can I change subjects or switch plans later? | plans | yes |
+| I can't log in. What should I do? | account | yes |
+| How is my child's personal information handled? | product | – |
+| Can we use The Kids Gate for homeschooling? | product | – |
+| How can my organisation sponsor or partner with The Kids Gate? | product | – |
+| How do I delete our account or my child's data? | account | yes |
+
 **2026-07-04 — via /faqadd**: "I've found a bug or error — how do I report it?"
 (reworded from "Experienced a bug or error…") — `account`, helper node: none
 (FAQ-only; found via widget search — the `using` topic is full and `using-tech`

@@ -91,8 +91,11 @@ currently routes to `/support/` (no checkout yet).
 - **Support / school / sponsor enquiry forms**: fully wired. `assets/js/support.js`
   POSTs to `admin-post.php?action=kg_form`; `inc/forms.php` validates (nonce, honeypot,
   rate limit) and relays to the support address via `wp_mail()`. If the endpoint is
-  unreachable or mail fails, the front end falls back to the old mailto: draft, so
-  hosting without working mail degrades gracefully rather than losing messages.
+  unreachable (e.g. the `tests/preview.php` harness) or mail fails, the front end
+  falls back to opening a pre-filled `mailto:` draft, so hosting without working
+  mail degrades gracefully rather than losing messages. On production, install an
+  SMTP plugin (e.g. WP Mail SMTP) — bare `wp_mail()` relies on PHP `mail()`, which
+  many hosts don't deliver reliably.
 - **Support email**: `support@kidsgate.example` placeholder in `inc/config.php`; set the
   real address in the Customizer (templates label it as a placeholder until then).
 - **Store links / QR code**: `#` placeholders until the listings exist.

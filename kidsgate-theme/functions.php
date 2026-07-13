@@ -1075,6 +1075,7 @@ function kg_render_helper() {
 		'{schools_url}'   => esc_url( kg_url( 'schools' ) ),
 		'{pricing_url}'   => esc_url( kg_url( 'pricing' ) ),
 		'{parents_url}'   => esc_url( kg_url( 'parents' ) ),
+		'{sponsors_url}'  => esc_url( kg_url( 'sponsors' ) ),
 		'{support_url}'   => esc_url( kg_url( 'support' ) ),
 		'{support_email}' => esc_html( kg_support_email() ),
 	);
@@ -1108,6 +1109,9 @@ function kg_render_helper() {
 			'q'        => $item['q'],
 			'a'        => strtr( $item['a'], $replacements ),
 			'cat'      => isset( $item['cat'] ) ? $item['cat'] : 'product',
+			// Optional hidden search synonyms — indexed by the widget's
+			// free-text search, never displayed.
+			'kw'       => isset( $item['kw'] ) ? $item['kw'] : '',
 			// Items whose resolution is "contact us" show the widget's
 			// go-to-support-form button instead of "Was this helpful?".
 			'escalate' => ! empty( $item['escalate'] ),
