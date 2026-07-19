@@ -16,6 +16,7 @@ define( 'KG_VERSION', '1.3.3' );
 
 require_once get_template_directory() . '/inc/config.php';
 require_once get_template_directory() . '/inc/forms.php';
+require_once get_template_directory() . '/inc/region-links.php';
 
 /* -------------------------------------------------------------------------
  * Language + country resolution
@@ -518,9 +519,14 @@ function kg_hreflang_tags() {
  * assets/video/gate-demo.mp4 is used when present.
  */
 function kg_video_url() {
+	// 1. Customizer field (global override), 2. per-region link, 3. bundled file.
 	$custom = get_theme_mod( 'kg_demo_video_url', '' );
 	if ( $custom ) {
 		return esc_url( $custom );
+	}
+	$region = kg_region_link( 'video' );
+	if ( $region ) {
+		return esc_url( $region );
 	}
 	if ( file_exists( get_template_directory() . '/assets/video/gate-demo.mp4' ) ) {
 		return kg_asset( 'video/gate-demo.mp4' );
@@ -640,60 +646,29 @@ function kg_customize_register( $wp_customize ) {
 add_action( 'customize_register', 'kg_customize_register' );
 
 /**
- * App store URLs — keyed by country. All pointing to the same app listing
- * until separate regional listings are created. Customizer overrides win.
+ * App store URLs. Values live per-region in inc/region-links.php; a Customizer
+ * override (kg_app_store_url / kg_play_store_url), if set, wins globally.
  */
 function kg_store_url( $store ) {
-	$urls = array(
-		'au' => array(
-			'app'  => 'https://apps.apple.com/bg/app/kids-gate-indonesia/id1591630141',
-			'play' => 'https://play.google.com/store/apps/details?id=com.thekidsgate.gameapp&hl=en',
-		),
-		'us' => array(
-			'app'  => 'https://apps.apple.com/bg/app/kids-gate-indonesia/id1591630141',
-			'play' => 'https://play.google.com/store/apps/details?id=com.thekidsgate.gameapp&hl=en',
-		),
-		'id' => array(
-			'app'  => 'https://apps.apple.com/bg/app/kids-gate-indonesia/id1591630141',
-			'play' => 'https://play.google.com/store/apps/details?id=com.thekidsgate.gameapp&hl=en',
-		),
-		'th' => array(
-			'app'  => 'https://apps.apple.com/bg/app/kids-gate-indonesia/id1591630141',
-			'play' => 'https://play.google.com/store/apps/details?id=com.thekidsgate.gameapp&hl=en',
-		),
-	);
-
-	$country = kg_country() ?: 'au';
-	$url     = isset( $urls[ $country ][ $store ] ) ? $urls[ $country ][ $store ] : '#';
-	$mod     = get_theme_mod( 'play' === $store ? 'kg_play_store_url' : 'kg_app_store_url', '' );
-	return $mod ? esc_url( $mod ) : $url;
+	$mod = get_theme_mod( 'play' === $store ? 'kg_play_store_url' : 'kg_app_store_url', '' );
+	if ( $mod ) {
+		return esc_url( $mod );
+	}
+	$url = kg_region_link( 'play' === $store ? 'play_store' : 'app_store' );
+	return $url ? esc_url( $url ) : '#';
 }
 
 /**
- * Social media links — keyed by country so Indonesian visitors always see
- * Indonesian social accounts regardless of their UI language choice.
+ * Social media links for the active region. Values live in
+ * inc/region-links.php so Indonesian visitors see Indonesian accounts, etc.
  */
 function kg_social_links() {
-	$all = array(
-		'id' => array(
-			'instagram' => 'https://www.instagram.com/kidsgate.id/',
-			'tiktok'    => 'https://www.tiktok.com/@kidsgate.id',
-			'facebook'  => 'https://www.facebook.com/profile.php?id=61578094916488',
-			'youtube'   => 'https://www.youtube.com/@thekidsgate3295',
-		),
-		'au' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate', 'youtube' => 'https://www.youtube.com/@thekidsgate3295' ),
-		'us' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate', 'youtube' => 'https://www.youtube.com/@thekidsgate3295' ),
-		'th' => array( 'instagram' => 'https://www.instagram.com/thekidsgate/', 'tiktok' => 'https://www.tiktok.com/@thekidsgate', 'facebook' => 'https://www.facebook.com/thekidsgate', 'youtube' => 'https://www.youtube.com/@thekidsgate3295' ),
+	return array(
+		'instagram' => kg_region_link( 'instagram' ),
+		'tiktok'    => kg_region_link( 'tiktok' ),
+		'facebook'  => kg_region_link( 'facebook' ),
+		'youtube'   => kg_region_link( 'youtube' ),
 	);
-
-	$country = kg_country();
-	if ( $country && isset( $all[ $country ] ) ) {
-		return $all[ $country ];
-	}
-	// Bare domain: map by language as a best-effort.
-	$lang_map = array( 'id' => 'id', 'th' => 'th', 'en' => 'au' );
-	$key      = isset( $lang_map[ kg_lang() ] ) ? $lang_map[ kg_lang() ] : 'au';
-	return isset( $all[ $key ] ) ? $all[ $key ] : $all['au'];
 }
 
 /* -------------------------------------------------------------------------
