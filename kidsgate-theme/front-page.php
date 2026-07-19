@@ -16,11 +16,6 @@ $p = kg_pricing_for_lang();
 		<span class="kg-hero__blob kg-hero__blob--amber"></span>
 		<span class="kg-hero__blob kg-hero__blob--teal"></span>
 		<span class="kg-hero__blob kg-hero__blob--red"></span>
-		<span class="kg-hero__dot kg-hero__dot--1"></span>
-		<span class="kg-hero__dot kg-hero__dot--2"></span>
-		<span class="kg-hero__dot kg-hero__dot--3"></span>
-		<svg class="kg-hero__plus kg-hero__plus--1" width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-		<svg class="kg-hero__plus kg-hero__plus--2" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
 	</div>
 
 	<div class="kg-container kg-hero__inner">
