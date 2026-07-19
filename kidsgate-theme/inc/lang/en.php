@@ -7,7 +7,7 @@
 return array(
 
 	'meta' => array(
-		'description' => 'The Kids Gate is an AI-powered learning platform for children aged 5–12: Cambridge English and International Maths through games, stories and quizzes. 30-day free trial, no credit card required.',
+		'description' => 'The Kids Gate is an AI-powered learning platform for children aged 5–12: Cambridge English and International Maths through games, stories and quizzes. 14-day free trial, no credit card required.',
 	),
 
 	'common' => array(
@@ -23,7 +23,7 @@ return array(
 		'zoom_hint'       => 'Tap image to zoom in',
 		'zoom_out_hint'   => 'Tap image to zoom out',
 		'trust_chips'     => array(
-			'30-day free trial',
+			'14-day free trial',
 			'Ages 5–12',
 			'Cambridge curriculum',
 			array( 'text' => 'No ads. Ever.', 'cross' => true ),
@@ -31,7 +31,7 @@ return array(
 		'cancel_chips'    => array(
 			'No credit card required',
 			'Cancel at any time',
-			'30-day free trial',
+			'14-day free trial',
 		),
 		'choose_region'   => 'Choose Region',
 	),
@@ -93,7 +93,7 @@ return array(
 				array( 'num' => '1800', 'suffix' => '+', 'label' => 'interactive lessons' ),
 				array( 'num' => '6',    'suffix' => '', 'label' => 'grade levels, fully covered' ),
 				array( 'num' => '20',   'suffix' => ' min', 'label' => 'a day is all it takes' ),
-				array( 'num' => '30',   'suffix' => '', 'label' => 'day free trial, no card needed' ),
+				array( 'num' => '14',   'suffix' => '', 'label' => 'day free trial, no card needed' ),
 			),
 		),
 
@@ -292,7 +292,7 @@ return array(
 		'pricing' => array(
 			'kicker'    => 'Simple pricing',
 			'title'     => 'Less than a tutor\'s single hour, <span class="kg-hl-teal">every month</span>',
-			'lede'      => 'One subscription per child, up to six children per family. Start with 30 days free.',
+			'lede'      => 'One subscription per child, up to six children per family. Start with 14 days free.',
 			'cta_label' => 'See full pricing',
 		),
 
@@ -365,7 +365,7 @@ return array(
 		),
 		'cta' => array(
 			'title' => 'The best way to understand it? Watch your child try it.',
-			'lede'  => '30 days free. No credit card. Cancel anytime.',
+			'lede'  => '14 days free. No credit card. Cancel anytime.',
 		),
 	),
 
@@ -434,7 +434,7 @@ return array(
 		),
 		'cta' => array(
 			'title' => 'See the features in action',
-			'lede'  => 'The 30-day free trial includes everything on this page.',
+			'lede'  => 'The 14-day free trial includes everything on this page.',
 		),
 	),
 
@@ -570,7 +570,7 @@ return array(
 		'hero' => array(
 			'kicker' => 'Pricing',
 			'title'  => 'Honest pricing for real families',
-			'lede'   => 'Every plan starts with a 30-day free trial. No credit card required. Cancel anytime.',
+			'lede'   => 'Every plan starts with a 14-day free trial. No credit card required. Cancel anytime.',
 		),
 		'toggle' => array(
 			'monthly' => 'Monthly',
@@ -622,8 +622,8 @@ return array(
 			'total_label'   => 'Total',
 			'select_cta'    => 'Choose this plan',
 			'select_note'   => 'You\'ll be taken to our support team to finish setting up, online checkout is coming soon.',
-			'trial_note'    => 'Your 30-day free trial covers everything in this plan.',
-				'trial_lead'    => 'The first 30 days are free, then:',
+			'trial_note'    => 'Your 14-day free trial covers everything in this plan.',
+				'trial_lead'    => 'The first 14 days are free, then:',
 			'activation_label' => 'One-time activation',
 			'first_payment'    => 'First payment today',
 			'tax_note'         => 'Extra regional fees and taxes may apply at checkout.',
@@ -647,11 +647,11 @@ return array(
 			'items'  => array(
 				array(
 					'q' => 'What happens after the free trial?',
-					'a' => 'After 30 days you choose a plan to continue. Nothing is charged automatically, there\'s no credit card on file unless you add one.',
+					'a' => 'After 14 days you choose a plan to continue. Nothing is charged automatically, there\'s no credit card on file unless you add one.',
 				),
 				array(
 					'q' => 'Is a credit card required to start?',
-					'a' => 'No. You can start and complete the entire 30-day trial without entering any payment details.',
+					'a' => 'No. You can start and complete the entire 14-day trial without entering any payment details.',
 				),
 				array(
 					'q' => 'Can we cancel at any time?',
@@ -1053,8 +1053,8 @@ return array(
 			array(
 				'cat' => 'plans',
 				'pop' => true,
-				'q'   => 'How does the 30-day free trial work?',
-				'a'   => 'Families can try The Kids Gate free for 30 days. No credit card is required to start the trial, and you can cancel at any time.',
+				'q'   => 'How does the 14-day free trial work?',
+				'a'   => 'Families can try The Kids Gate free for 14 days. No credit card is required to start the trial, and you can cancel at any time.',
 			),
 			array(
 				'cat' => 'product',
@@ -1351,8 +1351,8 @@ return array(
 					'children' => array(
 						array(
 							'id'     => 'trial-how',
-							'label'  => 'How does the 30-day trial work?',
-							'answer' => 'Every plan begins with 30 days free so your child can explore the full experience. Just create a family account in the app to start.',
+							'label'  => 'How does the 14-day trial work?',
+							'answer' => 'Every plan begins with 14 days free so your child can explore the full experience. Just create a family account in the app to start.',
 						),
 						array(
 							'id'     => 'trial-card',

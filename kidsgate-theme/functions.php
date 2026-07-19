@@ -160,18 +160,18 @@ function kg_apply_country_overrides( $strings ) {
 	$exact = array(
 		'No credit card required'
 			=> 'Refundable $1 to verify',
-		'30 days free. No credit card. Cancel anytime.'
-			=> '30 days free. Cancel anytime.',
-		'Every plan starts with a 30-day free trial. No credit card required. Cancel anytime.'
-			=> 'Every plan starts with a 30-day free trial. Cancel anytime.',
-		'After 30 days you choose a plan to continue. Nothing is charged automatically, there\'s no credit card on file unless you add one.'
-			=> 'After 30 days you choose a plan to continue. We do not bill the subscription unless you pick a plan.',
+		'14 days free. No credit card. Cancel anytime.'
+			=> '14 days free. Cancel anytime.',
+		'Every plan starts with a 14-day free trial. No credit card required. Cancel anytime.'
+			=> 'Every plan starts with a 14-day free trial. Cancel anytime.',
+		'After 14 days you choose a plan to continue. Nothing is charged automatically, there\'s no credit card on file unless you add one.'
+			=> 'After 14 days you choose a plan to continue. We do not bill the subscription unless you pick a plan.',
 		'Is a credit card required to start?'
 			=> 'Do I need a card to start the trial?',
-		'No. You can start and complete the entire 30-day trial without entering any payment details.'
+		'No. You can start and complete the entire 14-day trial without entering any payment details.'
 			=> 'To confirm you\'re a parent, we take a refundable $1 charge when your trial begins and give it straight back. You are not charged for the trial itself, and nothing further is billed unless you choose a plan.',
-		'Families can try The Kids Gate free for 30 days. No credit card is required to start the trial, and you can cancel at any time.'
-			=> 'Families can try The Kids Gate free for 30 days and can cancel at any time. To confirm the account holder is a parent, US trials begin with a refundable $1 verification charge that we give straight back.',
+		'Families can try The Kids Gate free for 14 days. No credit card is required to start the trial, and you can cancel at any time.'
+			=> 'Families can try The Kids Gate free for 14 days and can cancel at any time. To confirm the account holder is a parent, US trials begin with a refundable $1 verification charge that we give straight back.',
 		'No credit card is needed to start the free trial.'
 			=> 'Your trial begins with a refundable $1 check to confirm you\'re a parent — we give it straight back, so there is nothing to pay for the trial itself.',
 	);

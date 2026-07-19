@@ -7,7 +7,7 @@
 return array(
 
 	'meta' => array(
-		'description' => 'The Kids Gate adalah platform belajar berbasis AI untuk anak usia 5–12 tahun: Cambridge English dan Matematika Internasional lewat permainan, cerita, dan kuis. Uji coba gratis 30 hari, tanpa kartu kredit.',
+		'description' => 'The Kids Gate adalah platform belajar berbasis AI untuk anak usia 5–12 tahun: Cambridge English dan Matematika Internasional lewat permainan, cerita, dan kuis. Uji coba gratis 14 hari, tanpa kartu kredit.',
 	),
 
 	'common' => array(
@@ -23,7 +23,7 @@ return array(
 		'zoom_hint'       => 'Ketuk gambar untuk perbesar',
 		'zoom_out_hint'   => 'Ketuk gambar untuk perkecil',
 		'trust_chips'     => array(
-			'Uji coba gratis 30 hari',
+			'Uji coba gratis 14 hari',
 			'Usia 5–12 tahun',
 			'Kurikulum Cambridge',
 			array( 'text' => 'Tanpa iklan. Selamanya.', 'cross' => true ),
@@ -31,7 +31,7 @@ return array(
 		'cancel_chips'    => array(
 			'Tanpa kartu kredit',
 			'Bisa berhenti kapan saja',
-			'Uji coba gratis 30 hari',
+			'Uji coba gratis 14 hari',
 		),
 		'choose_region'   => 'Pilih Wilayah',
 	),
@@ -92,7 +92,7 @@ return array(
 				array( 'num' => '1800', 'suffix' => '+', 'label' => 'pelajaran interaktif' ),
 				array( 'num' => '6',    'suffix' => '', 'label' => 'tingkat kelas, tersedia lengkap' ),
 				array( 'num' => '20',   'suffix' => ' mnt', 'label' => 'per hari sudah cukup' ),
-				array( 'num' => '30',   'suffix' => '', 'label' => 'hari uji coba gratis, tanpa kartu kredit' ),
+				array( 'num' => '14',   'suffix' => '', 'label' => 'hari uji coba gratis, tanpa kartu kredit' ),
 			),
 		),
 
@@ -291,7 +291,7 @@ return array(
 		'pricing' => array(
 			'kicker'    => 'Harga sederhana',
 			'title'     => 'Lebih murah dari satu jam les privat, <span class="kg-hl-teal">setiap bulan</span>',
-			'lede'      => 'Satu langganan per anak, hingga enam anak per keluarga. Mulai dengan 30 hari gratis.',
+			'lede'      => 'Satu langganan per anak, hingga enam anak per keluarga. Mulai dengan 14 hari gratis.',
 			'cta_label' => 'Lihat harga lengkap',
 		),
 
@@ -363,7 +363,7 @@ return array(
 		),
 		'cta' => array(
 			'title' => 'Cara terbaik memahaminya? Lihat anak Anda mencobanya.',
-			'lede'  => '30 hari gratis. Tanpa kartu kredit. Berhenti kapan saja.',
+			'lede'  => '14 hari gratis. Tanpa kartu kredit. Berhenti kapan saja.',
 		),
 	),
 
@@ -431,7 +431,7 @@ return array(
 		),
 		'cta' => array(
 			'title' => 'Lihat fitur-fiturnya beraksi',
-			'lede'  => 'Uji coba gratis 30 hari mencakup semua yang ada di halaman ini.',
+			'lede'  => 'Uji coba gratis 14 hari mencakup semua yang ada di halaman ini.',
 		),
 	),
 
@@ -562,7 +562,7 @@ return array(
 		'hero' => array(
 			'kicker' => 'Harga',
 			'title'  => 'Harga jujur untuk keluarga sungguhan',
-			'lede'   => 'Setiap paket dimulai dengan uji coba gratis 30 hari. Tanpa kartu kredit. Berhenti kapan saja.',
+			'lede'   => 'Setiap paket dimulai dengan uji coba gratis 14 hari. Tanpa kartu kredit. Berhenti kapan saja.',
 		),
 		'toggle' => array(
 			'monthly' => 'Bulanan',
@@ -614,8 +614,8 @@ return array(
 			'total_label'   => 'Total',
 			'select_cta'    => 'Pilih paket ini',
 			'select_note'   => 'Anda akan diarahkan ke tim bantuan kami untuk menyelesaikan pendaftaran, pembayaran online segera hadir.',
-			'trial_note'    => 'Uji coba gratis 30 hari mencakup semua yang ada di paket ini.',
-				'trial_lead'    => '30 hari pertama gratis, lalu:',
+			'trial_note'    => 'Uji coba gratis 14 hari mencakup semua yang ada di paket ini.',
+				'trial_lead'    => '14 hari pertama gratis, lalu:',
 			'activation_label' => 'Aktivasi satu kali',
 			'first_payment'    => 'Pembayaran pertama hari ini',
 			'tax_note'         => 'Biaya regional tambahan dan pajak mungkin berlaku saat checkout.',
@@ -639,11 +639,11 @@ return array(
 			'items'  => array(
 				array(
 					'q' => 'Apa yang terjadi setelah uji coba gratis?',
-					'a' => 'Setelah 30 hari Anda memilih paket untuk melanjutkan. Tidak ada tagihan otomatis, tidak ada kartu kredit yang tersimpan kecuali Anda menambahkannya.',
+					'a' => 'Setelah 14 hari Anda memilih paket untuk melanjutkan. Tidak ada tagihan otomatis, tidak ada kartu kredit yang tersimpan kecuali Anda menambahkannya.',
 				),
 				array(
 					'q' => 'Apakah perlu kartu kredit untuk memulai?',
-					'a' => 'Tidak. Anda bisa memulai dan menyelesaikan seluruh uji coba 30 hari tanpa memasukkan data pembayaran apa pun.',
+					'a' => 'Tidak. Anda bisa memulai dan menyelesaikan seluruh uji coba 14 hari tanpa memasukkan data pembayaran apa pun.',
 				),
 				array(
 					'q' => 'Bisakah berhenti kapan saja?',
@@ -1040,8 +1040,8 @@ return array(
 			array(
 				'cat' => 'plans',
 				'pop' => true,
-				'q'   => 'Bagaimana cara kerja uji coba gratis 30 hari?',
-				'a'   => 'Keluarga dapat mencoba The Kids Gate gratis selama 30 hari. Tidak perlu kartu kredit untuk memulai, dan Anda bisa berhenti kapan saja.',
+				'q'   => 'Bagaimana cara kerja uji coba gratis 14 hari?',
+				'a'   => 'Keluarga dapat mencoba The Kids Gate gratis selama 14 hari. Tidak perlu kartu kredit untuk memulai, dan Anda bisa berhenti kapan saja.',
 			),
 			array(
 				'cat' => 'product',
@@ -1338,8 +1338,8 @@ return array(
 					'children' => array(
 						array(
 							'id'     => 'trial-how',
-							'label'  => 'Bagaimana uji coba 30 hari bekerja?',
-							'answer' => 'Setiap paket dimulai dengan 30 hari gratis agar anak Anda bisa menjelajahi pengalaman lengkapnya. Cukup buat akun keluarga di aplikasi untuk memulai.',
+							'label'  => 'Bagaimana uji coba 14 hari bekerja?',
+							'answer' => 'Setiap paket dimulai dengan 14 hari gratis agar anak Anda bisa menjelajahi pengalaman lengkapnya. Cukup buat akun keluarga di aplikasi untuk memulai.',
 						),
 						array(
 							'id'     => 'trial-card',

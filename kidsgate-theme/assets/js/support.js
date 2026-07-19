@@ -538,7 +538,7 @@
 			.filter(function (r) { return r.score > 0; })
 			.sort(function (a, b) { return b.score - a.score; })
 			// Tree nodes and FAQ items can hold the same answer ("How does the
-			// 30-day trial work?" exists as both) — keep only the higher-ranked
+			// 14-day trial work?" exists as both) — keep only the higher-ranked
 			// of any near-identical pair.
 			.filter(function (r) {
 				var key = r.entry.labelLc.replace(/[^0-9a-z-￿]+/g, ' ').trim().slice(0, 18);
