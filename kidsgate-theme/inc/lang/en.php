@@ -7,7 +7,7 @@
 return array(
 
 	'meta' => array(
-		'description' => 'The Kids Gate is an AI-powered learning platform for children aged 5–12: Cambridge English and International Maths through games, stories and quizzes. 14-day free trial, no credit card required.',
+		'description' => 'The Kids Gate is an AI-powered learning platform for children aged 5–12, aligned with the Cambridge English and International Maths curricula through games, stories and quizzes. 14-day free trial, no credit card required.',
 	),
 
 	'common' => array(
@@ -25,7 +25,7 @@ return array(
 		'trust_chips'     => array(
 			'14-day free trial',
 			'Ages 5–12',
-			'Cambridge curriculum',
+			'Cambridge-aligned',
 			array( 'text' => 'No ads. Ever.', 'cross' => true ),
 		),
 		'cancel_chips'    => array(
@@ -71,7 +71,7 @@ return array(
 		'hero' => array(
 			'eyebrow'  => 'Available on iOS &amp; Android',
 			'title'    => 'Learning your child<br><span class="kg-squiggle kg-squiggle--draw">actually asks for</span>',
-			'lede'     => 'AI-powered Cambridge English and International Maths for ages 5&ndash;12, with games, stories and quizzes that adapt after every single answer.',
+			'lede'     => 'AI-powered learning aligned with the Cambridge English and International Maths curricula for ages 5&ndash;12, with games, stories and quizzes that adapt after every single answer.',
 			'badge_lessons'  => '1,800+',
 			'badge_lessons_label' => 'lessons inside',
 			'badge_daily'    => '20 min',
@@ -157,7 +157,7 @@ return array(
 			'tabs'   => array(
 				'english' => array(
 					'label'  => 'English',
-					'title'  => 'Cambridge English, story by story',
+					'title'  => 'Cambridge-aligned English, story by story',
 					'text'   => 'Phonics, reading, vocabulary and grammar wrapped in interactive stories and songs.',
 					'topics' => array(
 						array( 'name' => 'Phonics &amp; Reading', 'desc' => 'Sound out every new word' ),
@@ -422,7 +422,7 @@ return array(
 			'title'  => 'Eight more reasons children press play',
 			'lede'   => '',
 			'items'  => array(
-				array( 'title' => 'Cambridge English', 'text' => 'Phonics to grammar, aligned with Cambridge English stages for ages 5–12.' ),
+				array( 'title' => 'Cambridge-aligned English', 'text' => 'Phonics to grammar, aligned with Cambridge English stages for ages 5–12.' ),
 				array( 'title' => 'International Maths', 'text' => 'A complete Grades 1–6 curriculum taught visually and practised through play.' ),
 				array( 'title' => '1,800+ lessons', 'text' => 'Games, stories, quizzes, songs and puzzles, fresh content at every level.' ),
 				array( 'title' => 'Immersive virtual world', 'text' => 'A learning world that expands as your child masters new topics.' ),
@@ -533,7 +533,7 @@ return array(
 				array( 'title' => 'Create a family account', 'text' => 'Sign up and add your children. Each child gets their own profile and personalised learning path.' ),
 				array( 'title' => 'Child takes the assessment', 'text' => 'A short diagnostic test maps your child\'s exact level across English and Maths.' ),
 				array( 'title' => 'Learning begins', 'text' => 'Your child works through their personalised lesson plan. You can watch their progress in real time.' ),
-				array( 'title' => 'You stay informed', 'text' => 'Weekly reports land in your inbox. Log in any time to see detailed progress, streaks and achievements.' ),
+				array( 'title' => 'You stay informed', 'text' => 'Log in to the parent dashboard any time to see detailed progress, streaks and achievements.' ),
 			),
 		),
 		'faq' => array(
@@ -547,7 +547,7 @@ return array(
 				),
 				array(
 					'q' => 'Will it actually match my child\'s school work?',
-					'a' => 'The Kids Gate teaches Cambridge English and International Maths for Grades 1–6. The adaptive path means it complements school by filling gaps and stretching strengths rather than duplicating homework.',
+					'a' => 'The Kids Gate is aligned with the Cambridge English and International Maths curricula for Grades 1–6. The adaptive path means it complements school by filling gaps and stretching strengths rather than duplicating homework.',
 				),
 				array(
 					'q' => 'What if my child finds it too easy or too hard?',
@@ -584,7 +584,7 @@ return array(
 		'plans' => array(
 			'one' => array(
 				'name'   => 'One subject',
-				'desc'   => 'Cambridge English OR International Maths',
+				'desc'   => 'Cambridge-aligned English OR International Maths',
 				'features' => array(
 					'Full adaptive AI personalisation',
 					'All lessons for your subject',
@@ -595,7 +595,7 @@ return array(
 			),
 			'two' => array(
 				'name'   => 'Two subjects',
-				'desc'   => 'Cambridge English AND International Maths',
+				'desc'   => 'Cambridge-aligned English AND International Maths',
 				'flag'   => 'Most popular',
 					'vs_singles' => 'for two single subjects',
 				'features' => array(
@@ -616,7 +616,7 @@ return array(
 			'lede'   => 'Choose each child\'s subjects. The child with the most subjects pays the standard rate; every other child gets the additional-child rate.',
 			'add_child'    => 'Add another child',
 			'remove_child' => 'Remove this child',
-			'english'      => 'Cambridge English',
+			'english'      => 'Cambridge-aligned English',
 			'maths'        => 'International Maths',
 			'summary_title' => 'Your family plan',
 			'total_label'   => 'Total',
@@ -689,7 +689,7 @@ return array(
 			'title'  => 'Aligned with what you already teach',
 			'lede'   => '',
 			'items'  => array(
-				array( 'title' => 'Cambridge English', 'text' => 'Stage-aligned English content from phonics through to confident reading and writing.' ),
+				array( 'title' => 'Cambridge-aligned English', 'text' => 'Stage-aligned English content from phonics through to confident reading and writing.' ),
 				array( 'title' => 'International Maths', 'text' => 'A complete Grades 1–6 progression that mirrors international frameworks.' ),
 				array( 'title' => 'Grades 1–6', 'text' => 'One platform for the whole primary school, from first phonics to pre-secondary.' ),
 			),
@@ -888,7 +888,7 @@ return array(
 				array(
 					'title' => 'Parental Awareness',
 					'text'  => 'Parents as partners, always aware, always in control.',
-					'chips' => array( 'Parent dashboard', 'Email alerts', 'Full visibility' ),
+					'chips' => array( 'Parent dashboard', 'Detailed progress', 'Full visibility' ),
 				),
 			),
 		),
@@ -1048,7 +1048,7 @@ return array(
 				'cat' => 'product',
 				'pop' => true,
 				'q'   => 'What is The Kids Gate?',
-				'a'   => 'The Kids Gate is an AI-powered learning platform for children aged 5–12. It offers Cambridge English and International Maths lessons for Grades 1–6 through games, stories, quizzes, songs, puzzles and other interactive activities.',
+				'a'   => 'The Kids Gate is an AI-powered learning platform for children aged 5–12. Its lessons are aligned with the Cambridge English and International Maths curricula for Grades 1–6, delivered through games, stories, quizzes, songs, puzzles and other interactive activities.',
 			),
 			array(
 				'cat' => 'plans',
@@ -1070,7 +1070,7 @@ return array(
 				'cat' => 'product',
 				'pop' => true,
 				'q'   => 'Which subjects are available?',
-				'a'   => 'Children can study Cambridge English, International Maths, or both subjects.',
+				'a'   => 'Children can study Cambridge-aligned English, International Maths, or both subjects.',
 			),
 			array(
 				'cat' => 'account',
@@ -1131,17 +1131,12 @@ return array(
 			array(
 				'cat' => 'product',
 				'q'   => 'Will I get progress updates without logging in?',
-				'a'   => 'Yes. Weekly progress reports land in your inbox, and you can log in to the parent dashboard any time for detailed progress, streaks and achievements.',
-			),
-			array(
-				'cat' => 'product',
-				'q'   => 'How are winners chosen in the monthly prize draws?',
-				'a'   => 'Each month, learners who keep their learning streaks alive are entered into the prize draw. It\'s not about being #1 on the leaderboard, showing up regularly is what earns entries.',
+				'a'   => 'We don\'t send progress reports by email. To see detailed progress, streaks and achievements, log in to the parent dashboard any time.',
 			),
 			array(
 				'cat' => 'product',
 				'q'   => 'Can my child\'s teacher see their progress?',
-				'a'   => 'Optionally, yes. The Kids Gate offers teacher and school dashboards, so if your child\'s school uses The Kids Gate, their teacher can see class-level progress and mastery. Point the school to our <a href="{schools_url}">For Schools & Teachers</a> page to get started.',
+				'a'   => 'Yes. Schools aligned with The Kids Gate can access teacher and school dashboards, allowing teachers to monitor class progress, skill mastery, and student performance. Ask your school to visit our <a href="{schools_url}">For Schools & Teachers</a> page to learn more.',
 			),
 			array(
 				'cat' => 'plans',
@@ -1181,7 +1176,7 @@ return array(
 			array(
 				'cat' => 'product',
 				'q'   => 'What makes The Kids Gate different from other learning apps?',
-				'a'   => 'Three things: lessons adapt after every single answer (and levels are reassessed every two weeks), content follows real curricula, Cambridge English and International Maths, and rewards celebrate effort rather than just being right. All in a completely ad-free space.',
+				'a'   => 'Three things: lessons adapt after every single answer (and levels are reassessed every two weeks), content is aligned with the real Cambridge English and International Maths curricula, and rewards celebrate effort rather than just being right. All in a completely ad-free space.',
 				'kw'  => 'different compare comparison better versus alternative',
 			),
 			array(
@@ -1225,7 +1220,7 @@ return array(
 			array(
 				'cat' => 'product',
 				'q'   => 'Can we use The Kids Gate for homeschooling?',
-				'a'   => 'Yes. Lessons are self-paced, mapped to Cambridge English and International Maths across Grades 1–6, and the parent dashboard shows mastery topic-by-topic, so home educators can see exactly what\'s covered and what needs attention.',
+				'a'   => 'Yes. Lessons are self-paced, aligned with the Cambridge English and International Maths curricula across Grades 1–6, and the parent dashboard shows mastery topic-by-topic, so home educators can see exactly what\'s covered and what needs attention.',
 				'kw'  => 'homeschool homeschooling home education',
 			),
 			array(
@@ -1403,8 +1398,8 @@ return array(
 						),
 						array(
 							'id'     => 'dash-reports',
-							'label'  => 'Weekly email reports',
-							'answer' => 'Weekly progress reports land in your inbox, so you stay informed without logging in. The dashboard is always there when you want the detail.',
+							'label'  => 'Parent dashboard',
+							'answer' => 'Log in to the parent dashboard any time for detailed progress, streaks and achievements.',
 						),
 					),
 				),
@@ -1420,7 +1415,7 @@ return array(
 						array(
 							'id'     => 'using-subjects',
 							'label'  => 'Subjects & grades',
-							'answer' => 'Children can study Cambridge English, International Maths, or both, across Grades 1–6 (ages 5–12).',
+							'answer' => 'Children can study Cambridge-aligned English, International Maths, or both, across Grades 1–6 (ages 5–12).',
 						),
 						array(
 							'id'     => 'using-safe',

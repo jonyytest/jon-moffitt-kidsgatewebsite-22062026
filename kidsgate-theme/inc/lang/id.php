@@ -7,7 +7,7 @@
 return array(
 
 	'meta' => array(
-		'description' => 'The Kids Gate adalah platform belajar berbasis AI untuk anak usia 5–12 tahun: Cambridge English dan Matematika Internasional lewat permainan, cerita, dan kuis. Uji coba gratis 14 hari, tanpa kartu kredit.',
+		'description' => 'The Kids Gate adalah platform belajar berbasis AI untuk anak usia 5–12 tahun, selaras dengan kurikulum Cambridge English dan Matematika Internasional lewat permainan, cerita, dan kuis. Uji coba gratis 14 hari, tanpa kartu kredit.',
 	),
 
 	'common' => array(
@@ -25,7 +25,7 @@ return array(
 		'trust_chips'     => array(
 			'Uji coba gratis 14 hari',
 			'Usia 5–12 tahun',
-			'Kurikulum Cambridge',
+			'Selaras Cambridge',
 			array( 'text' => 'Tanpa iklan. Selamanya.', 'cross' => true ),
 		),
 		'cancel_chips'    => array(
@@ -70,7 +70,7 @@ return array(
 		'hero' => array(
 			'eyebrow'             => 'Tersedia di iOS &amp; Android',
 			'title'               => 'Belajar yang anak Anda<br><span class="kg-squiggle kg-squiggle--draw">minta sendiri</span>',
-			'lede'                => 'Cambridge English dan Matematika Internasional bertenaga AI untuk anak usia 5&ndash;12, dengan permainan, cerita, dan kuis yang menyesuaikan diri setelah setiap jawaban.',
+			'lede'                => 'Pembelajaran bertenaga AI yang selaras dengan kurikulum Cambridge English dan Matematika Internasional untuk anak usia 5&ndash;12, dengan permainan, cerita, dan kuis yang menyesuaikan diri setelah setiap jawaban.',
 			'badge_lessons'       => '1.800+',
 			'badge_lessons_label' => 'pelajaran di dalamnya',
 			'badge_daily'         => '20 menit',
@@ -156,7 +156,7 @@ return array(
 			'tabs'   => array(
 				'english' => array(
 					'label'  => 'Bahasa Inggris',
-					'title'  => 'Cambridge English, cerita demi cerita',
+					'title'  => 'Bahasa Inggris selaras Cambridge, cerita demi cerita',
 					'text'   => 'Fonik, membaca, kosakata, dan tata bahasa dikemas dalam cerita interaktif dan lagu.',
 					'topics' => array(
 						array( 'name' => 'Fonik &amp; Membaca', 'desc' => 'Mengeja setiap kata baru' ),
@@ -419,7 +419,7 @@ return array(
 			'title'  => 'Delapan alasan lagi anak menekan main',
 			'lede'   => '',
 			'items'  => array(
-				array( 'title' => 'Cambridge English', 'text' => 'Dari fonik sampai tata bahasa, selaras dengan jenjang Cambridge English untuk usia 5–12.' ),
+				array( 'title' => 'Bahasa Inggris selaras Cambridge', 'text' => 'Dari fonik sampai tata bahasa, selaras dengan jenjang Cambridge English untuk usia 5–12.' ),
 				array( 'title' => 'Matematika Internasional', 'text' => 'Kurikulum lengkap Kelas 1–6 yang diajarkan visual dan dilatih lewat permainan.' ),
 				array( 'title' => '1.800+ pelajaran', 'text' => 'Permainan, cerita, kuis, lagu, dan teka-teki, konten segar di setiap level.' ),
 				array( 'title' => 'Dunia virtual imersif', 'text' => 'Dunia belajar yang meluas seiring anak menguasai topik baru.' ),
@@ -526,7 +526,7 @@ return array(
 				array( 'title' => 'Buat akun keluarga', 'text' => 'Daftar dan tambahkan anak-anak Anda. Setiap anak mendapat profil sendiri dan jalur belajar yang dipersonalisasi.' ),
 				array( 'title' => 'Anak mengikuti asesmen', 'text' => 'Tes diagnostik singkat memetakan level tepat anak Anda di bidang Bahasa Inggris dan Matematika.' ),
 				array( 'title' => 'Belajar dimulai', 'text' => 'Anak Anda menjalani rencana pelajaran yang dipersonalisasi. Anda bisa memantau kemajuannya secara langsung.' ),
-				array( 'title' => 'Anda tetap mendapat informasi', 'text' => 'Laporan mingguan masuk ke kotak masuk Anda. Masuk kapan saja untuk melihat kemajuan, rentetan, dan pencapaian secara detail.' ),
+				array( 'title' => 'Anda tetap mendapat informasi', 'text' => 'Masuk ke dasbor orang tua kapan saja untuk melihat kemajuan, rentetan, dan pencapaian secara detail.' ),
 			),
 		),
 		'faq' => array(
@@ -540,7 +540,7 @@ return array(
 				),
 				array(
 					'q' => 'Apakah benar-benar sesuai dengan pelajaran sekolah anak saya?',
-					'a' => 'The Kids Gate mengajarkan Cambridge English dan Matematika Internasional untuk Kelas 1–6. Jalur adaptifnya melengkapi sekolah dengan mengisi celah dan mengasah kekuatan, bukan menduplikasi PR.',
+					'a' => 'The Kids Gate selaras dengan kurikulum Cambridge English dan Matematika Internasional untuk Kelas 1–6. Jalur adaptifnya melengkapi sekolah dengan mengisi celah dan mengasah kekuatan, bukan menduplikasi PR.',
 				),
 				array(
 					'q' => 'Bagaimana jika anak saya merasa terlalu mudah atau terlalu sulit?',
@@ -576,7 +576,7 @@ return array(
 		'plans' => array(
 			'one' => array(
 				'name'     => 'Satu mata pelajaran',
-				'desc'     => 'Cambridge English ATAU Matematika Internasional',
+				'desc'     => 'Bahasa Inggris selaras Cambridge ATAU Matematika Internasional',
 				'features' => array(
 					'Personalisasi AI adaptif penuh',
 					'Semua pelajaran untuk mata pelajaran Anda',
@@ -587,7 +587,7 @@ return array(
 			),
 			'two' => array(
 				'name'     => 'Dua mata pelajaran',
-				'desc'     => 'Cambridge English DAN Matematika Internasional',
+				'desc'     => 'Bahasa Inggris selaras Cambridge DAN Matematika Internasional',
 				'flag'     => 'Paling populer',
 					'vs_singles' => 'untuk dua mata pelajaran terpisah',
 				'features' => array(
@@ -608,7 +608,7 @@ return array(
 			'lede'          => 'Pilih mata pelajaran tiap anak. Anak dengan mata pelajaran terbanyak membayar tarif standar; anak lainnya mendapat tarif anak tambahan.',
 			'add_child'     => 'Tambah anak',
 			'remove_child'  => 'Hapus anak ini',
-			'english'       => 'Cambridge English',
+			'english'       => 'Bahasa Inggris selaras Cambridge',
 			'maths'         => 'Matematika Internasional',
 			'summary_title' => 'Paket keluarga Anda',
 			'total_label'   => 'Total',
@@ -680,7 +680,7 @@ return array(
 			'title'  => 'Selaras dengan yang sudah Anda ajarkan',
 			'lede'   => '',
 			'items'  => array(
-				array( 'title' => 'Cambridge English', 'text' => 'Konten bahasa Inggris berjenjang dari fonik hingga membaca dan menulis dengan percaya diri.' ),
+				array( 'title' => 'Bahasa Inggris selaras Cambridge', 'text' => 'Konten bahasa Inggris berjenjang dari fonik hingga membaca dan menulis dengan percaya diri.' ),
 				array( 'title' => 'Matematika Internasional', 'text' => 'Progresi lengkap Kelas 1–6 yang mencerminkan kerangka internasional.' ),
 				array( 'title' => 'Kelas 1–6', 'text' => 'Satu platform untuk seluruh SD, dari fonik pertama hingga pra-SMP.' ),
 			),
@@ -877,7 +877,7 @@ return array(
 				array(
 					'title' => 'Kesadaran Orang Tua',
 					'text'  => 'Orang tua sebagai mitra, selalu tahu, selalu memegang kendali.',
-					'chips' => array( 'Dasbor orang tua', 'Notifikasi email', 'Visibilitas penuh' ),
+					'chips' => array( 'Dasbor orang tua', 'Perkembangan detail', 'Visibilitas penuh' ),
 				),
 			),
 		),
@@ -1035,7 +1035,7 @@ return array(
 				'cat' => 'product',
 				'pop' => true,
 				'q'   => 'Apa itu The Kids Gate?',
-				'a'   => 'The Kids Gate adalah platform belajar berbasis AI untuk anak usia 5–12 tahun. Menyediakan pelajaran Cambridge English dan Matematika Internasional untuk Kelas 1–6 lewat permainan, cerita, kuis, lagu, teka-teki, dan aktivitas interaktif lainnya.',
+				'a'   => 'The Kids Gate adalah platform belajar berbasis AI untuk anak usia 5–12 tahun. Menyediakan pelajaran yang selaras dengan kurikulum Cambridge English dan Matematika Internasional untuk Kelas 1–6 lewat permainan, cerita, kuis, lagu, teka-teki, dan aktivitas interaktif lainnya.',
 			),
 			array(
 				'cat' => 'plans',
@@ -1057,7 +1057,7 @@ return array(
 				'cat' => 'product',
 				'pop' => true,
 				'q'   => 'Mata pelajaran apa saja yang tersedia?',
-				'a'   => 'Anak dapat belajar Cambridge English, Matematika Internasional, atau keduanya.',
+				'a'   => 'Anak dapat belajar Bahasa Inggris selaras Cambridge, Matematika Internasional, atau keduanya.',
 			),
 			array(
 				'cat' => 'account',
@@ -1118,12 +1118,7 @@ return array(
 			array(
 				'cat' => 'product',
 				'q'   => 'Apakah saya mendapat laporan perkembangan tanpa harus login?',
-				'a'   => 'Ya. Laporan perkembangan mingguan dikirim ke email Anda, dan Anda tetap bisa masuk ke dasbor orang tua kapan saja untuk melihat detail perkembangan, streak, dan pencapaian.',
-			),
-			array(
-				'cat' => 'product',
-				'q'   => 'Bagaimana pemenang undian hadiah bulanan dipilih?',
-				'a'   => 'Setiap bulan, anak yang menjaga streak belajarnya akan masuk ke undian hadiah. Bukan soal jadi nomor satu di papan peringkat, yang penting adalah rutin hadir belajar.',
+				'a'   => 'Kami tidak mengirim laporan perkembangan lewat email. Untuk melihat detail perkembangan, streak, dan pencapaian, masuk ke dasbor orang tua kapan saja.',
 			),
 			array(
 				'cat' => 'product',
@@ -1168,7 +1163,7 @@ return array(
 			array(
 				'cat' => 'product',
 				'q'   => 'Apa bedanya The Kids Gate dengan aplikasi belajar lain?',
-				'a'   => 'Tiga hal: pelajaran beradaptasi setelah setiap jawaban (dan level dinilai ulang tiap dua minggu), materinya mengikuti kurikulum sungguhan, Cambridge English dan International Maths, dan hadiah merayakan usaha, bukan sekadar jawaban benar. Semuanya dalam ruang yang sepenuhnya bebas iklan.',
+				'a'   => 'Tiga hal: pelajaran beradaptasi setelah setiap jawaban (dan level dinilai ulang tiap dua minggu), materinya selaras dengan kurikulum sungguhan, yaitu Cambridge English dan International Maths, dan hadiah merayakan usaha, bukan sekadar jawaban benar. Semuanya dalam ruang yang sepenuhnya bebas iklan.',
 				'kw'  => 'beda perbandingan lebih baik daripada alternatif',
 			),
 			array(
@@ -1212,7 +1207,7 @@ return array(
 			array(
 				'cat' => 'product',
 				'q'   => 'Bisakah The Kids Gate dipakai untuk homeschooling?',
-				'a'   => 'Bisa. Pelajaran berjalan sesuai kecepatan anak, mengikuti Cambridge English dan International Maths untuk Kelas 1–6, dan dasbor orang tua menampilkan penguasaan topik demi topik, jadi pendidik rumah bisa melihat persis apa yang sudah dipelajari dan apa yang perlu perhatian.',
+				'a'   => 'Bisa. Pelajaran berjalan sesuai kecepatan anak, selaras dengan kurikulum Cambridge English dan International Maths untuk Kelas 1–6, dan dasbor orang tua menampilkan penguasaan topik demi topik, jadi pendidik rumah bisa melihat persis apa yang sudah dipelajari dan apa yang perlu perhatian.',
 				'kw'  => 'homeschool homeschooling sekolah rumah',
 			),
 			array(
@@ -1390,8 +1385,8 @@ return array(
 						),
 						array(
 							'id'     => 'dash-reports',
-							'label'  => 'Laporan email mingguan',
-							'answer' => 'Laporan perkembangan mingguan dikirim ke email Anda, jadi Anda tetap terinformasi tanpa harus login. Dasbor selalu tersedia kalau Anda ingin melihat detailnya.',
+							'label'  => 'Dasbor orang tua',
+							'answer' => 'Masuk ke dasbor orang tua kapan saja untuk melihat detail perkembangan, streak, dan pencapaian.',
 						),
 					),
 				),
@@ -1407,7 +1402,7 @@ return array(
 						array(
 							'id'     => 'using-subjects',
 							'label'  => 'Mata pelajaran & kelas',
-							'answer' => 'Anak-anak bisa belajar Cambridge English, International Maths, atau keduanya, untuk Kelas 1–6 (usia 5–12).',
+							'answer' => 'Anak-anak bisa belajar Bahasa Inggris selaras Cambridge, International Maths, atau keduanya, untuk Kelas 1–6 (usia 5–12).',
 						),
 						array(
 							'id'     => 'using-safe',
