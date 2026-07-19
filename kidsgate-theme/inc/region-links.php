@@ -38,8 +38,8 @@ function kg_region_links() {
 
 		/* ── DEFAULT — used by every region unless overridden below ────────── */
 		'default' => array(
-			'app_store'  => 'https://apps.apple.com/bg/app/kids-gate-indonesia/id1591630141',
-			'play_store' => 'https://play.google.com/store/apps/details?id=com.thekidsgate.gameapp&hl=en',
+			'app_store'  => 'https://apps.apple.com/bg/app/the-kids-gate/id6761419807',
+			'play_store' => 'https://play.google.com/store/apps/details?id=com.app.thekidsgate.gameapp&hl=en',
 			'video'      => '', // How It Works demo — paste a YouTube link, or leave ''
 			'instagram'  => 'https://www.instagram.com/thekidsgate/',
 			'tiktok'     => 'https://www.tiktok.com/@thekidsgate',
@@ -47,12 +47,14 @@ function kg_region_links() {
 			'youtube'    => 'https://www.youtube.com/@thekidsgate3295',
 		),
 
-		/* ── INDONESIA — its own Instagram / TikTok / Facebook ─────────────── */
+		/* ── INDONESIA — its own app listing + Instagram / TikTok / Facebook ─ */
 		'id' => array(
+			'app_store'  => 'https://apps.apple.com/bg/app/kids-gate-indonesia/id1591630141',
+			'play_store' => 'https://play.google.com/store/apps/details?id=com.thekidsgate.gameapp&hl=en',
 			'instagram'  => 'https://www.instagram.com/kidsgate.id/',
 			'tiktok'     => 'https://www.tiktok.com/@kidsgate.id',
 			'facebook'   => 'https://www.facebook.com/profile.php?id=61578094916488',
-			// app_store, play_store, video, youtube fall back to 'default'.
+			// video, youtube fall back to 'default'.
 		),
 
 		/* ── Add more regions below. Copy a block, change the code and links. ─
