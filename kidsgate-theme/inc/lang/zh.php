@@ -395,7 +395,8 @@ return array(
 				'angles' => array( '故事', '游戏', '测验' ),
 				'missed' => '遗漏',
 				'got'    => '正确',
-				'skills' => array( '乘法表', '分数', '自然拼读', '词汇' ),
+				'subject' => '自适应学习仅适用于数学',
+				'skills' => array( '乘法表', '分数', '位值', '几何' ),
 				'phases' => array(
 					'收到新回答',
 					'阅读速度、自信和错误',

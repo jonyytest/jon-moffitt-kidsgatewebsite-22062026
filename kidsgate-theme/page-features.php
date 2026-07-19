@@ -59,6 +59,9 @@ get_header();
 				</div>
 
 				<p class="kg-aiviz__status" data-kg-aiviz-status role="status">&nbsp;</p>
+				<?php if ( ! empty( $av['subject'] ) ) : ?>
+					<p class="kg-aiviz__subject"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4L12 2z" fill="currentColor"/></svg><?php echo esc_html( $av['subject'] ); ?></p>
+				<?php endif; ?>
 				<p class="kg-aiviz__disclaimer">For illustrative purposes only. This visualisation is a simplified conceptual representation of the adaptive learning process and does not depict the actual underlying system architecture or algorithms.</p>
 			</div>
 			<div data-kg-reveal="right">

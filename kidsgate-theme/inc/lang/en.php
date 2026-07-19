@@ -395,7 +395,8 @@ return array(
 				'angles' => array( 'Story', 'Game', 'Quiz' ),
 				'missed' => 'missed',
 				'got'    => 'correct',
-				'skills' => array( 'Times tables', 'Fractions', 'Phonics', 'Vocabulary' ),
+				'subject' => 'Adaptive learning applies to Maths only',
+				'skills' => array( 'Times tables', 'Fractions', 'Place value', 'Geometry' ),
 				'phases' => array(
 					'New answer received',
 					'Reading speed, confidence and mistakes',

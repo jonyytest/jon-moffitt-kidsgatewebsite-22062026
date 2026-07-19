@@ -66,7 +66,18 @@ function update_option( $key, $value ) {}
 function get_query_var( $var, $default = '' ) { return $default; }
 function sanitize_key( $s ) { return preg_replace( '/[^a-z0-9_\-]/', '', strtolower( (string) $s ) ); }
 function wp_redirect( $url, $status = 302 ) { header( 'Location: ' . $url, true, $status ); exit; }
-function get_theme_mod( $name, $default = '' ) { return $default; }
+function get_theme_mod( $name, $default = '' ) {
+	// Dev-only override so Customizer-driven features can be exercised in the
+	// preview, e.g. ?mod_kg_demo_video_url=https://youtu.be/XXXXXXXXXXX tests
+	// the YouTube demo player. Values must parse as URLs: the harness's
+	// esc_url() is a pass-through, so this filter is what keeps quote/angle
+	// characters out of attribute output.
+	if ( isset( $_GET[ 'mod_' . $name ] ) ) {
+		$v = (string) $_GET[ 'mod_' . $name ];
+		if ( false !== filter_var( $v, FILTER_VALIDATE_URL ) ) { return $v; }
+	}
+	return $default;
+}
 function esc_attr( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES ); }
 function esc_html( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES ); }
 function esc_url( $s ) { return $s; }

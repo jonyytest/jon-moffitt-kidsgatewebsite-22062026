@@ -392,7 +392,8 @@ return array(
 				'angles' => array( 'Cerita', 'Permainan', 'Kuis' ),
 				'missed' => 'terlewat',
 				'got'    => 'benar',
-				'skills' => array( 'Perkalian', 'Pecahan', 'Fonik', 'Kosakata' ),
+				'subject' => 'Pembelajaran adaptif hanya berlaku untuk Matematika',
+				'skills' => array( 'Perkalian', 'Pecahan', 'Nilai tempat', 'Geometri' ),
 				'phases' => array(
 					'Jawaban baru diterima',
 					'Membaca kecepatan, percaya diri dan kesalahan',

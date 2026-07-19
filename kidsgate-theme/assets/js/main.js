@@ -439,13 +439,34 @@
 	});
 
 	/* ----------------------------------------------------------------
-	 * Demo video: poster overlay → play (no autoplay, no sound surprise)
+	 * Demo video: poster overlay → play (no autoplay, no sound surprise).
+	 * Two flavours share the cover: a native <video> for self-hosted mp4s,
+	 * or — when the wrapper carries data-kg-youtube — a click-to-load
+	 * YouTube facade. The privacy-enhanced youtube-nocookie iframe is only
+	 * injected on play, so YouTube's scripts never load for visitors who
+	 * don't press the button.
 	 * -------------------------------------------------------------- */
 	document.querySelectorAll('[data-kg-video]').forEach(function (wrap) {
 		var cover = wrap.querySelector('.kg-video__cover');
+		if (!cover) { return; }
+		var ytId = wrap.getAttribute('data-kg-youtube');
 		var video = wrap.querySelector('video');
-		if (!cover || !video) { return; }
+		if (!ytId && !video) { return; }
 		cover.addEventListener('click', function () {
+			if (ytId) {
+				var iframe = document.createElement('iframe');
+				iframe.className = 'kg-video__iframe';
+				iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(ytId) + '?autoplay=1&rel=0';
+				iframe.title = cover.textContent.trim();
+				iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture; fullscreen');
+				iframe.setAttribute('allowfullscreen', '');
+				var poster = wrap.querySelector('.kg-video__poster');
+				if (poster) { poster.remove(); }
+				cover.remove();
+				wrap.appendChild(iframe);
+				track('video_play', { video_name: 'gate-demo', video_source: 'youtube' });
+				return;
+			}
 			cover.remove();
 			video.setAttribute('controls', '');
 			video.play();

@@ -49,11 +49,27 @@ get_header();
 </section>
 
 <!-- Demo video -->
-<?php $video = kg_video_url(); ?>
+<?php
+$video = kg_video_url();
+$yt_id = $video ? kg_video_youtube_id( $video ) : '';
+?>
 <section class="kg-section kg-section--navy">
 	<div class="kg-container">
 		<?php kg_section_head( 'hiw.video' ); ?>
-		<?php if ( $video ) : ?>
+		<?php if ( $yt_id ) : ?>
+			<!-- Click-to-load YouTube facade: only the local poster renders on
+			     page load; main.js injects the privacy-enhanced youtube-nocookie
+			     iframe (and YouTube's scripts) when the visitor presses play. -->
+			<div class="kg-video" data-kg-video data-kg-youtube="<?php echo esc_attr( $yt_id ); ?>" data-kg-reveal="pop">
+				<img class="kg-video__poster" src="<?php echo esc_url( kg_asset( 'img/child-learning.jpg' ) ); ?>" alt="" loading="lazy">
+				<button class="kg-video__cover" type="button">
+					<span class="kg-video__play" aria-hidden="true">
+						<svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5-11-6.5z"/></svg>
+					</span>
+					<?php kg_e( 'hiw.video.play' ); ?>
+				</button>
+			</div>
+		<?php elseif ( $video ) : ?>
 			<div class="kg-video" data-kg-video data-kg-reveal="pop">
 				<video preload="metadata" playsinline poster="<?php echo esc_url( kg_asset( 'img/child-learning.jpg' ) ); ?>">
 					<source src="<?php echo esc_url( $video ); ?>" type="video/mp4">

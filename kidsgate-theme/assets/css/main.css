@@ -454,6 +454,11 @@ a.kg-chip:hover { transform: translateY(-2px); background: var(--kg-amber-soft);
 	transition: background-color 180ms;
 }
 .kg-lang__btn:hover { background: var(--kg-teal-soft); }
+/* Full name everywhere by default (footer, mobile menu); the desktop header
+   trigger swaps in the compact code so the CTA never overflows the nav pill. */
+.kg-lang__code { display: none; }
+.kg-header__actions .kg-lang__label { display: none; }
+.kg-header__actions .kg-lang__code { display: inline; }
 .kg-flag {
 	width: 22px; height: auto; flex: none;
 	display: inline-block; vertical-align: middle;
@@ -2628,6 +2633,9 @@ a.kg-hero__brand:hover { transform: translateY(-2px); box-shadow: var(--kg-clay-
 	background: var(--kg-navy-deep);
 }
 .kg-video video { width: 100%; display: block; }
+/* YouTube facade: poster before play, iframe after (both 16:9 like the mp4). */
+.kg-video__poster { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+.kg-video__iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; display: block; }
 .kg-video__cover {
 	position: absolute; inset: 0;
 	display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
@@ -3278,8 +3286,20 @@ body.kg-lightbox-open { overflow: hidden; }
 .kg-aiviz__status { margin: 14px 2px 0; font-size: .9rem; font-weight: 600; color: var(--kg-text-on-dark-soft); min-height: 1.4em; }
 .kg-aiviz__status strong { color: #fff; font-weight: 800; }
 
+.kg-aiviz__subject {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin: 12px 0 0;
+	font-size: .68rem;
+	font-weight: 600;
+	letter-spacing: .02em;
+	color: rgba(255, 255, 255, .4);
+}
+.kg-aiviz__subject svg { color: var(--kg-teal); flex: none; }
+
 .kg-aiviz__disclaimer {
-	margin: 14px 0 0;
+	margin: 8px 0 0;
 	font-size: .64rem;
 	line-height: 1.5;
 	color: rgba(255, 255, 255, .22);

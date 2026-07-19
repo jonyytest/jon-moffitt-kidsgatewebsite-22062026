@@ -528,6 +528,21 @@ function kg_video_url() {
 	return '';
 }
 
+/**
+ * Extract the YouTube video id when the configured demo video URL points at
+ * YouTube (watch, youtu.be, shorts or embed forms). Returns '' for anything
+ * else, so self-hosted files keep using the native <video> player.
+ */
+function kg_video_youtube_id( $url ) {
+	if ( ! preg_match( '#^https?://(?:www\.|m\.)?(?:youtube(?:-nocookie)?\.com|youtu\.be)/#i', $url ) ) {
+		return '';
+	}
+	if ( preg_match( '#(?:youtu\.be/|/embed/|/shorts/|/live/|[?&]v=)([A-Za-z0-9_-]{11})#', $url, $m ) ) {
+		return $m[1];
+	}
+	return '';
+}
+
 /* -------------------------------------------------------------------------
  * Theme setup and assets
  * ---------------------------------------------------------------------- */
@@ -610,7 +625,7 @@ function kg_customize_register( $wp_customize ) {
 
 	$fields = array(
 		'kg_gtm_id'         => 'Google Tag Manager ID (GTM-XXXXXXX)',
-		'kg_demo_video_url' => 'Demo video URL (Media Library)',
+		'kg_demo_video_url' => 'Demo video URL (Media Library file or YouTube link)',
 		'kg_app_store_url'  => 'App Store URL',
 		'kg_play_store_url' => 'Play Store URL',
 		'kg_support_email'  => 'Support team email',
@@ -876,6 +891,15 @@ function kg_language_switcher( $id_suffix = '' ) {
 		'th' => 'ไทย',
 			'zh' => '中文',
 	);
+	// Compact labels for the desktop header trigger, where the full name
+	// ("Bahasa Indonesia") is too wide and pushes the CTA off the nav pill.
+	// The dropdown menu still shows the full names.
+	$short = array(
+		'en' => 'EN',
+		'id' => 'ID',
+		'th' => 'ไทย',
+		'zh' => '中文',
+	);
 	$current = kg_lang();
 	$market  = kg_country();
 	// Pre-compute the market that will be in each choice value.
@@ -885,6 +909,7 @@ function kg_language_switcher( $id_suffix = '' ) {
 		<button class="kg-lang__btn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="kg-lang-menu<?php echo esc_attr( $id_suffix ); ?>">
 			<?php echo kg_flag( $current ); // phpcs:ignore ?>
 			<span class="kg-lang__label"><?php echo esc_html( $langs[ $current ] ); ?></span>
+			<span class="kg-lang__code"><?php echo esc_html( $short[ $current ] ); ?></span>
 			<svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
 		</button>
 		<ul class="kg-lang__menu" id="kg-lang-menu<?php echo esc_attr( $id_suffix ); ?>" role="menu">
