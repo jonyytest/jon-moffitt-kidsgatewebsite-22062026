@@ -40,7 +40,7 @@ function kg_region_links() {
 		'default' => array(
 			'app_store'  => 'https://apps.apple.com/bg/app/the-kids-gate/id6761419807',
 			'play_store' => 'https://play.google.com/store/apps/details?id=com.app.thekidsgate.gameapp&hl=en',
-			'video'      => '', // How It Works demo — paste a YouTube link, or leave ''
+			'video'      => 'https://www.youtube.com/watch?v=Q9Qd9y6sO0g', // How It Works demo — YouTube link
 			'instagram'  => 'https://www.instagram.com/thekidsgate/',
 			'tiktok'     => 'https://www.tiktok.com/@thekidsgate',
 			'facebook'   => 'https://www.facebook.com/thekidsgate',
