@@ -403,6 +403,7 @@ $p = kg_pricing_for_lang();
 </section>
 
 <!-- ======================== Testimonials =========================== -->
+<?php if ( kg_show_testimonials() ) : ?>
 <section class="kg-section kg-section--white" data-kg-testimonials>
 	<div class="kg-container">
 		<?php kg_section_head( 'home.testimonials' ); ?>
@@ -427,6 +428,7 @@ $p = kg_pricing_for_lang();
 		</div>
 	</div>
 </section>
+<?php endif; ?>
 
 <!-- ====================== Pricing summary ========================== -->
 <section class="kg-section kg-section--cream">

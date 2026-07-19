@@ -29,6 +29,19 @@ function kg_support_email_is_live() {
 }
 
 /**
+ * Show / hide testimonial sections (home, Schools, Sponsors).
+ *
+ * Set to false while only placeholder quotes exist; flip to true once real,
+ * verified testimonials are in the language files. This one switch controls
+ * all three pages.
+ */
+define( 'KG_SHOW_TESTIMONIALS', false );
+
+function kg_show_testimonials() {
+	return KG_SHOW_TESTIMONIALS;
+}
+
+/**
  * Pricing engine — numeric rates per country, used by the per-child plan
  * builder on the pricing page (assets/js/pricing.js).
  *

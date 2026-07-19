@@ -168,6 +168,7 @@ get_header();
 </section>
 
 <!-- Partner testimonial placeholder -->
+<?php if ( kg_show_testimonials() ) : ?>
 <section class="kg-section kg-section--navy">
 	<div class="kg-container">
 		<div class="kg-card kg-card--navy kg-testimonial kg-testimonial--placeholder" style="max-width:680px; margin:0 auto;" data-kg-reveal>
@@ -180,6 +181,7 @@ get_header();
 		</div>
 	</div>
 </section>
+<?php endif; ?>
 
 <!-- Sponsor enquiry form -->
 <section class="kg-section kg-section--cream" id="kg-sponsor-form">

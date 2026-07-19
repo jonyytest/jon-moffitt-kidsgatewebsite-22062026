@@ -187,6 +187,7 @@ $dash_bubbles = array( 'kg-bubble--teal', 'kg-bubble--amber', 'kg-bubble--red', 
 	<div class="kg-container">
 		<!-- Social proof leading into the enquiry form (placeholder until a
 		     verified teacher/principal quote is supplied). -->
+		<?php if ( kg_show_testimonials() ) : ?>
 		<div class="kg-card kg-testimonial kg-testimonial--placeholder" style="max-width:640px; margin: 0 auto clamp(34px,5vw,52px);" data-kg-reveal>
 			<span class="kg-testimonial__flag"><?php kg_e( 'schools.testimonial.flag' ); ?></span>
 			<p class="kg-testimonial__quote">“<?php kg_e( 'schools.testimonial.quote' ); ?>”</p>
@@ -195,6 +196,7 @@ $dash_bubbles = array( 'kg-bubble--teal', 'kg-bubble--amber', 'kg-bubble--red', 
 				<span><strong><?php kg_e( 'schools.testimonial.name' ); ?></strong><small><?php kg_e( 'schools.testimonial.meta' ); ?></small></span>
 			</div>
 		</div>
+		<?php endif; ?>
 
 		<?php kg_section_head( 'schools.form' ); ?>
 		<p class="kg-schools-savings" data-kg-reveal><?php kg_e( 'schools.form.pricing_note' ); ?></p>
